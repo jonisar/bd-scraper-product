@@ -336,13 +336,14 @@ function SyncAsyncToggle({
           key={m}
           type="button"
           onClick={() => onChange(m)}
-          className={`rounded-md px-3 py-1.5 text-xs font-semibold transition ${
+          className={`rounded-md px-2.5 py-1.5 text-xs font-semibold transition sm:px-3 ${
             mode === m
               ? "bg-white text-bd-navy shadow-sm"
               : "text-bd-muted hover:text-bd-ink"
           }`}
         >
-          {m === "sync" ? "Synchronous (Real-time)" : "Asynchronous (Bulk)"}
+          <span className="sm:hidden">{m === "sync" ? "Sync" : "Async"}</span>
+          <span className="hidden sm:inline">{m === "sync" ? "Synchronous (Real-time)" : "Asynchronous (Bulk)"}</span>
         </button>
       ))}
     </div>
@@ -567,6 +568,7 @@ export default function ActorPage() {
   const [mainTab, setMainTab] = useState<MainTab>("API");
   const [apiLang, setApiLang] = useState<ApiLang>("Python");
   const [apiMode, setApiMode] = useState<"sync" | "async">("sync");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const mainTabs: MainTab[] = ["Information", "Input", "API", "Output", "Live Test", "Issues", "Edit with AI"];
   const apiLangs: ApiLang[] = ["Python", "JavaScript", "cURL", "MCP", "OpenAPI"];
@@ -614,8 +616,34 @@ export default function ActorPage() {
             >
               Start free trial
             </a>
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="ml-1 grid h-9 w-9 place-items-center rounded-lg text-bd-muted transition hover:bg-bd-canvas md:hidden"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? (
+                <svg viewBox="0 0 20 20" className="h-5 w-5 fill-current"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
+              ) : (
+                <svg viewBox="0 0 20 20" className="h-5 w-5 fill-current"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"/></svg>
+              )}
+            </button>
           </div>
         </div>
+        {/* Mobile nav drawer */}
+        {mobileMenuOpen ? (
+          <nav className="border-t border-bd-line bg-white px-4 pb-4 pt-3 md:hidden">
+            <div className="flex flex-col gap-3 text-sm font-medium text-bd-muted">
+              <a href="https://brightdata.com/cp/scrapers/browse" className="transition hover:text-bd-ink" target="_blank" rel="noreferrer">Scraper Library</a>
+              <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-ink" target="_blank" rel="noreferrer">
+                <span className="flex items-center gap-1.5">AI Scraper Studio<span className="rounded bg-bd-blue/10 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">New</span></span>
+              </a>
+              <a href="https://docs.brightdata.com/" className="transition hover:text-bd-ink" target="_blank" rel="noreferrer">Docs</a>
+              <a href="https://brightdata.com/pricing" className="transition hover:text-bd-ink" target="_blank" rel="noreferrer">Pricing</a>
+              <a href="https://brightdata.com/cp" className="transition hover:text-bd-ink" target="_blank" rel="noreferrer">Log in</a>
+            </div>
+          </nav>
+        ) : null}
       </header>
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:py-10">
@@ -643,8 +671,8 @@ export default function ActorPage() {
                 <p className="mt-3 text-[15px] leading-7 text-bd-ink/85">{DESCRIPTION}</p>
               </div>
 
-              <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-bd-line pt-4 text-sm text-bd-muted">
-                <div className="flex items-center gap-2">
+              <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2.5 border-t border-bd-line pt-4 text-sm text-bd-muted sm:flex sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-2">
+                <div className="col-span-2 flex items-center gap-2 sm:col-span-1">
                   <StarRow />
                   <span className="font-semibold text-bd-ink">4.6</span>
                   <span>on Trustpilot</span>
@@ -657,27 +685,30 @@ export default function ActorPage() {
 
             {/* Tabs */}
             <div className="animate-rise-delay mt-5 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_30px_rgba(15,34,58,0.05)]">
-              <div className="flex gap-1 overflow-x-auto border-b border-bd-line px-2 pt-2 sm:px-4">
-                {mainTabs.map((tab) => (
-                  <button
-                    key={tab}
-                    type="button"
-                    onClick={() => setMainTab(tab)}
-                    className={`relative whitespace-nowrap rounded-t-lg px-3.5 py-2.5 text-sm font-semibold transition ${
-                      mainTab === tab
-                        ? "text-bd-blue"
-                        : "text-bd-muted hover:text-bd-ink"
-                    }`}
-                  >
-                    <span className="flex items-center gap-1.5">
-                      {tab === "Edit with AI" ? <span className="text-xs">✨</span> : null}
-                      {tab}
-                    </span>
-                    {mainTab === tab ? (
-                      <span className="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-bd-blue" />
-                    ) : null}
-                  </button>
-                ))}
+              <div className="relative">
+                <div className="tab-scroll flex gap-0.5 overflow-x-auto border-b border-bd-line px-1.5 pt-2 sm:gap-1 sm:px-4">
+                  {mainTabs.map((tab) => (
+                    <button
+                      key={tab}
+                      type="button"
+                      onClick={() => setMainTab(tab)}
+                      className={`relative whitespace-nowrap rounded-t-lg px-2.5 py-2 text-[13px] font-semibold transition sm:px-3.5 sm:py-2.5 sm:text-sm ${
+                        mainTab === tab
+                          ? "text-bd-blue"
+                          : "text-bd-muted hover:text-bd-ink"
+                      }`}
+                    >
+                      <span className="flex items-center gap-1">
+                        {tab === "Edit with AI" ? <span className="text-xs">✨</span> : null}
+                        {tab}
+                      </span>
+                      {mainTab === tab ? (
+                        <span className="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-bd-blue" />
+                      ) : null}
+                    </button>
+                  ))}
+                </div>
+                <div className="pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-white to-transparent sm:hidden" />
               </div>
 
               <div className="p-5 sm:p-6">
@@ -1389,7 +1420,7 @@ export default function ActorPage() {
       <footer className="mt-auto border-t border-bd-line/80 bg-white/70">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-bd-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <span>© {new Date().getFullYear()} Bright Data Ltd.</span>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
             <a href="https://brightdata.com/trustcenter" className="hover:text-bd-ink transition" target="_blank" rel="noreferrer">Trust Center</a>
             <a href="https://brightdata.com/pricing" className="hover:text-bd-ink transition" target="_blank" rel="noreferrer">Pricing</a>
             <a href="https://docs.brightdata.com/" className="hover:text-bd-ink transition" target="_blank" rel="noreferrer">Docs</a>
