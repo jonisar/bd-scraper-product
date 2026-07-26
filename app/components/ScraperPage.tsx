@@ -2,8 +2,9 @@
 
 import { useState, useCallback } from "react";
 
-type MainTab = "Information" | "Input" | "API" | "Output" | "Live Test" | "Issues" | "Edit with AI";
+type MainTab = "Information" | "Input" | "API" | "Output" | "Live Test" | "Issues" | "Connect Agent" | "Edit with AI";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
+type AgentPlatform = "MCP" | "OpenAI SDK" | "LangChain" | "CrewAI" | "REST API";
 
 const DATASET_ID = "gd_l1vijqt9jfj7olije";
 
@@ -274,6 +275,213 @@ const SAMPLE_OUTPUT = `{
   "delivery": "Thursday, January 26",
   "return_policy": "Eligible for Return, Refund or Replacement within 30 days"
 }`;
+
+const AGENT_PROMPT = `"""Bright Data Amazon Product Scraper — bounded, re-runnable walkthrough."""
+import requests, json, os
+
+API_KEY = os.environ["BRIGHTDATA_API_KEY"]
+DATASET  = "${DATASET_ID}"
+BASE     = "https://api.brightdata.com/datasets/v3"
+HEADERS  = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
+
+# 1. Sync scrape — single product by URL (real-time, ≤20 URLs)
+product = requests.post(
+    f"{BASE}/scrape",
+    headers=HEADERS,
+    params={"dataset_id": DATASET, "format": "json"},
+    json=[{"url": "https://www.amazon.com/dp/B09X7MPX8L"}],
+).json()[0]
+
+print(product["title"], f"— \${product['price']} ({product['stars']}★)")
+
+# 2. Bulk scrape with location-specific pricing
+products = requests.post(
+    f"{BASE}/scrape",
+    headers=HEADERS,
+    params={"dataset_id": DATASET, "format": "json"},
+    json=[
+        {"url": "https://www.amazon.com/dp/B09X7MPX8L", "zipcode": "10001"},
+        {"url": "https://www.amazon.com/dp/B0D5CQPGFQ", "zipcode": "94107"},
+    ],
+).json()
+
+for p in products:
+    print(p["title"], p["price"], p["in_stock"], p["reviews_count"])
+
+# 3. Async trigger — for large jobs (>20 URLs, production pipelines)
+trigger = requests.post(
+    f"{BASE}/trigger",
+    headers=HEADERS,
+    params={"dataset_id": DATASET, "format": "json"},
+    json=[{"url": f"https://www.amazon.com/dp/{asin}"} for asin in [
+        "B09X7MPX8L", "B0D5CQPGFQ", "B08N5WRWNW", "B0BSHF7WHW",
+    ]],
+).json()
+snapshot_id = trigger["snapshot_id"]
+
+# Poll until ready, then fetch results
+import time
+while True:
+    status = requests.get(
+        f"{BASE}/snapshots/{snapshot_id}",
+        headers={"Authorization": f"Bearer {API_KEY}"},
+    ).json()
+    if status["status"] == "ready":
+        break
+    time.sleep(5)
+
+results = requests.get(
+    f"{BASE}/snapshots/{snapshot_id}",
+    headers={"Authorization": f"Bearer {API_KEY}"},
+    params={"format": "json"},
+).json()
+
+print(f"Fetched {len(results)} products via async pipeline")
+
+# Available fields per product:
+# title, url, asin, price, list_price, currency, stars, reviews_count,
+# in_stock, brand, seller, features, categories, image, delivery`;
+
+const AGENT_MCP_CONFIG = `{
+  "mcpServers": {
+    "brightdata": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic-ai/mcp-remote",
+        "https://mcp.brightdata.com/sse",
+        "--header",
+        "Authorization: Bearer <YOUR_API_KEY>"
+      ]
+    }
+  }
+}`;
+
+const AGENT_MCP_HOSTED = `# Hosted MCP — no local install needed
+# Use this URL directly in Claude Desktop, Cursor, VS Code, or any MCP client:
+
+https://mcp.brightdata.com/sse?token=<YOUR_API_KEY>
+
+# For Streamable HTTP (OpenAI Agent Builder, n8n, etc.):
+https://mcp.brightdata.com/mcp?token=<YOUR_API_KEY>`;
+
+const AGENT_OPENAI = `from openai import OpenAI
+
+client = OpenAI()
+
+response = client.responses.create(
+    model="gpt-4o",
+    tools=[
+        {
+            "type": "mcp",
+            "server_label": "BrightData",
+            "server_url": "https://mcp.brightdata.com/sse?token=<YOUR_API_KEY>",
+            "require_approval": "never",
+        },
+    ],
+    input="Scrape this Amazon product and give me the price and rating: "
+          "https://www.amazon.com/dp/B09X7MPX8L",
+)
+
+print(response.output_text)`;
+
+const AGENT_LANGCHAIN = `from langchain_brightdata import BrightDataWebScraperAPI
+from langchain_openai import ChatOpenAI
+from langgraph.prebuilt import create_react_agent
+
+# Initialize the Bright Data scraper tool
+scraper = BrightDataWebScraperAPI(
+    bright_data_api_key="<YOUR_API_KEY>"
+)
+
+# Create an agent that can scrape Amazon
+llm = ChatOpenAI(model="gpt-4o")
+agent = create_react_agent(llm, [scraper])
+
+# Run it
+result = agent.invoke({
+    "messages": [{
+        "role": "user",
+        "content": "Get pricing data for https://www.amazon.com/dp/B09X7MPX8L "
+                   "in New York (zipcode 10001)"
+    }]
+})
+
+print(result["messages"][-1].content)
+
+# --- Direct tool call (no agent) ---
+data = scraper.invoke({
+    "url": "https://www.amazon.com/dp/B09X7MPX8L",
+    "dataset_type": "amazon_product",
+    "zipcode": "10001",
+})
+print(data)`;
+
+const AGENT_CREWAI = `from crewai import Agent, Task, Crew
+from crewai_tools import BrightDataDatasetTool
+
+# Initialize the Amazon scraper tool
+amazon_tool = BrightDataDatasetTool(
+    dataset_type="amazon_product",
+    url="https://www.amazon.com/dp/B09X7MPX8L"
+)
+
+# Create an agent with scraping capabilities
+researcher = Agent(
+    role="Product Researcher",
+    goal="Analyze Amazon product data for competitive intelligence",
+    backstory="You are a market research analyst who extracts "
+              "and analyzes Amazon product data.",
+    tools=[amazon_tool],
+    verbose=True,
+)
+
+# Define the task
+task = Task(
+    description="Scrape the Amazon product at the given URL. "
+                "Extract the price, rating, review count, and "
+                "seller info. Summarize your findings.",
+    expected_output="A structured summary of the product data",
+    agent=researcher,
+)
+
+# Run
+crew = Crew(agents=[researcher], tasks=[task], verbose=True)
+result = crew.kickoff()
+print(result)`;
+
+const AGENT_REST = `import requests
+import json
+
+API_KEY = "<YOUR_API_KEY>"
+DATASET_ID = "${DATASET_ID}"
+
+def scrape_amazon(urls: list[str]) -> list[dict]:
+    """Scrape Amazon products — call this from any agent framework."""
+    response = requests.post(
+        "https://api.brightdata.com/datasets/v3/scrape",
+        headers={
+            "Authorization": f"Bearer {API_KEY}",
+            "Content-Type": "application/json",
+        },
+        params={
+            "dataset_id": DATASET_ID,
+            "format": "json",
+            "include_errors": "true",
+        },
+        json=[{"url": u} for u in urls],
+    )
+    response.raise_for_status()
+    return response.json()
+
+# Use as a tool in any agent framework:
+products = scrape_amazon([
+    "https://www.amazon.com/dp/B09X7MPX8L",
+    "https://www.amazon.com/dp/B0D5CQPGFQ",
+])
+
+for p in products:
+    print(f"{p['title']} — \${p['price']} ({p['stars']}★)")`;
 
 const DESCRIPTION =
   "Collect Amazon product data at scale — titles, prices, reviews, seller info, stock levels, and more. No proxy management, no browser rendering, no anti-bot headaches. Just send URLs, get structured JSON back.";
@@ -569,8 +777,9 @@ export default function ScraperPage() {
   const [apiLang, setApiLang] = useState<ApiLang>("Python");
   const [apiMode, setApiMode] = useState<"sync" | "async">("sync");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [agentPlatform, setAgentPlatform] = useState<AgentPlatform>("MCP");
 
-  const mainTabs: MainTab[] = ["Information", "Input", "API", "Output", "Live Test", "Issues", "Edit with AI"];
+  const mainTabs: MainTab[] = ["Information", "API", "Input", "Output", "Live Test", "Connect Agent", "Edit with AI", "Issues"];
   const apiLangs: ApiLang[] = ["Python", "JavaScript", "cURL", "MCP", "OpenAPI"];
 
   function getCodeForLang() {
@@ -680,6 +889,10 @@ export default function ScraperPage() {
                 <span>34.6K+ data deliveries</span>
                 <span>5.7K+ active users</span>
                 <span className="text-bd-success font-medium">98.4% success rate</span>
+                <span className="flex items-center gap-1.5">
+                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-bd-blue" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13.25 8.5V5a1 1 0 00-1-1h-2.5m-6 0H2.75a1 1 0 00-1 1v7a1 1 0 001 1h4.5M5 4V2.5M9.75 4V2.5M3.75 7h8.5m-2.5 5.5l1.5 1.5 3-3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  Last verified: Jul 2026
+                </span>
               </div>
             </div>
 
@@ -699,6 +912,7 @@ export default function ScraperPage() {
                       }`}
                     >
                       <span className="flex items-center gap-1">
+                        {tab === "Connect Agent" ? <span className="text-xs">🤖</span> : null}
                         {tab === "Edit with AI" ? <span className="text-xs">✨</span> : null}
                         {tab}
                       </span>
@@ -1264,6 +1478,224 @@ export default function ScraperPage() {
                         for troubleshooting guides and API reference.
                       </li>
                     </ul>
+                  </div>
+                ) : null}
+
+                {/* ===== CONNECT AGENT TAB ===== */}
+                {mainTab === "Connect Agent" ? (
+                  <div className="space-y-6">
+                    <div>
+                      <h2 className="text-xl font-bold text-bd-navy">
+                        Connect your AI agent to this scraper
+                      </h2>
+                      <p className="mt-2 text-[15px] leading-7 text-bd-ink/85">
+                        Give any AI agent — GPT, Claude, Gemini, or your own — the ability to
+                        scrape Amazon product data in real time.
+                      </p>
+                    </div>
+
+                    {/* Agent prompt — top, prominent */}
+                    <div className="rounded-xl border border-bd-blue-light/60 bg-gradient-to-r from-bd-blue-soft/40 to-white p-5">
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                          <h3 className="font-bold text-bd-navy">
+                            Prompt for your agent
+                          </h3>
+                          <p className="mt-1 text-sm text-bd-muted">
+                            Hand this to Claude Code, Cursor, Codex, or any coding agent.
+                            Covers sync scrape, bulk with geotargeting, and async pipelines.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <CodeBlock code={AGENT_PROMPT} label="copy and hand to your agent" />
+                      </div>
+                    </div>
+
+                    {/* Integration guides */}
+                    <div className="flex items-center gap-3">
+                      <div className="h-px flex-1 bg-bd-line" />
+                      <span className="text-xs font-semibold uppercase tracking-wider text-bd-muted">Integration guides</span>
+                      <div className="h-px flex-1 bg-bd-line" />
+                    </div>
+
+                    {/* Platform pills */}
+                    <div className="flex flex-wrap gap-2">
+                      {(["MCP", "OpenAI SDK", "LangChain", "CrewAI", "REST API"] as AgentPlatform[]).map((p) => (
+                        <button
+                          key={p}
+                          type="button"
+                          onClick={() => setAgentPlatform(p)}
+                          className={`rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${
+                            agentPlatform === p
+                              ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/30"
+                              : "border border-bd-line bg-bd-canvas text-bd-muted hover:border-bd-blue-light hover:text-bd-ink"
+                          }`}
+                        >
+                          {p}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* MCP */}
+                    {agentPlatform === "MCP" ? (
+                      <div className="space-y-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-bd-navy">
+                            Model Context Protocol (MCP)
+                          </h3>
+                          <p className="mt-1 text-sm leading-6 text-bd-muted">
+                            The fastest way to connect. Works with Claude Desktop, Cursor, VS Code,
+                            OpenAI Agent Builder, n8n, and any MCP-compatible client. Bright Data&apos;s
+                            MCP server exposes 60+ tools including web search, scraping, and browser automation.
+                          </p>
+                        </div>
+
+                        <div className="flex items-start gap-2 rounded-lg border border-bd-blue-light/50 bg-bd-blue-soft/40 px-4 py-3">
+                          <span className="mt-0.5 text-bd-blue">⚡</span>
+                          <p className="text-sm leading-6 text-bd-ink/85">
+                            <strong>Hosted — no install needed.</strong> Just paste the URL into your
+                            MCP client settings. Replace <code className="rounded bg-white/60 px-1 py-0.5 font-mono text-xs text-bd-blue">&lt;YOUR_API_KEY&gt;</code> with
+                            your key from{" "}
+                            <a href="https://brightdata.com/cp/setting/users" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">brightdata.com/cp/setting/users</a>.
+                          </p>
+                        </div>
+
+                        <CodeBlock code={AGENT_MCP_HOSTED} label="MCP server URL" />
+
+                        <p className="text-sm font-semibold text-bd-navy">
+                          Or add to your MCP config file (Claude Desktop, Cursor):
+                        </p>
+                        <CodeBlock code={AGENT_MCP_CONFIG} label="mcp_config.json" />
+
+                        <div className="grid gap-3 sm:grid-cols-3">
+                          {[
+                            ["Claude Desktop", "https://docs.brightdata.com/ai/mcp-server/integrations/claude-desktop"],
+                            ["Cursor", "https://docs.brightdata.com/ai/mcp-server/integrations/cursor"],
+                            ["VS Code", "https://docs.brightdata.com/ai/mcp-server/integrations/vscode"],
+                          ].map(([name, url]) => (
+                            <a
+                              key={name}
+                              href={url}
+                              className="rounded-xl border border-bd-line bg-bd-canvas/60 px-4 py-3 text-center text-sm font-semibold text-bd-blue transition hover:border-bd-blue-light hover:bg-bd-blue-soft/50"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {name} setup →
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {/* OpenAI SDK */}
+                    {agentPlatform === "OpenAI SDK" ? (
+                      <div className="space-y-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-bd-navy">
+                            OpenAI SDK (GPT-4o / o-series)
+                          </h3>
+                          <p className="mt-1 text-sm leading-6 text-bd-muted">
+                            Connect GPT-4o and o-series models to Bright Data via the built-in MCP
+                            tool type. Your model gets real-time Amazon scraping in one API call.
+                          </p>
+                        </div>
+                        <CodeBlock code="pip install openai" label="bash" />
+                        <CodeBlock code={AGENT_OPENAI} label="python" />
+                      </div>
+                    ) : null}
+
+                    {/* LangChain */}
+                    {agentPlatform === "LangChain" ? (
+                      <div className="space-y-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-bd-navy">
+                            LangChain / LangGraph
+                          </h3>
+                          <p className="mt-1 text-sm leading-6 text-bd-muted">
+                            Use the official <code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">langchain-brightdata</code> package
+                            to add Amazon scraping as a tool to any LangChain agent.
+                          </p>
+                        </div>
+                        <CodeBlock code="pip install langchain-brightdata langchain-openai langgraph" label="bash" />
+                        <CodeBlock code={AGENT_LANGCHAIN} label="python" />
+                      </div>
+                    ) : null}
+
+                    {/* CrewAI */}
+                    {agentPlatform === "CrewAI" ? (
+                      <div className="space-y-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-bd-navy">
+                            CrewAI
+                          </h3>
+                          <p className="mt-1 text-sm leading-6 text-bd-muted">
+                            Build multi-agent workflows with <code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">BrightDataDatasetTool</code>.
+                            Give your CrewAI agents the power to scrape Amazon products autonomously.
+                          </p>
+                        </div>
+                        <CodeBlock code="pip install crewai[tools] aiohttp requests" label="bash" />
+                        <div className="rounded-lg border border-bd-line bg-bd-canvas px-4 py-3">
+                          <p className="text-sm text-bd-muted">
+                            Set your environment variables first:
+                          </p>
+                          <pre className="mt-2 font-mono text-xs text-bd-ink">
+                            export BRIGHT_DATA_API_KEY=&quot;your_api_key&quot;{"\n"}
+                            export BRIGHT_DATA_ZONE=&quot;your_zone&quot;
+                          </pre>
+                        </div>
+                        <CodeBlock code={AGENT_CREWAI} label="python" />
+                      </div>
+                    ) : null}
+
+                    {/* REST API */}
+                    {agentPlatform === "REST API" ? (
+                      <div className="space-y-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-bd-navy">
+                            Direct REST API (any framework)
+                          </h3>
+                          <p className="mt-1 text-sm leading-6 text-bd-muted">
+                            Wrap this function as a tool in any agent framework — AutoGen, Semantic
+                            Kernel, custom agents, or plain scripts. No SDK dependencies needed.
+                          </p>
+                        </div>
+                        <CodeBlock code={AGENT_REST} label="python" />
+                      </div>
+                    ) : null}
+
+                    {/* Supported platforms grid */}
+                    <div className="mt-2">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-bd-muted">
+                        All supported integrations
+                      </p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {[
+                          ["Claude Desktop", "https://docs.brightdata.com/ai/mcp-server/integrations/claude-desktop"],
+                          ["Cursor", "https://docs.brightdata.com/ai/mcp-server/integrations/cursor"],
+                          ["VS Code", "https://docs.brightdata.com/ai/mcp-server/integrations/vscode"],
+                          ["OpenAI Codex", "https://docs.brightdata.com/ai/mcp-server/integrations/codex"],
+                          ["Claude Code", "https://docs.brightdata.com/ai/mcp-server/integrations/claude-code"],
+                          ["LangChain", "https://docs.brightdata.com/integrations/langchain"],
+                          ["CrewAI", "https://docs.brightdata.com/integrations/crew-ai"],
+                          ["LlamaIndex", "https://docs.brightdata.com/ai/mcp-server/integrations/llamaindex"],
+                          ["n8n", "https://docs.brightdata.com/ai/mcp-server/integrations/n8n"],
+                          ["Snowflake", "https://docs.brightdata.com/ai/mcp-server/integrations/snowflake"],
+                          ["NVIDIA NeMo", "https://docs.brightdata.com/ai/mcp-server/integrations/nvidia-nemo"],
+                          ["Cloudflare Workers", "https://docs.brightdata.com/ai/mcp-server/integrations/cloudflare-agents"],
+                        ].map(([name, url]) => (
+                          <a
+                            key={name}
+                            href={url}
+                            className="rounded-lg border border-bd-line bg-bd-canvas/60 px-3 py-1.5 text-xs font-medium text-bd-ink transition hover:border-bd-blue-light hover:text-bd-blue"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {name}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 ) : null}
 
