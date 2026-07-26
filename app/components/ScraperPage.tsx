@@ -564,7 +564,7 @@ function LiveTestPanel() {
   );
 }
 
-export default function ActorPage() {
+export default function ScraperPage() {
   const [mainTab, setMainTab] = useState<MainTab>("API");
   const [apiLang, setApiLang] = useState<ApiLang>("Python");
   const [apiMode, setApiMode] = useState<"sync" | "async">("sync");
@@ -910,6 +910,51 @@ export default function ActorPage() {
 
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
+                        What&apos;s included in every request
+                      </h2>
+                      <p className="mt-2">
+                        Every API call is backed by Bright Data&apos;s full infrastructure — no extra
+                        setup or fees:
+                      </p>
+                      <div className="mt-3 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+                        {[
+                          ["🔄", "Automatic IP rotation"],
+                          ["🧩", "CAPTCHA solving"],
+                          ["🌐", "JavaScript rendering"],
+                          ["🏠", "Residential proxies"],
+                          ["🎭", "User-agent rotation"],
+                          ["📍", "Worldwide geotargeting"],
+                        ].map(([icon, label]) => (
+                          <div
+                            key={label}
+                            className="flex items-center gap-2 rounded-lg border border-bd-line bg-bd-canvas/60 px-3 py-2.5"
+                          >
+                            <span className="text-sm">{icon}</span>
+                            <span className="text-[13px] font-medium text-bd-navy">{label}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+
+                    <section>
+                      <h2 className="text-xl font-bold text-bd-navy">
+                        Delivery methods
+                      </h2>
+                      <p className="mt-2">
+                        Get results via API response, or deliver directly to your storage:
+                      </p>
+                      <ul className="mt-2 list-disc space-y-1 pl-5">
+                        <li><strong>API / Webhook</strong> — real-time JSON response or POST to your endpoint</li>
+                        <li><strong>Amazon S3</strong> / <strong>Google Cloud Storage</strong> / <strong>Azure Blob</strong></li>
+                        <li><strong>Snowflake</strong> / <strong>Google PubSub</strong> / <strong>SFTP</strong></li>
+                      </ul>
+                      <p className="mt-2">
+                        File formats: JSON, NDJSON, CSV, and .gz (compressed).
+                      </p>
+                    </section>
+
+                    <section>
+                      <h2 className="text-xl font-bold text-bd-navy">
                         Why scrape Amazon products?
                       </h2>
                       <ul className="mt-2 list-none space-y-2">
@@ -948,9 +993,10 @@ export default function ActorPage() {
                         How much does it cost?
                       </h2>
                       <p className="mt-2">
-                        You pay only for successfully delivered results — no charges for failed
-                        requests. Start with a free trial that includes 5K records/month. Higher
-                        plans unlock volume discounts and priority support.
+                        Pay-as-you-go starts at $1.50 per 1,000 records — you only pay for
+                        successfully delivered results. Start with a free tier that includes 5K
+                        records/month (no credit card required). Scale plans drop to $1.30/1K
+                        with volume discounts and priority support.
                       </p>
                       <p className="mt-3">
                         <a
@@ -1050,6 +1096,24 @@ export default function ActorPage() {
                             <td className="px-4 py-2.5">string</td>
                             <td className="px-4 py-2.5">Yes</td>
                             <td className="px-4 py-2.5">Amazon product URL, category URL, or search URL</td>
+                          </tr>
+                          <tr>
+                            <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">asin</td>
+                            <td className="px-4 py-2.5">string</td>
+                            <td className="px-4 py-2.5">No</td>
+                            <td className="px-4 py-2.5">Amazon Standard Identification Number (alternative to URL)</td>
+                          </tr>
+                          <tr>
+                            <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">zipcode</td>
+                            <td className="px-4 py-2.5">string</td>
+                            <td className="px-4 py-2.5">No</td>
+                            <td className="px-4 py-2.5">Target ZIP code for location-specific pricing and availability</td>
+                          </tr>
+                          <tr>
+                            <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">language</td>
+                            <td className="px-4 py-2.5">string</td>
+                            <td className="px-4 py-2.5">No</td>
+                            <td className="px-4 py-2.5">Language code for localized results (e.g. &quot;en&quot;, &quot;de&quot;, &quot;ja&quot;)</td>
                           </tr>
                         </tbody>
                       </table>
@@ -1294,64 +1358,99 @@ export default function ActorPage() {
 
           {/* ===== SIDEBAR ===== */}
           <aside className="animate-rise-delay space-y-4 lg:sticky lg:top-20 lg:self-start">
-            <div className="rounded-2xl border border-bd-blue-light/60 bg-gradient-to-br from-bd-blue-soft/50 via-white to-white p-5 shadow-[0_10px_30px_rgba(61,127,252,0.08)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-blue">
-                Pricing
-              </p>
-              <p className="mt-2 text-2xl font-extrabold tracking-tight text-bd-navy">
-                from $3.00{" "}
-                <span className="text-base font-semibold text-bd-muted">/ 1,000 results</span>
-              </p>
-
-              <div className="mt-4 space-y-2.5">
-                <div className="flex items-start gap-2.5">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
-                    <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+            <div className="overflow-hidden rounded-2xl border border-bd-blue-light/60 bg-gradient-to-br from-bd-blue-soft/50 via-white to-white shadow-[0_10px_30px_rgba(61,127,252,0.08)]">
+              {/* Free tier banner */}
+              <div className="bg-gradient-to-r from-bd-blue to-[#5a9aff] px-5 py-3.5">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-[13px] font-semibold uppercase tracking-wider text-white/70">
+                      Free tier
+                    </p>
+                    <p className="mt-0.5 text-xl font-extrabold text-white">
+                      5,000 records<span className="text-sm font-semibold text-white/70">/mo</span>
+                    </p>
+                  </div>
+                  <span className="rounded-full border border-white/20 bg-white/15 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">
+                    No card required
                   </span>
-                  <p className="text-sm font-semibold leading-5 text-bd-navy">
-                    Pay only for successfully delivered results
-                  </p>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
-                    <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-                  </span>
-                  <p className="text-sm font-semibold leading-5 text-bd-navy">
-                    Start with 5K records/month free
-                  </p>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
-                    <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-                  </span>
-                  <p className="text-sm font-semibold leading-5 text-bd-navy">
-                    Higher plans unlock volume discounts
-                  </p>
                 </div>
               </div>
 
-              <a
-                href="https://brightdata.com/pricing"
-                className="mt-4 inline-block text-sm font-semibold text-bd-blue hover:underline"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Full pricing details →
-              </a>
-              <a
-                href="https://brightdata.com/cp/start"
-                className="mt-5 block w-full rounded-xl bg-bd-blue px-4 py-3 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105"
-              >
-                Start free trial
-              </a>
-              <a
-                href="https://brightdata.com/cp/scrapers/gd_l1vijqt9jfj7olije/pdp/configuration"
-                className="mt-2 block w-full rounded-xl border border-bd-line bg-white px-4 py-3 text-center text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft/50"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open in control panel
-              </a>
+              <div className="p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">
+                  Pay as you go
+                </p>
+                <p className="mt-1.5 text-2xl font-extrabold tracking-tight text-bd-navy">
+                  $1.50{" "}
+                  <span className="text-base font-semibold text-bd-muted">/ 1,000 records</span>
+                </p>
+
+                <div className="mt-4 space-y-2.5">
+                  <div className="flex items-start gap-2.5">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
+                      <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                    </span>
+                    <p className="text-sm font-semibold leading-5 text-bd-navy">
+                      Pay only for successful results
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
+                      <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                    </span>
+                    <p className="text-sm font-semibold leading-5 text-bd-navy">
+                      Volume discounts from $1.30/1K
+                    </p>
+                  </div>
+                </div>
+
+                <a
+                  href="https://brightdata.com/pricing"
+                  className="mt-4 inline-block text-sm font-semibold text-bd-blue hover:underline"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Full pricing details →
+                </a>
+                <a
+                  href="https://brightdata.com/cp/start"
+                  className="mt-5 block w-full rounded-xl bg-bd-blue px-4 py-3 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105"
+                >
+                  Start free trial
+                </a>
+                <a
+                  href="https://brightdata.com/cp/scrapers/gd_l1vijqt9jfj7olije/pdp/configuration"
+                  className="mt-2 block w-full rounded-xl border border-bd-line bg-white px-4 py-3 text-center text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft/50"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open in control panel
+                </a>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(15,34,58,0.05)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">
+                Performance
+              </p>
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                <div className="rounded-lg bg-bd-canvas px-3 py-2.5">
+                  <p className="text-lg font-extrabold text-bd-navy">~36s</p>
+                  <p className="text-[11px] text-bd-muted">Avg response time</p>
+                </div>
+                <div className="rounded-lg bg-bd-canvas px-3 py-2.5">
+                  <p className="text-lg font-extrabold text-bd-navy">$0.0015</p>
+                  <p className="text-[11px] text-bd-muted">Per record</p>
+                </div>
+                <div className="rounded-lg bg-bd-canvas px-3 py-2.5">
+                  <p className="text-lg font-extrabold text-bd-navy">5K</p>
+                  <p className="text-[11px] text-bd-muted">URLs per request</p>
+                </div>
+                <div className="rounded-lg bg-bd-canvas px-3 py-2.5">
+                  <p className="text-lg font-extrabold text-bd-success">99.9%</p>
+                  <p className="text-[11px] text-bd-muted">Uptime SLA</p>
+                </div>
+              </div>
             </div>
 
             <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(15,34,58,0.05)]">

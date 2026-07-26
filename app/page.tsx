@@ -1,5 +1,5 @@
-import ActorPage from "./components/ActorPage";
+import ScraperPage from "./components/ScraperPage";
 
 export default function Home() {
-  return <ActorPage />;
+  return <ScraperPage />;
 }
