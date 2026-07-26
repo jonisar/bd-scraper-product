@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+:root {
+  --bd-blue: #3d7ffc;
+  --bd-blue-light: #a0c0ff;
+  --bd-blue-soft: #e8f0ff;
+  --bd-navy: #0b1f3a;
+  --bd-ink: #152238;
+  --bd-muted: #5b6b7c;
+  --bd-line: #d7e0ee;
+  --bd-panel: #ffffff;
+  --bd-canvas: #f3f6fb;
+  --bd-success: #1f8a4c;
+  --bd-code-bg: #0f1b2d;
+  --background: var(--bd-canvas);
+  --foreground: var(--bd-ink);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-bd-blue: var(--bd-blue);
+  --color-bd-blue-light: var(--bd-blue-light);
+  --color-bd-blue-soft: var(--bd-blue-soft);
+  --color-bd-navy: var(--bd-navy);
+  --color-bd-ink: var(--bd-ink);
+  --color-bd-muted: var(--bd-muted);
+  --color-bd-line: var(--bd-line);
+  --color-bd-panel: var(--bd-panel);
+  --color-bd-canvas: var(--bd-canvas);
+  --color-bd-success: var(--bd-success);
+  --color-bd-code-bg: var(--bd-code-bg);
+  --font-sans: var(--font-jakarta);
+  --font-mono: var(--font-jetbrains);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  background:
+    radial-gradient(1200px 500px at 10% -10%, rgba(61, 127, 252, 0.18), transparent 55%),
+    radial-gradient(900px 420px at 90% 0%, rgba(160, 192, 255, 0.28), transparent 50%),
+    linear-gradient(180deg, #eef3fb 0%, var(--bd-canvas) 28%, #eef2f8 100%);
+  color: var(--foreground);
+  font-family: var(--font-jakarta), sans-serif;
+}
+
+::selection {
+  background: rgba(61, 127, 252, 0.22);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.55s ease-out both;
+}
+
+.animate-rise-delay {
+  animation: rise-in 0.65s ease-out 0.08s both;
+}
+
+.brand-mark {
+  background: linear-gradient(120deg, #3d7ffc, #6ea0ff, #a0c0ff, #3d7ffc);
+  background-size: 220% 220%;
+  animation: shimmer 6s linear infinite;
+}
+
+.code-scroll::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.code-scroll::-webkit-scrollbar-thumb {
+  background: #35507a;
+  border-radius: 999px;
+}
