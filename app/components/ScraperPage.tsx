@@ -547,7 +547,7 @@ function SyncAsyncToggle({
           className={`rounded-md px-2.5 py-1.5 text-xs font-semibold transition sm:px-3 ${
             mode === m
               ? "bg-bd-blue-soft text-bd-navy shadow-sm border border-bd-line"
-              : "text-bd-muted hover:text-bd-ink"
+              : "text-bd-ink/70 hover:text-bd-navy"
           }`}
         >
           <span className="sm:hidden">{m === "sync" ? "Sync" : "Async"}</span>
@@ -1044,7 +1044,7 @@ function LiveTestPanel() {
           className={`rounded-md px-3.5 py-2 text-sm font-semibold transition ${
             mode === "free"
               ? "bg-bd-blue-soft text-bd-navy shadow-sm border border-bd-line"
-              : "text-bd-muted hover:text-bd-ink"
+              : "text-bd-ink/70 hover:text-bd-navy"
           }`}
         >
           Free sample
@@ -1055,7 +1055,7 @@ function LiveTestPanel() {
           className={`rounded-md px-3.5 py-2 text-sm font-semibold transition ${
             mode === "apikey"
               ? "bg-bd-blue-soft text-bd-navy shadow-sm border border-bd-line"
-              : "text-bd-muted hover:text-bd-ink"
+              : "text-bd-ink/70 hover:text-bd-navy"
           }`}
         >
           With API key
@@ -1485,7 +1485,7 @@ export default function ScraperPage() {
                           className={`rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${
                             apiLang === lang
                               ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/30"
-                              : "border border-bd-line bg-bd-canvas text-bd-muted hover:border-bd-blue-light hover:text-bd-ink"
+                              : "border border-bd-line bg-bd-canvas text-bd-ink/70 hover:border-bd-blue-light hover:text-bd-navy"
                           }`}
                         >
                           {lang}
@@ -2622,7 +2622,7 @@ for p in products:
                           className={`rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${
                             agentPlatform === p
                               ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/30"
-                              : "border border-bd-line bg-bd-canvas text-bd-muted hover:border-bd-blue-light hover:text-bd-ink"
+                              : "border border-bd-line bg-bd-canvas text-bd-ink/70 hover:border-bd-blue-light hover:text-bd-navy"
                           }`}
                         >
                           {p}
