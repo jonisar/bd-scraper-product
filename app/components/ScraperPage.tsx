@@ -1385,19 +1385,27 @@ export default function ScraperPage() {
             </div>
 
             {/* Trusted by strip */}
-            <div className="mt-5 rounded-2xl border border-bd-line bg-bd-panel px-5 py-5 sm:px-7 sm:py-6">
+            <div className="mt-5 overflow-hidden rounded-2xl border border-bd-line bg-bd-panel py-5">
               <p className="text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-bd-muted">
                 Trusted by 20,000+ customers worldwide
               </p>
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 sm:gap-x-10">
-                <span className="text-[15px] font-bold tracking-tight text-bd-muted/60">McDonald&apos;s</span>
-                <span className="text-[15px] font-bold tracking-tight text-bd-muted/60">Moody&apos;s</span>
-                <span className="text-[16px] font-extrabold tracking-tight text-bd-muted/60">NBCUniversal</span>
-                <span className="text-[16px] font-bold tracking-[0.15em] uppercase text-bd-muted/60">Nokia</span>
-                <span className="text-[13px] font-semibold text-bd-muted/60">University of Oxford</span>
-                <span className="text-[15px] font-bold text-bd-muted/60">Pfizer</span>
-                <span className="text-[15px] font-bold text-bd-muted/60">Shopee</span>
-                <span className="text-[15px] font-bold text-bd-muted/60">Taboola</span>
+              <div className="relative mt-4">
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-bd-panel to-transparent" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-bd-panel to-transparent" />
+                <div className="logo-marquee flex w-max items-center gap-10">
+                  {[...Array(2)].map((_, i) => (
+                    <div key={i} className="flex shrink-0 items-center gap-10">
+                      <span className="whitespace-nowrap text-[15px] font-bold tracking-tight text-bd-muted/60">McDonald&apos;s</span>
+                      <span className="whitespace-nowrap text-[15px] font-bold tracking-tight text-bd-muted/60">Moody&apos;s</span>
+                      <span className="whitespace-nowrap text-[16px] font-extrabold tracking-tight text-bd-muted/60">NBCUniversal</span>
+                      <span className="whitespace-nowrap text-[16px] font-bold tracking-[0.12em] uppercase text-bd-muted/60">Nokia</span>
+                      <span className="whitespace-nowrap text-[13px] font-semibold text-bd-muted/60">University of Oxford</span>
+                      <span className="whitespace-nowrap text-[15px] font-bold text-bd-muted/60">Pfizer</span>
+                      <span className="whitespace-nowrap text-[15px] font-bold text-bd-muted/60">Shopee</span>
+                      <span className="whitespace-nowrap text-[15px] font-bold text-bd-muted/60">Taboola</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
