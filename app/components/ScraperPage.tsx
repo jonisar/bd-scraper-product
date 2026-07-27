@@ -2893,17 +2893,15 @@ for p in products:
           <aside className="animate-rise-delay space-y-4 lg:sticky lg:top-[4.5rem] lg:max-h-[calc(100vh-5.5rem)] lg:overflow-y-auto lg:self-start lg:pr-1">
             <div className="overflow-hidden rounded-2xl border border-bd-blue/30 bg-gradient-to-br from-bd-blue-soft via-bd-panel to-bd-panel shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
               {/* Free tier banner */}
-              <div className="bg-gradient-to-r from-bd-blue to-[#5a9aff] px-5 py-3.5">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-[13px] font-semibold uppercase tracking-wider text-white/70">
-                      Free tier
-                    </p>
-                    <p className="mt-0.5 text-xl font-extrabold text-white">
-                      5,000 records<span className="text-sm font-semibold text-white/70">/mo</span>
-                    </p>
-                  </div>
-                  <span className="rounded-full border border-white/20 bg-white/15 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">
+              <div className="bg-gradient-to-r from-bd-blue to-[#5a9aff] px-5 py-4">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-white/70">
+                  Free tier
+                </p>
+                <div className="mt-1 flex items-center justify-between gap-3">
+                  <p className="whitespace-nowrap text-xl font-extrabold text-white">
+                    5,000 records<span className="text-sm font-semibold text-white/70">/mo</span>
+                  </p>
+                  <span className="shrink-0 rounded-full bg-white/15 px-3 py-1.5 text-[11px] font-bold text-white">
                     No card required
                   </span>
                 </div>
