@@ -29,7 +29,39 @@ const faqStructuredData = {
       name: "What is the Amazon Scraper API?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The Amazon Scraper API is a pre-built, managed web scraping tool from Bright Data that extracts structured product data from Amazon at scale. Pass product URLs, category pages, or search keywords — get back clean JSON with prices, reviews, stock status, seller details, and more.",
+        text: "The Amazon Scraper API is a powerful tool designed to automate data extraction from Amazon, allowing users to efficiently gather and process large volumes of product data — prices, reviews, BSR, seller info, and more — for various use cases.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How does the Amazon Scraper API work?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The Amazon Scraper API works by sending automated requests to Amazon, extracting the necessary data points, and delivering them in a structured format (JSON, CSV, or NDJSON). Bright Data handles proxy rotation, CAPTCHA solving, and JavaScript rendering automatically.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is the Amazon Scraper API compliant with data protection regulations?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. The Amazon Scraper API is designed to comply with data protection regulations, including GDPR and CCPA. It only collects publicly available data and ensures all data collection activities are performed ethically and legally.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I use the Amazon Scraper API for competitive analysis?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Absolutely. The Amazon Scraper API is ideal for competitive analysis — gather insights into competitors' pricing, product selection, bestseller rankings, seller strategies, and more.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How can I integrate the Amazon Scraper API with my existing systems?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The API offers seamless integration with various platforms and tools. Use it with your existing data pipelines, CRM systems, BI tools, or AI models. Delivery via API, webhook, Amazon S3, Google Cloud Storage, Snowflake, and more.",
       },
     },
     {
@@ -37,31 +69,47 @@ const faqStructuredData = {
       name: "Is there a free tier available for the Amazon Scraper API?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Every Bright Data account includes 5,000 free records per month — no credit card required. Credits renew on the 1st of each month. Pay-as-you-go starts at $1.50/1K records, with Scale plans from $1.30/1K.",
+        text: "Yes. Every Bright Data account includes 5,000 free records per month — no credit card required, no promo code. Credits renew on the 1st of each month, and you can start making API calls immediately after signing up.",
       },
     },
     {
       "@type": "Question",
-      name: "Is it legal to use an Amazon scraper?",
+      name: "What happens when my free credits run out?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Bright Data only collects publicly available data. All scraping is performed in compliance with GDPR, CCPA, and SEC regulations. A dedicated compliance team ensures ethical data collection practices.",
+        text: "If you have pre-deposited funds, usage continues seamlessly at standard PAYG rates ($1.50/1K records). If not, requests return an error until you add funds or credits renew on the 1st of the following month. Enable auto-recharge at brightdata.com/cp/billing/settings to avoid interruptions.",
       },
     },
     {
       "@type": "Question",
-      name: "What Amazon scraper delivery methods are available?",
+      name: "What are the usage limits for the Amazon Scraper API?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Results can be delivered via API response, webhook, Amazon S3, Google Cloud Storage, Google PubSub, Microsoft Azure Storage, Snowflake, and SFTP. Supported formats include JSON, NDJSON, CSV, and .gz (compressed).",
+        text: "There are no specific usage limits. The API supports unlimited concurrency and bulk requests of up to 5,000 URLs, giving you the flexibility to scale as needed.",
       },
     },
     {
       "@type": "Question",
-      name: "What data can an Amazon scraper extract?",
+      name: "Do you provide support for the Amazon Scraper API?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "You can extract product titles, prices, ASINs, brands, seller info, stock availability, review counts, star ratings, category paths, product images, features, and delivery estimates.",
+        text: "Yes. Bright Data offers 24/7 dedicated support via chat, email, and phone. The team is available to help with any questions or issues you encounter.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What delivery methods are available?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Amazon S3, Google Cloud Storage, Google PubSub, Microsoft Azure Storage, Snowflake, SFTP, webhook, and direct API response.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What file formats are available?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "JSON, NDJSON, JSON Lines, CSV, and .gz files (compressed).",
       },
     },
   ],
