@@ -115,6 +115,18 @@ body {
   animation-play-state: paused;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee {
+    animation: none;
+  }
+
+  .animate-rise,
+  .animate-rise-delay,
+  .brand-mark {
+    animation: none;
+  }
+}
+
 .animate-rise {
   animation: rise-in 0.55s ease-out both;
 }

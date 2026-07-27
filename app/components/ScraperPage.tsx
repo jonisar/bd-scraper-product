@@ -523,7 +523,7 @@ function CodeBlock({ code, label }: { code: string; label: string }) {
         <span className="font-mono text-xs text-white/55">{label}</span>
         <CopyButton text={code} />
       </div>
-      <pre className="code-scroll max-h-[520px] overflow-auto p-4 text-[13px] leading-6 text-[#d7e6ff]">
+      <pre className="code-scroll max-h-[520px] overflow-auto p-3 text-[12px] leading-5 text-[#d7e6ff] sm:p-4 sm:text-[13px] sm:leading-6">
         <code className="font-mono whitespace-pre">{code}</code>
       </pre>
     </div>
@@ -693,7 +693,7 @@ function RelatedScrapersCarousel() {
       onClick={() => scroll(dir)}
       aria-label={`Scroll ${dir}`}
       className={`absolute top-1/2 z-10 -translate-y-1/2 rounded-full border border-bd-line bg-bd-panel/95 p-2.5 shadow-lg backdrop-blur transition-all hover:border-bd-blue-light hover:shadow-bd-blue/15 ${
-        dir === "left" ? "left-0 -translate-x-1/2" : "right-0 translate-x-1/2"
+        dir === "left" ? "left-2" : "right-2"
       } ${show ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
     >
       <svg className="h-4 w-4 text-bd-navy" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
@@ -706,15 +706,15 @@ function RelatedScrapersCarousel() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 pb-10 pt-2 sm:px-6">
-      <div className="flex items-end justify-between">
-        <div>
+      <div className="flex items-end justify-between gap-3">
+        <div className="min-w-0">
           <h2 className="text-xl font-bold text-bd-navy">Popular Similar Scrapers</h2>
           <p className="mt-1 text-sm text-bd-muted">
             Related scrapers from the Bright Data library
-            <span className="mx-2 text-bd-muted/40">·</span>
+            <span className="mx-1.5 hidden text-bd-muted/40 sm:inline">·</span>
             <a
               href="https://brightdata.com/cp/scrapers/browse"
-              className="font-semibold text-bd-blue hover:underline"
+              className="mt-1 inline-block font-semibold text-bd-blue hover:underline sm:mt-0 sm:inline"
               target="_blank"
               rel="noreferrer"
             >
@@ -722,7 +722,7 @@ function RelatedScrapersCarousel() {
             </a>
           </p>
         </div>
-        <div className="hidden items-center gap-1.5 sm:flex">
+        <div className="hidden shrink-0 items-center gap-1.5 sm:flex">
           <button
             type="button"
             onClick={() => scroll("left")}
@@ -767,7 +767,7 @@ function RelatedScrapersCarousel() {
               href={s.href}
               target="_blank"
               rel="noreferrer"
-              className="group flex w-[290px] shrink-0 flex-col rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_4px_16px_rgba(0,0,0,0.2)] transition hover:border-bd-blue-light hover:shadow-[0_8px_24px_rgba(61,127,252,0.15)]"
+              className="group flex w-[min(280px,calc(100vw-2.5rem))] shrink-0 flex-col rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_4px_16px_rgba(0,0,0,0.2)] transition hover:border-bd-blue-light hover:shadow-[0_8px_24px_rgba(61,127,252,0.15)] sm:w-[290px]"
             >
               <div className="mb-3 flex items-center gap-2">
                 <span className="text-lg">{s.emoji}</span>
@@ -1090,7 +1090,7 @@ function LiveTestPanel() {
                 type="button"
                 onClick={runFree}
                 disabled={status === "running" || sampleState.remaining <= 0}
-                className="shrink-0 rounded-xl bg-bd-blue px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105 disabled:opacity-60"
+                className="w-full shrink-0 rounded-xl bg-bd-blue px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105 disabled:opacity-60 sm:w-auto"
               >
                 {status === "running" ? (
                   <span className="flex items-center gap-2">
@@ -1230,7 +1230,7 @@ function LiveTestPanel() {
             </span>
             <CopyButton text={result} />
           </div>
-          <pre className="code-scroll max-h-[500px] overflow-auto p-4 text-[13px] leading-6 text-[#d7e6ff]">
+          <pre className="code-scroll max-h-[500px] overflow-auto p-3 text-[12px] leading-5 text-[#d7e6ff] sm:p-4 sm:text-[13px] sm:leading-6">
             <code className="font-mono whitespace-pre">{result}</code>
           </pre>
         </div>
@@ -1276,9 +1276,9 @@ export default function ScraperPage() {
     <div className="min-h-screen overflow-x-hidden">
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-bd-line/60 bg-[#000000e6] backdrop-blur-lg">
-        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
-          <div className="flex items-center gap-8">
-            <a href="/" className="flex items-center gap-2.5">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-2 px-4 sm:px-6">
+          <div className="flex min-w-0 items-center gap-8">
+            <a href="/" className="flex shrink-0 items-center gap-2.5">
               <span className="brand-mark grid h-8 w-8 place-items-center rounded-lg text-sm font-extrabold text-white shadow-sm shadow-bd-blue/40">
                 BD
               </span>
@@ -1286,7 +1286,7 @@ export default function ScraperPage() {
                 Bright Data
               </span>
             </a>
-            <nav className="hidden items-center gap-5 text-sm text-bd-muted md:flex">
+            <nav className="hidden items-center gap-5 text-sm text-bd-ink/80 md:flex">
               <a href="https://brightdata.com/cp/scrapers/browse" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Scraper Library</a>
               <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
                 <span className="flex items-center gap-1">AI Scraper Studio<span className="rounded bg-bd-blue/15 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">New</span></span>
@@ -1295,23 +1295,23 @@ export default function ScraperPage() {
               <a href="https://brightdata.com/pricing" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Pricing</a>
             </nav>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <a
               href="https://brightdata.com/cp"
-              className="hidden rounded-lg px-3 py-1.5 text-sm font-medium text-bd-muted transition hover:text-bd-navy hover:bg-bd-blue-soft sm:inline-flex"
+              className="hidden rounded-lg px-3 py-1.5 text-sm font-medium text-bd-ink/80 transition hover:text-bd-navy hover:bg-bd-blue-soft sm:inline-flex"
             >
               Log in
             </a>
             <a
               href="https://brightdata.com/cp/start"
-              className="rounded-lg bg-bd-blue px-3.5 py-1.5 text-sm font-semibold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110"
+              className="rounded-lg bg-bd-blue px-2.5 py-1.5 text-[13px] font-semibold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110 sm:px-3.5 sm:text-sm"
             >
               Start free trial
             </a>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="ml-1 grid h-9 w-9 place-items-center rounded-lg text-bd-muted transition hover:bg-bd-panel md:hidden"
+              className="grid h-9 w-9 place-items-center rounded-lg text-bd-ink/80 transition hover:bg-bd-panel hover:text-bd-navy md:hidden"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
@@ -1325,7 +1325,7 @@ export default function ScraperPage() {
         {/* Mobile nav drawer */}
         {mobileMenuOpen ? (
           <nav className="border-t border-bd-line bg-bd-panel px-4 pb-4 pt-3 md:hidden">
-            <div className="flex flex-col gap-3 text-sm font-medium text-bd-muted">
+            <div className="flex flex-col gap-3 text-sm font-medium text-bd-ink/80">
               <a href="https://brightdata.com/cp/scrapers/browse" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Scraper Library</a>
               <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
                 <span className="flex items-center gap-1.5">AI Scraper Studio<span className="rounded bg-bd-blue/15 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">New</span></span>
@@ -1338,13 +1338,13 @@ export default function ScraperPage() {
         ) : null}
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:py-10">
+      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:py-10">
         {/* Breadcrumb */}
-        <div className="animate-rise mb-6 text-sm text-bd-muted">
+        <div className="animate-rise mb-5 flex flex-wrap items-center gap-x-0 gap-y-1 text-sm text-bd-muted sm:mb-6">
           <a href="https://brightdata.com/cp/scrapers/browse" className="hover:text-bd-navy" target="_blank" rel="noreferrer">Scraper Library</a>
-          <span className="mx-2 text-bd-muted/50">/</span>
+          <span className="mx-1.5 text-bd-muted/50 sm:mx-2">/</span>
           <a href="https://brightdata.com/products/web-scraper/amazon" className="hover:text-bd-navy" target="_blank" rel="noreferrer">Amazon</a>
-          <span className="mx-2 text-bd-muted/50">/</span>
+          <span className="mx-1.5 text-bd-muted/50 sm:mx-2">/</span>
           <span className="font-medium text-bd-blue">Amazon Product Scraper</span>
         </div>
 
@@ -1352,9 +1352,9 @@ export default function ScraperPage() {
           {/* Main content */}
           <div className="min-w-0">
             {/* Hero card */}
-            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_40px_rgba(0,0,0,0.3)] sm:p-7">
+            <div className="rounded-2xl border border-bd-line bg-bd-panel p-4 shadow-[0_10px_40px_rgba(0,0,0,0.3)] sm:p-7">
               <div className="max-w-3xl">
-                <h1 className="text-3xl font-extrabold tracking-tight text-bd-navy sm:text-4xl">
+                <h1 className="text-[1.75rem] font-extrabold tracking-tight text-bd-navy sm:text-4xl">
                   Amazon Product Scraper
                 </h1>
                 <p className="mt-2 text-[15px] leading-7 text-bd-muted">
@@ -1364,19 +1364,19 @@ export default function ScraperPage() {
                   href={`https://brightdata.com/cp/scrapers/${DATASET_ID}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-2.5 inline-flex items-center gap-2 rounded-lg border border-bd-line bg-bd-canvas px-3 py-1.5 text-xs transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
+                  className="mt-2.5 inline-flex max-w-full items-center gap-2 rounded-lg border border-bd-line bg-bd-canvas px-3 py-1.5 text-xs transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
                 >
-                  <span className="text-bd-muted">Dataset ID</span>
-                  <code className="font-mono font-semibold text-bd-blue">{DATASET_ID}</code>
-                  <svg className="h-3 w-3 text-bd-muted" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <span className="shrink-0 text-bd-muted">Dataset ID</span>
+                  <code className="min-w-0 truncate font-mono font-semibold text-bd-blue">{DATASET_ID}</code>
+                  <svg className="h-3 w-3 shrink-0 text-bd-muted" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-4.5-4.5h6m0 0v6m0-6L13.5 16.5" />
                   </svg>
                 </a>
                 <p className="mt-3 text-[15px] leading-7 text-bd-ink">{DESCRIPTION}</p>
               </div>
 
-              <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2.5 border-t border-bd-line pt-4 text-sm text-bd-muted sm:flex sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-2">
-                <div className="col-span-2 flex items-center gap-2 sm:col-span-1">
+              <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2.5 border-t border-bd-line pt-4 text-sm text-bd-muted sm:gap-x-5">
+                <div className="flex items-center gap-2">
                   <StarRow />
                   <span className="font-semibold text-bd-ink">4.6</span>
                   <span>on Trustpilot</span>
@@ -1385,35 +1385,35 @@ export default function ScraperPage() {
                 <span><span className="font-semibold text-bd-ink">5.7K+</span> active users</span>
                 <span className="text-bd-success font-medium">98.4% success rate</span>
                 <span className="flex items-center gap-1.5 text-bd-success font-medium">
-                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13.25 8.5V5a1 1 0 00-1-1h-2.5m-6 0H2.75a1 1 0 00-1 1v7a1 1 0 001 1h4.5M5 4V2.5M9.75 4V2.5M3.75 7h8.5m-2.5 5.5l1.5 1.5 3-3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13.25 8.5V5a1 1 0 00-1-1h-2.5m-6 0H2.75a1 1 0 00-1 1v7a1 1 0 001 1h4.5M5 4V2.5M9.75 4V2.5M3.75 7h8.5m-2.5 5.5l1.5 1.5 3-3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   Last verified: Jul 2026
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-bd-success" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 1.5l1.5 1 1.75-.5.75 1.65 1.75.5v1.85l1.25 1.35-1.25 1.35v1.85l-1.75.5-.75 1.65-1.75-.5L8 14.5l-1.5-1-1.75.5-.75-1.65-1.75-.5V9.85L1 8.5l1.25-1.35V5.15l1.75-.5.75-1.65 1.75.5L8 1.5z" strokeLinecap="round" strokeLinejoin="round"/><path d="M5.75 8.5l1.5 1.5 3-3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 shrink-0 text-bd-success" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 1.5l1.5 1 1.75-.5.75 1.65 1.75.5v1.85l1.25 1.35-1.25 1.35v1.85l-1.75.5-.75 1.65-1.75-.5L8 14.5l-1.5-1-1.75.5-.75-1.65-1.75-.5V9.85L1 8.5l1.25-1.35V5.15l1.75-.5.75-1.65 1.75.5L8 1.5z" strokeLinecap="round" strokeLinejoin="round"/><path d="M5.75 8.5l1.5 1.5 3-3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   <span className="text-bd-success font-medium">GDPR & CCPA compliant</span>
                 </span>
               </div>
             </div>
 
             {/* Trusted by strip */}
-            <div className="mt-5 overflow-hidden rounded-2xl border border-bd-line bg-bd-panel py-5">
-              <p className="text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-bd-muted">
+            <div className="mt-5 overflow-hidden rounded-2xl border border-bd-line bg-bd-panel py-4 sm:py-5">
+              <p className="px-4 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-bd-muted">
                 Trusted by 20,000+ customers worldwide
               </p>
-              <div className="relative mt-4">
-                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-bd-panel to-transparent" />
-                <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-bd-panel to-transparent" />
-                <div className="logo-marquee flex w-max items-center gap-10">
+              <div className="relative mt-3 sm:mt-4">
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-bd-panel to-transparent sm:w-16" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-bd-panel to-transparent sm:w-16" />
+                <div className="logo-marquee flex w-max items-center gap-8 sm:gap-10">
                   {[...Array(2)].map((_, i) => (
-                    <div key={i} className="flex shrink-0 items-center gap-10">
-                      <span className="whitespace-nowrap text-[15px] font-bold tracking-tight text-bd-muted/70">McDonald&apos;s</span>
-                      <span className="whitespace-nowrap text-[15px] font-bold tracking-tight text-bd-muted/70">Moody&apos;s</span>
-                      <span className="whitespace-nowrap text-[16px] font-extrabold tracking-tight text-bd-muted/70">NBCUniversal</span>
-                      <span className="whitespace-nowrap text-[16px] font-bold tracking-[0.12em] uppercase text-bd-muted/70">Nokia</span>
-                      <span className="whitespace-nowrap text-[13px] font-semibold text-bd-muted/70">University of Oxford</span>
-                      <span className="whitespace-nowrap text-[15px] font-bold text-bd-muted/70">Pfizer</span>
-                      <span className="whitespace-nowrap text-[15px] font-bold text-bd-muted/70">Shopee</span>
-                      <span className="whitespace-nowrap text-[15px] font-bold text-bd-muted/70">Taboola</span>
+                    <div key={i} className="flex shrink-0 items-center gap-8 sm:gap-10">
+                      <span className="whitespace-nowrap text-[14px] font-bold tracking-tight text-bd-muted/70 sm:text-[15px]">McDonald&apos;s</span>
+                      <span className="whitespace-nowrap text-[14px] font-bold tracking-tight text-bd-muted/70 sm:text-[15px]">Moody&apos;s</span>
+                      <span className="whitespace-nowrap text-[15px] font-extrabold tracking-tight text-bd-muted/70 sm:text-[16px]">NBCUniversal</span>
+                      <span className="whitespace-nowrap text-[15px] font-bold tracking-[0.12em] uppercase text-bd-muted/70 sm:text-[16px]">Nokia</span>
+                      <span className="whitespace-nowrap text-[12px] font-semibold text-bd-muted/70 sm:text-[13px]">University of Oxford</span>
+                      <span className="whitespace-nowrap text-[14px] font-bold text-bd-muted/70 sm:text-[15px]">Pfizer</span>
+                      <span className="whitespace-nowrap text-[14px] font-bold text-bd-muted/70 sm:text-[15px]">Shopee</span>
+                      <span className="whitespace-nowrap text-[14px] font-bold text-bd-muted/70 sm:text-[15px]">Taboola</span>
                     </div>
                   ))}
                 </div>
@@ -1446,10 +1446,11 @@ export default function ScraperPage() {
                     </button>
                   ))}
                 </div>
+                <div className="pointer-events-none absolute left-0 top-0 h-full w-6 bg-gradient-to-r from-bd-panel to-transparent sm:hidden" />
                 <div className="pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-bd-panel to-transparent sm:hidden" />
               </div>
 
-              <div className="p-5 sm:p-6">
+              <div className="p-4 sm:p-6">
                 {/* ===== API TAB ===== */}
                 {mainTab === "API" ? (
                   <div>
@@ -1493,7 +1494,7 @@ export default function ScraperPage() {
                           key={lang}
                           type="button"
                           onClick={() => setApiLang(lang)}
-                          className={`rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${
+                          className={`rounded-full px-3 py-1.5 text-[13px] font-semibold transition sm:px-3.5 sm:text-sm ${
                             apiLang === lang
                               ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/30"
                               : "border border-bd-line bg-bd-canvas text-bd-ink/70 hover:border-bd-blue-light hover:text-bd-navy"
@@ -1659,9 +1660,9 @@ export default function ScraperPage() {
                           },
                         ].map((faq) => (
                           <details key={faq.q} className="group px-4 py-3.5">
-                            <summary className="list-none flex items-center justify-between font-semibold text-bd-navy">
-                              {faq.q}
-                              <svg className="h-4 w-4 shrink-0 text-bd-muted transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                            <summary className="list-none flex cursor-pointer items-start justify-between gap-3 font-semibold text-bd-navy">
+                              <span className="min-w-0">{faq.q}</span>
+                              <svg className="mt-0.5 h-4 w-4 shrink-0 text-bd-muted transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                               </svg>
                             </summary>
@@ -2630,7 +2631,7 @@ for p in products:
                           key={p}
                           type="button"
                           onClick={() => setAgentPlatform(p)}
-                          className={`rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${
+                          className={`rounded-full px-3 py-1.5 text-[13px] font-semibold transition sm:px-3.5 sm:text-sm ${
                             agentPlatform === p
                               ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/30"
                               : "border border-bd-line bg-bd-canvas text-bd-ink/70 hover:border-bd-blue-light hover:text-bd-navy"
@@ -2894,7 +2895,7 @@ for p in products:
                         </div>
                         <a
                           href="https://brightdata.com/products/web-scraper/studio"
-                          className="shrink-0 rounded-xl bg-bd-blue px-5 py-2.5 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105"
+                          className="w-full shrink-0 rounded-xl bg-bd-blue px-5 py-2.5 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105 sm:w-auto"
                           target="_blank"
                           rel="noreferrer"
                         >
@@ -2912,11 +2913,11 @@ for p in products:
           <aside className="animate-rise-delay space-y-4 lg:sticky lg:top-[4.5rem] lg:self-start">
             <div className="overflow-hidden rounded-2xl border border-bd-blue/30 bg-gradient-to-br from-bd-blue-soft via-bd-panel to-bd-panel shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
               {/* Free tier banner */}
-              <div className="bg-gradient-to-r from-bd-blue to-[#5a9aff] px-5 py-4">
+              <div className="bg-gradient-to-r from-bd-blue to-[#5a9aff] px-4 py-4 sm:px-5">
                 <p className="text-[11px] font-semibold uppercase tracking-wider text-white/70">
                   Free tier
                 </p>
-                <div className="mt-1 flex items-center justify-between gap-3">
+                <div className="mt-1 flex flex-wrap items-center justify-between gap-2">
                   <p className="whitespace-nowrap text-xl font-extrabold text-white">
                     5,000 records<span className="text-sm font-semibold text-white/70">/mo</span>
                   </p>
@@ -2932,7 +2933,7 @@ for p in products:
                 </p>
                 <p className="mt-1.5 text-2xl font-extrabold tracking-tight text-bd-navy">
                   $1.50{" "}
-                  <span className="text-base font-semibold text-bd-muted">/ 1,000 records</span>
+                  <span className="text-sm font-semibold text-bd-muted sm:text-base">/ 1,000 records</span>
                 </p>
 
                 <div className="mt-4 space-y-2.5">
@@ -2950,6 +2951,14 @@ for p in products:
                     </span>
                     <p className="text-sm font-semibold leading-5 text-bd-navy">
                       Volume discounts from $1.30/1K
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
+                      <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                    </span>
+                    <p className="text-sm font-semibold leading-5 text-bd-navy">
+                      Infinite scale and full compliance
                     </p>
                   </div>
                 </div>
