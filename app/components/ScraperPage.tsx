@@ -708,7 +708,7 @@ function RelatedScrapersCarousel() {
     <section className="mx-auto max-w-7xl px-4 pb-10 pt-2 sm:px-6">
       <div className="flex items-end justify-between">
         <div>
-          <h2 className="text-xl font-bold text-bd-navy">More Scrapers you can use</h2>
+          <h2 className="text-xl font-bold text-bd-navy">Similar Popular Scrapers</h2>
           <p className="mt-1 text-sm text-bd-muted">Related scrapers from the Bright Data library</p>
         </div>
         <div className="hidden items-center gap-1.5 sm:flex">
