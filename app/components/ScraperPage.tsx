@@ -2958,12 +2958,12 @@ for p in products:
                   Start free trial
                 </a>
                 <a
-                  href="https://brightdata.com/cp/scrapers/gd_l1vijqt9jfj7olije/pdp/configuration"
+                  href="https://brightdata.com/contact-sales"
                   className="mt-2 block w-full rounded-xl border border-bd-line bg-bd-canvas px-4 py-3 text-center text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Open in control panel
+                  Contact sales
                 </a>
               </div>
             </div>
