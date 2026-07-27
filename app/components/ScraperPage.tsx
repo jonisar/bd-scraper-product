@@ -708,8 +708,19 @@ function RelatedScrapersCarousel() {
     <section className="mx-auto max-w-7xl px-4 pb-10 pt-2 sm:px-6">
       <div className="flex items-end justify-between">
         <div>
-          <h2 className="text-xl font-bold text-bd-navy">Similar Popular Scrapers</h2>
-          <p className="mt-1 text-sm text-bd-muted">Related scrapers from the Bright Data library</p>
+          <h2 className="text-xl font-bold text-bd-navy">Popular Similar Scrapers</h2>
+          <p className="mt-1 text-sm text-bd-muted">
+            Related scrapers from the Bright Data library
+            <span className="mx-2 text-bd-muted/40">·</span>
+            <a
+              href="https://brightdata.com/cp/scrapers/browse"
+              className="font-semibold text-bd-blue hover:underline"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Browse all scrapers →
+            </a>
+          </p>
         </div>
         <div className="hidden items-center gap-1.5 sm:flex">
           <button
