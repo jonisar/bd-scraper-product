@@ -1113,7 +1113,7 @@ function LiveTestPanel() {
                 {Math.ceil((Math.max(0, sampleState.resetAt - Date.now()) % 3600000) / 60000)}m.
                 Want unlimited? {" "}
                 <a href="https://brightdata.com/cp/start" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">
-                  Start free trial →
+                  Start free →
                 </a>
               </p>
             ) : null}
@@ -1286,7 +1286,7 @@ export default function ScraperPage() {
                 Bright Data
               </span>
             </a>
-            <nav className="hidden items-center gap-5 text-sm text-bd-ink/80 md:flex">
+            <nav className="hidden items-center gap-5 text-sm text-bd-navy/85 md:flex">
               <a href="https://brightdata.com/cp/scrapers/browse" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Scraper Library</a>
               <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
                 <span className="flex items-center gap-1">AI Scraper Studio<span className="rounded bg-bd-blue/15 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">New</span></span>
@@ -1298,7 +1298,7 @@ export default function ScraperPage() {
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <a
               href="https://brightdata.com/cp"
-              className="hidden rounded-lg px-3 py-1.5 text-sm font-medium text-bd-ink/80 transition hover:text-bd-navy hover:bg-bd-blue-soft sm:inline-flex"
+              className="hidden rounded-lg px-3 py-1.5 text-sm font-medium text-bd-navy/85 transition hover:text-white hover:bg-bd-blue-soft sm:inline-flex"
             >
               Log in
             </a>
@@ -1306,12 +1306,12 @@ export default function ScraperPage() {
               href="https://brightdata.com/cp/start"
               className="rounded-lg bg-bd-blue px-2.5 py-1.5 text-[13px] font-semibold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110 sm:px-3.5 sm:text-sm"
             >
-              Start free trial
+              Start free
             </a>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="grid h-9 w-9 place-items-center rounded-lg text-bd-ink/80 transition hover:bg-bd-panel hover:text-bd-navy md:hidden"
+              className="grid h-9 w-9 place-items-center rounded-lg text-bd-navy/85 transition hover:bg-bd-panel hover:text-white md:hidden"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
@@ -1325,7 +1325,7 @@ export default function ScraperPage() {
         {/* Mobile nav drawer */}
         {mobileMenuOpen ? (
           <nav className="border-t border-bd-line bg-bd-panel px-4 pb-4 pt-3 md:hidden">
-            <div className="flex flex-col gap-3 text-sm font-medium text-bd-ink/80">
+            <div className="flex flex-col gap-3 text-sm font-medium text-bd-navy/85">
               <a href="https://brightdata.com/cp/scrapers/browse" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Scraper Library</a>
               <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
                 <span className="flex items-center gap-1.5">AI Scraper Studio<span className="rounded bg-bd-blue/15 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">New</span></span>
@@ -1432,7 +1432,7 @@ export default function ScraperPage() {
                       className={`relative whitespace-nowrap rounded-t-lg px-2.5 py-2 text-[13px] font-semibold transition sm:px-3.5 sm:py-2.5 sm:text-sm ${
                         mainTab === tab
                           ? "text-bd-blue"
-                          : "text-bd-ink/70 hover:text-bd-navy"
+                          : "text-bd-ink hover:text-bd-navy"
                       }`}
                     >
                       <span className="flex items-center gap-1">
@@ -2975,7 +2975,7 @@ for p in products:
                   href="https://brightdata.com/cp/start"
                   className="mt-5 block w-full rounded-xl bg-bd-blue px-4 py-3 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105"
                 >
-                  Start free trial
+                  Start free
                 </a>
                 <a
                   href="https://brightdata.com/contact-sales"
