@@ -29,7 +29,7 @@ const faqStructuredData = {
       name: "What is the Amazon Scraper API?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The Amazon Scraper API is a powerful tool designed to automate data extraction from Amazon, allowing users to efficiently gather and process large volumes of product data — prices, reviews, BSR, seller info, and more — for various use cases.",
+        text: "The Amazon Scraper API is a powerful tool designed to automate data extraction from Amazon, allowing users to efficiently gather and process large volumes of data for various use cases.",
       },
     },
     {
@@ -37,7 +37,7 @@ const faqStructuredData = {
       name: "How does the Amazon Scraper API work?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The Amazon Scraper API works by sending automated requests to Amazon, extracting the necessary data points, and delivering them in a structured format (JSON, CSV, or NDJSON). Bright Data handles proxy rotation, CAPTCHA solving, and JavaScript rendering automatically.",
+        text: "The Amazon Scraper API works by sending automated requests to Amazon, extracting the necessary data points, and delivering them in a structured format (JSON, CSV, or NDJSON). This process ensures accurate and quick data collection.",
       },
     },
     {
@@ -45,7 +45,7 @@ const faqStructuredData = {
       name: "Is the Amazon Scraper API compliant with data protection regulations?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. The Amazon Scraper API is designed to comply with data protection regulations, including GDPR and CCPA. It only collects publicly available data and ensures all data collection activities are performed ethically and legally.",
+        text: "Yes, the Amazon Scraper API is designed to comply with data protection regulations, including GDPR and CCPA. It ensures that all data collection activities are performed ethically and legally.",
       },
     },
     {
@@ -53,7 +53,7 @@ const faqStructuredData = {
       name: "Can I use the Amazon Scraper API for competitive analysis?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Absolutely. The Amazon Scraper API is ideal for competitive analysis — gather insights into competitors' pricing, product selection, bestseller rankings, seller strategies, and more.",
+        text: "Absolutely. The Amazon Scraper API is ideal for competitive analysis, allowing you to gather insights into competitors' pricing, product selection, bestseller rankings, and strategies.",
       },
     },
     {
@@ -61,7 +61,7 @@ const faqStructuredData = {
       name: "How can I integrate the Amazon Scraper API with my existing systems?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The API offers seamless integration with various platforms and tools. Use it with your existing data pipelines, CRM systems, BI tools, or AI models. Delivery via API, webhook, Amazon S3, Google Cloud Storage, Snowflake, and more.",
+        text: "The Amazon Scraper API offers seamless integration with various platforms and tools. Use it with your existing data pipelines, CRM systems, BI tools, or AI models. Delivery via API, webhook, Amazon S3, Google Cloud Storage, Snowflake, and more.",
       },
     },
     {
@@ -69,7 +69,7 @@ const faqStructuredData = {
       name: "Is there a free tier available for the Amazon Scraper API?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Every Bright Data account includes 5,000 free records per month — no credit card required, no promo code. Credits renew on the 1st of each month, and you can start making API calls immediately after signing up.",
+        text: "Yes. Every Bright Data account includes 5,000 free records per month — no credit card required. Credits renew on the 1st of each month, and you can start making API calls immediately after signing up.",
       },
     },
     {
@@ -77,7 +77,7 @@ const faqStructuredData = {
       name: "What happens when my free credits run out?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "If you have pre-deposited funds, usage continues seamlessly at standard PAYG rates ($1.50/1K records). If not, requests return an error until you add funds or credits renew on the 1st of the following month. Enable auto-recharge at brightdata.com/cp/billing/settings to avoid interruptions.",
+        text: "If you have pre-deposited funds, usage continues seamlessly at standard PAYG rates ($1.50/1K records). If not, requests return an error until you add funds or credits renew on the 1st of the following month. Enable auto-recharge at brightdata.com/cp/billing/settings.",
       },
     },
     {
@@ -93,7 +93,7 @@ const faqStructuredData = {
       name: "Do you provide support for the Amazon Scraper API?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Bright Data offers 24/7 dedicated support via chat, email, and phone. The team is available to help with any questions or issues you encounter.",
+        text: "Yes, Bright Data offers 24/7 dedicated support. The support team is available to help with any questions or issues via chat, email, or phone.",
       },
     },
     {
@@ -101,7 +101,7 @@ const faqStructuredData = {
       name: "What delivery methods are available?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Amazon S3, Google Cloud Storage, Google PubSub, Microsoft Azure Storage, Snowflake, SFTP, webhook, and direct API response.",
+        text: "Amazon S3, Google Cloud Storage, Google PubSub, Microsoft Azure Storage, Snowflake, and SFTP.",
       },
     },
     {
