@@ -1370,11 +1370,11 @@ export default function ScraperPage() {
                   <span className="font-semibold text-bd-ink">4.6</span>
                   <span>on Trustpilot</span>
                 </div>
-                <span>34.6K+ data deliveries</span>
-                <span>5.7K+ active users</span>
+                <span><span className="font-semibold text-bd-ink">34.6K+</span> data deliveries</span>
+                <span><span className="font-semibold text-bd-ink">5.7K+</span> active users</span>
                 <span className="text-bd-success font-medium">98.4% success rate</span>
-                <span className="flex items-center gap-1.5">
-                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-bd-blue" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13.25 8.5V5a1 1 0 00-1-1h-2.5m-6 0H2.75a1 1 0 00-1 1v7a1 1 0 001 1h4.5M5 4V2.5M9.75 4V2.5M3.75 7h8.5m-2.5 5.5l1.5 1.5 3-3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <span className="flex items-center gap-1.5 text-bd-success font-medium">
+                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13.25 8.5V5a1 1 0 00-1-1h-2.5m-6 0H2.75a1 1 0 00-1 1v7a1 1 0 001 1h4.5M5 4V2.5M9.75 4V2.5M3.75 7h8.5m-2.5 5.5l1.5 1.5 3-3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   Last verified: Jul 2026
                 </span>
                 <span className="flex items-center gap-1.5">
@@ -1395,14 +1395,14 @@ export default function ScraperPage() {
                 <div className="logo-marquee flex w-max items-center gap-10">
                   {[...Array(2)].map((_, i) => (
                     <div key={i} className="flex shrink-0 items-center gap-10">
-                      <span className="whitespace-nowrap text-[15px] font-bold tracking-tight text-bd-muted/60">McDonald&apos;s</span>
-                      <span className="whitespace-nowrap text-[15px] font-bold tracking-tight text-bd-muted/60">Moody&apos;s</span>
-                      <span className="whitespace-nowrap text-[16px] font-extrabold tracking-tight text-bd-muted/60">NBCUniversal</span>
-                      <span className="whitespace-nowrap text-[16px] font-bold tracking-[0.12em] uppercase text-bd-muted/60">Nokia</span>
-                      <span className="whitespace-nowrap text-[13px] font-semibold text-bd-muted/60">University of Oxford</span>
-                      <span className="whitespace-nowrap text-[15px] font-bold text-bd-muted/60">Pfizer</span>
-                      <span className="whitespace-nowrap text-[15px] font-bold text-bd-muted/60">Shopee</span>
-                      <span className="whitespace-nowrap text-[15px] font-bold text-bd-muted/60">Taboola</span>
+                      <span className="whitespace-nowrap text-[15px] font-bold tracking-tight text-bd-muted/70">McDonald&apos;s</span>
+                      <span className="whitespace-nowrap text-[15px] font-bold tracking-tight text-bd-muted/70">Moody&apos;s</span>
+                      <span className="whitespace-nowrap text-[16px] font-extrabold tracking-tight text-bd-muted/70">NBCUniversal</span>
+                      <span className="whitespace-nowrap text-[16px] font-bold tracking-[0.12em] uppercase text-bd-muted/70">Nokia</span>
+                      <span className="whitespace-nowrap text-[13px] font-semibold text-bd-muted/70">University of Oxford</span>
+                      <span className="whitespace-nowrap text-[15px] font-bold text-bd-muted/70">Pfizer</span>
+                      <span className="whitespace-nowrap text-[15px] font-bold text-bd-muted/70">Shopee</span>
+                      <span className="whitespace-nowrap text-[15px] font-bold text-bd-muted/70">Taboola</span>
                     </div>
                   ))}
                 </div>
@@ -2898,7 +2898,7 @@ for p in products:
           </div>
 
           {/* ===== SIDEBAR ===== */}
-          <aside className="animate-rise-delay space-y-4 lg:sticky lg:top-[4.5rem] lg:max-h-[calc(100vh-5.5rem)] lg:overflow-y-auto lg:self-start lg:pr-1">
+          <aside className="animate-rise-delay space-y-4 lg:sticky lg:top-[4.5rem] lg:self-start">
             <div className="overflow-hidden rounded-2xl border border-bd-blue/30 bg-gradient-to-br from-bd-blue-soft via-bd-panel to-bd-panel shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
               {/* Free tier banner */}
               <div className="bg-gradient-to-r from-bd-blue to-[#5a9aff] px-5 py-4">
