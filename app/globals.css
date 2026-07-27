@@ -98,6 +98,23 @@ body {
   }
 }
 
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.logo-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.logo-marquee:hover {
+  animation-play-state: paused;
+}
+
 .animate-rise {
   animation: rise-in 0.55s ease-out both;
 }
