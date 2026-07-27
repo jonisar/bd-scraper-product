@@ -42,7 +42,7 @@ const faqStructuredData = {
     },
     {
       "@type": "Question",
-      name: "Is it legal to scrape Amazon?",
+      name: "Is it legal to use an Amazon scraper?",
       acceptedAnswer: {
         "@type": "Answer",
         text: "Bright Data only collects publicly available data. All scraping is performed in compliance with GDPR, CCPA, and SEC regulations. A dedicated compliance team ensures ethical data collection practices.",
@@ -50,7 +50,7 @@ const faqStructuredData = {
     },
     {
       "@type": "Question",
-      name: "What delivery methods are available?",
+      name: "What Amazon scraper delivery methods are available?",
       acceptedAnswer: {
         "@type": "Answer",
         text: "Results can be delivered via API response, webhook, Amazon S3, Google Cloud Storage, Google PubSub, Microsoft Azure Storage, Snowflake, and SFTP. Supported formats include JSON, NDJSON, CSV, and .gz (compressed).",
@@ -58,7 +58,7 @@ const faqStructuredData = {
     },
     {
       "@type": "Question",
-      name: "What data can I extract from Amazon?",
+      name: "What data can an Amazon scraper extract?",
       acceptedAnswer: {
         "@type": "Answer",
         text: "You can extract product titles, prices, ASINs, brands, seller info, stock availability, review counts, star ratings, category paths, product images, features, and delivery estimates.",

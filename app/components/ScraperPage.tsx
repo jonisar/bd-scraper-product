@@ -1029,7 +1029,7 @@ function LiveTestPanel() {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold text-bd-navy">Live API Test</h2>
+        <h2 className="text-xl font-bold text-bd-navy">Test the Amazon Scraper API Live</h2>
         <p className="mt-1 text-sm text-bd-muted">
           See what the Amazon Product Scraper returns. Try a free sample instantly
           or use your API key for custom queries.
@@ -1349,6 +1349,18 @@ export default function ScraperPage() {
                 <p className="mt-2 text-[15px] leading-7 text-bd-muted">
                   Extract prices, reviews, stock levels &amp; seller data from any Amazon page via API
                 </p>
+                <a
+                  href={`https://brightdata.com/cp/scrapers/${DATASET_ID}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-2.5 inline-flex items-center gap-2 rounded-lg border border-bd-line bg-bd-canvas/70 px-3 py-1.5 text-xs transition hover:border-bd-blue-light hover:bg-bd-blue-soft/40"
+                >
+                  <span className="text-bd-muted">Dataset ID</span>
+                  <code className="font-mono font-semibold text-bd-blue">{DATASET_ID}</code>
+                  <svg className="h-3 w-3 text-bd-muted" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-4.5-4.5h6m0 0v6m0-6L13.5 16.5" />
+                  </svg>
+                </a>
                 <p className="mt-3 text-[15px] leading-7 text-bd-ink/85">{DESCRIPTION}</p>
               </div>
 
@@ -1457,7 +1469,7 @@ export default function ScraperPage() {
                         <div className="space-y-4">
                           <div className="flex flex-wrap items-center justify-between gap-3">
                             <h2 className="text-lg font-bold text-bd-navy">
-                              {apiLang} example
+                              Amazon Scraper API — {apiLang} Example
                             </h2>
                             <SyncAsyncToggle mode={apiMode} onChange={setApiMode} />
                           </div>
@@ -1500,7 +1512,7 @@ export default function ScraperPage() {
                       {apiLang === "MCP" ? (
                         <div className="space-y-4">
                           <h2 className="text-lg font-bold text-bd-navy">
-                            MCP server configuration
+                            Amazon Scraper MCP Server Configuration
                           </h2>
                           <p className="text-sm leading-6 text-bd-muted">
                             Connect Bright Data scrapers to AI agents via Model Context Protocol.
@@ -1524,7 +1536,7 @@ export default function ScraperPage() {
                       {apiLang === "OpenAPI" ? (
                         <div className="space-y-4">
                           <h2 className="text-lg font-bold text-bd-navy">
-                            OpenAPI specification
+                            Amazon Scraper OpenAPI Specification
                           </h2>
                           <p className="text-sm leading-6 text-bd-muted">
                             Import this spec into Postman, Swagger UI, or your code generator.
@@ -1541,7 +1553,7 @@ export default function ScraperPage() {
                   <article className="space-y-6 text-[15px] leading-7 text-bd-ink/90">
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        What is Amazon Product Scraper?
+                        What Is the Amazon Scraper?
                       </h2>
                       <p className="mt-2">
                         Amazon Product Scraper is a pre-built, managed web scraping tool from
@@ -1557,7 +1569,7 @@ export default function ScraperPage() {
 
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        How does it work?
+                        How Does the Amazon Scraper Work?
                       </h2>
                       <ol className="mt-2 list-decimal space-y-2 pl-5">
                         <li>
@@ -1596,7 +1608,7 @@ export default function ScraperPage() {
 
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        What&apos;s included in every request
+                        What&apos;s Included in Every Amazon Scraper Request
                       </h2>
                       <p className="mt-2">
                         Every API call is backed by Bright Data&apos;s full infrastructure — no extra
@@ -1624,7 +1636,7 @@ export default function ScraperPage() {
 
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        Delivery methods
+                        Amazon Scraper Delivery Methods
                       </h2>
                       <p className="mt-2">
                         Get results via API response, or deliver directly to your storage:
@@ -1641,7 +1653,7 @@ export default function ScraperPage() {
 
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        Why scrape Amazon products?
+                        Why Use an Amazon Scraper?
                       </h2>
                       <ul className="mt-2 list-none space-y-2">
                         <li>
@@ -1676,7 +1688,7 @@ export default function ScraperPage() {
 
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        How much does it cost?
+                        Amazon Scraper Pricing
                       </h2>
                       <p className="mt-2">
                         Pay-as-you-go starts at $1.50 per 1,000 records — you only pay for
@@ -1698,7 +1710,7 @@ export default function ScraperPage() {
 
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        Is it legal to scrape Amazon?
+                        Is It Legal to Scrape Amazon?
                       </h2>
                       <p className="mt-2">
                         Bright Data only collects publicly available data. All scraping is performed
@@ -1720,7 +1732,7 @@ export default function ScraperPage() {
 
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        More Amazon scrapers
+                        More Amazon Scraper Tools
                       </h2>
                       <p className="mt-2">
                         Bright Data offers specialized scrapers for different Amazon data types:
@@ -1760,7 +1772,7 @@ export default function ScraperPage() {
                 {/* ===== INPUT TAB ===== */}
                 {mainTab === "Input" ? (
                   <div className="space-y-5">
-                    <h2 className="text-xl font-bold text-bd-navy">Input configuration</h2>
+                    <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Input Configuration</h2>
                     <p className="text-[15px] leading-7 text-bd-ink/85">
                       The request body is a JSON array of input objects. Each object must contain at
                       minimum a <code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">url</code> field.
@@ -1805,7 +1817,7 @@ export default function ScraperPage() {
                       </table>
                     </div>
 
-                    <h3 className="text-base font-bold text-bd-navy">Query parameters</h3>
+                    <h3 className="text-base font-bold text-bd-navy">Amazon Scraper API Query Parameters</h3>
                     <div className="overflow-x-auto rounded-xl border border-bd-line">
                       <table className="w-full text-sm">
                         <thead>
@@ -1839,7 +1851,7 @@ export default function ScraperPage() {
                       </table>
                     </div>
 
-                    <h3 className="text-base font-bold text-bd-navy">Example request body</h3>
+                    <h3 className="text-base font-bold text-bd-navy">Amazon Scraper Example Request Body</h3>
                     <CodeBlock
                       code={`[
   {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
@@ -1854,14 +1866,14 @@ export default function ScraperPage() {
                 {/* ===== OUTPUT TAB ===== */}
                 {mainTab === "Output" ? (
                   <div className="space-y-5">
-                    <h2 className="text-xl font-bold text-bd-navy">Sample output</h2>
+                    <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Sample Output</h2>
                     <p className="text-[15px] leading-7 text-bd-ink/85">
                       Each successfully scraped product returns a JSON object with the following
                       fields. All data can be exported as JSON, CSV, or NDJSON.
                     </p>
                     <CodeBlock code={SAMPLE_OUTPUT} label="json" />
 
-                    <h3 className="text-base font-bold text-bd-navy">Output fields</h3>
+                    <h3 className="text-base font-bold text-bd-navy">Amazon Scraper Output Fields</h3>
                     <div className="overflow-x-auto rounded-xl border border-bd-line">
                       <table className="w-full text-sm">
                         <thead>
@@ -1908,7 +1920,7 @@ export default function ScraperPage() {
                 {/* ===== ISSUES TAB ===== */}
                 {mainTab === "Issues" ? (
                   <div className="space-y-3">
-                    <h2 className="text-xl font-bold text-bd-navy">Feedback & support</h2>
+                    <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Feedback & Support</h2>
                     <p className="text-[15px] leading-7 text-bd-ink/85">
                       We&apos;re always working on improving scraper performance and data quality. If
                       you encounter issues or have feature requests:
@@ -1958,7 +1970,7 @@ export default function ScraperPage() {
                   <div className="space-y-6">
                     <div>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        Connect your AI agent to this scraper
+                        Connect Your AI Agent to the Amazon Scraper
                       </h2>
                       <p className="mt-2 text-[15px] leading-7 text-bd-ink/85">
                         Give any AI agent — GPT, Claude, Gemini, or your own — the ability to
@@ -1989,7 +2001,7 @@ export default function ScraperPage() {
                       <div className="space-y-4">
                         <div>
                           <h3 className="text-lg font-bold text-bd-navy">
-                            Ready-made prompt for your agent
+                            Amazon Scraper Prompt for Your Agent
                           </h3>
                           <p className="mt-1 text-sm leading-6 text-bd-muted">
                             Copy and hand this to Claude Code, Cursor, Codex, or any coding agent.
@@ -2005,7 +2017,7 @@ export default function ScraperPage() {
                       <div className="space-y-4">
                         <div>
                           <h3 className="text-lg font-bold text-bd-navy">
-                            Model Context Protocol (MCP)
+                            Amazon Scraper via MCP (Model Context Protocol)
                           </h3>
                           <p className="mt-1 text-sm leading-6 text-bd-muted">
                             The fastest way to connect. Works with Claude Desktop, Cursor, VS Code,
@@ -2056,7 +2068,7 @@ export default function ScraperPage() {
                       <div className="space-y-4">
                         <div>
                           <h3 className="text-lg font-bold text-bd-navy">
-                            OpenAI SDK (GPT-4o / o-series)
+                            Amazon Scraper with OpenAI SDK
                           </h3>
                           <p className="mt-1 text-sm leading-6 text-bd-muted">
                             Connect GPT-4o and o-series models to Bright Data via the built-in MCP
@@ -2073,7 +2085,7 @@ export default function ScraperPage() {
                       <div className="space-y-4">
                         <div>
                           <h3 className="text-lg font-bold text-bd-navy">
-                            LangChain / LangGraph
+                            Amazon Scraper with LangChain / LangGraph
                           </h3>
                           <p className="mt-1 text-sm leading-6 text-bd-muted">
                             Use the official <code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">langchain-brightdata</code> package
@@ -2090,7 +2102,7 @@ export default function ScraperPage() {
                       <div className="space-y-4">
                         <div>
                           <h3 className="text-lg font-bold text-bd-navy">
-                            CrewAI
+                            Amazon Scraper with CrewAI
                           </h3>
                           <p className="mt-1 text-sm leading-6 text-bd-muted">
                             Build multi-agent workflows with <code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">BrightDataDatasetTool</code>.
@@ -2116,7 +2128,7 @@ export default function ScraperPage() {
                       <div className="space-y-4">
                         <div>
                           <h3 className="text-lg font-bold text-bd-navy">
-                            Direct REST API (any framework)
+                            Amazon Scraper REST API Integration
                           </h3>
                           <p className="mt-1 text-sm leading-6 text-bd-muted">
                             Wrap this function as a tool in any agent framework — AutoGen, Semantic
@@ -2167,7 +2179,7 @@ export default function ScraperPage() {
                   <div className="space-y-6">
                     <div>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        Scraper Studio — AI-powered scraper editor
+                        Edit the Amazon Scraper with AI
                       </h2>
                       <p className="mt-2 text-[15px] leading-7 text-bd-ink/85">
                         Customize this scraper or build an entirely new one using natural language.
