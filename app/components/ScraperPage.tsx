@@ -1421,7 +1421,7 @@ export default function ScraperPage() {
                       className={`relative whitespace-nowrap rounded-t-lg px-2.5 py-2 text-[13px] font-semibold transition sm:px-3.5 sm:py-2.5 sm:text-sm ${
                         mainTab === tab
                           ? "text-bd-blue"
-                          : "text-bd-muted hover:text-bd-ink"
+                          : "text-bd-ink/70 hover:text-bd-navy"
                       }`}
                     >
                       <span className="flex items-center gap-1">
