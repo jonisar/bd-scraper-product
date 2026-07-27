@@ -518,7 +518,7 @@ function CopyButton({ text }: { text: string }) {
 
 function CodeBlock({ code, label }: { code: string; label: string }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(11,31,58,0.22)]">
+    <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
       <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
         <span className="font-mono text-xs text-white/55">{label}</span>
         <CopyButton text={code} />
@@ -546,7 +546,7 @@ function SyncAsyncToggle({
           onClick={() => onChange(m)}
           className={`rounded-md px-2.5 py-1.5 text-xs font-semibold transition sm:px-3 ${
             mode === m
-              ? "bg-white text-bd-navy shadow-sm"
+              ? "bg-bd-blue-soft text-bd-navy shadow-sm border border-bd-line"
               : "text-bd-muted hover:text-bd-ink"
           }`}
         >
@@ -692,7 +692,7 @@ function RelatedScrapersCarousel() {
       type="button"
       onClick={() => scroll(dir)}
       aria-label={`Scroll ${dir}`}
-      className={`absolute top-1/2 z-10 -translate-y-1/2 rounded-full border border-bd-line bg-white/95 p-2.5 shadow-lg backdrop-blur transition-all hover:border-bd-blue-light hover:shadow-bd-blue/15 ${
+      className={`absolute top-1/2 z-10 -translate-y-1/2 rounded-full border border-bd-line bg-bd-panel/95 p-2.5 shadow-lg backdrop-blur transition-all hover:border-bd-blue-light hover:shadow-bd-blue/15 ${
         dir === "left" ? "left-0 -translate-x-1/2" : "right-0 translate-x-1/2"
       } ${show ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
     >
@@ -708,7 +708,7 @@ function RelatedScrapersCarousel() {
     <section className="mx-auto max-w-7xl px-4 pb-10 pt-2 sm:px-6">
       <div className="flex items-end justify-between">
         <div>
-          <h2 className="text-xl font-bold text-bd-navy">More Scrapers You Might Need</h2>
+          <h2 className="text-xl font-bold text-bd-navy">More Scrapers you can use</h2>
           <p className="mt-1 text-sm text-bd-muted">Related scrapers from the Bright Data library</p>
         </div>
         <div className="hidden items-center gap-1.5 sm:flex">
@@ -716,7 +716,7 @@ function RelatedScrapersCarousel() {
             type="button"
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
-            className="rounded-full border border-bd-line bg-white p-2 transition hover:border-bd-blue-light disabled:opacity-30"
+            className="rounded-full border border-bd-line bg-bd-panel p-2 transition hover:border-bd-blue-light disabled:opacity-30"
           >
             <svg className="h-4 w-4 text-bd-navy" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -726,7 +726,7 @@ function RelatedScrapersCarousel() {
             type="button"
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
-            className="rounded-full border border-bd-line bg-white p-2 transition hover:border-bd-blue-light disabled:opacity-30"
+            className="rounded-full border border-bd-line bg-bd-panel p-2 transition hover:border-bd-blue-light disabled:opacity-30"
           >
             <svg className="h-4 w-4 text-bd-navy" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -737,8 +737,8 @@ function RelatedScrapersCarousel() {
 
       <div className="relative mt-5">
         {/* Fade edges */}
-        <div className={`pointer-events-none absolute inset-y-0 left-0 z-[5] w-12 bg-gradient-to-r from-[#f4f7fb] to-transparent transition-opacity duration-200 ${canScrollLeft ? "opacity-100" : "opacity-0"}`} />
-        <div className={`pointer-events-none absolute inset-y-0 right-0 z-[5] w-12 bg-gradient-to-l from-[#f4f7fb] to-transparent transition-opacity duration-200 ${canScrollRight ? "opacity-100" : "opacity-0"}`} />
+        <div className={`pointer-events-none absolute inset-y-0 left-0 z-[5] w-12 bg-gradient-to-r from-black to-transparent transition-opacity duration-200 ${canScrollLeft ? "opacity-100" : "opacity-0"}`} />
+        <div className={`pointer-events-none absolute inset-y-0 right-0 z-[5] w-12 bg-gradient-to-l from-black to-transparent transition-opacity duration-200 ${canScrollRight ? "opacity-100" : "opacity-0"}`} />
 
         {/* Floating arrows on mobile */}
         <div className="sm:hidden">
@@ -756,7 +756,7 @@ function RelatedScrapersCarousel() {
               href={s.href}
               target="_blank"
               rel="noreferrer"
-              className="group flex w-[290px] shrink-0 flex-col rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_4px_16px_rgba(15,34,58,0.04)] transition hover:border-bd-blue-light hover:shadow-[0_8px_24px_rgba(61,127,252,0.1)]"
+              className="group flex w-[290px] shrink-0 flex-col rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_4px_16px_rgba(0,0,0,0.2)] transition hover:border-bd-blue-light hover:shadow-[0_8px_24px_rgba(61,127,252,0.15)]"
             >
               <div className="mb-3 flex items-center gap-2">
                 <span className="text-lg">{s.emoji}</span>
@@ -1043,7 +1043,7 @@ function LiveTestPanel() {
           onClick={() => { setMode("free"); setStatus("idle"); setResult(""); }}
           className={`rounded-md px-3.5 py-2 text-sm font-semibold transition ${
             mode === "free"
-              ? "bg-white text-bd-navy shadow-sm"
+              ? "bg-bd-blue-soft text-bd-navy shadow-sm border border-bd-line"
               : "text-bd-muted hover:text-bd-ink"
           }`}
         >
@@ -1054,7 +1054,7 @@ function LiveTestPanel() {
           onClick={() => { setMode("apikey"); setStatus("idle"); setResult(""); }}
           className={`rounded-md px-3.5 py-2 text-sm font-semibold transition ${
             mode === "apikey"
-              ? "bg-white text-bd-navy shadow-sm"
+              ? "bg-bd-blue-soft text-bd-navy shadow-sm border border-bd-line"
               : "text-bd-muted hover:text-bd-ink"
           }`}
         >
@@ -1065,7 +1065,7 @@ function LiveTestPanel() {
       {mode === "free" ? (
         <>
           {/* Free sample UI */}
-          <div className="rounded-xl border border-bd-blue-light/50 bg-gradient-to-r from-bd-blue-soft/40 to-white p-4">
+          <div className="rounded-xl border border-bd-blue/30 bg-gradient-to-r from-bd-blue-soft to-bd-panel p-4">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm font-semibold text-bd-navy">
@@ -1121,7 +1121,7 @@ function LiveTestPanel() {
               placeholder="Enter your Bright Data API key"
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
-              className="mt-1.5 w-full rounded-lg border border-bd-line bg-white px-3.5 py-2.5 font-mono text-sm text-bd-ink placeholder:text-bd-muted/50 focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
+              className="mt-1.5 w-full rounded-lg border border-bd-line bg-bd-canvas px-3.5 py-2.5 font-mono text-sm text-bd-ink placeholder:text-bd-muted/50 focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
             />
             <p className="mt-1 text-xs text-bd-muted">
               Get your key at{" "}
@@ -1145,7 +1145,7 @@ function LiveTestPanel() {
               rows={3}
               value={urls}
               onChange={(e) => setUrls(e.target.value)}
-              className="mt-1.5 w-full rounded-lg border border-bd-line bg-white px-3.5 py-2.5 font-mono text-sm text-bd-ink placeholder:text-bd-muted/50 focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
+              className="mt-1.5 w-full rounded-lg border border-bd-line bg-bd-canvas px-3.5 py-2.5 font-mono text-sm text-bd-ink placeholder:text-bd-muted/50 focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
               placeholder="https://www.amazon.com/dp/B09X7MPX8L"
             />
           </div>
@@ -1159,7 +1159,7 @@ function LiveTestPanel() {
                 id="lt-format"
                 value={format}
                 onChange={(e) => setFormat(e.target.value as "json" | "csv" | "ndjson")}
-                className="mt-1.5 rounded-lg border border-bd-line bg-white px-3 py-2.5 text-sm text-bd-ink focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
+                className="mt-1.5 rounded-lg border border-bd-line bg-bd-canvas px-3 py-2.5 text-sm text-bd-ink focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
               >
                 <option value="json">JSON</option>
                 <option value="csv">CSV</option>
@@ -1193,10 +1193,10 @@ function LiveTestPanel() {
         <div
           className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium ${
             status === "running"
-              ? "border border-bd-blue-light/50 bg-bd-blue-soft/40 text-bd-blue"
+              ? "border border-bd-blue/30 bg-bd-blue-soft text-bd-blue"
               : status === "done"
-                ? "border border-green-200 bg-green-50 text-green-700"
-                : "border border-red-200 bg-red-50 text-red-700"
+                ? "border border-green-800 bg-green-950/50 text-green-400"
+                : "border border-red-800 bg-red-950/50 text-red-400"
           }`}
         >
           {status === "running" ? "⏳" : status === "done" ? "✅" : "❌"}
@@ -1212,7 +1212,7 @@ function LiveTestPanel() {
 
       {/* Result */}
       {result ? (
-        <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(11,31,58,0.22)]">
+        <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
             <span className="font-mono text-xs text-white/55">
               {status === "done" ? (mode === "free" ? "sample response — 5 records" : "response") : "error"}
@@ -1234,7 +1234,7 @@ function LiveTestPanel() {
               <>Free samples show real data structure with 5 product records. No API key or sign-up needed. For live custom queries, switch to &quot;With API key&quot;.</>
             ) : (
               <>Your API key is sent directly from your browser to{" "}
-              <code className="rounded bg-white/60 px-1 py-0.5 font-mono text-xs text-bd-ink">api.brightdata.com</code>.
+              <code className="rounded bg-bd-panel px-1 py-0.5 font-mono text-xs text-bd-ink">api.brightdata.com</code>.
               It is never stored or sent to any other server.</>
             )}
           </p>
@@ -1262,9 +1262,9 @@ export default function ScraperPage() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-bd-line/80 bg-white/80 backdrop-blur-md">
+      <header className="sticky top-0 z-40 border-b border-bd-line/60 bg-[#000000e6] backdrop-blur-lg">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
           <div className="flex items-center gap-8">
             <a href="/" className="flex items-center gap-2.5">
@@ -1276,31 +1276,31 @@ export default function ScraperPage() {
               </span>
             </a>
             <nav className="hidden items-center gap-5 text-sm text-bd-muted md:flex">
-              <a href="https://brightdata.com/cp/scrapers/browse" className="transition hover:text-bd-ink" target="_blank" rel="noreferrer">Scraper Library</a>
-              <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-ink" target="_blank" rel="noreferrer">
-                <span className="flex items-center gap-1">AI Scraper Studio<span className="rounded bg-bd-blue/10 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">New</span></span>
+              <a href="https://brightdata.com/cp/scrapers/browse" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Scraper Library</a>
+              <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
+                <span className="flex items-center gap-1">AI Scraper Studio<span className="rounded bg-bd-blue/15 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">New</span></span>
               </a>
-              <a href="https://docs.brightdata.com/" className="transition hover:text-bd-ink" target="_blank" rel="noreferrer">Docs</a>
-              <a href="https://brightdata.com/pricing" className="transition hover:text-bd-ink" target="_blank" rel="noreferrer">Pricing</a>
+              <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Docs</a>
+              <a href="https://brightdata.com/pricing" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Pricing</a>
             </nav>
           </div>
           <div className="flex items-center gap-2">
             <a
               href="https://brightdata.com/cp"
-              className="hidden rounded-lg px-3 py-1.5 text-sm font-medium text-bd-ink transition hover:bg-bd-blue-soft sm:inline-flex"
+              className="hidden rounded-lg px-3 py-1.5 text-sm font-medium text-bd-muted transition hover:text-bd-navy hover:bg-bd-blue-soft sm:inline-flex"
             >
               Log in
             </a>
             <a
               href="https://brightdata.com/cp/start"
-              className="rounded-lg bg-bd-blue px-3.5 py-1.5 text-sm font-semibold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-105"
+              className="rounded-lg bg-bd-blue px-3.5 py-1.5 text-sm font-semibold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110"
             >
               Start free trial
             </a>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="ml-1 grid h-9 w-9 place-items-center rounded-lg text-bd-muted transition hover:bg-bd-canvas md:hidden"
+              className="ml-1 grid h-9 w-9 place-items-center rounded-lg text-bd-muted transition hover:bg-bd-panel md:hidden"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
@@ -1313,15 +1313,15 @@ export default function ScraperPage() {
         </div>
         {/* Mobile nav drawer */}
         {mobileMenuOpen ? (
-          <nav className="border-t border-bd-line bg-white px-4 pb-4 pt-3 md:hidden">
+          <nav className="border-t border-bd-line bg-bd-panel px-4 pb-4 pt-3 md:hidden">
             <div className="flex flex-col gap-3 text-sm font-medium text-bd-muted">
-              <a href="https://brightdata.com/cp/scrapers/browse" className="transition hover:text-bd-ink" target="_blank" rel="noreferrer">Scraper Library</a>
-              <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-ink" target="_blank" rel="noreferrer">
-                <span className="flex items-center gap-1.5">AI Scraper Studio<span className="rounded bg-bd-blue/10 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">New</span></span>
+              <a href="https://brightdata.com/cp/scrapers/browse" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Scraper Library</a>
+              <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
+                <span className="flex items-center gap-1.5">AI Scraper Studio<span className="rounded bg-bd-blue/15 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">New</span></span>
               </a>
-              <a href="https://docs.brightdata.com/" className="transition hover:text-bd-ink" target="_blank" rel="noreferrer">Docs</a>
-              <a href="https://brightdata.com/pricing" className="transition hover:text-bd-ink" target="_blank" rel="noreferrer">Pricing</a>
-              <a href="https://brightdata.com/cp" className="transition hover:text-bd-ink" target="_blank" rel="noreferrer">Log in</a>
+              <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Docs</a>
+              <a href="https://brightdata.com/pricing" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Pricing</a>
+              <a href="https://brightdata.com/cp" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Log in</a>
             </div>
           </nav>
         ) : null}
@@ -1330,10 +1330,10 @@ export default function ScraperPage() {
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:py-10">
         {/* Breadcrumb */}
         <div className="animate-rise mb-6 text-sm text-bd-muted">
-          <a href="https://brightdata.com/cp/scrapers/browse" className="hover:text-bd-ink" target="_blank" rel="noreferrer">Scraper Library</a>
-          <span className="mx-2 text-bd-line">/</span>
-          <a href="https://brightdata.com/products/web-scraper/amazon" className="hover:text-bd-ink" target="_blank" rel="noreferrer">Amazon</a>
-          <span className="mx-2 text-bd-line">/</span>
+          <a href="https://brightdata.com/cp/scrapers/browse" className="hover:text-bd-navy" target="_blank" rel="noreferrer">Scraper Library</a>
+          <span className="mx-2 text-bd-muted/50">/</span>
+          <a href="https://brightdata.com/products/web-scraper/amazon" className="hover:text-bd-navy" target="_blank" rel="noreferrer">Amazon</a>
+          <span className="mx-2 text-bd-muted/50">/</span>
           <span className="font-medium text-bd-blue">Amazon Product Scraper</span>
         </div>
 
@@ -1341,7 +1341,7 @@ export default function ScraperPage() {
           {/* Main content */}
           <div className="min-w-0">
             {/* Hero card */}
-            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(15,34,58,0.05)] sm:p-7">
+            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_40px_rgba(0,0,0,0.3)] sm:p-7">
               <div className="max-w-3xl">
                 <h1 className="text-3xl font-extrabold tracking-tight text-bd-navy sm:text-4xl">
                   Amazon Product Scraper
@@ -1353,7 +1353,7 @@ export default function ScraperPage() {
                   href={`https://brightdata.com/cp/scrapers/${DATASET_ID}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-2.5 inline-flex items-center gap-2 rounded-lg border border-bd-line bg-bd-canvas/70 px-3 py-1.5 text-xs transition hover:border-bd-blue-light hover:bg-bd-blue-soft/40"
+                  className="mt-2.5 inline-flex items-center gap-2 rounded-lg border border-bd-line bg-bd-canvas px-3 py-1.5 text-xs transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
                 >
                   <span className="text-bd-muted">Dataset ID</span>
                   <code className="font-mono font-semibold text-bd-blue">{DATASET_ID}</code>
@@ -1361,7 +1361,7 @@ export default function ScraperPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-4.5-4.5h6m0 0v6m0-6L13.5 16.5" />
                   </svg>
                 </a>
-                <p className="mt-3 text-[15px] leading-7 text-bd-ink/85">{DESCRIPTION}</p>
+                <p className="mt-3 text-[15px] leading-7 text-bd-ink">{DESCRIPTION}</p>
               </div>
 
               <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2.5 border-t border-bd-line pt-4 text-sm text-bd-muted sm:flex sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-2">
@@ -1377,11 +1377,32 @@ export default function ScraperPage() {
                   <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-bd-blue" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13.25 8.5V5a1 1 0 00-1-1h-2.5m-6 0H2.75a1 1 0 00-1 1v7a1 1 0 001 1h4.5M5 4V2.5M9.75 4V2.5M3.75 7h8.5m-2.5 5.5l1.5 1.5 3-3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   Last verified: Jul 2026
                 </span>
+                <span className="flex items-center gap-1.5">
+                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-bd-success" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 1.5l1.5 1 1.75-.5.75 1.65 1.75.5v1.85l1.25 1.35-1.25 1.35v1.85l-1.75.5-.75 1.65-1.75-.5L8 14.5l-1.5-1-1.75.5-.75-1.65-1.75-.5V9.85L1 8.5l1.25-1.35V5.15l1.75-.5.75-1.65 1.75.5L8 1.5z" strokeLinecap="round" strokeLinejoin="round"/><path d="M5.75 8.5l1.5 1.5 3-3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  <span className="text-bd-success font-medium">GDPR & CCPA compliant</span>
+                </span>
+              </div>
+            </div>
+
+            {/* Trusted by strip */}
+            <div className="mt-5 rounded-2xl border border-bd-line bg-bd-panel px-5 py-5 sm:px-7 sm:py-6">
+              <p className="text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-bd-muted">
+                Trusted by 20,000+ customers worldwide
+              </p>
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 sm:gap-x-10">
+                <span className="text-[15px] font-bold tracking-tight text-bd-muted/60">McDonald&apos;s</span>
+                <span className="text-[15px] font-bold tracking-tight text-bd-muted/60">Moody&apos;s</span>
+                <span className="text-[16px] font-extrabold tracking-tight text-bd-muted/60">NBCUniversal</span>
+                <span className="text-[16px] font-bold tracking-[0.15em] uppercase text-bd-muted/60">Nokia</span>
+                <span className="text-[13px] font-semibold text-bd-muted/60">University of Oxford</span>
+                <span className="text-[15px] font-bold text-bd-muted/60">Pfizer</span>
+                <span className="text-[15px] font-bold text-bd-muted/60">Shopee</span>
+                <span className="text-[15px] font-bold text-bd-muted/60">Taboola</span>
               </div>
             </div>
 
             {/* Tabs */}
-            <div className="animate-rise-delay mt-5 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_30px_rgba(15,34,58,0.05)]">
+            <div className="animate-rise-delay mt-5 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
               <div className="relative">
                 <div className="tab-scroll flex gap-0.5 overflow-x-auto border-b border-bd-line px-1.5 pt-2 sm:gap-1 sm:px-4">
                   {mainTabs.map((tab) => (
@@ -1406,14 +1427,14 @@ export default function ScraperPage() {
                     </button>
                   ))}
                 </div>
-                <div className="pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-white to-transparent sm:hidden" />
+                <div className="pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-bd-panel to-transparent sm:hidden" />
               </div>
 
               <div className="p-5 sm:p-6">
                 {/* ===== API TAB ===== */}
                 {mainTab === "API" ? (
                   <div>
-                    <p className="text-[15px] leading-7 text-bd-ink/85">
+                    <p className="text-[15px] leading-7 text-bd-ink">
                       Run this scraper programmatically using Bright Data&apos;s REST API. Choose
                       synchronous for real-time results or asynchronous for bulk jobs.
                     </p>
@@ -1429,7 +1450,7 @@ export default function ScraperPage() {
                             <th className="px-4 py-2.5">Best for</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-bd-line text-bd-ink/85">
+                        <tbody className="divide-y divide-bd-line text-bd-ink">
                           <tr>
                             <td className="px-4 py-2.5 font-semibold text-bd-navy">Sync</td>
                             <td className="px-4 py-2.5"><code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">/datasets/v3/scrape</code></td>
@@ -1490,11 +1511,11 @@ export default function ScraperPage() {
                             label={apiLang === "cURL" ? "bash" : apiLang.toLowerCase()}
                           />
 
-                          <div className="flex items-start gap-2 rounded-lg border border-bd-blue-light/50 bg-bd-blue-soft/40 px-4 py-3">
+                          <div className="flex items-start gap-2 rounded-lg border border-bd-blue/30 bg-bd-blue-soft px-4 py-3">
                             <span className="mt-0.5 text-bd-blue">💡</span>
-                            <p className="text-sm leading-6 text-bd-ink/85">
+                            <p className="text-sm leading-6 text-bd-ink">
                               <strong>Authentication:</strong> Pass your API key as a Bearer token in the{" "}
-                              <code className="rounded bg-white/60 px-1 py-0.5 font-mono text-xs text-bd-blue">Authorization</code>{" "}
+                              <code className="rounded bg-bd-canvas px-1 py-0.5 font-mono text-xs text-bd-blue">Authorization</code>{" "}
                               header. Get your key at{" "}
                               <a
                                 href="https://brightdata.com/cp/setting/users"
@@ -1550,7 +1571,7 @@ export default function ScraperPage() {
 
                 {/* ===== INFORMATION TAB ===== */}
                 {mainTab === "Information" ? (
-                  <article className="space-y-8 text-[15px] leading-7 text-bd-ink/90">
+                  <article className="space-y-8 text-[15px] leading-7 text-bd-ink">
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
                         What Is the Amazon Scraper?
@@ -1565,6 +1586,70 @@ export default function ScraperPage() {
                         No need to manage proxies, solve CAPTCHAs, or handle JavaScript rendering.
                         Bright Data&apos;s infrastructure handles all of that automatically — you focus on the data.
                       </p>
+                    </section>
+
+                    <section>
+                      <h2 className="text-xl font-bold text-bd-navy">
+                        Frequently Asked Questions About the Amazon Scraper
+                      </h2>
+                      <div className="mt-3 divide-y divide-bd-line rounded-xl border border-bd-line">
+                        {[
+                          {
+                            q: "What is the Amazon Scraper API?",
+                            a: "The Amazon Scraper API is a powerful tool designed to automate data extraction from Amazon, allowing users to efficiently gather and process large volumes of data for various use cases.",
+                          },
+                          {
+                            q: "How does the Amazon Scraper API work?",
+                            a: "The Amazon Scraper API works by sending automated requests to Amazon, extracting the necessary data points, and delivering them in a structured format (JSON, CSV, or NDJSON). This process ensures accurate and quick data collection.",
+                          },
+                          {
+                            q: "Is the Amazon Scraper API compliant with data protection regulations?",
+                            a: "Yes, the Amazon Scraper API is designed to comply with data protection regulations, including GDPR and CCPA. It ensures that all data collection activities are performed ethically and legally.",
+                          },
+                          {
+                            q: "Can I use the Amazon Scraper API for competitive analysis?",
+                            a: "Absolutely. The Amazon Scraper API is ideal for competitive analysis, allowing you to gather insights into competitors' pricing, product selection, bestseller rankings, and strategies.",
+                          },
+                          {
+                            q: "How can I integrate the Amazon Scraper API with my existing systems?",
+                            a: "The Amazon Scraper API offers seamless integration with various platforms and tools. Use it with your existing data pipelines, CRM systems, BI tools, or AI models. Delivery via API, webhook, Amazon S3, Google Cloud Storage, Snowflake, and more.",
+                          },
+                          {
+                            q: "Is there a free tier available for the Amazon Scraper API?",
+                            a: "Yes. Every Bright Data account includes 5,000 free records per month — no credit card required. Credits renew on the 1st of each month, and you can start making API calls immediately after signing up.",
+                          },
+                          {
+                            q: "What happens when my free credits run out?",
+                            a: "If you have pre-deposited funds, usage continues seamlessly at standard PAYG rates ($1.50/1K records). If not, requests return an error until you add funds or credits renew on the 1st of the following month. Enable auto-recharge at brightdata.com/cp/billing/settings.",
+                          },
+                          {
+                            q: "What are the usage limits for the Amazon Scraper API?",
+                            a: "There are no specific usage limits. The API supports unlimited concurrency and bulk requests of up to 5,000 URLs, giving you the flexibility to scale as needed.",
+                          },
+                          {
+                            q: "Do you provide support for the Amazon Scraper API?",
+                            a: "Yes, Bright Data offers 24/7 dedicated support. The support team is available to help with any questions or issues via chat, email, or phone.",
+                          },
+                          {
+                            q: "What delivery methods are available?",
+                            a: "Amazon S3, Google Cloud Storage, Google PubSub, Microsoft Azure Storage, Snowflake, and SFTP.",
+                          },
+                          {
+                            q: "What file formats are available?",
+                            a: "JSON, NDJSON, JSON Lines, CSV, and .gz files (compressed).",
+                          },
+                        ].map((faq) => (
+                          <details key={faq.q} className="group px-4 py-3.5">
+                            <summary className="list-none flex items-center justify-between font-semibold text-bd-navy">
+                              {faq.q}
+                              <svg className="h-4 w-4 shrink-0 text-bd-muted transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                              </svg>
+                            </summary>
+                            <p className="mt-2 text-[13px] leading-6 text-bd-muted">{faq.a}</p>
+                          </details>
+                        ))}
+                      </div>
                     </section>
 
                     <section>
@@ -1610,74 +1695,10 @@ export default function ScraperPage() {
                             fields: "High-res image URLs, video availability, technical details, dimensions, weight",
                           },
                         ].map((g) => (
-                          <div key={g.cat} className="rounded-xl border border-bd-line bg-bd-canvas/50 px-4 py-3">
+                          <div key={g.cat} className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
                             <p className="text-sm font-bold text-bd-navy">{g.cat}</p>
                             <p className="mt-1 text-[13px] leading-5 text-bd-muted">{g.fields}</p>
                           </div>
-                        ))}
-                      </div>
-                    </section>
-
-                    <section>
-                      <h2 className="text-xl font-bold text-bd-navy">
-                        Amazon Scraper API — Frequently Asked Questions
-                      </h2>
-                      <div className="mt-3 divide-y divide-bd-line rounded-xl border border-bd-line">
-                        {[
-                          {
-                            q: "What is the Amazon Scraper API?",
-                            a: "The Amazon Scraper API is a powerful tool designed to automate data extraction from Amazon, allowing users to efficiently gather and process large volumes of product data — prices, reviews, BSR, seller info, and more — for various use cases.",
-                          },
-                          {
-                            q: "How does the Amazon Scraper API work?",
-                            a: "The Amazon Scraper API works by sending automated requests to Amazon, extracting the necessary data points, and delivering them in a structured format (JSON, CSV, or NDJSON). Bright Data handles proxy rotation, CAPTCHA solving, and JavaScript rendering automatically.",
-                          },
-                          {
-                            q: "Is the Amazon Scraper API compliant with data protection regulations?",
-                            a: "Yes. The Amazon Scraper API is designed to comply with data protection regulations, including GDPR and CCPA. It only collects publicly available data and ensures all data collection activities are performed ethically and legally.",
-                          },
-                          {
-                            q: "Can I use the Amazon Scraper API for competitive analysis?",
-                            a: "Absolutely. The Amazon Scraper API is ideal for competitive analysis — gather insights into competitors' pricing, product selection, bestseller rankings, seller strategies, and more.",
-                          },
-                          {
-                            q: "How can I integrate the Amazon Scraper API with my existing systems?",
-                            a: "The API offers seamless integration with various platforms and tools. Use it with your existing data pipelines, CRM systems, BI tools, or AI models. Delivery via API, webhook, Amazon S3, Google Cloud Storage, Snowflake, and more.",
-                          },
-                          {
-                            q: "Is there a free tier available?",
-                            a: "Yes. Every Bright Data account includes 5,000 free records per month — no credit card required, no promo code. Credits renew on the 1st of each month, and you can start making API calls immediately after signing up.",
-                          },
-                          {
-                            q: "What happens when my free credits run out?",
-                            a: "If you have pre-deposited funds, usage continues seamlessly at standard PAYG rates ($1.50/1K records). If not, requests return an error until you add funds or credits renew next month. Enable auto-recharge at brightdata.com/cp/billing/settings to avoid interruptions.",
-                          },
-                          {
-                            q: "What are the usage limits for the Amazon Scraper API?",
-                            a: "There are no specific usage limits. The API supports unlimited concurrency and bulk requests of up to 5,000 URLs, giving you the flexibility to scale as needed.",
-                          },
-                          {
-                            q: "Do you provide support?",
-                            a: "Yes. Bright Data offers 24/7 dedicated support via chat, email, and phone. The team is available to help with any questions or issues you encounter.",
-                          },
-                          {
-                            q: "What delivery methods are available?",
-                            a: "Amazon S3, Google Cloud Storage, Google PubSub, Microsoft Azure Storage, Snowflake, SFTP, webhook, and direct API response.",
-                          },
-                          {
-                            q: "What file formats are available?",
-                            a: "JSON, NDJSON, JSON Lines, CSV, and .gz files (compressed).",
-                          },
-                        ].map((faq) => (
-                          <details key={faq.q} className="group px-4 py-3.5">
-                            <summary className="flex items-center justify-between font-semibold text-bd-navy">
-                              {faq.q}
-                              <svg className="h-4 w-4 shrink-0 text-bd-muted transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                              </svg>
-                            </summary>
-                            <p className="mt-2 text-[13px] leading-6 text-bd-muted">{faq.a}</p>
-                          </details>
                         ))}
                       </div>
                     </section>
@@ -1703,9 +1724,9 @@ export default function ScraperPage() {
                           NDJSON — ready for your pipeline, database, or AI model.
                         </li>
                       </ol>
-                      <div className="mt-4 flex items-start gap-3 rounded-xl border border-bd-blue-light/50 bg-gradient-to-r from-bd-blue-soft/40 to-transparent px-4 py-3.5">
+                      <div className="mt-4 flex items-start gap-3 rounded-xl border border-bd-blue/30 bg-gradient-to-r from-bd-blue-soft to-transparent px-4 py-3.5">
                         <span className="mt-0.5 text-lg leading-none">✨</span>
-                        <p className="text-sm leading-6 text-bd-ink/85">
+                        <p className="text-sm leading-6 text-bd-ink">
                           <strong>Need something different?</strong> Open this scraper in{" "}
                           <a
                             href="https://brightdata.com/products/web-scraper/studio"
@@ -1723,6 +1744,68 @@ export default function ScraperPage() {
 
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
+                        Available Amazon Scrapers
+                      </h2>
+                      <p className="mt-2">
+                        Bright Data offers a family of specialized Amazon scrapers, each optimized for a
+                        specific data type or input method:
+                      </p>
+                      <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+                        {[
+                          "Amazon Products (by URL)",
+                          "Amazon Products by Best Sellers Category",
+                          "Amazon Products by Category URL",
+                          "Amazon Products by Keywords",
+                          "Amazon Products by UPC",
+                          "Amazon Reviews",
+                          "Amazon Sellers Info",
+                          "Amazon Products Global Dataset",
+                          "Amazon Global by Category URL",
+                          "Amazon Global by Keyword Search",
+                          "Amazon Global by Best Sellers",
+                          "Amazon Global by Seller URL",
+                          "Amazon Global by Brand URL",
+                          "Amazon Products Search",
+                        ].map((scraper) => (
+                          <div key={scraper} className="flex items-center gap-2 rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
+                            <span className="text-sm text-bd-blue">●</span>
+                            <span className="text-[13px] font-medium text-bd-navy">{scraper}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+
+                    <section>
+                      <h2 className="text-xl font-bold text-bd-navy">
+                        Amazon Scraper Python Quick Start
+                      </h2>
+                      <p className="mt-2">
+                        Scrape your first Amazon product in 5 lines of Python. No proxy setup, no
+                        CAPTCHA handling, no HTML parsing — just structured JSON from a single API call:
+                      </p>
+                      <CodeBlock
+                        code={`import requests
+
+response = requests.post(
+    "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${DATASET_ID}&format=json",
+    headers={"Authorization": "Bearer <YOUR_API_KEY>", "Content-Type": "application/json"},
+    json=[{"url": "https://www.amazon.com/dp/B09X7MPX8L"}]
+)
+
+products = response.json()
+for p in products:
+    print(f"{p['title']} — ${'{'}p['price']{'}'} ({'{'}p['stars']{'}'} stars, {'{'}p['reviews_count']{'}'} reviews)")`}
+                        label="python"
+                      />
+                      <p className="mt-3 text-sm text-bd-muted">
+                        This returns the full product record (40+ fields) as parsed JSON — title, price,
+                        images, BSR, reviews, seller data, and more. See the <strong>API tab</strong> for
+                        sync vs. async examples and code in JavaScript and cURL.
+                      </p>
+                    </section>
+
+                    <section>
+                      <h2 className="text-xl font-bold text-bd-navy">
                         Supported Amazon Marketplaces
                       </h2>
                       <p className="mt-2">
@@ -1736,7 +1819,7 @@ export default function ScraperPage() {
                           "amazon.com.br", "amazon.com.mx", "amazon.nl", "amazon.se", "amazon.pl",
                           "amazon.sg", "amazon.sa", "amazon.ae",
                         ].map((d) => (
-                          <span key={d} className="rounded-full border border-bd-line bg-bd-canvas/60 px-3 py-1 font-mono text-xs text-bd-navy">
+                          <span key={d} className="rounded-full border border-bd-line bg-bd-canvas px-3 py-1 font-mono text-xs text-bd-navy">
                             {d}
                           </span>
                         ))}
@@ -1808,6 +1891,49 @@ export default function ScraperPage() {
 
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
+                        Who Uses an Amazon Scraper?
+                      </h2>
+                      <p className="mt-2">
+                        Amazon scraping is used across industries by teams that need structured e-commerce
+                        data at scale:
+                      </p>
+                      <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+                        {[
+                          {
+                            who: "E-commerce & D2C brands",
+                            why: "Price monitoring, competitive intelligence, catalog enrichment, and MAP enforcement across Amazon marketplaces.",
+                          },
+                          {
+                            who: "Market research & consulting firms",
+                            why: "Category analysis, product trend tracking, demand forecasting, and market sizing reports for clients.",
+                          },
+                          {
+                            who: "Financial services & hedge funds",
+                            why: "Alternative data for investment signals — BSR velocity, pricing trends, inventory changes, and seller metrics.",
+                          },
+                          {
+                            who: "AI & machine learning teams",
+                            why: "Training data for product classification, review sentiment models, recommendation engines, and RAG knowledge bases.",
+                          },
+                          {
+                            who: "Agencies & data providers",
+                            why: "White-label Amazon data feeds, automated reporting, and real-time dashboards for e-commerce clients.",
+                          },
+                          {
+                            who: "Academic & policy researchers",
+                            why: "Studies on pricing dynamics, marketplace competition, consumer behavior, and platform economics.",
+                          },
+                        ].map((u) => (
+                          <div key={u.who} className="rounded-xl border border-bd-line bg-bd-panel px-4 py-3">
+                            <p className="font-bold text-bd-navy">{u.who}</p>
+                            <p className="mt-1 text-[13px] leading-5 text-bd-muted">{u.why}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+
+                    <section>
+                      <h2 className="text-xl font-bold text-bd-navy">
                         What&apos;s Included in Every Amazon Scraper Request
                       </h2>
                       <p className="mt-2">
@@ -1825,7 +1951,7 @@ export default function ScraperPage() {
                         ].map(([icon, label]) => (
                           <div
                             key={label}
-                            className="flex items-center gap-2 rounded-lg border border-bd-line bg-bd-canvas/60 px-3 py-2.5"
+                            className="flex items-center gap-2 rounded-lg border border-bd-line bg-bd-canvas px-3 py-2.5"
                           >
                             <span className="text-sm">{icon}</span>
                             <span className="text-[13px] font-medium text-bd-navy">{label}</span>
@@ -1852,7 +1978,7 @@ export default function ScraperPage() {
                               <th className="px-4 py-2.5">Bright Data Amazon Scraper</th>
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-bd-line text-bd-ink/85">
+                          <tbody className="divide-y divide-bd-line text-bd-ink">
                             {[
                               ["Proxy management", "You manage pool, rotation, bans", "Built-in residential + datacenter"],
                               ["CAPTCHA solving", "Integrate 3rd-party service", "Automatic, included in price"],
@@ -1876,142 +2002,51 @@ export default function ScraperPage() {
 
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        Amazon Scraper Delivery Methods
+                        How Amazon Blocks Scrapers in 2026
                       </h2>
                       <p className="mt-2">
-                        Get results via API response, or deliver directly to your storage:
+                        Amazon runs one of the most aggressive anti-bot stacks on the web. Understanding
+                        these layers helps explain why a managed Amazon scraper saves months of engineering:
                       </p>
-                      <ul className="mt-2 list-disc space-y-1 pl-5">
-                        <li><strong>API / Webhook</strong> — real-time JSON response or POST to your endpoint</li>
-                        <li><strong>Amazon S3</strong> / <strong>Google Cloud Storage</strong> / <strong>Azure Blob</strong></li>
-                        <li><strong>Snowflake</strong> / <strong>Google PubSub</strong> / <strong>SFTP</strong></li>
-                      </ul>
-                      <p className="mt-2">
-                        File formats: JSON, NDJSON, CSV, and .gz (compressed).
-                      </p>
-                    </section>
-
-                    <section>
-                      <h2 className="text-xl font-bold text-bd-navy">
-                        Amazon Scraper Technical Specifications
-                      </h2>
-                      <div className="mt-3 overflow-x-auto rounded-xl border border-bd-line">
-                        <table className="w-full text-sm">
-                          <tbody className="divide-y divide-bd-line text-bd-ink/85">
-                            {[
-                              ["API endpoints", "Synchronous (/scrape) and Asynchronous (/trigger)"],
-                              ["Authentication", "Bearer token (API key)"],
-                              ["Max URLs per request", "5,000 (async), 25 (sync)"],
-                              ["Median response time", "~3 seconds (sync, single URL)"],
-                              ["Output fields", "40+ structured fields per product"],
-                              ["Output formats", "JSON, NDJSON, CSV, .gz compressed"],
-                              ["Geotargeting", "18 Amazon marketplaces worldwide"],
-                              ["Uptime SLA", "99.9%"],
-                              ["Rate limits", "Based on plan — Scale plans include priority throughput"],
-                              ["SDKs & integrations", "Python, JavaScript, cURL, MCP, OpenAI, LangChain, CrewAI"],
-                            ].map(([label, value]) => (
-                              <tr key={label}>
-                                <td className="whitespace-nowrap px-4 py-2.5 font-medium text-bd-navy">{label}</td>
-                                <td className="px-4 py-2.5 text-bd-muted">{value}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-
-                    <section>
-                      <h2 className="text-xl font-bold text-bd-navy">
-                        Amazon Scraper Pricing
-                      </h2>
-                      <p className="mt-2">
-                        Pay-as-you-go starts at <strong>$1.50 per 1,000 records</strong> — you only pay for
-                        successfully delivered results. Start with a free tier that includes <strong>5,000
-                        records/month</strong> (no credit card required). Scale plans drop to <strong>$1.30/1K</strong>{" "}
-                        with volume discounts, priority throughput, and dedicated support.
-                      </p>
-                      <div className="mt-3 grid gap-2.5 sm:grid-cols-3">
+                      <div className="mt-3 space-y-2.5">
                         {[
-                          { plan: "Free", price: "$0", detail: "5K records/month, no credit card" },
-                          { plan: "Pay As You Go", price: "$1.50", detail: "Per 1K records, pay for success only" },
-                          { plan: "Scale", price: "$1.30", detail: "Per 1K records, volume discounts + priority" },
-                        ].map((p) => (
-                          <div key={p.plan} className="rounded-xl border border-bd-line bg-bd-canvas/50 px-4 py-3 text-center">
-                            <p className="text-xs font-semibold uppercase tracking-wider text-bd-muted">{p.plan}</p>
-                            <p className="mt-1 text-2xl font-extrabold text-bd-navy">{p.price}</p>
-                            <p className="mt-0.5 text-xs text-bd-muted">{p.detail}</p>
+                          {
+                            layer: "AWS WAF",
+                            detail: "Amazon's Web Application Firewall analyzes every request before it reaches the product page. It checks IP reputation, request rate, headers, and behavioral signals to block automated traffic.",
+                          },
+                          {
+                            layer: "TLS fingerprinting (JA3/JA4)",
+                            detail: "Amazon inspects the TLS handshake signature — cipher suites, extension order, ALPN values. Standard Python requests has a unique fingerprint that is instantly detected. Production scrapers need curl_cffi or a managed API to impersonate real browser handshakes.",
+                          },
+                          {
+                            layer: "Behavioral analysis",
+                            detail: "Request timing, mouse patterns, scroll behavior, and session consistency are monitored. Bots with uniform timing or missing referrer chains are flagged and served CAPTCHA pages.",
+                          },
+                          {
+                            layer: "Device & browser fingerprinting",
+                            detail: "HTTP/2 settings frames, Accept headers, and Sec-Fetch-* metadata are cross-checked against known browser profiles. Mismatched headers trigger soft blocks.",
+                          },
+                          {
+                            layer: "IP reputation & ASN blocking",
+                            detail: "Datacenter IP ranges (AWS, GCP, Azure) are heavily rate-limited or blocked outright. Residential IPs from ISPs are required for consistent success rates above 90%.",
+                          },
+                        ].map((l) => (
+                          <div key={l.layer} className="flex gap-3 rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
+                            <span className="mt-0.5 shrink-0 text-sm">🛡️</span>
+                            <div>
+                              <p className="font-bold text-bd-navy">{l.layer}</p>
+                              <p className="mt-0.5 text-[13px] leading-5 text-bd-muted">{l.detail}</p>
+                            </div>
                           </div>
                         ))}
                       </div>
-                      <p className="mt-3">
-                        <a
-                          href="https://brightdata.com/pricing"
-                          className="font-semibold text-bd-blue hover:underline"
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          See full pricing details →
-                        </a>
-                      </p>
-                    </section>
-
-                    <section>
-                      <h2 className="text-xl font-bold text-bd-navy">
-                        Is It Legal to Scrape Amazon?
-                      </h2>
-                      <p className="mt-2">
-                        Bright Data only collects publicly available data. All scraping is performed
-                        in compliance with GDPR, CCPA, and SEC regulations. Our dedicated compliance
-                        team ensures ethical data collection practices. The data returned by the Amazon
-                        scraper is the same information any logged-out shopper can see on a product page.
-                      </p>
-                      <p className="mt-3">
-                        Learn more at the{" "}
-                        <a
-                          href="https://brightdata.com/trustcenter"
-                          className="font-semibold text-bd-blue hover:underline"
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          Bright Data Trust Center
-                        </a>.
-                      </p>
-                    </section>
-
-                    <section>
-                      <h2 className="text-xl font-bold text-bd-navy">
-                        Amazon Page Types You Can Scrape
-                      </h2>
-                      <p className="mt-2">
-                        The Amazon scraper isn&apos;t limited to product detail pages. It supports
-                        multiple Amazon page types, each returning specialized structured data:
-                      </p>
-                      <div className="mt-3 overflow-x-auto rounded-xl border border-bd-line">
-                        <table className="w-full text-sm">
-                          <thead>
-                            <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
-                              <th className="px-4 py-2.5">Page Type</th>
-                              <th className="px-4 py-2.5">Input</th>
-                              <th className="px-4 py-2.5">Data Returned</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-bd-line text-bd-ink/85">
-                            {[
-                              ["Product detail (PDP)", "URL or ASIN", "Title, price, BSR, images, bullets, reviews, seller, specs, variants"],
-                              ["Search results (SERP)", "Keyword or search URL", "Ranked product rows with ASIN, title, price, rating, sponsored flag, thumbnails"],
-                              ["Category / Best Sellers", "Category URL", "Bestseller rankings, product list, category hierarchy, trend data"],
-                              ["Seller / Storefront", "Seller URL or ID", "Seller name, rating, feedback count, return policy, business details"],
-                              ["Review pages", "Product URL + reviews", "Review text, star rating, author, date, verified purchase, helpful votes"],
-                              ["Offer listings", "ASIN", "All sellers for a product: price, condition, shipping, FBA status, Buy Box winner"],
-                            ].map(([type, input, data]) => (
-                              <tr key={type}>
-                                <td className="whitespace-nowrap px-4 py-2.5 font-medium text-bd-navy">{type}</td>
-                                <td className="px-4 py-2.5 text-bd-muted">{input}</td>
-                                <td className="px-4 py-2.5 text-bd-muted">{data}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                      <div className="mt-4 flex items-start gap-3 rounded-xl border border-bd-blue/30 bg-gradient-to-r from-bd-blue-soft to-transparent px-4 py-3.5">
+                        <span className="mt-0.5 text-lg leading-none">💡</span>
+                        <p className="text-sm leading-6 text-bd-ink">
+                          <strong>Bright Data&apos;s Amazon scraper handles all 5 layers</strong> — residential proxy
+                          rotation, real browser TLS fingerprints, CAPTCHA solving, and continuous parser
+                          maintenance — so you get a 98%+ success rate without writing any anti-bot code.
+                        </p>
                       </div>
                     </section>
 
@@ -2103,7 +2138,7 @@ export default function ScraperPage() {
                             link: null,
                           },
                         ].map((s) => (
-                          <div key={s.step} className="flex gap-4 rounded-xl border border-bd-line bg-bd-canvas/50 px-4 py-3.5">
+                          <div key={s.step} className="flex gap-4 rounded-xl border border-bd-line bg-bd-canvas px-4 py-3.5">
                             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-bd-blue text-sm font-bold text-white">
                               {s.step}
                             </span>
@@ -2120,6 +2155,95 @@ export default function ScraperPage() {
                           </div>
                         ))}
                       </div>
+                    </section>
+
+                    <section>
+                      <h2 className="text-xl font-bold text-bd-navy">
+                        Amazon Scraper Delivery Methods
+                      </h2>
+                      <p className="mt-2">
+                        Get results via API response, or deliver directly to your storage:
+                      </p>
+                      <ul className="mt-2 list-disc space-y-1 pl-5">
+                        <li><strong>API / Webhook</strong> — real-time JSON response or POST to your endpoint</li>
+                        <li><strong>Amazon S3</strong> / <strong>Google Cloud Storage</strong> / <strong>Azure Blob</strong></li>
+                        <li><strong>Snowflake</strong> / <strong>Google PubSub</strong> / <strong>SFTP</strong></li>
+                      </ul>
+                      <p className="mt-2">
+                        File formats: JSON, NDJSON, CSV, and .gz (compressed).
+                      </p>
+                    </section>
+
+                    <section>
+                      <h2 className="text-xl font-bold text-bd-navy">
+                        Amazon Scraper Technical Specifications
+                      </h2>
+                      <div className="mt-3 overflow-x-auto rounded-xl border border-bd-line">
+                        <table className="w-full text-sm">
+                          <tbody className="divide-y divide-bd-line text-bd-ink">
+                            {[
+                              ["API endpoints", "Synchronous (/scrape) and Asynchronous (/trigger)"],
+                              ["Authentication", "Bearer token (API key)"],
+                              ["Max URLs per request", "5,000 (async), 25 (sync)"],
+                              ["Median response time", "~3 seconds (sync, single URL)"],
+                              ["Output fields", "40+ structured fields per product"],
+                              ["Output formats", "JSON, NDJSON, CSV, .gz compressed"],
+                              ["Geotargeting", "18 Amazon marketplaces worldwide"],
+                              ["Uptime SLA", "99.9%"],
+                              ["Rate limits", "Based on plan — Scale plans include priority throughput"],
+                              ["SDKs & integrations", "Python, JavaScript, cURL, MCP, OpenAI, LangChain, CrewAI"],
+                            ].map(([label, value]) => (
+                              <tr key={label}>
+                                <td className="whitespace-nowrap px-4 py-2.5 font-medium text-bd-navy">{label}</td>
+                                <td className="px-4 py-2.5 text-bd-muted">{value}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+
+                    <section>
+                      <h2 className="text-xl font-bold text-bd-navy">
+                        Amazon Scraper Performance & Benchmarks
+                      </h2>
+                      <p className="mt-2">
+                        Independent benchmarks (Proxyway 2025, AIMultiple 2026) consistently rank Bright Data
+                        as the highest-depth Amazon scraper, returning more structured fields per product
+                        than any other provider:
+                      </p>
+                      <div className="mt-3 overflow-x-auto rounded-xl border border-bd-line">
+                        <table className="w-full text-sm">
+                          <thead>
+                            <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
+                              <th className="px-4 py-2.5">Metric</th>
+                              <th className="px-4 py-2.5">Bright Data</th>
+                              <th className="px-4 py-2.5">Industry Avg</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-bd-line text-bd-ink">
+                            {[
+                              ["Success rate", "98.4%", "~95%"],
+                              ["Structured fields per product", "40+", "15–25"],
+                              ["Median response time (sync)", "~3s", "4–8s"],
+                              ["Supported marketplaces", "18", "8–12"],
+                              ["Uptime SLA", "99.9%", "99%"],
+                              ["Free tier", "5K records/month", "Varies (0–1K)"],
+                              ["PAYG price per 1K", "$1.50", "$0.50–$2.50"],
+                            ].map(([metric, bd, avg]) => (
+                              <tr key={metric}>
+                                <td className="px-4 py-2.5 font-medium text-bd-navy">{metric}</td>
+                                <td className="px-4 py-2.5 font-semibold text-bd-blue">{bd}</td>
+                                <td className="px-4 py-2.5 text-bd-muted">{avg}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                      <p className="mt-2 text-xs text-bd-muted">
+                        Sources: Proxyway Amazon Scraper Benchmark 2025, AIMultiple Amazon Scraper Comparison 2026,
+                        Scrape.do API Benchmark 2026.
+                      </p>
                     </section>
 
                     <section>
@@ -2176,206 +2300,91 @@ export default function ScraperPage() {
 
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        How Amazon Blocks Scrapers in 2026
+                        Amazon Scraper Pricing
                       </h2>
                       <p className="mt-2">
-                        Amazon runs one of the most aggressive anti-bot stacks on the web. Understanding
-                        these layers helps explain why a managed Amazon scraper saves months of engineering:
+                        Pay-as-you-go starts at <strong>$1.50 per 1,000 records</strong> — you only pay for
+                        successfully delivered results. Start with a free tier that includes <strong>5,000
+                        records/month</strong> (no credit card required). Scale plans drop to <strong>$1.30/1K</strong>{" "}
+                        with volume discounts, priority throughput, and dedicated support.
                       </p>
-                      <div className="mt-3 space-y-2.5">
+                      <div className="mt-3 grid gap-2.5 sm:grid-cols-3">
                         {[
-                          {
-                            layer: "AWS WAF",
-                            detail: "Amazon's Web Application Firewall analyzes every request before it reaches the product page. It checks IP reputation, request rate, headers, and behavioral signals to block automated traffic.",
-                          },
-                          {
-                            layer: "TLS fingerprinting (JA3/JA4)",
-                            detail: "Amazon inspects the TLS handshake signature — cipher suites, extension order, ALPN values. Standard Python requests has a unique fingerprint that is instantly detected. Production scrapers need curl_cffi or a managed API to impersonate real browser handshakes.",
-                          },
-                          {
-                            layer: "Behavioral analysis",
-                            detail: "Request timing, mouse patterns, scroll behavior, and session consistency are monitored. Bots with uniform timing or missing referrer chains are flagged and served CAPTCHA pages.",
-                          },
-                          {
-                            layer: "Device & browser fingerprinting",
-                            detail: "HTTP/2 settings frames, Accept headers, and Sec-Fetch-* metadata are cross-checked against known browser profiles. Mismatched headers trigger soft blocks.",
-                          },
-                          {
-                            layer: "IP reputation & ASN blocking",
-                            detail: "Datacenter IP ranges (AWS, GCP, Azure) are heavily rate-limited or blocked outright. Residential IPs from ISPs are required for consistent success rates above 90%.",
-                          },
-                        ].map((l) => (
-                          <div key={l.layer} className="flex gap-3 rounded-xl border border-bd-line bg-bd-canvas/50 px-4 py-3">
-                            <span className="mt-0.5 shrink-0 text-sm">🛡️</span>
-                            <div>
-                              <p className="font-bold text-bd-navy">{l.layer}</p>
-                              <p className="mt-0.5 text-[13px] leading-5 text-bd-muted">{l.detail}</p>
-                            </div>
+                          { plan: "Free", price: "$0", detail: "5K records/month, no credit card" },
+                          { plan: "Pay As You Go", price: "$1.50", detail: "Per 1K records, pay for success only" },
+                          { plan: "Scale", price: "$1.30", detail: "Per 1K records, volume discounts + priority" },
+                        ].map((p) => (
+                          <div key={p.plan} className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3 text-center">
+                            <p className="text-xs font-semibold uppercase tracking-wider text-bd-muted">{p.plan}</p>
+                            <p className="mt-1 text-2xl font-extrabold text-bd-navy">{p.price}</p>
+                            <p className="mt-0.5 text-xs text-bd-muted">{p.detail}</p>
                           </div>
                         ))}
                       </div>
-                      <div className="mt-4 flex items-start gap-3 rounded-xl border border-bd-blue-light/50 bg-gradient-to-r from-bd-blue-soft/40 to-transparent px-4 py-3.5">
-                        <span className="mt-0.5 text-lg leading-none">💡</span>
-                        <p className="text-sm leading-6 text-bd-ink/85">
-                          <strong>Bright Data&apos;s Amazon scraper handles all 5 layers</strong> — residential proxy
-                          rotation, real browser TLS fingerprints, CAPTCHA solving, and continuous parser
-                          maintenance — so you get a 98%+ success rate without writing any anti-bot code.
-                        </p>
-                      </div>
-                    </section>
-
-                    <section>
-                      <h2 className="text-xl font-bold text-bd-navy">
-                        Amazon Scraper Python Quick Start
-                      </h2>
-                      <p className="mt-2">
-                        Scrape your first Amazon product in 5 lines of Python. No proxy setup, no
-                        CAPTCHA handling, no HTML parsing — just structured JSON from a single API call:
-                      </p>
-                      <CodeBlock
-                        code={`import requests
-
-response = requests.post(
-    "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${DATASET_ID}&format=json",
-    headers={"Authorization": "Bearer <YOUR_API_KEY>", "Content-Type": "application/json"},
-    json=[{"url": "https://www.amazon.com/dp/B09X7MPX8L"}]
-)
-
-products = response.json()
-for p in products:
-    print(f"{p['title']} — ${'{'}p['price']{'}'} ({'{'}p['stars']{'}'} stars, {'{'}p['reviews_count']{'}'} reviews)")`}
-                        label="python"
-                      />
-                      <p className="mt-3 text-sm text-bd-muted">
-                        This returns the full product record (40+ fields) as parsed JSON — title, price,
-                        images, BSR, reviews, seller data, and more. See the <strong>API tab</strong> for
-                        sync vs. async examples and code in JavaScript and cURL.
+                      <p className="mt-3">
+                        <a
+                          href="https://brightdata.com/pricing"
+                          className="font-semibold text-bd-blue hover:underline"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          See full pricing details →
+                        </a>
                       </p>
                     </section>
 
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        Amazon Scraper Performance & Benchmarks
+                        Is It Legal to Scrape Amazon?
                       </h2>
                       <p className="mt-2">
-                        Independent benchmarks (Proxyway 2025, AIMultiple 2026) consistently rank Bright Data
-                        as the highest-depth Amazon scraper, returning more structured fields per product
-                        than any other provider:
+                        Bright Data only collects publicly available data. All scraping is performed
+                        in compliance with GDPR, CCPA, and SEC regulations. Our dedicated compliance
+                        team ensures ethical data collection practices. The data returned by the Amazon
+                        scraper is the same information any logged-out shopper can see on a product page.
                       </p>
-                      <div className="mt-3 overflow-x-auto rounded-xl border border-bd-line">
-                        <table className="w-full text-sm">
-                          <thead>
-                            <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
-                              <th className="px-4 py-2.5">Metric</th>
-                              <th className="px-4 py-2.5">Bright Data</th>
-                              <th className="px-4 py-2.5">Industry Avg</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-bd-line text-bd-ink/85">
-                            {[
-                              ["Success rate", "98.4%", "~95%"],
-                              ["Structured fields per product", "40+", "15–25"],
-                              ["Median response time (sync)", "~3s", "4–8s"],
-                              ["Supported marketplaces", "18", "8–12"],
-                              ["Uptime SLA", "99.9%", "99%"],
-                              ["Free tier", "5K records/month", "Varies (0–1K)"],
-                              ["PAYG price per 1K", "$1.50", "$0.50–$2.50"],
-                            ].map(([metric, bd, avg]) => (
-                              <tr key={metric}>
-                                <td className="px-4 py-2.5 font-medium text-bd-navy">{metric}</td>
-                                <td className="px-4 py-2.5 font-semibold text-bd-blue">{bd}</td>
-                                <td className="px-4 py-2.5 text-bd-muted">{avg}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                      <p className="mt-2 text-xs text-bd-muted">
-                        Sources: Proxyway Amazon Scraper Benchmark 2025, AIMultiple Amazon Scraper Comparison 2026,
-                        Scrape.do API Benchmark 2026.
+                      <p className="mt-3">
+                        Learn more at the{" "}
+                        <a
+                          href="https://brightdata.com/trustcenter"
+                          className="font-semibold text-bd-blue hover:underline"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Bright Data Trust Center
+                        </a>.
                       </p>
                     </section>
 
                     <section>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        Who Uses an Amazon Scraper?
+                        More Amazon Scraper Tools
                       </h2>
                       <p className="mt-2">
-                        Amazon scraping is used across industries by teams that need structured e-commerce
-                        data at scale:
+                        Bright Data offers specialized scrapers for different Amazon data types:
                       </p>
-                      <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
-                        {[
-                          {
-                            who: "E-commerce & D2C brands",
-                            why: "Price monitoring, competitive intelligence, catalog enrichment, and MAP enforcement across Amazon marketplaces.",
-                          },
-                          {
-                            who: "Market research & consulting firms",
-                            why: "Category analysis, product trend tracking, demand forecasting, and market sizing reports for clients.",
-                          },
-                          {
-                            who: "Financial services & hedge funds",
-                            why: "Alternative data for investment signals — BSR velocity, pricing trends, inventory changes, and seller metrics.",
-                          },
-                          {
-                            who: "AI & machine learning teams",
-                            why: "Training data for product classification, review sentiment models, recommendation engines, and RAG knowledge bases.",
-                          },
-                          {
-                            who: "Agencies & data providers",
-                            why: "White-label Amazon data feeds, automated reporting, and real-time dashboards for e-commerce clients.",
-                          },
-                          {
-                            who: "Academic & policy researchers",
-                            why: "Studies on pricing dynamics, marketplace competition, consumer behavior, and platform economics.",
-                          },
-                        ].map((u) => (
-                          <div key={u.who} className="rounded-xl border border-bd-line bg-bd-panel px-4 py-3">
-                            <p className="font-bold text-bd-navy">{u.who}</p>
-                            <p className="mt-1 text-[13px] leading-5 text-bd-muted">{u.why}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </section>
-
-                    <section>
-                      <h2 className="text-xl font-bold text-bd-navy">
-                        All 14 Available Amazon Scrapers
-                      </h2>
-                      <p className="mt-2">
-                        Bright Data offers a family of 14 specialized Amazon scrapers. Each is pre-built
-                        and ready to use via API or the no-code control panel:
-                      </p>
-                      <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                        {[
-                          ["Amazon Products (by URL)", "Title, price, brand, description, reviews, availability, and more."],
-                          ["Amazon Products by Best Sellers", "Top-selling products per category with BSR rankings."],
-                          ["Amazon Products by Category URL", "All products in a specific Amazon category."],
-                          ["Amazon Products by Keywords", "Search results for any keyword query."],
-                          ["Amazon Products by UPC", "Find products using Universal Product Code numbers."],
-                          ["Amazon Reviews", "Review text, rating, author, date, verified purchase status."],
-                          ["Amazon Sellers Info", "Seller name, ID, rating, feedback, return policy, address."],
-                          ["Amazon Products Search", "ASIN, URL, name, price, sponsored flag, and more."],
-                          ["Amazon Global Dataset (by URL)", "Multi-marketplace product data collection."],
-                          ["Amazon Global by Category", "Category-based collection across global marketplaces."],
-                          ["Amazon Global by Keywords", "Keyword search across international Amazon domains."],
-                          ["Amazon Global by Best Sellers", "Bestseller data across all supported regions."],
-                          ["Amazon Global by Seller URL", "Seller catalog data from any marketplace."],
-                          ["Amazon Global by Brand URL", "Brand storefront data across regions."],
-                        ].map(([name, desc]) => (
-                          <a
-                            key={name}
-                            href="https://brightdata.com/products/web-scraper/amazon"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex flex-col rounded-lg border border-bd-line bg-bd-canvas/50 px-3.5 py-2.5 transition hover:border-bd-blue-light hover:bg-bd-blue-soft/30"
-                          >
-                            <span className="text-[13px] font-bold text-bd-navy">{name}</span>
-                            <span className="mt-0.5 text-[12px] leading-4 text-bd-muted">{desc}</span>
+                      <ul className="mt-2 list-disc space-y-1 pl-5">
+                        <li>
+                          <a href="https://brightdata.com/products/web-scraper/amazon" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">
+                            Amazon Products by Keyword
                           </a>
-                        ))}
-                      </div>
+                        </li>
+                        <li>
+                          <a href="https://brightdata.com/products/web-scraper/amazon" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">
+                            Amazon Reviews Scraper
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://brightdata.com/products/web-scraper/amazon" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">
+                            Amazon Best Sellers Scraper
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://brightdata.com/products/web-scraper/amazon" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">
+                            Amazon Sellers Scraper
+                          </a>
+                        </li>
+                      </ul>
                       <p className="mt-3">
                         Browse all 1,000+ scrapers in the{" "}
                         <a href="https://brightdata.com/cp/scrapers/browse" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">
@@ -2390,7 +2399,7 @@ for p in products:
                 {mainTab === "Input" ? (
                   <div className="space-y-5">
                     <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Input Configuration</h2>
-                    <p className="text-[15px] leading-7 text-bd-ink/85">
+                    <p className="text-[15px] leading-7 text-bd-ink">
                       The request body is a JSON array of input objects. Each object must contain at
                       minimum a <code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">url</code> field.
                     </p>
@@ -2405,7 +2414,7 @@ for p in products:
                             <th className="px-4 py-2.5">Description</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-bd-line text-bd-ink/85">
+                        <tbody className="divide-y divide-bd-line text-bd-ink">
                           <tr>
                             <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">url</td>
                             <td className="px-4 py-2.5">string</td>
@@ -2445,7 +2454,7 @@ for p in products:
                             <th className="px-4 py-2.5">Description</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-bd-line text-bd-ink/85">
+                        <tbody className="divide-y divide-bd-line text-bd-ink">
                           <tr>
                             <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">dataset_id</td>
                             <td className="px-4 py-2.5">string</td>
@@ -2484,7 +2493,7 @@ for p in products:
                 {mainTab === "Output" ? (
                   <div className="space-y-5">
                     <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Sample Output</h2>
-                    <p className="text-[15px] leading-7 text-bd-ink/85">
+                    <p className="text-[15px] leading-7 text-bd-ink">
                       Each successfully scraped product returns a JSON object with the following
                       fields. All data can be exported as JSON, CSV, or NDJSON.
                     </p>
@@ -2500,7 +2509,7 @@ for p in products:
                             <th className="px-4 py-2.5">Description</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-bd-line text-bd-ink/85">
+                        <tbody className="divide-y divide-bd-line text-bd-ink">
                           {[
                             ["title", "string", "Product title"],
                             ["url", "string", "Canonical Amazon product URL"],
@@ -2538,11 +2547,11 @@ for p in products:
                 {mainTab === "Issues" ? (
                   <div className="space-y-3">
                     <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Feedback & Support</h2>
-                    <p className="text-[15px] leading-7 text-bd-ink/85">
+                    <p className="text-[15px] leading-7 text-bd-ink">
                       We&apos;re always working on improving scraper performance and data quality. If
                       you encounter issues or have feature requests:
                     </p>
-                    <ul className="list-disc space-y-1 pl-5 text-[15px] text-bd-ink/85">
+                    <ul className="list-disc space-y-1 pl-5 text-[15px] text-bd-ink">
                       <li>
                         Check the{" "}
                         <a
@@ -2589,7 +2598,7 @@ for p in products:
                       <h2 className="text-xl font-bold text-bd-navy">
                         Connect Your AI Agent to the Amazon Scraper
                       </h2>
-                      <p className="mt-2 text-[15px] leading-7 text-bd-ink/85">
+                      <p className="mt-2 text-[15px] leading-7 text-bd-ink">
                         Give any AI agent — GPT, Claude, Gemini, or your own — the ability to
                         scrape Amazon product data in real time.
                       </p>
@@ -2643,11 +2652,11 @@ for p in products:
                           </p>
                         </div>
 
-                        <div className="flex items-start gap-2 rounded-lg border border-bd-blue-light/50 bg-bd-blue-soft/40 px-4 py-3">
+                        <div className="flex items-start gap-2 rounded-lg border border-bd-blue/30 bg-bd-blue-soft px-4 py-3">
                           <span className="mt-0.5 text-bd-blue">⚡</span>
-                          <p className="text-sm leading-6 text-bd-ink/85">
+                          <p className="text-sm leading-6 text-bd-ink">
                             <strong>Hosted — no install needed.</strong> Just paste the URL into your
-                            MCP client settings. Replace <code className="rounded bg-white/60 px-1 py-0.5 font-mono text-xs text-bd-blue">&lt;YOUR_API_KEY&gt;</code> with
+                            MCP client settings. Replace <code className="rounded bg-bd-canvas px-1 py-0.5 font-mono text-xs text-bd-blue">&lt;YOUR_API_KEY&gt;</code> with
                             your key from{" "}
                             <a href="https://brightdata.com/cp/setting/users" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">brightdata.com/cp/setting/users</a>.
                           </p>
@@ -2669,7 +2678,7 @@ for p in products:
                             <a
                               key={name}
                               href={url}
-                              className="rounded-xl border border-bd-line bg-bd-canvas/60 px-4 py-3 text-center text-sm font-semibold text-bd-blue transition hover:border-bd-blue-light hover:bg-bd-blue-soft/50"
+                              className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3 text-center text-sm font-semibold text-bd-blue transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
                               target="_blank"
                               rel="noreferrer"
                             >
@@ -2779,7 +2788,7 @@ for p in products:
                           <a
                             key={name}
                             href={url}
-                            className="rounded-lg border border-bd-line bg-bd-canvas/60 px-3 py-1.5 text-xs font-medium text-bd-ink transition hover:border-bd-blue-light hover:text-bd-blue"
+                            className="rounded-lg border border-bd-line bg-bd-canvas px-3 py-1.5 text-xs font-medium text-bd-ink transition hover:border-bd-blue-light hover:text-bd-blue"
                             target="_blank"
                             rel="noreferrer"
                           >
@@ -2798,7 +2807,7 @@ for p in products:
                       <h2 className="text-xl font-bold text-bd-navy">
                         Edit the Amazon Scraper with AI
                       </h2>
-                      <p className="mt-2 text-[15px] leading-7 text-bd-ink/85">
+                      <p className="mt-2 text-[15px] leading-7 text-bd-ink">
                         Customize this scraper or build an entirely new one using natural language.
                         Bright Data&apos;s Scraper Studio lets you describe what you need and the AI
                         generates the scraping logic — no code required.
@@ -2807,7 +2816,7 @@ for p in products:
 
                     {/* Feature grid */}
                     <div className="grid gap-4 sm:grid-cols-2">
-                      <div className="rounded-xl border border-bd-line bg-bd-canvas/60 p-4">
+                      <div className="rounded-xl border border-bd-line bg-bd-canvas p-4">
                         <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-bd-blue/10 text-bd-blue">
                           <svg viewBox="0 0 20 20" className="h-4 w-4 fill-current"><path d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616L17.8 12.2a1 1 0 01-1.6 1.2L14 10.667V14a1 1 0 01-.553.894l-3 1.5a1 1 0 01-.894 0l-3-1.5A1 1 0 016 14v-3.333L3.8 13.4a1 1 0 01-1.6-1.2l1.586-4.689-1.233-.616a1 1 0 01.894-1.79l1.599.8L9 4.323V3a1 1 0 011-1z"/></svg>
                         </div>
@@ -2818,7 +2827,7 @@ for p in products:
                         </p>
                       </div>
 
-                      <div className="rounded-xl border border-bd-line bg-bd-canvas/60 p-4">
+                      <div className="rounded-xl border border-bd-line bg-bd-canvas p-4">
                         <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-bd-blue/10 text-bd-blue">
                           <svg viewBox="0 0 20 20" className="h-4 w-4 fill-current"><path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
                         </div>
@@ -2829,7 +2838,7 @@ for p in products:
                         </p>
                       </div>
 
-                      <div className="rounded-xl border border-bd-line bg-bd-canvas/60 p-4">
+                      <div className="rounded-xl border border-bd-line bg-bd-canvas p-4">
                         <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-bd-blue/10 text-bd-blue">
                           <svg viewBox="0 0 20 20" className="h-4 w-4 fill-current"><path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd"/></svg>
                         </div>
@@ -2840,7 +2849,7 @@ for p in products:
                         </p>
                       </div>
 
-                      <div className="rounded-xl border border-bd-line bg-bd-canvas/60 p-4">
+                      <div className="rounded-xl border border-bd-line bg-bd-canvas p-4">
                         <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-bd-blue/10 text-bd-blue">
                           <svg viewBox="0 0 20 20" className="h-4 w-4 fill-current"><path d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zm7-10a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z"/></svg>
                         </div>
@@ -2853,7 +2862,7 @@ for p in products:
                     </div>
 
                     {/* CTA */}
-                    <div className="rounded-xl border border-bd-blue-light/60 bg-gradient-to-r from-bd-blue-soft/50 to-white p-5">
+                    <div className="rounded-xl border border-bd-blue/30 bg-gradient-to-r from-bd-blue-soft to-bd-panel p-5">
                       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div>
                           <h3 className="font-bold text-bd-navy">
@@ -2881,20 +2890,18 @@ for p in products:
           </div>
 
           {/* ===== SIDEBAR ===== */}
-          <aside className="animate-rise-delay space-y-4 lg:sticky lg:top-20 lg:self-start">
-            <div className="overflow-hidden rounded-2xl border border-bd-blue-light/60 bg-gradient-to-br from-bd-blue-soft/50 via-white to-white shadow-[0_10px_30px_rgba(61,127,252,0.08)]">
+          <aside className="animate-rise-delay space-y-4 lg:sticky lg:top-[4.5rem] lg:max-h-[calc(100vh-5.5rem)] lg:overflow-y-auto lg:self-start lg:pr-1">
+            <div className="overflow-hidden rounded-2xl border border-bd-blue/30 bg-gradient-to-br from-bd-blue-soft via-bd-panel to-bd-panel shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
               {/* Free tier banner */}
-              <div className="bg-gradient-to-r from-bd-blue to-[#5a9aff] px-5 py-3.5">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-[13px] font-semibold uppercase tracking-wider text-white/70">
-                      Free tier
-                    </p>
-                    <p className="mt-0.5 text-xl font-extrabold text-white">
-                      5,000 records<span className="text-sm font-semibold text-white/70">/mo</span>
-                    </p>
-                  </div>
-                  <span className="rounded-full border border-white/20 bg-white/15 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">
+              <div className="bg-gradient-to-r from-bd-blue to-[#5a9aff] px-5 py-4">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-white/70">
+                  Free tier
+                </p>
+                <div className="mt-1 flex items-center justify-between gap-3">
+                  <p className="whitespace-nowrap text-xl font-extrabold text-white">
+                    5,000 records<span className="text-sm font-semibold text-white/70">/mo</span>
+                  </p>
+                  <span className="shrink-0 rounded-full bg-white/15 px-3 py-1.5 text-[11px] font-bold text-white">
                     No card required
                   </span>
                 </div>
@@ -2944,7 +2951,7 @@ for p in products:
                 </a>
                 <a
                   href="https://brightdata.com/cp/scrapers/gd_l1vijqt9jfj7olije/pdp/configuration"
-                  className="mt-2 block w-full rounded-xl border border-bd-line bg-white px-4 py-3 text-center text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft/50"
+                  className="mt-2 block w-full rounded-xl border border-bd-line bg-bd-canvas px-4 py-3 text-center text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -2953,7 +2960,7 @@ for p in products:
               </div>
             </div>
 
-            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(15,34,58,0.05)]">
+            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">
                 Performance
               </p>
@@ -2977,7 +2984,7 @@ for p in products:
               </div>
             </div>
 
-            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(15,34,58,0.05)]">
+            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">
                 Quick reference
               </p>
@@ -3009,7 +3016,7 @@ for p in products:
               </dl>
             </div>
 
-            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(15,34,58,0.05)]">
+            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">
                 Resources
               </p>
@@ -3043,14 +3050,14 @@ for p in products:
       {/* Related scrapers carousel */}
       <RelatedScrapersCarousel />
 
-      <footer className="mt-auto border-t border-bd-line/80 bg-white/70">
+      <footer className="mt-auto border-t border-bd-line bg-bd-panel">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-bd-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <span>© {new Date().getFullYear()} Bright Data Ltd.</span>
           <div className="flex flex-wrap gap-x-4 gap-y-1">
-            <a href="https://brightdata.com/trustcenter" className="hover:text-bd-ink transition" target="_blank" rel="noreferrer">Trust Center</a>
-            <a href="https://brightdata.com/pricing" className="hover:text-bd-ink transition" target="_blank" rel="noreferrer">Pricing</a>
-            <a href="https://docs.brightdata.com/" className="hover:text-bd-ink transition" target="_blank" rel="noreferrer">Docs</a>
-            <a href="https://brightdata.com/contact" className="hover:text-bd-ink transition" target="_blank" rel="noreferrer">Contact</a>
+            <a href="https://brightdata.com/trustcenter" className="hover:text-bd-navy transition" target="_blank" rel="noreferrer">Trust Center</a>
+            <a href="https://brightdata.com/pricing" className="hover:text-bd-navy transition" target="_blank" rel="noreferrer">Pricing</a>
+            <a href="https://docs.brightdata.com/" className="hover:text-bd-navy transition" target="_blank" rel="noreferrer">Docs</a>
+            <a href="https://brightdata.com/contact" className="hover:text-bd-navy transition" target="_blank" rel="noreferrer">Contact</a>
           </div>
         </div>
       </footer>
