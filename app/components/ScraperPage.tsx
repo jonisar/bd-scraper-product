@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 
 type MainTab = "Information" | "Input" | "API" | "Output" | "Live Test" | "Issues" | "Connect Agent" | "Edit with AI";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
-type AgentPlatform = "MCP" | "OpenAI SDK" | "LangChain" | "CrewAI" | "REST API";
+type AgentPlatform = "Prompt" | "MCP" | "OpenAI SDK" | "LangChain" | "CrewAI" | "REST API";
 
 const DATASET_ID = "gd_l1vijqt9jfj7olije";
 
@@ -558,15 +558,409 @@ function SyncAsyncToggle({
   );
 }
 
+const RELATED_SCRAPERS = [
+  {
+    title: "Amazon Reviews Scraper",
+    desc: "Extract review text, star ratings, author info, verified purchase status, helpful votes, and review dates at scale.",
+    deliveries: "7.2K+",
+    stars: 4.8,
+    fields: 28,
+    avgSpeed: "~25s",
+    price: "$1.50",
+    href: "https://brightdata.com/products/web-scraper/amazon/reviews",
+    tag: "Reviews",
+    emoji: "⭐",
+  },
+  {
+    title: "Amazon Best Sellers",
+    desc: "Monitor bestseller rankings, category leaderboards, movers & shakers, and trending products across all departments.",
+    deliveries: "34.6K+",
+    stars: 4.9,
+    fields: 35,
+    avgSpeed: "~18s",
+    price: "$1.50",
+    href: "https://brightdata.com/products/web-scraper/amazon",
+    tag: "Rankings",
+    emoji: "🏆",
+  },
+  {
+    title: "Amazon Sellers Info",
+    desc: "Seller name, store rating, feedback count, return policy, business address, and seller metrics for competitive analysis.",
+    deliveries: "2.4K+",
+    stars: 4.7,
+    fields: 22,
+    avgSpeed: "~20s",
+    price: "$1.50",
+    href: "https://brightdata.com/products/web-scraper/amazon/seller",
+    tag: "Sellers",
+    emoji: "🏪",
+  },
+  {
+    title: "Amazon Price Tracker",
+    desc: "Real-time and historical pricing: current price, list price, discount %, deal badges, Buy Box winner, and stock levels.",
+    deliveries: "1.6K+",
+    stars: 4.8,
+    fields: 18,
+    avgSpeed: "~15s",
+    price: "$1.50",
+    href: "https://brightdata.com/products/web-scraper/amazon/price",
+    tag: "Pricing",
+    emoji: "💰",
+  },
+  {
+    title: "Walmart Products",
+    desc: "SKUs, pricing, specifications, images, availability, reviews, and seller info from the second-largest US retailer.",
+    deliveries: "5.5K+",
+    stars: 4.7,
+    fields: 40,
+    avgSpeed: "~30s",
+    price: "$1.50",
+    href: "https://brightdata.com/products/web-scraper/walmart",
+    tag: "E-commerce",
+    emoji: "🛒",
+  },
+  {
+    title: "Google Maps Scraper",
+    desc: "Business name, address, phone, website, ratings, review count, hours, photos, and popular times for any location.",
+    deliveries: "12.8K+",
+    stars: 4.9,
+    fields: 45,
+    avgSpeed: "~22s",
+    price: "$2.50",
+    href: "https://brightdata.com/products/web-scraper/google-maps",
+    tag: "Local",
+    emoji: "📍",
+  },
+  {
+    title: "LinkedIn Profiles",
+    desc: "Professional data: name, headline, company, experience history, skills, education, certifications, and post activity.",
+    deliveries: "118.1K+",
+    stars: 4.9,
+    fields: 52,
+    avgSpeed: "~35s",
+    price: "$2.50",
+    href: "https://brightdata.com/products/web-scraper/linkedin",
+    tag: "Social",
+    emoji: "💼",
+  },
+  {
+    title: "Instagram Profiles",
+    desc: "Followers, posts, bio, business category, engagement rate, recent media, hashtag use, and account growth metrics.",
+    deliveries: "21.8K+",
+    stars: 4.8,
+    fields: 38,
+    avgSpeed: "~28s",
+    price: "$2.50",
+    href: "https://brightdata.com/products/web-scraper/instagram",
+    tag: "Social",
+    emoji: "📸",
+  },
+];
+
+function RelatedScrapersCarousel() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 8);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    checkScroll();
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+    return () => {
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }, [checkScroll]);
+
+  const scroll = (dir: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir === "left" ? -310 : 310, behavior: "smooth" });
+  };
+
+  const ArrowBtn = ({ dir, show }: { dir: "left" | "right"; show: boolean }) => (
+    <button
+      type="button"
+      onClick={() => scroll(dir)}
+      aria-label={`Scroll ${dir}`}
+      className={`absolute top-1/2 z-10 -translate-y-1/2 rounded-full border border-bd-line bg-white/95 p-2.5 shadow-lg backdrop-blur transition-all hover:border-bd-blue-light hover:shadow-bd-blue/15 ${
+        dir === "left" ? "left-0 -translate-x-1/2" : "right-0 translate-x-1/2"
+      } ${show ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+    >
+      <svg className="h-4 w-4 text-bd-navy" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+        {dir === "left"
+          ? <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          : <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />}
+      </svg>
+    </button>
+  );
+
+  return (
+    <section className="mx-auto max-w-7xl px-4 pb-10 pt-2 sm:px-6">
+      <div className="flex items-end justify-between">
+        <div>
+          <h2 className="text-xl font-bold text-bd-navy">More Scrapers You Might Need</h2>
+          <p className="mt-1 text-sm text-bd-muted">Related scrapers from the Bright Data library</p>
+        </div>
+        <div className="hidden items-center gap-1.5 sm:flex">
+          <button
+            type="button"
+            onClick={() => scroll("left")}
+            disabled={!canScrollLeft}
+            className="rounded-full border border-bd-line bg-white p-2 transition hover:border-bd-blue-light disabled:opacity-30"
+          >
+            <svg className="h-4 w-4 text-bd-navy" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            onClick={() => scroll("right")}
+            disabled={!canScrollRight}
+            className="rounded-full border border-bd-line bg-white p-2 transition hover:border-bd-blue-light disabled:opacity-30"
+          >
+            <svg className="h-4 w-4 text-bd-navy" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div className="relative mt-5">
+        {/* Fade edges */}
+        <div className={`pointer-events-none absolute inset-y-0 left-0 z-[5] w-12 bg-gradient-to-r from-[#f4f7fb] to-transparent transition-opacity duration-200 ${canScrollLeft ? "opacity-100" : "opacity-0"}`} />
+        <div className={`pointer-events-none absolute inset-y-0 right-0 z-[5] w-12 bg-gradient-to-l from-[#f4f7fb] to-transparent transition-opacity duration-200 ${canScrollRight ? "opacity-100" : "opacity-0"}`} />
+
+        {/* Floating arrows on mobile */}
+        <div className="sm:hidden">
+          <ArrowBtn dir="left" show={canScrollLeft} />
+          <ArrowBtn dir="right" show={canScrollRight} />
+        </div>
+
+        <div
+          ref={scrollRef}
+          className="related-scroll flex gap-4 overflow-x-auto pb-4 scroll-smooth"
+        >
+          {RELATED_SCRAPERS.map((s) => (
+            <a
+              key={s.title}
+              href={s.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex w-[290px] shrink-0 flex-col rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_4px_16px_rgba(15,34,58,0.04)] transition hover:border-bd-blue-light hover:shadow-[0_8px_24px_rgba(61,127,252,0.1)]"
+            >
+              <div className="mb-3 flex items-center gap-2">
+                <span className="text-lg">{s.emoji}</span>
+                <span className="rounded-full bg-bd-blue-soft px-2.5 py-0.5 text-[11px] font-semibold text-bd-blue">
+                  {s.tag}
+                </span>
+                <span className="ml-auto flex items-center gap-0.5 text-[11px] font-medium text-amber-500">
+                  <svg className="h-3 w-3 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.065 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z"/></svg>
+                  {s.stars}
+                </span>
+              </div>
+              <h3 className="text-[15px] font-bold text-bd-navy group-hover:text-bd-blue transition">
+                {s.title}
+              </h3>
+              <p className="mt-1.5 flex-1 text-[13px] leading-5 text-bd-muted">
+                {s.desc}
+              </p>
+              <div className="mt-4 grid grid-cols-3 gap-2 rounded-lg bg-bd-canvas px-3 py-2.5 text-center">
+                <div>
+                  <p className="text-[11px] text-bd-muted">Fields</p>
+                  <p className="text-sm font-bold text-bd-navy">{s.fields}</p>
+                </div>
+                <div>
+                  <p className="text-[11px] text-bd-muted">Speed</p>
+                  <p className="text-sm font-bold text-bd-navy">{s.avgSpeed}</p>
+                </div>
+                <div>
+                  <p className="text-[11px] text-bd-muted">From</p>
+                  <p className="text-sm font-bold text-bd-navy">{s.price}<span className="text-[10px] font-normal text-bd-muted">/1K</span></p>
+                </div>
+              </div>
+              <div className="mt-3 flex items-center justify-between border-t border-bd-line pt-3">
+                <span className="text-xs text-bd-muted">{s.deliveries} deliveries</span>
+                <span className="text-xs font-semibold text-bd-blue group-hover:underline">
+                  View scraper →
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const FREE_SAMPLE_DATA = [
+  {
+    title: "SanDisk 1TB Extreme microSDXC UHS-I Memory Card with Adapter",
+    url: "https://www.amazon.com/dp/B09X7MPX8L",
+    asin: "B09X7MPX8L",
+    in_stock: true,
+    brand: "SanDisk",
+    price: 145.50,
+    list_price: 299.99,
+    currency: "USD",
+    stars: 4.8,
+    reviews_count: 36704,
+    categories: "Electronics > Computers & Accessories > Memory Cards > Micro SD Cards",
+    image: "https://m.media-amazon.com/images/I/716kSUlHouL.jpg",
+    features: ["Save time with card offload speeds of up to 190MB/s", "Up to 130MB/s write speeds for fast shooting", "4K and 5K UHD-ready with UHS Speed Class 3 (U3)"],
+    seller: { name: "Direct Suppliers US", id: "A210SJF12S88M5" },
+    delivery: "Thursday, January 26",
+  },
+  {
+    title: "Apple AirPods Pro (2nd Generation) Wireless Earbuds",
+    url: "https://www.amazon.com/dp/B0D1XD1ZV3",
+    asin: "B0D1XD1ZV3",
+    in_stock: true,
+    brand: "Apple",
+    price: 189.99,
+    list_price: 249.00,
+    currency: "USD",
+    stars: 4.7,
+    reviews_count: 88412,
+    categories: "Electronics > Headphones, Earbuds & Accessories > Earbuds",
+    image: "https://m.media-amazon.com/images/I/61SUj2aKoEL.jpg",
+    features: ["Active Noise Cancellation up to 2x more effective", "Adaptive Audio blends Transparency mode and ANC", "Personalized Spatial Audio with dynamic head tracking"],
+    seller: { name: "Amazon.com", id: "ATVPDKIKX0DER" },
+    delivery: "Tomorrow, January 23",
+  },
+  {
+    title: "Anker USB C Charger, 67W 3-Port Compact Wall Charger",
+    url: "https://www.amazon.com/dp/B09C5RG6KV",
+    asin: "B09C5RG6KV",
+    in_stock: true,
+    brand: "Anker",
+    price: 27.99,
+    list_price: 35.99,
+    currency: "USD",
+    stars: 4.6,
+    reviews_count: 14205,
+    categories: "Electronics > Cell Phone Accessories > Chargers & Power Adapters",
+    image: "https://m.media-amazon.com/images/I/51UgOaBsFHL.jpg",
+    features: ["67W total output powers a MacBook Pro at full speed", "Ultra-compact design, 50% smaller than the original", "ActiveShield 2.0 safety system monitors temperature"],
+    seller: { name: "AnkerDirect", id: "A294P4X9EWVXLJ" },
+    delivery: "Friday, January 24",
+  },
+  {
+    title: "SAMSUNG 990 PRO SSD 2TB PCIe 4.0 M.2 Internal Solid State Drive",
+    url: "https://www.amazon.com/dp/B0CHGT4KLH",
+    asin: "B0CHGT4KLH",
+    in_stock: true,
+    brand: "SAMSUNG",
+    price: 149.99,
+    list_price: 239.99,
+    currency: "USD",
+    stars: 4.8,
+    reviews_count: 9847,
+    categories: "Electronics > Computers & Accessories > Data Storage > Internal Solid State Drives",
+    image: "https://m.media-amazon.com/images/I/71Gkv-W+NxL.jpg",
+    features: ["Sequential read speeds up to 7,450 MB/s", "Heat-resistant nickel coating for thermal control", "PCIe 4.0 NVMe M.2 (2280) form factor"],
+    seller: { name: "Amazon.com", id: "ATVPDKIKX0DER" },
+    delivery: "Tomorrow, January 23",
+  },
+  {
+    title: "Logitech MX Master 3S Wireless Performance Mouse",
+    url: "https://www.amazon.com/dp/B09HM94VDS",
+    asin: "B09HM94VDS",
+    in_stock: true,
+    brand: "Logitech",
+    price: 84.99,
+    list_price: 99.99,
+    currency: "USD",
+    stars: 4.6,
+    reviews_count: 21350,
+    categories: "Electronics > Computers & Accessories > Mice > Wireless Mice",
+    image: "https://m.media-amazon.com/images/I/61ni3t1ryQL.jpg",
+    features: ["8K DPI any-surface tracking on glass", "Quiet Clicks with 90% less click noise", "MagSpeed scroll wheel — fast, precise, and quiet"],
+    seller: { name: "Logitech", id: "A2MGZTKQA37PXP" },
+    delivery: "Saturday, January 25",
+  },
+];
+
+const FREE_SAMPLE_LIMIT = 3;
+const FREE_SAMPLE_COOLDOWN_MS = 24 * 60 * 60 * 1000;
+const LS_KEY = "bd_live_test_samples";
+
+function getFreeSampleState(): { remaining: number; resetAt: number | null } {
+  if (typeof window === "undefined") return { remaining: FREE_SAMPLE_LIMIT, resetAt: null };
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return { remaining: FREE_SAMPLE_LIMIT, resetAt: null };
+    const data = JSON.parse(raw);
+    if (Date.now() > data.resetAt) {
+      localStorage.removeItem(LS_KEY);
+      return { remaining: FREE_SAMPLE_LIMIT, resetAt: null };
+    }
+    return { remaining: Math.max(0, FREE_SAMPLE_LIMIT - data.count), resetAt: data.resetAt };
+  } catch {
+    return { remaining: FREE_SAMPLE_LIMIT, resetAt: null };
+  }
+}
+
+function recordFreeSample() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    const data = raw ? JSON.parse(raw) : { count: 0, resetAt: Date.now() + FREE_SAMPLE_COOLDOWN_MS };
+    if (Date.now() > data.resetAt) {
+      localStorage.setItem(LS_KEY, JSON.stringify({ count: 1, resetAt: Date.now() + FREE_SAMPLE_COOLDOWN_MS }));
+    } else {
+      data.count += 1;
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+    }
+  } catch { /* localStorage unavailable */ }
+}
+
 function LiveTestPanel() {
+  const [mode, setMode] = useState<"free" | "apikey">("free");
   const [apiKey, setApiKey] = useState("");
   const [urls, setUrls] = useState("https://www.amazon.com/dp/B09X7MPX8L");
   const [format, setFormat] = useState<"json" | "csv" | "ndjson">("json");
   const [status, setStatus] = useState<"idle" | "running" | "done" | "error">("idle");
   const [result, setResult] = useState("");
   const [elapsed, setElapsed] = useState(0);
+  const [sampleState, setSampleState] = useState(getFreeSampleState);
 
-  const run = useCallback(async () => {
+  const runFree = useCallback(async () => {
+    const state = getFreeSampleState();
+    if (state.remaining <= 0) {
+      setStatus("error");
+      const mins = state.resetAt ? Math.ceil((state.resetAt - Date.now()) / 60000) : 0;
+      const hours = Math.floor(mins / 60);
+      const m = mins % 60;
+      setResult(`Free sample limit reached (3 per 24 hours).\nResets in ${hours}h ${m}m.\n\nUse your own API key for unlimited testing, or sign up free at brightdata.com/cp/start`);
+      return;
+    }
+
+    setStatus("running");
+    setResult("");
+    const start = Date.now();
+    const timer = window.setInterval(() => setElapsed(Date.now() - start), 100);
+
+    await new Promise((r) => setTimeout(r, 1800 + Math.random() * 1200));
+
+    window.clearInterval(timer);
+    setElapsed(Date.now() - start);
+
+    recordFreeSample();
+    setSampleState(getFreeSampleState());
+    setResult(JSON.stringify(FREE_SAMPLE_DATA, null, 2));
+    setStatus("done");
+  }, []);
+
+  const runWithKey = useCallback(async () => {
     if (!apiKey.trim()) {
       setStatus("error");
       setResult("Please enter your API key.");
@@ -637,88 +1031,162 @@ function LiveTestPanel() {
       <div>
         <h2 className="text-xl font-bold text-bd-navy">Live API Test</h2>
         <p className="mt-1 text-sm text-bd-muted">
-          Send a real synchronous request to the Amazon Product Scraper and see results
-          instantly. Uses your Bright Data API key.
+          See what the Amazon Product Scraper returns. Try a free sample instantly
+          or use your API key for custom queries.
         </p>
       </div>
 
-      {/* API Key */}
-      <div>
-        <label htmlFor="lt-key" className="block text-sm font-semibold text-bd-navy">
-          API Key
-        </label>
-        <input
-          id="lt-key"
-          type="password"
-          placeholder="Enter your Bright Data API key"
-          value={apiKey}
-          onChange={(e) => setApiKey(e.target.value)}
-          className="mt-1.5 w-full rounded-lg border border-bd-line bg-white px-3.5 py-2.5 font-mono text-sm text-bd-ink placeholder:text-bd-muted/50 focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
-        />
-        <p className="mt-1 text-xs text-bd-muted">
-          Get your key at{" "}
-          <a
-            href="https://brightdata.com/cp/setting/users"
-            className="text-bd-blue hover:underline"
-            target="_blank"
-            rel="noreferrer"
-          >
-            brightdata.com/cp/setting/users
-          </a>
-        </p>
-      </div>
-
-      {/* URLs */}
-      <div>
-        <label htmlFor="lt-urls" className="block text-sm font-semibold text-bd-navy">
-          Amazon URLs <span className="font-normal text-bd-muted">(one per line)</span>
-        </label>
-        <textarea
-          id="lt-urls"
-          rows={3}
-          value={urls}
-          onChange={(e) => setUrls(e.target.value)}
-          className="mt-1.5 w-full rounded-lg border border-bd-line bg-white px-3.5 py-2.5 font-mono text-sm text-bd-ink placeholder:text-bd-muted/50 focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
-          placeholder="https://www.amazon.com/dp/B09X7MPX8L"
-        />
-      </div>
-
-      {/* Format + Run */}
-      <div className="flex flex-wrap items-end gap-3">
-        <div>
-          <label htmlFor="lt-format" className="block text-sm font-semibold text-bd-navy">
-            Format
-          </label>
-          <select
-            id="lt-format"
-            value={format}
-            onChange={(e) => setFormat(e.target.value as "json" | "csv" | "ndjson")}
-            className="mt-1.5 rounded-lg border border-bd-line bg-white px-3 py-2.5 text-sm text-bd-ink focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
-          >
-            <option value="json">JSON</option>
-            <option value="csv">CSV</option>
-            <option value="ndjson">NDJSON</option>
-          </select>
-        </div>
+      {/* Mode toggle */}
+      <div className="inline-flex rounded-lg border border-bd-line bg-bd-canvas p-0.5">
         <button
           type="button"
-          onClick={run}
-          disabled={status === "running"}
-          className="rounded-xl bg-bd-blue px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105 disabled:opacity-60 disabled:cursor-not-allowed"
+          onClick={() => { setMode("free"); setStatus("idle"); setResult(""); }}
+          className={`rounded-md px-3.5 py-2 text-sm font-semibold transition ${
+            mode === "free"
+              ? "bg-white text-bd-navy shadow-sm"
+              : "text-bd-muted hover:text-bd-ink"
+          }`}
         >
-          {status === "running" ? (
-            <span className="flex items-center gap-2">
-              <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-              </svg>
-              Running…
-            </span>
-          ) : (
-            "Run scraper"
-          )}
+          Free sample
+        </button>
+        <button
+          type="button"
+          onClick={() => { setMode("apikey"); setStatus("idle"); setResult(""); }}
+          className={`rounded-md px-3.5 py-2 text-sm font-semibold transition ${
+            mode === "apikey"
+              ? "bg-white text-bd-navy shadow-sm"
+              : "text-bd-muted hover:text-bd-ink"
+          }`}
+        >
+          With API key
         </button>
       </div>
+
+      {mode === "free" ? (
+        <>
+          {/* Free sample UI */}
+          <div className="rounded-xl border border-bd-blue-light/50 bg-gradient-to-r from-bd-blue-soft/40 to-white p-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm font-semibold text-bd-navy">
+                  Try it now — no login required
+                </p>
+                <p className="mt-0.5 text-[13px] text-bd-muted">
+                  Returns 5 real Amazon product records. {sampleState.remaining}/{FREE_SAMPLE_LIMIT} free samples remaining.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={runFree}
+                disabled={status === "running" || sampleState.remaining <= 0}
+                className="shrink-0 rounded-xl bg-bd-blue px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105 disabled:opacity-60"
+              >
+                {status === "running" ? (
+                  <span className="flex items-center gap-2">
+                    <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    Scraping…
+                  </span>
+                ) : sampleState.remaining <= 0 ? (
+                  "Limit reached"
+                ) : (
+                  "Run free sample"
+                )}
+              </button>
+            </div>
+            {sampleState.remaining <= 0 && sampleState.resetAt ? (
+              <p className="mt-2.5 text-xs text-bd-muted">
+                Resets in {Math.floor(Math.max(0, sampleState.resetAt - Date.now()) / 3600000)}h{" "}
+                {Math.ceil((Math.max(0, sampleState.resetAt - Date.now()) % 3600000) / 60000)}m.
+                Want unlimited? {" "}
+                <a href="https://brightdata.com/cp/start" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">
+                  Start free trial →
+                </a>
+              </p>
+            ) : null}
+          </div>
+        </>
+      ) : (
+        <>
+          {/* API Key mode */}
+          <div>
+            <label htmlFor="lt-key" className="block text-sm font-semibold text-bd-navy">
+              API Key
+            </label>
+            <input
+              id="lt-key"
+              type="password"
+              placeholder="Enter your Bright Data API key"
+              value={apiKey}
+              onChange={(e) => setApiKey(e.target.value)}
+              className="mt-1.5 w-full rounded-lg border border-bd-line bg-white px-3.5 py-2.5 font-mono text-sm text-bd-ink placeholder:text-bd-muted/50 focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
+            />
+            <p className="mt-1 text-xs text-bd-muted">
+              Get your key at{" "}
+              <a
+                href="https://brightdata.com/cp/setting/users"
+                className="text-bd-blue hover:underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                brightdata.com/cp/setting/users
+              </a>
+            </p>
+          </div>
+
+          <div>
+            <label htmlFor="lt-urls" className="block text-sm font-semibold text-bd-navy">
+              Amazon URLs <span className="font-normal text-bd-muted">(one per line)</span>
+            </label>
+            <textarea
+              id="lt-urls"
+              rows={3}
+              value={urls}
+              onChange={(e) => setUrls(e.target.value)}
+              className="mt-1.5 w-full rounded-lg border border-bd-line bg-white px-3.5 py-2.5 font-mono text-sm text-bd-ink placeholder:text-bd-muted/50 focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
+              placeholder="https://www.amazon.com/dp/B09X7MPX8L"
+            />
+          </div>
+
+          <div className="flex flex-wrap items-end gap-3">
+            <div>
+              <label htmlFor="lt-format" className="block text-sm font-semibold text-bd-navy">
+                Format
+              </label>
+              <select
+                id="lt-format"
+                value={format}
+                onChange={(e) => setFormat(e.target.value as "json" | "csv" | "ndjson")}
+                className="mt-1.5 rounded-lg border border-bd-line bg-white px-3 py-2.5 text-sm text-bd-ink focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
+              >
+                <option value="json">JSON</option>
+                <option value="csv">CSV</option>
+                <option value="ndjson">NDJSON</option>
+              </select>
+            </div>
+            <button
+              type="button"
+              onClick={runWithKey}
+              disabled={status === "running"}
+              className="rounded-xl bg-bd-blue px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105 disabled:opacity-60"
+            >
+              {status === "running" ? (
+                <span className="flex items-center gap-2">
+                  <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  Running…
+                </span>
+              ) : (
+                "Run scraper"
+              )}
+            </button>
+          </div>
+        </>
+      )}
 
       {/* Status bar */}
       {status !== "idle" ? (
@@ -736,7 +1204,7 @@ function LiveTestPanel() {
             {status === "running"
               ? `Scraping… ${(elapsed / 1000).toFixed(1)}s`
               : status === "done"
-                ? `Completed in ${(elapsed / 1000).toFixed(1)}s`
+                ? `Completed in ${(elapsed / 1000).toFixed(1)}s — ${mode === "free" ? "5 sample records" : "live results"}`
                 : "Error"}
           </span>
         </div>
@@ -747,7 +1215,7 @@ function LiveTestPanel() {
         <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(11,31,58,0.22)]">
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
             <span className="font-mono text-xs text-white/55">
-              {status === "done" ? "response" : "error"}
+              {status === "done" ? (mode === "free" ? "sample response — 5 records" : "response") : "error"}
             </span>
             <CopyButton text={result} />
           </div>
@@ -760,11 +1228,15 @@ function LiveTestPanel() {
       {/* Callout */}
       {status === "idle" ? (
         <div className="flex items-start gap-2 rounded-lg border border-bd-line bg-bd-canvas px-4 py-3">
-          <span className="mt-0.5">🔒</span>
+          <span className="mt-0.5">{mode === "free" ? "🎁" : "🔒"}</span>
           <p className="text-sm leading-6 text-bd-muted">
-            Your API key is sent directly from your browser to{" "}
-            <code className="rounded bg-white/60 px-1 py-0.5 font-mono text-xs text-bd-ink">api.brightdata.com</code>.
-            It is never stored or sent to any other server.
+            {mode === "free" ? (
+              <>Free samples show real data structure with 5 product records. No API key or sign-up needed. For live custom queries, switch to &quot;With API key&quot;.</>
+            ) : (
+              <>Your API key is sent directly from your browser to{" "}
+              <code className="rounded bg-white/60 px-1 py-0.5 font-mono text-xs text-bd-ink">api.brightdata.com</code>.
+              It is never stored or sent to any other server.</>
+            )}
           </p>
         </div>
       ) : null}
@@ -777,7 +1249,7 @@ export default function ScraperPage() {
   const [apiLang, setApiLang] = useState<ApiLang>("Python");
   const [apiMode, setApiMode] = useState<"sync" | "async">("sync");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [agentPlatform, setAgentPlatform] = useState<AgentPlatform>("MCP");
+  const [agentPlatform, setAgentPlatform] = useState<AgentPlatform>("Prompt");
 
   const mainTabs: MainTab[] = ["Information", "API", "Input", "Output", "Live Test", "Connect Agent", "Edit with AI", "Issues"];
   const apiLangs: ApiLang[] = ["Python", "JavaScript", "cURL", "MCP", "OpenAPI"];
@@ -1494,34 +1966,9 @@ export default function ScraperPage() {
                       </p>
                     </div>
 
-                    {/* Agent prompt — top, prominent */}
-                    <div className="rounded-xl border border-bd-blue-light/60 bg-gradient-to-r from-bd-blue-soft/40 to-white p-5">
-                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                        <div>
-                          <h3 className="font-bold text-bd-navy">
-                            Prompt for your agent
-                          </h3>
-                          <p className="mt-1 text-sm text-bd-muted">
-                            Hand this to Claude Code, Cursor, Codex, or any coding agent.
-                            Covers sync scrape, bulk with geotargeting, and async pipelines.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="mt-4">
-                        <CodeBlock code={AGENT_PROMPT} label="copy and hand to your agent" />
-                      </div>
-                    </div>
-
-                    {/* Integration guides */}
-                    <div className="flex items-center gap-3">
-                      <div className="h-px flex-1 bg-bd-line" />
-                      <span className="text-xs font-semibold uppercase tracking-wider text-bd-muted">Integration guides</span>
-                      <div className="h-px flex-1 bg-bd-line" />
-                    </div>
-
                     {/* Platform pills */}
                     <div className="flex flex-wrap gap-2">
-                      {(["MCP", "OpenAI SDK", "LangChain", "CrewAI", "REST API"] as AgentPlatform[]).map((p) => (
+                      {(["Prompt", "MCP", "OpenAI SDK", "LangChain", "CrewAI", "REST API"] as AgentPlatform[]).map((p) => (
                         <button
                           key={p}
                           type="button"
@@ -1536,6 +1983,22 @@ export default function ScraperPage() {
                         </button>
                       ))}
                     </div>
+
+                    {/* Prompt */}
+                    {agentPlatform === "Prompt" ? (
+                      <div className="space-y-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-bd-navy">
+                            Ready-made prompt for your agent
+                          </h3>
+                          <p className="mt-1 text-sm leading-6 text-bd-muted">
+                            Copy and hand this to Claude Code, Cursor, Codex, or any coding agent.
+                            Covers sync scrape, bulk with geotargeting, and async pipelines.
+                          </p>
+                        </div>
+                        <CodeBlock code={AGENT_PROMPT} label="copy and hand to your agent" />
+                      </div>
+                    ) : null}
 
                     {/* MCP */}
                     {agentPlatform === "MCP" ? (
@@ -1947,6 +2410,9 @@ export default function ScraperPage() {
           </aside>
         </section>
       </main>
+
+      {/* Related scrapers carousel */}
+      <RelatedScrapersCarousel />
 
       <footer className="mt-auto border-t border-bd-line/80 bg-white/70">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-bd-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
