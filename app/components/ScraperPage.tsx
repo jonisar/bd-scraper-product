@@ -1287,7 +1287,7 @@ export default function ScraperPage() {
                 Bright Data
               </span>
             </a>
-            <nav className="hidden items-center gap-5 text-sm text-bd-navy/85 md:flex">
+            <nav className="hidden items-center gap-5 text-sm font-semibold text-bd-ink md:flex">
               <a href="https://brightdata.com/cp/scrapers/browse" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Scraper Library</a>
               <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
                 <span className="flex items-center gap-1">AI Scraper Studio<span className="rounded bg-bd-blue/15 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">New</span></span>
@@ -1299,7 +1299,7 @@ export default function ScraperPage() {
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <a
               href="https://brightdata.com/cp"
-              className="hidden rounded-lg px-3 py-1.5 text-sm font-medium text-bd-navy/85 transition hover:text-white hover:bg-bd-blue-soft sm:inline-flex"
+              className="hidden rounded-lg px-3 py-1.5 text-sm font-semibold text-bd-ink transition hover:text-bd-navy hover:bg-bd-blue-soft sm:inline-flex"
             >
               Log in
             </a>
@@ -1312,7 +1312,7 @@ export default function ScraperPage() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="grid h-9 w-9 place-items-center rounded-lg text-bd-navy/85 transition hover:bg-bd-panel hover:text-white md:hidden"
+              className="grid h-9 w-9 place-items-center rounded-lg text-bd-ink transition hover:bg-bd-panel hover:text-bd-navy md:hidden"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
@@ -2911,14 +2911,6 @@ for p in products:
                     </span>
                     <p className="text-sm font-semibold leading-5 text-bd-navy">
                       Volume discounts from $1.30/1K
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
-                      <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-                    </span>
-                    <p className="text-sm font-semibold leading-5 text-bd-navy">
-                      Infinite scale &amp; full compliance
                     </p>
                   </div>
                 </div>
