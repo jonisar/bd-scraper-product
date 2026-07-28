@@ -486,18 +486,6 @@ for p in products:
 const DESCRIPTION =
   "Collect Amazon product data at scale — titles, prices, reviews, seller info, stock levels, and more. No proxy management, no browser rendering, no anti-bot headaches. Just send URLs, get structured JSON back.";
 
-function StarRow() {
-  return (
-    <div className="flex items-center gap-0.5 text-[#f5b301]" aria-label="4.6 out of 5 stars">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} viewBox="0 0 20 20" className="h-3.5 w-3.5 fill-current" aria-hidden="true">
-          <path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.9 5.06 16.7l.94-5.5-4-3.9 5.53-.8L10 1.5z" />
-        </svg>
-      ))}
-    </div>
-  );
-}
-
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -1286,7 +1274,7 @@ export default function ScraperPage() {
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="min-h-screen">
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-bd-line/60 bg-[#000000e6] backdrop-blur-lg">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-2 px-4 sm:px-6">
@@ -1386,25 +1374,31 @@ export default function ScraperPage() {
                   </svg>
                 </a>
                 <p className="mt-3 text-[15px] leading-7 text-bd-ink">{DESCRIPTION}</p>
+                <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-bd-muted sm:gap-x-5">
+                  {[
+                    { name: "Trustpilot", rating: "4.6", color: "#f5b301", href: "https://www.trustpilot.com/review/brightdata.com" },
+                    { name: "G2", rating: "4.7", color: "#ff492c", href: "https://www.g2.com/products/bright-data/reviews" },
+                    { name: "Capterra", rating: "4.7", color: "#e97b1e", href: "https://www.capterra.com/p/146810/Luminati/" },
+                  ].map((p) => (
+                    <a key={p.name} href={p.href} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 transition hover:opacity-70">
+                      <span className="font-medium">{p.name}</span>
+                      <span className="flex items-center gap-px">{Array.from({ length: 5 }).map((_, i) => <svg key={i} viewBox="0 0 20 20" className="h-3 w-3" aria-hidden="true"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.9 5.06 16.7l.94-5.5-4-3.9 5.53-.8L10 1.5z" fill={p.color} /></svg>)}</span>
+                      <span className="font-semibold text-bd-ink">{p.rating}</span>
+                    </a>
+                  ))}
+                </div>
               </div>
 
-              <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2.5 border-t border-bd-line pt-4 text-sm text-bd-muted sm:gap-x-5">
-                <div className="flex items-center gap-2">
-                  <StarRow />
-                  <span className="font-semibold text-bd-ink">4.6</span>
-                  <span>on Trustpilot</span>
-                </div>
-                <span><span className="font-semibold text-bd-ink">34.6K+</span> data deliveries</span>
-                <span><span className="font-semibold text-bd-ink">5.7K+</span> active users</span>
-                <span className="text-bd-success font-medium">98.4% success rate</span>
-                <span className="flex items-center gap-1.5 text-bd-success font-medium">
-                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13.25 8.5V5a1 1 0 00-1-1h-2.5m-6 0H2.75a1 1 0 00-1 1v7a1 1 0 001 1h4.5M5 4V2.5M9.75 4V2.5M3.75 7h8.5m-2.5 5.5l1.5 1.5 3-3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  Last verified: Jul 2026
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 shrink-0 text-bd-success" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 1.5l1.5 1 1.75-.5.75 1.65 1.75.5v1.85l1.25 1.35-1.25 1.35v1.85l-1.75.5-.75 1.65-1.75-.5L8 14.5l-1.5-1-1.75.5-.75-1.65-1.75-.5V9.85L1 8.5l1.25-1.35V5.15l1.75-.5.75-1.65 1.75.5L8 1.5z" strokeLinecap="round" strokeLinejoin="round"/><path d="M5.75 8.5l1.5 1.5 3-3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  <span className="text-bd-success font-medium">GDPR & CCPA compliant</span>
-                </span>
+              <div className="mt-5 flex items-center gap-x-3 overflow-x-auto border-t border-bd-line pt-4 text-sm text-bd-muted sm:gap-x-4">
+                <span className="shrink-0"><span className="font-semibold text-bd-ink">34.6K+</span> deliveries</span>
+                <span className="shrink-0 text-bd-line">·</span>
+                <span className="shrink-0"><span className="font-semibold text-bd-ink">5.7K+</span> users</span>
+                <span className="shrink-0 text-bd-line">·</span>
+                <span className="shrink-0 font-medium text-bd-success">98.4% success</span>
+                <span className="shrink-0 text-bd-line">·</span>
+                <span className="shrink-0 font-medium text-bd-success">Verified Jul 2026</span>
+                <span className="shrink-0 text-bd-line">·</span>
+                <span className="shrink-0 font-medium text-bd-success">GDPR &amp; CCPA</span>
               </div>
             </div>
 
@@ -1435,8 +1429,8 @@ export default function ScraperPage() {
 
             {/* Tabs */}
             <div className="animate-rise-delay mt-5 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
-              <div className="relative">
-                <div className="tab-scroll flex gap-0.5 overflow-x-auto border-b border-bd-line px-1.5 pt-2 sm:gap-1 sm:px-4">
+              <div className="sticky top-14 z-30 rounded-t-2xl border-b border-bd-line bg-bd-panel">
+                <div className="tab-scroll flex gap-0.5 overflow-x-auto px-1.5 pt-2 sm:gap-1 sm:px-4">
                   {mainTabs.map((tab) => (
                     <button
                       key={tab}
@@ -2924,7 +2918,7 @@ for p in products:
                       <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
                     </span>
                     <p className="text-sm font-semibold leading-5 text-bd-navy">
-                      Infinite scale and full compliance
+                      Infinite scale &amp; full compliance
                     </p>
                   </div>
                 </div>
