@@ -1611,15 +1611,15 @@ export default function ScraperPage() {
                       </p>
                       <div className="mt-4 grid gap-3 sm:grid-cols-3">
                         {[
-                          { plan: "Free", price: "$0", detail: "5K records/month, no credit card", features: ["5,000 records/month", "All output formats", "Standard throughput", "Community support"] },
-                          { plan: "Pay As You Go", price: "$1.50", detail: "Per 1K records, pay for success only", features: ["Unlimited records", "All output formats", "Standard throughput", "Email support", "Pay only for successful results"] },
-                          { plan: "Scale", price: "$1.30", detail: "Per 1K records, volume discounts + priority", features: ["Unlimited records", "All output formats", "Priority throughput", "Dedicated support", "Volume discounts", "Custom SLA available"] },
+                          { plan: "Free", price: "$0", detail: "5K records/month, no credit card", features: ["5,000 records/month", "All output formats", "Standard throughput", "Community support"], cta: "Start free", ctaHref: "https://brightdata.com/cp/start", ctaPrimary: true },
+                          { plan: "Pay As You Go", price: "$1.50", detail: "Per 1K records, pay for success only", features: ["Unlimited records", "All output formats", "Standard throughput", "Email support", "Pay only for successful results"], cta: "Get started", ctaHref: "https://brightdata.com/cp/start", ctaPrimary: true },
+                          { plan: "Scale", price: "$1.30", detail: "Per 1K records, volume discounts + priority", features: ["Unlimited records", "All output formats", "Priority throughput", "Dedicated support", "Volume discounts", "Custom SLA available"], cta: "Contact sales", ctaHref: "https://brightdata.com/contact-sales", ctaPrimary: false },
                         ].map((p) => (
-                          <div key={p.plan} className="rounded-xl border border-bd-line bg-bd-canvas px-5 py-4">
+                          <div key={p.plan} className="flex flex-col rounded-xl border border-bd-line bg-bd-canvas px-5 py-4">
                             <p className="text-xs font-semibold uppercase tracking-wider text-bd-muted">{p.plan}</p>
                             <p className="mt-1.5 text-3xl font-extrabold text-bd-navy">{p.price}</p>
                             <p className="mt-0.5 text-xs text-bd-muted">{p.detail}</p>
-                            <ul className="mt-4 space-y-2">
+                            <ul className="mt-4 flex-1 space-y-2">
                               {p.features.map((f) => (
                                 <li key={f} className="flex items-center gap-2 text-sm text-bd-ink">
                                   <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
@@ -1629,6 +1629,14 @@ export default function ScraperPage() {
                                 </li>
                               ))}
                             </ul>
+                            <a
+                              href={p.ctaHref}
+                              className={`mt-auto block rounded-lg px-4 py-2.5 text-center text-sm font-bold transition ${p.ctaPrimary ? "bg-bd-blue text-white shadow-md shadow-bd-blue/30 hover:brightness-105" : "border border-bd-line bg-bd-canvas text-bd-ink hover:border-bd-blue-light hover:bg-bd-blue-soft"}`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {p.cta}
+                            </a>
                           </div>
                         ))}
                       </div>
@@ -1657,24 +1665,14 @@ export default function ScraperPage() {
                       </div>
                     </section>
 
-                    <div className="flex flex-col gap-3 sm:flex-row">
-                      <a
-                        href="https://brightdata.com/cp/start"
-                        className="rounded-xl bg-bd-blue px-5 py-3 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Start free — 5K records/month
-                      </a>
-                      <a
-                        href="https://brightdata.com/pricing"
-                        className="rounded-xl border border-bd-line bg-bd-canvas px-5 py-3 text-center text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        See full pricing details →
-                      </a>
-                    </div>
+                    <a
+                      href="https://brightdata.com/cp/start"
+                      className="inline-block rounded-xl bg-bd-blue px-5 py-3 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Start free — 5K records/month
+                    </a>
                   </div>
                 ) : null}
 
@@ -2928,14 +2926,6 @@ for p in products:
                   rel="noreferrer"
                 >
                   Contact sales
-                </a>
-                <a
-                  href="https://brightdata.com/pricing"
-                  className="mt-3 inline-block text-sm font-semibold text-bd-blue hover:underline"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Full pricing details →
                 </a>
               </div>
             </div>
