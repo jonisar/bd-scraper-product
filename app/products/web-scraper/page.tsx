@@ -11,11 +11,20 @@ export const metadata: Metadata = {
   title: "Web Scraping API - 5K Records/Month for Free | Bright Data",
   description:
     "The most reliable Web Scraping API. 1,238+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free — no credit card required.",
+  openGraph: {
+    title: "Web Scraping API - 5K Records/Month for Free | Bright Data",
+    description:
+      "1,238+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free.",
+    type: "website",
+    url: "https://brightdata.com/products/web-scraper",
+    siteName: "Bright Data",
+  },
+  alternates: { canonical: "https://brightdata.com/products/web-scraper" },
 };
 
 export default function WebScraperHome() {
   return (
-    <>
+    <div className="lib-page">
       <Header />
 
       {/* HERO */}
@@ -366,6 +375,6 @@ export default function WebScraperHome() {
 
       <Footer />
       <ScrollReveal />
-    </>
+    </div>
   );
 }

@@ -143,6 +143,10 @@ body {
 }
 
 .logo-marquee {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 40px;
   animation: marquee 25s linear infinite;
 }
 
@@ -212,9 +216,11 @@ body {
 
 /* =====================================================================
    Library page styles (from bd-scraper-lib)
+   Scoped via .lib-page to avoid bleeding into Tailwind-based ScraperPage.
    ===================================================================== */
 
-h1, h2, h3 { color: var(--text-1); font-weight: 700; line-height: 1.15; margin: 0; }
+.lib-page h1, .lib-page h2, .lib-page h3 { color: var(--text-1); font-weight: 700; line-height: 1.15; margin: 0; }
+.lib-page p { margin: 0; color: var(--text-2); }
 
 .container { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--s5); }
 
@@ -334,7 +340,7 @@ h1, h2, h3 { color: var(--text-1); font-weight: 700; line-height: 1.15; margin: 
 .section { padding: var(--s8) 0; }
 .section-alt { background: var(--surface-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .section-head { text-align: center; max-width: 680px; margin: 0 auto var(--s7); }
-.section-head p { margin-top: var(--s4); font-size: 15px; }
+.section-head p { margin-top: var(--s4); font-size: 15px; color: var(--text-3); }
 .kicker { color: var(--accent-2); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-bottom: var(--s3); display: block; }
 
 /* Value Banner */
@@ -481,7 +487,7 @@ h1, h2, h3 { color: var(--text-1); font-weight: 700; line-height: 1.15; margin: 
 .term-label { font-family: var(--font-jetbrains, 'JetBrains Mono'), ui-monospace, monospace; font-size: 14px; color: var(--text-2); margin: 0 0 var(--s3); }
 .term-label.mt { margin-top: var(--s5); }
 .cmd { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); background: var(--code-bg); border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 12px var(--s4); margin-bottom: var(--s3); }
-.cmd code { font-family: var(--font-jetbrains, 'JetBrains Mono'), ui-monospace, monospace; font-size: 13px; color: #d7e6ff; overflow-x: auto; }
+.cmd code { font-family: var(--font-jetbrains, 'JetBrains Mono'), ui-monospace, monospace; font-size: 13px; color: #d7e6ff; overflow-x: auto; word-break: break-all; }
 .cmd button { background: transparent; border: 0; color: var(--text-3); cursor: pointer; font-size: 15px; flex-shrink: 0; }
 .cmd button:hover { color: var(--text-1); }
 .works { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; padding: var(--s5) var(--s6); border-top: 1px solid var(--border); }
@@ -597,6 +603,25 @@ h1, h2, h3 { color: var(--text-1); font-weight: 700; line-height: 1.15; margin: 
 @media (max-width: 560px) { .values { grid-template-columns: 1fr; } }
 .value { display: flex; gap: var(--s3); align-items: flex-start; font-size: 14px; line-height: 1.45; color: var(--text-2); }
 .check { color: var(--mint); font-weight: 700; flex-shrink: 0; }
+
+/* Tablet overrides for library page */
+@media (max-width: 900px) {
+  .agent-start-grid { gap: var(--s6); }
+  .term-body { padding: var(--s4); }
+  .cmd code { font-size: 12px; }
+  .prompt-card { padding: var(--s5); }
+  .prompt-body code { font-size: 11.5px; }
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 32px; }
+  .hero-popular { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .hero-popular::-webkit-scrollbar { display: none; }
+  .hero-checks { gap: var(--s3) var(--s5); }
+  .section-head h2 { font-size: 24px; }
+  .twin-col h2 { font-size: 20px; }
+  .stat-banner-text { font-size: 19px; }
+}
 
 /* Mobile overrides for library page */
 @media (max-width: 640px) {

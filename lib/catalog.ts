@@ -1,7 +1,6 @@
 /**
  * Full scraper catalog for the library page.
- * Scrapers with a `slug` have a detail page at /templates/[slug].
- * Others link directly to the Bright Data console.
+ * All scrapers link to the Bright Data console.
  */
 
 export type CatalogScraper = {

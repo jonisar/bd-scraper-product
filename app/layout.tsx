@@ -17,9 +17,14 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Web Scraping API - 5K Records/Month for Free | Bright Data",
+  title: {
+    default: "Web Scraping API | Bright Data",
+    template: "%s | Bright Data",
+  },
   description:
-    "The most reliable Web Scraping API. 1,238+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free — no credit card required.",
+    "The most reliable Web Scraping API. 1,238+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering.",
+  metadataBase: new URL("https://brightdata.com"),
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -32,7 +37,7 @@ export default function RootLayout({
       lang="en"
       className={`${jakarta.variable} ${jetbrains.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans" style={{ background: "#000" }}>
+        <body className="min-h-full flex flex-col font-sans">
         {children}
       </body>
     </html>

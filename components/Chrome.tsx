@@ -18,7 +18,9 @@ export function Header() {
           <Link href="/products/web-scraper#agents" className="hide-sm">For agents</Link>
           <Link href="/products/web-scraper#studio" className="hide-sm">Build your own</Link>
           <a
-            href="https://brightdata.com/cp/scrapers/browse?category=all"
+            href="https://brightdata.com/cp/start"
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn btn-primary btn-sm btn-pill"
           >
             Start free
@@ -41,9 +43,9 @@ export function Footer() {
           <div className="footer-links">
             <Link href="/products/web-scraper#library">Scrapers</Link>
             <Link href="/products/web-scraper#agents">For agents</Link>
-            <a href="https://docs.brightdata.com/datasets/web-scraper-api/overview">Docs</a>
-            <a href="https://brightdata.com/pricing/web-scraper">Pricing</a>
-            <a href="https://github.com/luminati-io">GitHub</a>
+            <a href="https://docs.brightdata.com/datasets/web-scraper-api/overview" target="_blank" rel="noopener noreferrer">Docs</a>
+            <a href="https://brightdata.com/pricing/web-scraper" target="_blank" rel="noopener noreferrer">Pricing</a>
+            <a href="https://github.com/luminati-io" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
         </div>
         <p className="disclaimer">
