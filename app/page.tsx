@@ -1,5 +1,5 @@
 import { permanentRedirect } from "next/navigation";
 
 export default function Home() {
-  permanentRedirect("/products/web-scraper");
+  permanentRedirect("/products/web-scraper/amazon");
 }
