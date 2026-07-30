@@ -100,13 +100,18 @@ button:disabled,
 
 body {
   margin: 0;
+  padding: 0;
   min-height: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
   background:
-    radial-gradient(1200px 500px at 10% -10%, rgba(61, 127, 252, 0.08), transparent 55%),
-    radial-gradient(900px 420px at 90% 0%, rgba(110, 160, 255, 0.06), transparent 50%),
+    radial-gradient(1200px 500px at 10% -10%, rgba(61, 127, 252, 0.07), transparent 55%),
+    radial-gradient(900px 420px at 90% 0%, rgba(110, 160, 255, 0.05), transparent 50%),
     #000000;
-  color: var(--foreground);
-  font-family: var(--font-jakarta), sans-serif;
+  color: var(--text-2);
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans'), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
@@ -116,7 +121,7 @@ body {
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -165,6 +170,8 @@ body {
     animation: none;
   }
 }
+
+.animate-rise, .animate-rise-delay { opacity: 1; }
 
 .animate-rise {
   animation: rise-in 0.55s ease-out both;
@@ -219,7 +226,12 @@ body {
    Scoped via .lib-page to avoid bleeding into Tailwind-based ScraperPage.
    ===================================================================== */
 
+.lib-page { font-size: 16px; line-height: 1.6; max-width: 100vw; overflow-x: hidden; }
+.lib-page a { color: inherit; text-decoration: none; }
 .lib-page h1, .lib-page h2, .lib-page h3 { color: var(--text-1); font-weight: 700; line-height: 1.15; margin: 0; }
+.lib-page h1 { font-size: clamp(36px, 5.5vw, 56px); letter-spacing: -0.025em; }
+.lib-page h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 600; letter-spacing: -0.015em; }
+.lib-page h3 { font-size: 20px; font-weight: 600; }
 .lib-page p { margin: 0; color: var(--text-2); }
 
 .container { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--s5); }
@@ -319,7 +331,7 @@ body {
 /* Customers strip */
 .customers-strip { padding: var(--s4) 0; }
 .customers-panel { overflow: hidden; padding: var(--s5) 0; }
-.customers-label { text-align: center; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-3); margin-bottom: var(--s4); padding: 0 var(--s5); }
+.customers-label, h2.customers-label { text-align: center; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-3); margin-bottom: var(--s4); padding: 0 var(--s5); line-height: 1.4; }
 .customers-track { position: relative; overflow: hidden; }
 .customers-fade { position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none; }
 .customers-fade-l { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
@@ -340,7 +352,7 @@ body {
 .section { padding: var(--s8) 0; }
 .section-alt { background: var(--surface-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .section-head { text-align: center; max-width: 680px; margin: 0 auto var(--s7); }
-.section-head p { margin-top: var(--s4); font-size: 15px; color: var(--text-3); }
+.section-head p { margin-top: var(--s4); font-size: 15px; }
 .kicker { color: var(--accent-2); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-bottom: var(--s3); display: block; }
 
 /* Value Banner */
