@@ -1,5 +1,5 @@
-import ScraperPage from "./components/ScraperPage";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <ScraperPage />;
+  redirect("/products/web-scraper");
 }
