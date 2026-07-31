@@ -147,6 +147,7 @@ export const catalog: CatalogScraper[] = [
     fields: ["ID", "Name", "Country code", "Locations", "Followers", "Employees in LinkedIn", "About", "Specialties", "Industry", "Website", "Founded", "Company size", "Headquarters", "Type", "Logo", "Cover image", "Affiliated companies", "Recent updates", "Job openings count", "Funding info", "Growth rate", "Employee distribution"],
     views: "33K+",
     downloads: "3.5K+",
+    popular: true,
   },
   {
     id: "instagram-profiles",
@@ -173,6 +174,7 @@ export const catalog: CatalogScraper[] = [
     fields: ["Name", "URL", "ID", "Cb rank", "Region", "About", "Industries", "Operating status", "Founded date", "Funding total", "Last funding type", "Employees", "Revenue range", "Website", "Headquarters", "Investors count", "IPO status", "Last funding date", "Acquisitions", "Sub-organizations", "Board members", "Key people", "Technology stack", "Similar companies"],
     views: "15.4K+",
     downloads: "1.6K+",
+    popular: true,
   },
   {
     id: "linkedin-jobs",
@@ -225,6 +227,7 @@ export const catalog: CatalogScraper[] = [
     views: "11.9K+",
     downloads: "1.2K+",
     slug: "zillow-listings",
+    popular: true,
   },
   {
     id: "linkedin-posts",
@@ -262,6 +265,7 @@ export const catalog: CatalogScraper[] = [
     views: "8.2K+",
     downloads: "953+",
     slug: "tiktok-posts",
+    popular: true,
   },
   {
     id: "youtube-videos",

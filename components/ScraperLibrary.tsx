@@ -31,27 +31,30 @@ export default function ScraperLibrary() {
     <div className="lib">
       {/* Filter bar */}
       <div className="lib-bar">
-        <div className="lib-chips">
-          {CATALOG_CATEGORIES.map((c) => (
-            <button
-              key={c}
-              className={`lib-chip ${cat === c ? "active" : ""}`}
-              onClick={() => setCat(c)}
-            >
-              {c}
-              {c !== "All" && (
-                <span className="lib-chip-n">
-                  {catalog.filter((s) => s.category === c).length}
-                </span>
-              )}
-            </button>
-          ))}
+        <div className="lib-chips-wrap">
+          <div className="lib-chips">
+            {CATALOG_CATEGORIES.map((c) => (
+              <button
+                key={c}
+                className={`lib-chip ${cat === c ? "active" : ""}`}
+                onClick={() => setCat(c)}
+              >
+                {c}
+                {c !== "All" && (
+                  <span className="lib-chip-n">
+                    {catalog.filter((s) => s.category === c).length}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
         </div>
         <input
           className="lib-search"
           placeholder="Filter..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          aria-label="Filter scrapers"
         />
       </div>
 

@@ -368,8 +368,10 @@ body {
 .library-section { padding: var(--s3) 0 var(--s7); }
 
 /* Library bar */
-.lib-bar { display: flex; align-items: center; gap: var(--s4); margin-bottom: var(--s4); position: sticky; top: 56px; z-index: 30; background: rgba(0,0,0,0.88); backdrop-filter: blur(12px); padding: var(--s3) 0; border-bottom: 1px solid var(--border); }
-.lib-chips { display: flex; gap: var(--s2); flex: 1; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.lib-bar { display: flex; align-items: center; gap: var(--s4); margin-bottom: var(--s4); position: sticky; top: 56px; z-index: 30; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); padding: var(--s3) 0; border-bottom: 1px solid var(--border); }
+.lib-chips-wrap { position: relative; flex: 1; min-width: 0; }
+.lib-chips-wrap::after { content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 48px; background: linear-gradient(to right, transparent, rgba(0,0,0,0.95)); pointer-events: none; z-index: 1; }
+.lib-chips { display: flex; gap: var(--s2); overflow-x: auto; scrollbar-width: none; padding-right: 40px; }
 .lib-chips::-webkit-scrollbar { display: none; }
 .lib-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; color: var(--text-2); background: transparent; border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 6px 13px; cursor: pointer; transition: all .15s; font-family: inherit; white-space: nowrap; flex-shrink: 0; }
 .lib-chip:hover { border-color: var(--border-strong); color: var(--text-1); }
