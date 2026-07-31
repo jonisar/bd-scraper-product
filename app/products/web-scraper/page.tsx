@@ -75,7 +75,7 @@ export default function WebScraperHome() {
                 <span className="hero-scraper-name">{s.name}</span>
                 <span className="hero-scraper-domain">{s.domain}</span>
                 <span className="hero-scraper-meta">{s.views} records · {s.downloads} users</span>
-                <span className="hero-scraper-badge">✓ GDPR &amp; CCPA Compliance</span>
+                <span className="hero-scraper-badge">✓ GDPR &amp; CCPA  ✓ Maintained</span>
               </a>
             ))}
           </div>

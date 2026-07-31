@@ -338,9 +338,9 @@ body {
 @media (max-width: 400px) { .hero-scrapers-grid { grid-template-columns: 1fr; } }
 
 /* Customers strip */
-.customers-strip { padding: var(--s5) 0; border-top: 1px solid var(--border); }
+.customers-strip { padding: var(--s5) 0; }
 .customers-panel { overflow: hidden; padding: var(--s5) 0; }
-.customers-label, h2.customers-label { text-align: center; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-3); margin-bottom: var(--s4); padding: 0 var(--s5); line-height: 1.4; }
+.customers-label, h2.customers-label { text-align: center; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-3); margin-bottom: var(--s4); padding: 0 var(--s5); line-height: 1.4; }
 .customers-track { position: relative; overflow: hidden; }
 .customers-fade { position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none; }
 .customers-fade-l { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
@@ -349,13 +349,13 @@ body {
 /* Logo marquee */
 .logo-marquee-set { display: flex; align-items: center; gap: 40px; flex-shrink: 0; }
 .logo-item { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 28px; cursor: default; }
-.logo-text { white-space: nowrap; font-size: 17px; font-weight: 700; letter-spacing: -0.01em; color: var(--text-3); opacity: 0.7; transition: opacity .25s; }
-.logo-img { position: absolute; inset: 0; margin: auto; width: auto; height: 26px; max-width: 100px; object-fit: contain; opacity: 0; transition: opacity .25s; pointer-events: none; filter: brightness(0) invert(1); }
+.logo-text { white-space: nowrap; font-size: 19px; font-weight: 700; letter-spacing: -0.01em; color: var(--text-3); opacity: 0.7; transition: opacity .25s; }
+.logo-img { position: absolute; inset: 0; margin: auto; width: auto; height: 30px; max-width: 110px; object-fit: contain; opacity: 0; transition: opacity .25s; pointer-events: none; filter: brightness(0) invert(1); }
 .logo-item:hover .logo-text { opacity: 0; }
 .logo-item:hover .logo-img { opacity: 1; filter: none; }
-.logo-marquee-wide .logo-text { font-size: 18px !important; font-weight: 800 !important; }
+.logo-marquee-wide .logo-text { font-size: 20px !important; font-weight: 800 !important; }
 .logo-marquee-caps .logo-text { text-transform: uppercase; letter-spacing: 0.12em !important; }
-.logo-marquee-sm .logo-text { font-size: 14px !important; font-weight: 600 !important; }
+.logo-marquee-sm .logo-text { font-size: 15px !important; font-weight: 600 !important; }
 
 /* Sections */
 .section { padding: var(--s8) 0; }
