@@ -6,7 +6,6 @@ import AgentGetStarted from "@/components/AgentGetStarted";
 import StudioAgentPrompts from "@/components/StudioAgentPrompts";
 import ScrollReveal from "@/components/ScrollReveal";
 import { templates } from "@/lib/templates";
-import { catalog } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Web Scraping API - 5K Records/Month for Free | Bright Data",
@@ -60,25 +59,10 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* POPULAR SCRAPERS — FIRST FOLD */}
-      <section className="hero-scrapers">
+      {/* SCRAPER LIBRARY — first fold */}
+      <section className="library-section" id="library">
         <div className="container">
-          <div className="hero-scrapers-grid">
-            {catalog.filter((s) => s.popular).slice(0, 5).map((s) => (
-              <a
-                key={s.id}
-                href={`https://brightdata.com/cp/scrapers/browse?category=all`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-scraper-card"
-              >
-                <span className="hero-scraper-name">{s.name}</span>
-                <span className="hero-scraper-domain">{s.domain}</span>
-                <span className="hero-scraper-meta">{s.views} records · {s.downloads} users</span>
-                <span className="hero-scraper-badge">✓ GDPR &amp; CCPA  ✓ Maintained</span>
-              </a>
-            ))}
-          </div>
+          <ScraperLibrary />
         </div>
       </section>
 
@@ -121,13 +105,6 @@ export default function WebScraperHome() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* SCRAPER LIBRARY */}
-      <section className="library-section" id="library">
-        <div className="container">
-          <ScraperLibrary />
         </div>
       </section>
 
