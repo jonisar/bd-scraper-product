@@ -1346,7 +1346,6 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: space-between;
   gap: var(--s4) var(--s6);
   margin-bottom: var(--s5);
   padding-bottom: var(--s5);
@@ -1359,56 +1358,49 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-2);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
-.footer-trust-chips,
-.footer-connect-links {
+.footer-connect {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s5) var(--s7);
+  width: 100%;
+}
+.footer-connect-group { min-width: 0; }
+.footer-social-icons {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
-.footer-trust-chips a,
-.footer-trust-chips span,
-.footer-connect-links a {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-3);
+.footer-social-icons a {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  color: var(--text-2);
   background: rgba(255,255,255,0.03);
   border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-  padding: 6px 12px;
+  border-radius: 10px;
   text-decoration: none;
-  transition: color .15s, border-color .15s, background .15s;
+  transition: color .15s, border-color .15s, background .15s, transform .15s;
 }
-.footer-trust-chips a:hover,
-.footer-connect-links a:hover {
+.footer-social-icons a:hover {
   color: var(--text-1);
   border-color: var(--border-strong);
-  background: rgba(61,127,252,0.08);
+  background: rgba(61,127,252,0.1);
+  transform: translateY(-1px);
 }
 .footer-icon {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-  opacity: 0.85;
+  width: 16px;
+  height: 16px;
+  display: block;
 }
-.footer-connect-links a:hover .footer-icon,
-.footer-trust-chips a:hover .footer-icon { opacity: 1; }
-.footer-connect {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s5) var(--s6);
-}
-.footer-connect-group { min-width: 0; }
 
-/* Partners */
+/* Partners + trust badge logos */
 .footer-partners {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--s4) var(--s5);
+  grid-template-columns: 1fr 1fr 1.6fr;
+  gap: var(--s5);
   margin-bottom: var(--s5);
   padding-bottom: var(--s5);
   border-bottom: 1px solid var(--border);
@@ -1420,21 +1412,34 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text-2);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
-.footer-partner-items {
+.footer-partner-logos {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 12px;
-  font-size: 12px;
-  color: var(--text-3);
+  align-items: center;
+  gap: 10px 14px;
 }
-.footer-partner-items a {
-  color: var(--text-3);
-  text-decoration: none;
-  transition: color .15s;
+.footer-partner-logos a,
+.footer-partner-logos span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.85;
+  transition: opacity .15s, transform .15s;
 }
-.footer-partner-items a:hover { color: var(--accent-2); }
+.footer-partner-logos a:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+.footer-partner-logos img {
+  display: block;
+  height: 40px;
+  width: auto;
+  max-width: 110px;
+  object-fit: contain;
+  filter: brightness(0.95) grayscale(0.15);
+}
 
 /* Bottom bar */
 .footer-bottom {
@@ -1475,7 +1480,8 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 @media (max-width: 960px) {
   .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .footer-partners { grid-template-columns: 1fr; }
+  .footer-partners { grid-template-columns: 1fr 1fr; }
+  .footer-partner-group-wide { grid-column: 1 / -1; }
 }
 @media (max-width: 560px) {
   .footer { padding: var(--s6) 0 var(--s5); }
@@ -1483,7 +1489,8 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   .footer-brand-actions { width: 100%; }
   .footer-brand-actions .btn { flex: 1; justify-content: center; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s5) var(--s4); }
-  .footer-reassure { flex-direction: column; }
+  .footer-partners { grid-template-columns: 1fr; }
+  .footer-partner-logos img { height: 34px; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
 }
 

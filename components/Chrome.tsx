@@ -266,7 +266,11 @@ function FooterCol({ col }: { col: FooterColumn }) {
   );
 }
 
-function FooterIcon({ name }: { name: "linkedin" | "youtube" | "github" | "whatsapp" | "email" | "shield" | "iso" | "status" }) {
+function FooterIcon({
+  name,
+}: {
+  name: "linkedin" | "youtube" | "github" | "whatsapp" | "email" | "telegram" | "shield" | "status";
+}) {
   const common = {
     className: "footer-icon",
     viewBox: "0 0 24 24",
@@ -304,16 +308,16 @@ function FooterIcon({ name }: { name: "linkedin" | "youtube" | "github" | "whats
           <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
         </svg>
       );
+    case "telegram":
+      return (
+        <svg {...common}>
+          <path d="M9.78 18.65l.28-4.23 7.68-6.96c.34-.31-.07-.48-.52-.19L7.74 13.3 3.64 12c-.88-.27-.9-.86.2-1.3L19.87 5.3c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.9-.74 1.12-1.5.7l-4.15-3.05-2 .61c-.23.08-.44-.05-.47-.32z" />
+        </svg>
+      );
     case "shield":
       return (
         <svg {...common}>
           <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1.06 13.54l-3.18-3.18 1.41-1.41 1.77 1.77 4.24-4.24 1.41 1.41-5.65 5.65z" />
-        </svg>
-      );
-    case "iso":
-      return (
-        <svg {...common}>
-          <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
         </svg>
       );
     case "status":
@@ -361,81 +365,111 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Reassure — trust + contact + social */}
+        {/* Reassure — social + contact (icon buttons, matching Bright Data) */}
         <div className="footer-reassure">
-          <div className="footer-trust">
-            <span className="footer-reassure-label">Trust</span>
-            <div className="footer-trust-chips">
-              <a href={`${BD}/trustcenter`} target="_blank" rel="noopener noreferrer">
-                <FooterIcon name="shield" /> Trust Center
-              </a>
-              <a href="https://brightdata.com/static/ISO_27001_2022_Certificate.pdf?md5=391501-61ff811d" target="_blank" rel="noopener noreferrer">
-                <FooterIcon name="iso" /> ISO 27001
-              </a>
-              <a href={`${BD}/trustcenter/gdpr`} target="_blank" rel="noopener noreferrer">
-                <FooterIcon name="shield" /> GDPR ready
-              </a>
-              <span><FooterIcon name="shield" /> SOC 2</span>
-              <a href={`${BD}/network-status`} target="_blank" rel="noopener noreferrer">
-                <FooterIcon name="status" /> Status
-              </a>
-            </div>
-          </div>
           <div className="footer-connect">
             <div className="footer-connect-group">
-              <span className="footer-reassure-label">Follow</span>
-              <div className="footer-connect-links">
-                <a href="https://il.linkedin.com/company/bright-data" target="_blank" rel="nofollow noopener noreferrer" aria-label="LinkedIn">
-                  <FooterIcon name="linkedin" /> LinkedIn
+              <span className="footer-reassure-label">Follow Us</span>
+              <div className="footer-social-icons">
+                <a href="https://il.linkedin.com/company/bright-data" target="_blank" rel="nofollow noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+                  <FooterIcon name="linkedin" />
                 </a>
-                <a href="https://www.youtube.com/channel/UCM_0cG1ljAoEUcZIyoUIq6g" target="_blank" rel="nofollow noopener noreferrer" aria-label="YouTube">
-                  <FooterIcon name="youtube" /> YouTube
+                <a href="https://www.youtube.com/channel/UCM_0cG1ljAoEUcZIyoUIq6g" target="_blank" rel="nofollow noopener noreferrer" aria-label="YouTube" title="YouTube">
+                  <FooterIcon name="youtube" />
                 </a>
-                <a href="https://github.com/luminati-io" target="_blank" rel="nofollow noopener noreferrer" aria-label="GitHub">
-                  <FooterIcon name="github" /> GitHub
+                <a href="https://github.com/luminati-io" target="_blank" rel="nofollow noopener noreferrer" aria-label="GitHub" title="GitHub">
+                  <FooterIcon name="github" />
                 </a>
               </div>
             </div>
             <div className="footer-connect-group">
-              <span className="footer-reassure-label">Contact</span>
-              <div className="footer-connect-links">
-                <a href="https://wa.me/972543536332" target="_blank" rel="nofollow noopener noreferrer" aria-label="WhatsApp">
-                  <FooterIcon name="whatsapp" /> WhatsApp
+              <span className="footer-reassure-label">Contact Us</span>
+              <div className="footer-social-icons">
+                <a href="https://wa.me/972543536332" target="_blank" rel="nofollow noopener noreferrer" aria-label="WhatsApp" title="WhatsApp">
+                  <FooterIcon name="whatsapp" />
                 </a>
-                <a href="mailto:sales@brightdata.com" rel="nofollow noopener noreferrer" aria-label="Email">
-                  <FooterIcon name="email" /> Email
+                <a href="mailto:sales@brightdata.com" rel="nofollow noopener noreferrer" aria-label="Email" title="Email">
+                  <FooterIcon name="email" />
+                </a>
+                <a href="https://t.me/bright_data" target="_blank" rel="nofollow noopener noreferrer" aria-label="Telegram" title="Telegram">
+                  <FooterIcon name="telegram" />
+                </a>
+              </div>
+            </div>
+            <div className="footer-connect-group">
+              <span className="footer-reassure-label">Trust</span>
+              <div className="footer-social-icons">
+                <a href={`${BD}/trustcenter`} target="_blank" rel="noopener noreferrer" aria-label="Trust Center" title="Trust Center">
+                  <FooterIcon name="shield" />
+                </a>
+                <a href={`${BD}/network-status`} target="_blank" rel="noopener noreferrer" aria-label="Network Status" title="Network Status">
+                  <FooterIcon name="status" />
                 </a>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Partners — compact proof strip */}
+        {/* Partners + trust badges — logo strip matching Bright Data footer */}
         <div className="footer-partners">
           <div className="footer-partner-group">
-            <span className="footer-partner-label">Cloud</span>
-            <div className="footer-partner-items">
-              <a href={`${BD}/partners/aws`} target="_blank" rel="noopener noreferrer">AWS</a>
-              <span>Databricks</span>
-              <span>Snowflake</span>
+            <span className="footer-partner-label">Cloud partnerships</span>
+            <div className="footer-partner-logos">
+              <a href={`${BD}/partners/aws`} target="_blank" rel="noopener noreferrer">
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/aws.svg" alt="AWS" width={56} height={52} loading="lazy" />
+              </a>
+              <span>
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/databricks.svg" alt="Databricks" width={50} height={52} loading="lazy" />
+              </span>
+              <span>
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/snowflake.svg?v=1687949632" alt="Snowflake" width={56} height={52} loading="lazy" />
+              </span>
             </div>
           </div>
           <div className="footer-partner-group">
-            <span className="footer-partner-label">Reviews</span>
-            <div className="footer-partner-items">
-              <span>Capterra</span>
-              <span>GetApp</span>
-              <span>Software Advice</span>
+            <span className="footer-partner-label">Customer excellence</span>
+            <div className="footer-partner-logos">
+              <span>
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/capterra_footer.png" alt="Capterra" width={62} height={52} loading="lazy" />
+              </span>
+              <span>
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/getapp.svg?2023" alt="GetApp" width={56} height={52} loading="lazy" />
+              </span>
+              <span>
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/software_advice.png" alt="Software Advice" width={62} height={52} loading="lazy" />
+              </span>
             </div>
           </div>
-          <div className="footer-partner-group">
-            <span className="footer-partner-label">Partners</span>
-            <div className="footer-partner-items">
-              <span>Top Data Provider</span>
-              <span>WIPO Alert</span>
-              <span>BDV</span>
-              <span>MRS</span>
-              <span>Gartner</span>
+          <div className="footer-partner-group footer-partner-group-wide">
+            <span className="footer-partner-label">Partnerships &amp; trust</span>
+            <div className="footer-partner-logos">
+              <span>
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/top_data_provider_2023.svg" alt="Top Data Provider" width={52} height={52} loading="lazy" />
+              </span>
+              <span>
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/wipo.svg" alt="WIPO Alert" width={90} height={52} loading="lazy" />
+              </span>
+              <span>
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/bdv.png" alt="BDV" width={100} height={52} loading="lazy" />
+              </span>
+              <span>
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/mrs.svg" alt="MRS" width={90} height={52} loading="lazy" />
+              </span>
+              <span>
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/gartner.svg" alt="Gartner" width={90} height={52} loading="lazy" />
+              </span>
+              <span>
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/soc_cpa.svg" alt="SOC" width={52} height={52} loading="lazy" />
+              </span>
+              <a href="https://brightdata.com/static/ISO_27001_2022_Certificate.pdf?md5=391501-61ff811d" target="_blank" rel="noopener noreferrer">
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/iso.svg" alt="ISO certified" width={58} height={52} loading="lazy" />
+              </a>
+              <a href={`${BD}/trustcenter/gdpr`} target="_blank" rel="noopener noreferrer">
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/gdpr.svg" alt="GDPR ready" width={58} height={52} loading="lazy" />
+              </a>
+              <span>
+                <img src="https://brightdata.com/wp-content/themes/brightdata/assets/images/footer/tag.svg" alt="Tag" width={58} height={52} loading="lazy" />
+              </span>
             </div>
           </div>
         </div>
