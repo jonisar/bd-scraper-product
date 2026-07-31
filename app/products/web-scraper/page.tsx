@@ -59,14 +59,7 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* SCRAPER LIBRARY — first fold */}
-      <section className="library-section" id="library">
-        <div className="container">
-          <ScraperLibrary />
-        </div>
-      </section>
-
-      {/* CUSTOMER LOGOS STRIP */}
+      {/* CUSTOMER LOGOS STRIP — directly under hero */}
       <section className="customers-strip">
         <div className="container">
           <div className="customers-panel">
@@ -105,6 +98,13 @@ export default function WebScraperHome() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* SCRAPER LIBRARY */}
+      <section className="library-section" id="library">
+        <div className="container">
+          <ScraperLibrary />
         </div>
       </section>
 

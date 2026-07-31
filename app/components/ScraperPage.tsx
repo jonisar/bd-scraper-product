@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { Header } from "@/components/Chrome";
+import { Header, Footer } from "@/components/Chrome";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Live Test" | "Issues" | "Connect Agent" | "Edit with AI";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
@@ -2924,17 +2924,7 @@ for p in products:
         <RelatedScrapersCarousel />
       </main>
 
-      <footer className="mt-auto border-t border-bd-line bg-bd-panel">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-bd-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <span>© {new Date().getFullYear()} Bright Data Ltd.</span>
-          <div className="flex flex-wrap gap-x-4 gap-y-1">
-            <a href="https://brightdata.com/trustcenter" className="hover:text-bd-navy transition" target="_blank" rel="noreferrer">Trust Center</a>
-            <a href="https://brightdata.com/pricing" className="hover:text-bd-navy transition" target="_blank" rel="noreferrer">Pricing</a>
-            <a href="https://docs.brightdata.com/" className="hover:text-bd-navy transition" target="_blank" rel="noreferrer">Docs</a>
-            <a href="https://brightdata.com/contact" className="hover:text-bd-navy transition" target="_blank" rel="noreferrer">Contact</a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
