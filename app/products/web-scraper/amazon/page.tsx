@@ -305,30 +305,46 @@ export default function AmazonHubPage() {
             </div>
 
             <div className="hub-plan-includes">
-              <h3>Every plan includes full access — pay less per record as you scale</h3>
+              <div className="hub-plan-includes-head">
+                <span className="hub-plan-includes-kicker">Included in every plan</span>
+                <h3>Full platform access on every tier</h3>
+                <p>
+                  Pay less per record as you scale. Proxies, rendering, concurrency, and delivery
+                  stay included — no feature gates between plans.
+                </p>
+              </div>
               <div className="hub-plan-cols">
-                <div>
-                  <h4>Data collection</h4>
+                <div className="hub-plan-col">
+                  <div className="hub-plan-col-title">
+                    <span className="hub-plan-col-icon" aria-hidden="true">◎</span>
+                    <h4>Data collection</h4>
+                  </div>
                   <ul>
-                    <li>Automated proxy management</li>
-                    <li>Full browser rendering</li>
-                    <li>CAPTCHA solving</li>
+                    <li><span>Automated proxy management</span></li>
+                    <li><span>Full browser rendering</span></li>
+                    <li><span>CAPTCHA solving</span></li>
                   </ul>
                 </div>
-                <div>
-                  <h4>Performance at scale</h4>
+                <div className="hub-plan-col">
+                  <div className="hub-plan-col-title">
+                    <span className="hub-plan-col-icon" aria-hidden="true">∞</span>
+                    <h4>Performance at scale</h4>
+                  </div>
                   <ul>
-                    <li>Unlimited concurrency</li>
-                    <li>Batch &amp; scheduled collection</li>
-                    <li>Job management APIs</li>
+                    <li><span>Unlimited concurrency</span></li>
+                    <li><span>Batch &amp; scheduled collection</span></li>
+                    <li><span>Job management APIs</span></li>
                   </ul>
                 </div>
-                <div>
-                  <h4>Data delivery</h4>
+                <div className="hub-plan-col">
+                  <div className="hub-plan-col-title">
+                    <span className="hub-plan-col-icon" aria-hidden="true">⇢</span>
+                    <h4>Data delivery</h4>
+                  </div>
                   <ul>
-                    <li>Validation &amp; discovery</li>
-                    <li>JSON or CSV parsing</li>
-                    <li>Webhook or API delivery</li>
+                    <li><span>Validation &amp; discovery</span></li>
+                    <li><span>JSON or CSV parsing</span></li>
+                    <li><span>Webhook or API delivery</span></li>
                   </ul>
                 </div>
               </div>
