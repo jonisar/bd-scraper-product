@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
+import { Header } from "@/components/Chrome";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Live Test" | "Issues" | "Connect Agent" | "Edit with AI";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
@@ -1260,7 +1261,6 @@ export default function ScraperPage() {
   const [mainTab, setMainTab] = useState<MainTab>("API");
   const [apiLang, setApiLang] = useState<ApiLang>("Python");
   const [apiMode, setApiMode] = useState<"sync" | "async">("sync");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [agentPlatform, setAgentPlatform] = useState<AgentPlatform>("Prompt");
 
   const mainTabs: MainTab[] = ["Overview", "Pricing", "API", "Input", "Output", "Live Test", "Connect Agent", "Edit with AI", "Issues"];
@@ -1274,77 +1274,15 @@ export default function ScraperPage() {
   }
 
   return (
-    <div className="min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-bd-line/60 bg-[#000000e6] backdrop-blur-lg">
-        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-2 px-4 sm:px-6">
-          <div className="flex min-w-0 items-center gap-8">
-            <a href="/" className="flex shrink-0 items-center gap-2.5">
-              <span className="brand-mark grid h-8 w-8 place-items-center rounded-lg text-sm font-extrabold text-white shadow-sm shadow-bd-blue/40">
-                BD
-              </span>
-              <span className="text-[15px] font-extrabold tracking-tight text-bd-navy">
-                Bright Data
-              </span>
-            </a>
-            <nav className="hidden items-center gap-5 text-sm font-semibold text-bd-ink md:flex">
-              <a href="https://brightdata.com/cp/scrapers/browse" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Scraper Library</a>
-              <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
-                <span className="flex items-center gap-1">AI Scraper Studio<span className="rounded bg-bd-blue/15 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">New</span></span>
-              </a>
-              <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Docs</a>
-              <a href="https://brightdata.com/pricing" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Pricing</a>
-            </nav>
-          </div>
-          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-            <a
-              href="https://brightdata.com/cp"
-              className="hidden rounded-lg px-3 py-1.5 text-sm font-semibold text-bd-ink transition hover:text-bd-navy hover:bg-bd-blue-soft sm:inline-flex"
-            >
-              Log in
-            </a>
-            <a
-              href="https://brightdata.com/cp/start"
-              className="rounded-lg bg-bd-blue px-2.5 py-1.5 text-[13px] font-semibold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110 sm:px-3.5 sm:text-sm"
-            >
-              Start free
-            </a>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="grid h-9 w-9 place-items-center rounded-lg text-bd-ink transition hover:bg-bd-panel hover:text-bd-navy md:hidden"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? (
-                <svg viewBox="0 0 20 20" className="h-5 w-5 fill-current"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
-              ) : (
-                <svg viewBox="0 0 20 20" className="h-5 w-5 fill-current"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"/></svg>
-              )}
-            </button>
-          </div>
-        </div>
-        {/* Mobile nav drawer */}
-        {mobileMenuOpen ? (
-          <nav className="border-t border-bd-line bg-bd-panel px-4 pb-4 pt-3 md:hidden">
-            <div className="flex flex-col gap-3 text-sm font-medium text-bd-navy/85">
-              <a href="https://brightdata.com/cp/scrapers/browse" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Scraper Library</a>
-              <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
-                <span className="flex items-center gap-1.5">AI Scraper Studio<span className="rounded bg-bd-blue/15 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">New</span></span>
-              </a>
-              <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Docs</a>
-              <a href="https://brightdata.com/pricing" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Pricing</a>
-              <a href="https://brightdata.com/cp" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Log in</a>
-            </div>
-          </nav>
-        ) : null}
-      </header>
+    <div className="flex min-h-screen flex-col">
+      <Header />
 
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:py-10">
         {/* Breadcrumb */}
         <div className="animate-rise mb-5 flex flex-wrap items-center gap-x-0 gap-y-1 text-sm text-bd-muted sm:mb-6">
-          <a href="https://brightdata.com/cp/scrapers/browse" className="hover:text-bd-navy" target="_blank" rel="noreferrer">Scraper Library</a>
+          <a href="https://brightdata.com/products" className="hover:text-bd-navy" target="_blank" rel="noreferrer">Products</a>
           <span className="mx-1.5 text-bd-muted/50 sm:mx-2">/</span>
-          <a href="https://brightdata.com/products/web-scraper/amazon" className="hover:text-bd-navy" target="_blank" rel="noreferrer">Amazon</a>
+          <a href="/products/web-scraper" className="hover:text-bd-navy">Web Scraper API</a>
           <span className="mx-1.5 text-bd-muted/50 sm:mx-2">/</span>
           <span className="font-medium text-bd-blue">Amazon Product Scraper</span>
         </div>
@@ -1398,7 +1336,7 @@ export default function ScraperPage() {
                 <span className="shrink-0 text-bd-line">·</span>
                 <span className="shrink-0 font-medium text-bd-success">Verified Jul 2026</span>
                 <span className="shrink-0 text-bd-line">·</span>
-                <span className="shrink-0 font-medium text-bd-success">GDPR &amp; CCPA</span>
+                <span className="shrink-0 font-medium text-bd-success">GDPR &amp; CCPA Compliance</span>
               </div>
             </div>
 
