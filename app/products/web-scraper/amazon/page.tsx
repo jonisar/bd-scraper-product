@@ -85,8 +85,6 @@ export default function AmazonHubPage() {
                 Contact sales
               </a>
             </div>
-            <p className="hub-hero-note">No credit card required</p>
-
             <div className="hub-highlights">
               <div className="hub-highlight">
                 <span className="hub-highlight-icon">⚡</span>
