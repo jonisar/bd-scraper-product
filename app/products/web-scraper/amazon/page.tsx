@@ -9,11 +9,11 @@ import { AMAZON_SCRAPERS, AMAZON_SITE, AMAZON_FAQS } from "@/lib/amazon-scrapers
 export const metadata: Metadata = {
   title: "Amazon Scraper API - 5K records/Month for Free | Bright Data",
   description:
-    "Scrape Amazon products and collect data such as best sellers, prices, reviews, images, ratings, and more. Amazon Scraper API or no-code scraper. Free Trial.",
+    "Extract Amazon product data — prices, reviews, ratings, availability, and seller info — via API or no-code. Auto-maintained scrapers. Free trial: 5K records/month.",
   openGraph: {
     title: "Amazon Scraper API - 5K records/Month for Free | Bright Data",
     description:
-      "Scrape Amazon products and collect data such as best sellers, prices, reviews, images, ratings, and more.",
+      "Extract Amazon product data — prices, reviews, ratings, availability, and seller info — via API or no-code. Start free.",
     type: "website",
     url: "https://brightdata.com/products/web-scraper/amazon",
     siteName: "Bright Data",
@@ -91,14 +91,13 @@ export default function AmazonHubPage() {
         <TrustedByStrip />
 
         {/* AVAILABLE SCRAPERS */}
-        <section className="section" id="scrapers">
+        <section className="section scrapers-first" id="scrapers">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Web Scrapers</span>
               <h2>Available Amazon scrapers</h2>
               <p>
-                Remove the need to develop and maintain infrastructure. Extract high-volume Amazon data with
-                scraper APIs or no-code scrapers — auto-maintained, unblockable, and production-ready.
+                Production-ready Amazon scrapers — auto-maintained, unblockable, and ready to call via API or no-code.
               </p>
             </div>
 

@@ -1276,7 +1276,7 @@ export default function ScraperPage() {
     <div className="flex min-h-screen flex-col">
       <Header />
 
-      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:py-10">
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:py-10">
         {/* Breadcrumb */}
         <nav className="animate-rise mb-5 flex flex-wrap items-center gap-x-0 gap-y-1 text-sm text-bd-muted sm:mb-6" aria-label="Breadcrumb">
           <a href="https://brightdata.com/products" className="hover:text-bd-navy" target="_blank" rel="noreferrer">Products</a>
@@ -1335,7 +1335,7 @@ export default function ScraperPage() {
                 <span className="shrink-0 text-bd-line">·</span>
                 <span className="shrink-0 font-medium text-bd-success">Verified Jul 2026</span>
                 <span className="shrink-0 text-bd-line">·</span>
-                <span className="shrink-0 font-medium text-bd-success">GDPR &amp; CCPA Compliance</span>
+                <span className="shrink-0 font-medium text-bd-success">GDPR &amp; CCPA</span>
               </div>
             </div>
 

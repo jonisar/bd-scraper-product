@@ -182,9 +182,11 @@ export default function ScraperLibrary() {
       )}
 
       <div className="lib-cta">
-        <p>
-          Showing {catalog.length} of <strong>1,300+ production-ready scrapers</strong> in the full library.
-        </p>
+        <div className="lib-cta-body">
+          <span className="lib-cta-kicker">Full library</span>
+          <strong>Explore 1,300+ production-ready scrapers</strong>
+          <span>Proxy rotation, CAPTCHA solving, and anti-bot bypass — built in. Pay only for successful results.</span>
+        </div>
         <a
           href="https://brightdata.com/cp/scrapers/browse?category=all"
           target="_blank"
@@ -193,9 +195,6 @@ export default function ScraperLibrary() {
         >
           Browse all scrapers →
         </a>
-        <p className="lib-cta-note">
-          Every scraper includes proxy rotation, CAPTCHA solving, and anti-bot bypass. Pay only for successful results.
-        </p>
       </div>
     </div>
   );
