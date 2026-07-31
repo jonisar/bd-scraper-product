@@ -22,11 +22,12 @@ export default function ScraperCard({
   views,
   downloads,
   href,
-  ctaLabel = "Start free →",
-  ctaHref = "https://brightdata.com/cp/start",
+  ctaLabel = "Try scraper →",
+  ctaHref,
 }: ScraperCardProps) {
   const external = href.startsWith("http");
-  const ctaExternal = ctaHref.startsWith("http");
+  const resolvedCtaHref = ctaHref || href;
+  const ctaExternal = resolvedCtaHref.startsWith("http");
 
   return (
     <div className="fc">
@@ -65,7 +66,7 @@ export default function ScraperCard({
           <span className="fc-badge">✓ Auto-maintained</span>
         </div>
         <a
-          href={ctaHref}
+          href={resolvedCtaHref}
           className="fc-cta"
           onClick={(e) => e.stopPropagation()}
           {...(ctaExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}

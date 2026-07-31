@@ -114,8 +114,6 @@ export default function AmazonHubPage() {
                   views={s.views}
                   downloads={s.downloads}
                   href={s.href}
-                  ctaLabel={s.local ? "Open scraper →" : "Start free →"}
-                  ctaHref={s.local ? s.href : "https://brightdata.com/cp/start"}
                 />
               ))}
             </div>
