@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { Header, Footer } from "@/components/Chrome";
+import TrustedByStrip from "@/components/TrustedByStrip";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Live Test" | "Issues" | "Connect Agent" | "Edit with AI";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
@@ -1341,8 +1342,10 @@ export default function ScraperPage() {
               </div>
             </div>
 
+            <TrustedByStrip compact />
+
             {/* Tabs */}
-            <div className="animate-rise-delay mt-5 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
+            <div className="animate-rise-delay mt-2 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
               <div className="sticky top-14 z-30 rounded-t-2xl border-b border-bd-line bg-bd-panel">
                 <div className="tab-scroll flex gap-0.5 overflow-x-auto px-1.5 pt-2 sm:gap-1 sm:px-4">
                   {mainTabs.map((tab) => (

@@ -364,12 +364,34 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 /* Customers strip */
 .customers-strip { padding: var(--s3) 0 var(--s4); position: relative; z-index: 1; }
+.customers-strip-inner { width: 100%; max-width: none; }
 .customers-panel { overflow: hidden; padding: 0; }
 .customers-label, h2.customers-label { text-align: center; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-3); margin: 0 0 var(--s3); padding: 0 var(--s5); line-height: 1.4; }
 .customers-track { position: relative; overflow: hidden; }
 .customers-fade { position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none; }
 .customers-fade-l { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
 .customers-fade-r { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+
+/* Compact variant for scraper detail pages (between cards, no panel chrome) */
+.customers-strip-compact {
+  padding: 14px 0 12px;
+  margin: 0;
+  background: transparent;
+}
+.customers-strip-compact .customers-label {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  margin-bottom: 8px;
+  padding: 0;
+}
+.customers-strip-compact .logo-marquee,
+.customers-strip-compact .logo-marquee-set { gap: 28px; }
+.customers-strip-compact .logo-item { min-height: 22px; }
+.customers-strip-compact .logo-text { font-size: 14px; opacity: 0.68; }
+.customers-strip-compact .logo-marquee-wide .logo-text { font-size: 15px !important; }
+.customers-strip-compact .logo-marquee-sm .logo-text { font-size: 12px !important; }
+.customers-strip-compact .customers-fade { width: 40px; }
+.customers-strip-compact .logo-marquee { animation-duration: 22s; }
 
 /* Logo marquee */
 .logo-marquee-set { display: flex; align-items: center; gap: 40px; flex-shrink: 0; }

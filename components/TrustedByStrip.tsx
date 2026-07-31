@@ -9,10 +9,10 @@ const LOGOS = [
   { name: "Taboola", cls: "" },
 ] as const;
 
-export default function TrustedByStrip() {
+export default function TrustedByStrip({ compact = false }: { compact?: boolean }) {
   return (
-    <section className="customers-strip">
-      <div className="container">
+    <section className={`customers-strip${compact ? " customers-strip-compact" : ""}`}>
+      <div className={compact ? "customers-strip-inner" : "container"}>
         <div className="customers-panel">
           <h2 className="customers-label">Trusted by 20,000+ customers worldwide</h2>
           <div className="customers-track">
