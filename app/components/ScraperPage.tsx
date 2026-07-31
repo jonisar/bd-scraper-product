@@ -569,7 +569,7 @@ const RELATED_SCRAPERS = [
     fields: 35,
     avgSpeed: "~18s",
     price: "$1.50",
-    href: "https://brightdata.com/products/web-scraper/amazon",
+    href: "/products/web-scraper/amazon",
     signupHref: "https://brightdata.com/cp/start?scraper=amazon-best-sellers",
     tag: "Rankings",
     emoji: "🏆",
@@ -804,8 +804,7 @@ function RelatedScrapersCarousel() {
                 </a>
                 <a
                   href={s.href}
-                  target="_blank"
-                  rel="noreferrer"
+                  {...(s.href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
                   className="ml-auto text-xs font-semibold text-bd-blue hover:underline"
                 >
                   View scraper →
@@ -1279,13 +1278,15 @@ export default function ScraperPage() {
 
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:py-10">
         {/* Breadcrumb */}
-        <div className="animate-rise mb-5 flex flex-wrap items-center gap-x-0 gap-y-1 text-sm text-bd-muted sm:mb-6">
+        <nav className="animate-rise mb-5 flex flex-wrap items-center gap-x-0 gap-y-1 text-sm text-bd-muted sm:mb-6" aria-label="Breadcrumb">
           <a href="https://brightdata.com/products" className="hover:text-bd-navy" target="_blank" rel="noreferrer">Products</a>
-          <span className="mx-1.5 text-bd-muted/50 sm:mx-2">/</span>
+          <span className="mx-1.5 text-bd-muted/50 sm:mx-2" aria-hidden="true">/</span>
           <a href="/products/web-scraper" className="hover:text-bd-navy">Web Scraper API</a>
-          <span className="mx-1.5 text-bd-muted/50 sm:mx-2">/</span>
-          <span className="font-medium text-bd-blue">Amazon Product Scraper</span>
-        </div>
+          <span className="mx-1.5 text-bd-muted/50 sm:mx-2" aria-hidden="true">/</span>
+          <a href="/products/web-scraper/amazon" className="hover:text-bd-navy">Amazon</a>
+          <span className="mx-1.5 text-bd-muted/50 sm:mx-2" aria-hidden="true">/</span>
+          <span className="font-medium text-bd-blue" aria-current="page">Amazon Product Scraper</span>
+        </nav>
 
         <section className="animate-rise grid gap-6 lg:grid-cols-[1fr_340px]">
           {/* Main content */}
@@ -1315,8 +1316,8 @@ export default function ScraperPage() {
                 <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-bd-muted sm:gap-x-5">
                   {[
                     { name: "Trustpilot", rating: "4.6", color: "#f5b301", href: "https://www.trustpilot.com/review/brightdata.com" },
-                    { name: "G2", rating: "4.7", color: "#ff492c", href: "https://www.g2.com/products/bright-data/reviews" },
-                    { name: "Capterra", rating: "4.7", color: "#e97b1e", href: "https://www.capterra.com/p/146810/Luminati/" },
+                    { name: "G2", rating: "4.6", color: "#ff492c", href: "https://www.g2.com/products/bright-data/reviews" },
+                    { name: "Capterra", rating: "4.8", color: "#e97b1e", href: "https://www.capterra.com/p/146810/Luminati/" },
                   ].map((p) => (
                     <a key={p.name} href={p.href} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 transition hover:opacity-70">
                       <span className="font-medium">{p.name}</span>
@@ -1328,7 +1329,7 @@ export default function ScraperPage() {
               </div>
 
               <div className="mt-5 flex items-center gap-x-3 overflow-x-auto border-t border-bd-line pt-4 text-sm text-bd-muted sm:gap-x-4">
-                <span className="shrink-0"><span className="font-semibold text-bd-ink">34.6K+</span> deliveries</span>
+                <span className="shrink-0"><span className="font-semibold text-bd-ink">34.7K+</span> deliveries</span>
                 <span className="shrink-0 text-bd-line">·</span>
                 <span className="shrink-0"><span className="font-semibold text-bd-ink">5.7K+</span> users</span>
                 <span className="shrink-0 text-bd-line">·</span>
@@ -1921,26 +1922,25 @@ for p in products:
                       </p>
                       <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
                         {[
-                          { name: "Amazon Products (by URL)", href: "https://brightdata.com/products/web-scraper/amazon" },
-                          { name: "Amazon Products by Best Sellers Category", href: "https://brightdata.com/products/web-scraper/amazon" },
-                          { name: "Amazon Products by Category URL", href: "https://brightdata.com/products/web-scraper/amazon" },
-                          { name: "Amazon Products by Keywords", href: "https://brightdata.com/products/web-scraper/amazon" },
-                          { name: "Amazon Products by UPC", href: "https://brightdata.com/products/web-scraper/amazon" },
+                          { name: "Amazon Products (by URL)", href: "/products/web-scraper/amazon/amazon-product-scraper" },
+                          { name: "Amazon Products by Best Sellers Category", href: "/products/web-scraper/amazon/amazon-product-scraper" },
+                          { name: "Amazon Products by Category URL", href: "/products/web-scraper/amazon/amazon-product-scraper" },
+                          { name: "Amazon Products by Keywords", href: "/products/web-scraper/amazon/amazon-product-scraper" },
+                          { name: "Amazon Products by UPC", href: "/products/web-scraper/amazon/amazon-product-scraper" },
                           { name: "Amazon Reviews", href: "https://brightdata.com/products/web-scraper/amazon/reviews" },
                           { name: "Amazon Sellers Info", href: "https://brightdata.com/products/web-scraper/amazon/seller" },
-                          { name: "Amazon Products Global Dataset", href: "https://brightdata.com/products/web-scraper/amazon" },
-                          { name: "Amazon Global by Category URL", href: "https://brightdata.com/products/web-scraper/amazon" },
-                          { name: "Amazon Global by Keyword Search", href: "https://brightdata.com/products/web-scraper/amazon" },
-                          { name: "Amazon Global by Best Sellers", href: "https://brightdata.com/products/web-scraper/amazon" },
-                          { name: "Amazon Global by Seller URL", href: "https://brightdata.com/products/web-scraper/amazon" },
-                          { name: "Amazon Global by Brand URL", href: "https://brightdata.com/products/web-scraper/amazon" },
-                          { name: "Amazon Products Search", href: "https://brightdata.com/products/web-scraper/amazon" },
+                          { name: "Amazon Products Global Dataset", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Global by Category URL", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Global by Keyword Search", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Global by Best Sellers", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Global by Seller URL", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Global by Brand URL", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Products Search", href: "/products/web-scraper/amazon" },
                         ].map((scraper) => (
                           <a
                             key={scraper.name}
                             href={scraper.href}
-                            target="_blank"
-                            rel="noreferrer"
+                            {...(scraper.href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
                             className="group flex items-center gap-2 rounded-xl border border-bd-line bg-bd-canvas px-4 py-3 transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
                           >
                             <span className="text-sm text-bd-blue">●</span>
@@ -2256,7 +2256,7 @@ for p in products:
                       </p>
                       <ul className="mt-2 list-disc space-y-1 pl-5">
                         <li>
-                          <a href="https://brightdata.com/products/web-scraper/amazon" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">
+                          <a href="/products/web-scraper/amazon/amazon-product-scraper" className="font-semibold text-bd-blue hover:underline">
                             Amazon Products by Keyword
                           </a>
                         </li>
@@ -2266,7 +2266,7 @@ for p in products:
                           </a>
                         </li>
                         <li>
-                          <a href="https://brightdata.com/products/web-scraper/amazon" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">
+                          <a href="/products/web-scraper/amazon" className="font-semibold text-bd-blue hover:underline">
                             Amazon Best Sellers Scraper
                           </a>
                         </li>

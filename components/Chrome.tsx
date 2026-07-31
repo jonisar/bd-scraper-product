@@ -39,9 +39,9 @@ export function Header() {
             <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
               Docs
             </a>
-            <a href="https://brightdata.com/pricing" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
+            <Link href="/products/web-scraper#pricing" className="transition hover:text-bd-navy">
               Pricing
-            </a>
+            </Link>
           </nav>
         </div>
 
@@ -67,7 +67,8 @@ export function Header() {
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="grid h-9 w-9 place-items-center rounded-lg text-bd-ink transition hover:bg-bd-panel hover:text-bd-navy lg:hidden"
-            aria-label="Toggle menu"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? (
               <svg viewBox="0 0 20 20" className="h-5 w-5 fill-current">
@@ -97,7 +98,7 @@ export function Header() {
               </span>
             </a>
             <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Docs</a>
-            <a href="https://brightdata.com/pricing" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Pricing</a>
+            <Link href="/products/web-scraper#pricing" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
             <a href="https://brightdata.com/cp" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Log in</a>
           </div>
         </nav>

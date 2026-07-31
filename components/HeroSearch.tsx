@@ -41,7 +41,7 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
   const [focused, setFocused] = useState(false);
   const [activeIdx, setActiveIdx] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
-  const blurTimer = useRef<ReturnType<typeof setTimeout>>();
+  const blurTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const needle = q.trim().toLowerCase();
   const dom = domainOf(q);
@@ -139,10 +139,10 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
             autoComplete="off"
           />
           <button
+            type="button"
             className="btn btn-primary btn-sm btn-pill"
             onClick={() => go()}
             disabled={!matches.length}
-            tabIndex={-1}
           >
             Search
           </button>
@@ -202,6 +202,7 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
           {POPULAR_SITES.map((site) => (
             <button
               key={site.domain}
+              type="button"
               className="hero-popular-pill"
               onClick={() => handlePillClick(site)}
             >

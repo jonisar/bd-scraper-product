@@ -22,27 +22,88 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://brightdata.com/products/web-scraper" },
 };
 
+const FAQ_ITEMS = [
+  {
+    q: "What is a Web Scraper API?",
+    a: "A cloud-based service that automates web data extraction. It handles IP rotation, CAPTCHA solving, JavaScript rendering, and data parsing into structured formats (JSON, CSV) — so you get clean data without building or maintaining scraping infrastructure.",
+  },
+  {
+    q: "How is this different from building my own scraper?",
+    a: "DIY scrapers require managing proxies, solving CAPTCHAs, handling blocks, and constant maintenance when sites change. Bright Data's scrapers are auto-maintained 24/7, run on 400M+ residential IPs, and include unblocking — you just call the API and get structured data back.",
+  },
+  {
+    q: "What websites can I scrape?",
+    a: "There are 1,300+ pre-built scrapers for popular sites including Amazon, LinkedIn, Instagram, TikTok, Google Maps, Zillow, and hundreds more. For any other website, use Scraper Studio to create a custom scraper with AI in minutes.",
+  },
+  {
+    q: "Is web scraping with Bright Data legal and compliant?",
+    a: "Yes. Bright Data collects only publicly available data, is ISO 27001 certified, GDPR-ready, and maintains SOC 2 controls. Our Compliance & Ethics team ensures all practices follow data protection laws including GDPR and CCPA.",
+  },
+  {
+    q: "How do I get started with the Web Scraper API?",
+    a: "Sign up for free (no credit card), get 5,000 records/month at no cost. Browse the scraper library, pick one, and make your first API call in minutes. Works with cURL, Python, Node.js, or any HTTP client. Also available as an MCP server for AI agents.",
+  },
+  {
+    q: "What data formats are supported?",
+    a: "JSON, NDJSON, and CSV. Data can be delivered via API response, webhook, Amazon S3, Google Cloud Storage, Snowflake, or SFTP.",
+  },
+  {
+    q: "What use cases are Web Scraper APIs optimized for?",
+    a: "Competitive benchmarking, market trend analysis, dynamic pricing, sentiment extraction, lead generation, and feeding data into ML pipelines. Essential for e-commerce, fintech, real estate, and social media analytics.",
+  },
+  {
+    q: "How does the Web Scraper API handle large-scale extraction?",
+    a: "Built for high concurrency and batch processing. Send up to 5,000 URLs per request, schedule recurring jobs, and scale to millions of records with no infrastructure changes. Pay only for successfully delivered results.",
+  },
+  {
+    q: "How much does web scraping cost?",
+    a: "Bright Data's Web Scraper API starts free with 5,000 records/month. Pay-as-you-go pricing is $1.50 per 1,000 records, with volume discounts available. You only pay for successfully delivered data — failed requests are free.",
+  },
+  {
+    q: "Can I use this Web Scraper API with Python or Node.js?",
+    a: "Yes. The API works with any HTTP client — Python (requests, aiohttp), Node.js (axios, fetch), cURL, Go, Java, or any language with HTTP support. We provide ready-made code snippets for each scraper in Python and JavaScript (sync and async).",
+  },
+] as const;
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a,
+    },
+  })),
+};
+
 export default function WebScraperHome() {
   return (
     <div className="lib-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Header />
 
+      <main>
       {/* HERO */}
       <section className="hero">
         <div className="container hero-inner">
           <div className="hero-ratings">
-            <span className="hero-rating">
+            <a className="hero-rating" href="https://www.trustpilot.com/review/brightdata.com" target="_blank" rel="noopener noreferrer">
               <span className="stars">★★★★★</span>
               <strong>4.6</strong> Trustpilot
-            </span>
-            <span className="hero-rating">
+            </a>
+            <a className="hero-rating" href="https://www.g2.com/products/bright-data/reviews" target="_blank" rel="noopener noreferrer">
               <span className="stars">★★★★★</span>
               <strong>4.6</strong> G2
-            </span>
-            <span className="hero-rating">
+            </a>
+            <a className="hero-rating" href="https://www.capterra.com/p/146810/Luminati/" target="_blank" rel="noopener noreferrer">
               <span className="stars">★★★★★</span>
               <strong>4.8</strong> Capterra
-            </span>
+            </a>
           </div>
 
           <h1>
@@ -71,26 +132,17 @@ export default function WebScraperHome() {
                 {[0, 1].map((i) => (
                   <div key={i} className="logo-marquee-set" aria-hidden={i === 1 ? true : undefined}>
                     {[
-                      { name: "McDonald\u2019s", domain: "mcdonalds.com" },
-                      { name: "Moody\u2019s", domain: "moodys.com" },
-                      { name: "NBCUniversal", domain: "nbcuniversal.com", cls: "logo-marquee-wide" },
-                      { name: "Nokia", domain: "nokia.com", cls: "logo-marquee-caps" },
-                      { name: "University of Oxford", domain: "ox.ac.uk", cls: "logo-marquee-sm" },
-                      { name: "Pfizer", domain: "pfizer.com" },
-                      { name: "Shopee", domain: "shopee.com" },
-                      { name: "Taboola", domain: "taboola.com" },
+                      { name: "McDonald\u2019s", cls: "" },
+                      { name: "Moody\u2019s", cls: "" },
+                      { name: "NBCUniversal", cls: "logo-marquee-wide" },
+                      { name: "Nokia", cls: "logo-marquee-caps" },
+                      { name: "University of Oxford", cls: "logo-marquee-sm" },
+                      { name: "Pfizer", cls: "" },
+                      { name: "Shopee", cls: "" },
+                      { name: "Taboola", cls: "" },
                     ].map((co) => (
-                      <span key={co.domain} className={`logo-item ${co.cls ?? ""}`}>
+                      <span key={co.name} className={`logo-item ${co.cls}`}>
                         <span className="logo-text">{co.name}</span>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          className="logo-img"
-                          src={`https://logo.clearbit.com/${co.domain}`}
-                          alt={co.name}
-                          loading="lazy"
-                          width={80}
-                          height={24}
-                        />
                       </span>
                     ))}
                   </div>
@@ -144,18 +196,18 @@ export default function WebScraperHome() {
           </div>
           <div className="steps-grid">
             <div className="step-card">
-              <span className="step-icon">🔍</span>
+              <span className="step-icon">01</span>
               <h3>Pick a scraper</h3>
               <p>Browse 1,300+ pre-built scrapers or create your own with AI in minutes.</p>
             </div>
             <div className="step-card">
-              <span className="step-icon">⚡</span>
+              <span className="step-icon">02</span>
               <h3>Call the API</h3>
               <p>One REST call with your target URL. Works with Python, Node.js, cURL, or any HTTP client.</p>
             </div>
             <div className="step-card">
-              <span className="step-icon">📦</span>
-              <h3>Get structured JSON</h3>
+              <span className="step-icon">03</span>
+              <h3>Get structured data</h3>
               <p>Receive clean, parsed data in JSON, NDJSON, or CSV. Delivered via API, webhook, or cloud storage.</p>
             </div>
           </div>
@@ -163,7 +215,7 @@ export default function WebScraperHome() {
       </section>
 
       {/* HOW IT WORKS — UNDER THE HOOD */}
-      <section className="section animate-rise" id="how">
+      <section className="section section-alt animate-rise" id="how">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Under the hood</span>
@@ -209,7 +261,7 @@ export default function WebScraperHome() {
       </section>
 
       {/* USE CASES */}
-      <section className="section section-alt animate-rise" id="use-cases">
+      <section className="section animate-rise" id="use-cases">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Use cases</span>
@@ -219,54 +271,78 @@ export default function WebScraperHome() {
           <div className="usecases-grid">
             <div className="usecase-card">
               <h3>E-commerce scraping API</h3>
-              <p>Track competitor pricing, monitor stock levels, collect product reviews, and benchmark seller performance across marketplaces.</p>
+              <p>
+                Track competitor pricing, monitor stock levels, collect product reviews, and
+                benchmark seller performance across Amazon, Walmart, Shopee, and 50+ marketplaces.
+              </p>
               <span className="usecase-sites">Amazon · Walmart · Shopee · Target · eBay</span>
             </div>
             <div className="usecase-card">
               <h3>Social media scraping API</h3>
-              <p>Extract public posts, profiles, followers, engagement metrics, and trending hashtags. Power influencer analytics and sentiment analysis.</p>
+              <p>
+                Extract public posts, profiles, followers, engagement metrics, and trending
+                hashtags. Power influencer analytics, sentiment analysis, and content monitoring at scale.
+              </p>
               <span className="usecase-sites">Instagram · TikTok · LinkedIn · X · Facebook</span>
             </div>
             <div className="usecase-card">
               <h3>Real estate scraping API</h3>
-              <p>Collect property listings, pricing history, neighborhood data, and agent info. Build market intelligence for residential and commercial real estate.</p>
+              <p>
+                Collect property listings, pricing history, neighborhood data, and agent info from
+                Zillow, Realtor.com, and Redfin. Build market intelligence for residential and commercial real estate.
+              </p>
               <span className="usecase-sites">Zillow · Realtor · Redfin · Airbnb · Booking</span>
             </div>
             <div className="usecase-card">
               <h3>Business &amp; B2B scraping API</h3>
-              <p>Enrich leads with company data, job listings, funding rounds, and employee info. Fuel CRM enrichment and competitive intel.</p>
+              <p>
+                Enrich leads with company data, job listings, funding rounds, and employee info from
+                LinkedIn, Crunchbase, and Glassdoor. Fuel CRM enrichment, competitive intel, and market mapping.
+              </p>
               <span className="usecase-sites">LinkedIn · Crunchbase · Glassdoor · Indeed</span>
             </div>
             <div className="usecase-card">
               <h3>Search &amp; maps scraping API</h3>
-              <p>Collect business listings, reviews, ratings, and local SEO data. Monitor rankings and track customer sentiment by location.</p>
+              <p>
+                Collect Google Maps business listings, reviews, ratings, and local SEO data.
+                Monitor rankings, analyze competitors, and track customer sentiment by location.
+              </p>
               <span className="usecase-sites">Google Maps · Yelp · Tripadvisor · Yellow Pages</span>
             </div>
             <div className="usecase-card">
               <h3>Financial data scraping API</h3>
-              <p>Extract stock prices, market cap, earnings data, analyst ratings, and news sentiment. Build alternative data feeds.</p>
+              <p>
+                Extract stock prices, market cap, earnings data, analyst ratings, and news sentiment
+                from Yahoo Finance and public filings. Build alternative data feeds for quantitative strategies.
+              </p>
               <span className="usecase-sites">Yahoo Finance · Bloomberg · SEC · MarketWatch</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* COMPARISON TABLE */}
+      {/* COMPARISON TABLE — SEO */}
       <section className="section animate-rise" id="compare">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Why Bright Data</span>
-            <h2>Web Scraper API vs. alternatives</h2>
-            <p>See how a managed scraper API compares to building your own or using other providers.</p>
+            <h2>Web Scraper API vs DIY scrapers and other providers</h2>
+            <p>
+              Compare Bright Data&rsquo;s managed Web Scraper API with other scraping providers and
+              building your own scraper stack — infrastructure, anti-bot, proxies, maintenance, and compliance.
+            </p>
           </div>
           <div className="compare-table-wrap">
             <table className="compare-table">
+              <caption className="sr-only">
+                Web Scraper API comparison: Bright Data vs other scraping providers vs DIY self-built scrapers
+              </caption>
               <thead>
                 <tr>
-                  <th>Capability</th>
-                  <th className="compare-highlight">Bright Data</th>
-                  <th>Other providers</th>
-                  <th>DIY (self-built)</th>
+                  <th scope="col">Capability</th>
+                  <th scope="col" className="compare-highlight">Bright Data</th>
+                  <th scope="col">Other scraping providers</th>
+                  <th scope="col">DIY (self-built)</th>
                 </tr>
               </thead>
               <tbody>
@@ -284,8 +360,30 @@ export default function WebScraperHome() {
         </div>
       </section>
 
+      {/* FAQ — promoted next to comparison for SEO */}
+      <section className="section section-alt animate-rise" id="faq">
+        <div className="container">
+          <div className="section-head">
+            <span className="kicker">FAQs</span>
+            <h2>Web Scraper API FAQs</h2>
+            <p>
+              Common questions about Bright Data&rsquo;s Web Scraping API — how it works, what you can scrape,
+              compliance, pricing, and getting started.
+            </p>
+          </div>
+          <div className="faq-list">
+            {FAQ_ITEMS.map((item) => (
+              <details key={item.q} className="faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* PRICING */}
-      <section className="section section-alt animate-rise" id="pricing">
+      <section className="section animate-rise" id="pricing">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Pricing</span>
@@ -335,7 +433,7 @@ export default function WebScraperHome() {
                 <li>Cancel anytime</li>
               </ul>
               <a href="https://brightdata.com/cp/start" className="btn btn-ghost btn-pill price-cta">
-                Start free
+                Get started
               </a>
             </div>
             <div className="price-card">
@@ -406,70 +504,20 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="section section-alt animate-rise" id="faq">
-        <div className="container">
-          <div className="section-head">
-            <h2>Web Scraper API FAQs</h2>
-          </div>
-          <div className="faq-list">
-            <details className="faq-item">
-              <summary>What is a Web Scraper API?</summary>
-              <p>A cloud-based service that automates web data extraction. It handles IP rotation, CAPTCHA solving, JavaScript rendering, and data parsing into structured formats (JSON, CSV) &mdash; so you get clean data without building or maintaining scraping infrastructure.</p>
-            </details>
-            <details className="faq-item">
-              <summary>How is this different from building my own scraper?</summary>
-              <p>DIY scrapers require managing proxies, solving CAPTCHAs, handling blocks, and constant maintenance when sites change. Bright Data&rsquo;s scrapers are auto-maintained 24/7, run on 400M+ residential IPs, and include unblocking &mdash; you just call the API and get structured data back.</p>
-            </details>
-            <details className="faq-item">
-              <summary>What websites can I scrape?</summary>
-              <p>There are 1,300+ pre-built scrapers for popular sites including Amazon, LinkedIn, Instagram, TikTok, Google Maps, Zillow, and hundreds more. For any other website, use Scraper Studio to create a custom scraper with AI in minutes.</p>
-            </details>
-            <details className="faq-item">
-              <summary>Is web scraping with Bright Data legal and compliant?</summary>
-              <p>Yes. Bright Data collects only publicly available data, is ISO 27001 certified, GDPR-ready, and maintains SOC&nbsp;2 controls. Our Compliance &amp; Ethics team ensures all practices follow data protection laws including GDPR and CCPA.</p>
-            </details>
-            <details className="faq-item">
-              <summary>How do I get started?</summary>
-              <p>Sign up for free (no credit card), get 5,000 records/month at no cost. Browse the scraper library, pick one, and make your first API call in minutes. Works with cURL, Python, Node.js, or any HTTP client. Also available as an MCP server for AI agents.</p>
-            </details>
-            <details className="faq-item">
-              <summary>What data formats are supported?</summary>
-              <p>JSON, NDJSON, and CSV. Data can be delivered via API response, webhook, Amazon S3, Google Cloud Storage, Snowflake, or SFTP.</p>
-            </details>
-            <details className="faq-item">
-              <summary>What use cases are Web Scraper APIs optimized for?</summary>
-              <p>Competitive benchmarking, market trend analysis, dynamic pricing, sentiment extraction, lead generation, and feeding data into ML pipelines. Essential for e-commerce, fintech, real estate, and social media analytics.</p>
-            </details>
-            <details className="faq-item">
-              <summary>How does it handle large-scale extraction?</summary>
-              <p>Built for high concurrency and batch processing. Send up to 5,000 URLs per request, schedule recurring jobs, and scale to millions of records with no infrastructure changes. Pay only for successfully delivered results.</p>
-            </details>
-            <details className="faq-item">
-              <summary>How much does web scraping cost?</summary>
-              <p>Bright Data&rsquo;s Web Scraper API starts free with 5,000 records/month. Pay-as-you-go pricing is $1.50 per 1,000 records, with volume discounts available. You only pay for successfully delivered data &mdash; failed requests are free.</p>
-            </details>
-            <details className="faq-item">
-              <summary>Can I use this with Python or Node.js?</summary>
-              <p>Yes. The API works with any HTTP client &mdash; Python (requests, aiohttp), Node.js (axios, fetch), cURL, Go, Java, or any language with HTTP support. We provide ready-made code snippets for each scraper in Python and JavaScript (sync and async).</p>
-            </details>
-          </div>
-        </div>
-      </section>
-
       {/* FINAL CTA */}
       <section className="section animate-rise">
-        <div className="container" style={{ textAlign: "center" }}>
+        <div className="container final-cta">
           <h2>The easiest way to scrape web data</h2>
-          <p style={{ color: "var(--text-3)", fontSize: "15px", marginTop: "var(--s3)", maxWidth: "480px", marginLeft: "auto", marginRight: "auto" }}>
+          <p className="final-cta-sub">
             1,300+ scrapers, 400M+ proxy IPs, auto-maintained 24/7. Start with 5,000 free records &mdash; no credit card required.
           </p>
-          <div className="hero-ctas" style={{ marginTop: "var(--s5)" }}>
+          <div className="hero-ctas">
             <a href="https://brightdata.com/cp/start" className="btn btn-primary btn-pill">Start free</a>
             <a href="https://brightdata.com/contact" className="btn btn-ghost btn-pill">Contact sales</a>
           </div>
         </div>
       </section>
+      </main>
 
       <Footer />
       <ScrollReveal />

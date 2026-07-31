@@ -2,6 +2,24 @@
 
 import { useMemo, useState } from "react";
 import { catalog, CATALOG_CATEGORIES, type CatalogScraper } from "@/lib/catalog";
+import { templates, consoleUrl } from "@/lib/templates";
+
+function scraperHref(s: CatalogScraper): string {
+  if (s.slug === "amazon-product" || s.id === "amazon-products") {
+    return "/products/web-scraper/amazon/amazon-product-scraper";
+  }
+  if (s.domain === "amazon.com") {
+    return "/products/web-scraper/amazon";
+  }
+  if (s.slug) {
+    const t = templates.find((tpl) => tpl.slug === s.slug);
+    if (t) return consoleUrl(t);
+  }
+  const byDomain = templates.find((t) => t.domain === s.domain && t.popular)
+    || templates.find((t) => t.domain === s.domain);
+  if (byDomain) return consoleUrl(byDomain);
+  return `https://brightdata.com/cp/scrapers/browse?category=all&q=${encodeURIComponent(s.name)}`;
+}
 
 export default function ScraperLibrary() {
   const [cat, setCat] = useState<string>("All");
@@ -36,6 +54,7 @@ export default function ScraperLibrary() {
             {CATALOG_CATEGORIES.map((c) => (
               <button
                 key={c}
+                type="button"
                 className={`lib-chip ${cat === c ? "active" : ""}`}
                 onClick={() => setCat(c)}
               >
@@ -160,11 +179,16 @@ export default function ScraperLibrary() {
 }
 
 function ScraperCard({ s }: { s: CatalogScraper }) {
-  const href = "https://brightdata.com/cp/scrapers/browse?category=all";
+  const href = scraperHref(s);
+  const external = href.startsWith("http");
 
   return (
     <div className="fc">
-      <a href={href} target="_blank" rel="noopener noreferrer" className="fc-link">
+      <a
+        href={href}
+        className="fc-link"
+        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
         <div className="fc-top">
           <div className="fc-identity">
             <span className="fc-name">{s.name}</span>

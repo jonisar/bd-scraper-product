@@ -19,7 +19,7 @@ export default function HeaderSearch() {
   const [focused, setFocused] = useState(false);
   const [activeIdx, setActiveIdx] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
-  const blurTimer = useRef<ReturnType<typeof setTimeout>>();
+  const blurTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const needle = q.trim().toLowerCase();
   const dom = domainOf(q);
