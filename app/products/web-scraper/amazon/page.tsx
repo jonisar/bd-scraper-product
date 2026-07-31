@@ -85,28 +85,6 @@ export default function AmazonHubPage() {
                 Contact sales
               </a>
             </div>
-            <div className="hub-highlights">
-              <div className="hub-highlight">
-                <span className="hub-highlight-icon">⚡</span>
-                <strong>5K free records/mo</strong>
-                <span>No credit card needed</span>
-              </div>
-              <div className="hub-highlight">
-                <span className="hub-highlight-icon">⟳</span>
-                <strong>API or no-code</strong>
-                <span>Scrape on demand</span>
-              </div>
-              <div className="hub-highlight">
-                <span className="hub-highlight-icon">✓</span>
-                <strong>Pay per success</strong>
-                <span>Failed requests are free</span>
-              </div>
-              <div className="hub-highlight">
-                <span className="hub-highlight-icon">⊞</span>
-                <strong>5K URLs per batch</strong>
-                <span>High-volume built in</span>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -142,12 +120,22 @@ export default function AmazonHubPage() {
               ))}
             </div>
 
-            <p className="hub-dataset-note">
-              Just want Amazon data? Skip scraping.{" "}
-              <a href="https://brightdata.com/products/datasets/amazon" target="_blank" rel="noopener noreferrer">
-                Purchase an Amazon dataset →
+            <div className="hub-strip">
+              <div className="hub-strip-item"><span className="hub-strip-icon">⚡</span><strong>5K free records/mo</strong><span>No credit card</span></div>
+              <div className="hub-strip-item"><span className="hub-strip-icon">⟳</span><strong>API or no-code</strong><span>On demand</span></div>
+              <div className="hub-strip-item"><span className="hub-strip-icon">✓</span><strong>Pay per success</strong><span>Failed = free</span></div>
+              <div className="hub-strip-item"><span className="hub-strip-icon">⊞</span><strong>5K URLs/batch</strong><span>High volume</span></div>
+            </div>
+
+            <div className="hub-dataset-cta">
+              <div className="hub-dataset-cta-text">
+                <strong>Just want Amazon data? Skip scraping.</strong>
+                <span>Get pre-collected, ready-to-use Amazon datasets — updated daily, delivered instantly.</span>
+              </div>
+              <a href="https://brightdata.com/products/datasets/amazon" className="btn btn-ghost btn-pill" target="_blank" rel="noopener noreferrer">
+                Browse Amazon datasets →
               </a>
-            </p>
+            </div>
           </div>
         </section>
 
