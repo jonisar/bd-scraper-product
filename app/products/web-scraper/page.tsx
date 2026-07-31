@@ -113,7 +113,8 @@ export default function WebScraperHome() {
           </h1>
 
           <p className="hero-sub">
-            The most reliable web scraping API — 1,300+ scrapers, automatic
+            The most reliable web scraping API —{" "}
+            <span className="hero-stat-accent">1,300+ scrapers</span>, automatic
             proxy rotation, anti-bot bypass, and JS rendering.
           </p>
 
