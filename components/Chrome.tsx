@@ -30,7 +30,7 @@ export function Header() {
               rel="noreferrer"
             >
               <span className="flex items-center gap-1">
-                AI Studio
+                AI Scraper Studio
                 <span className="rounded bg-bd-blue/15 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">
                   New
                 </span>
@@ -91,7 +91,7 @@ export function Header() {
             </Link>
             <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
               <span className="flex items-center gap-1.5">
-                AI Studio
+                AI Scraper Studio
                 <span className="rounded bg-bd-blue/15 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">
                   New
                 </span>
