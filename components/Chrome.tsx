@@ -245,7 +245,7 @@ function FooterAnchor({ href, children, external }: { href: string; children: Re
 
 function FooterCol({ col }: { col: FooterColumn }) {
   return (
-    <div className="footer-col">
+    <nav className="footer-col" aria-label={col.title}>
       {col.titleHref ? (
         <FooterAnchor href={col.titleHref}>
           <span className="footer-col-title">{col.title}</span>
@@ -262,37 +262,36 @@ function FooterCol({ col }: { col: FooterColumn }) {
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
   );
 }
 
 export function Footer() {
+  const year = new Date().getFullYear();
+
   return (
     <footer className="footer">
       <div className="container">
-        <div className="footer-top">
-          <a href={`${BD}/cp/start`} className="btn btn-primary btn-pill btn-sm" target="_blank" rel="noopener noreferrer">
-            Start free trial
+        {/* Orient + convert */}
+        <div className="footer-brand-bar">
+          <a href={BD} className="footer-brand" target="_blank" rel="noopener noreferrer">
+            <span className="brand-mark footer-brand-mark">BD</span>
+            <span className="footer-brand-text">
+              <strong>Bright Data</strong>
+              <span>Web data infrastructure for AI &amp; business</span>
+            </span>
           </a>
-          <div className="footer-social-block">
-            <div className="footer-social-group">
-              <span className="footer-social-label">Follow Us</span>
-              <div className="footer-social-links">
-                <a href="https://il.linkedin.com/company/bright-data" target="_blank" rel="nofollow noopener noreferrer">LinkedIn</a>
-                <a href="https://www.youtube.com/channel/UCM_0cG1ljAoEUcZIyoUIq6g" target="_blank" rel="nofollow noopener noreferrer">YouTube</a>
-                <a href="https://github.com/luminati-io" target="_blank" rel="nofollow noopener noreferrer">GitHub</a>
-              </div>
-            </div>
-            <div className="footer-social-group">
-              <span className="footer-social-label">Contact Us</span>
-              <div className="footer-social-links">
-                <a href="https://wa.me/972543536332" target="_blank" rel="nofollow noopener noreferrer">WhatsApp</a>
-                <a href="mailto:sales@brightdata.com" rel="nofollow noopener noreferrer">Email</a>
-              </div>
-            </div>
+          <div className="footer-brand-actions">
+            <a href={`${BD}/cp/start`} className="btn btn-primary btn-pill btn-sm" target="_blank" rel="noopener noreferrer">
+              Start free
+            </a>
+            <a href={`${BD}/contact`} className="btn btn-ghost btn-pill btn-sm" target="_blank" rel="noopener noreferrer">
+              Contact sales
+            </a>
           </div>
         </div>
 
+        {/* Route — two equal 4-column rows */}
         <div className="footer-grids">
           {FOOTER_ROWS.map((row, i) => (
             <div key={i} className="footer-grid">
@@ -303,16 +302,41 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="footer-addresses">
-          <p>Bright Data Ltd. (Headquarters), 4 Hamahshev St., Netanya 4250714, Israel (POB 8025).</p>
-          <p>Bright Data, Inc., The Web Data Loft, 625 2nd St., San Francisco, CA 94107, United States.</p>
-          <p>Bright Data, Inc., 500 7th Ave, 9th Floor Office 9A1234, New York, NY 10018, United States.</p>
-          <p>IPPN Group Ltd.</p>
+        {/* Reassure — trust + contact + social */}
+        <div className="footer-reassure">
+          <div className="footer-trust">
+            <span className="footer-reassure-label">Trust</span>
+            <div className="footer-trust-chips">
+              <a href={`${BD}/trustcenter`} target="_blank" rel="noopener noreferrer">Trust Center</a>
+              <a href="https://brightdata.com/static/ISO_27001_2022_Certificate.pdf?md5=391501-61ff811d" target="_blank" rel="noopener noreferrer">ISO 27001</a>
+              <a href={`${BD}/trustcenter/gdpr`} target="_blank" rel="noopener noreferrer">GDPR ready</a>
+              <span>SOC 2</span>
+              <a href={`${BD}/network-status`} target="_blank" rel="noopener noreferrer">Status</a>
+            </div>
+          </div>
+          <div className="footer-connect">
+            <div className="footer-connect-group">
+              <span className="footer-reassure-label">Follow</span>
+              <div className="footer-connect-links">
+                <a href="https://il.linkedin.com/company/bright-data" target="_blank" rel="nofollow noopener noreferrer">LinkedIn</a>
+                <a href="https://www.youtube.com/channel/UCM_0cG1ljAoEUcZIyoUIq6g" target="_blank" rel="nofollow noopener noreferrer">YouTube</a>
+                <a href="https://github.com/luminati-io" target="_blank" rel="nofollow noopener noreferrer">GitHub</a>
+              </div>
+            </div>
+            <div className="footer-connect-group">
+              <span className="footer-reassure-label">Contact</span>
+              <div className="footer-connect-links">
+                <a href="https://wa.me/972543536332" target="_blank" rel="nofollow noopener noreferrer">WhatsApp</a>
+                <a href="mailto:sales@brightdata.com" rel="nofollow noopener noreferrer">Email</a>
+              </div>
+            </div>
+          </div>
         </div>
 
+        {/* Partners — compact proof strip */}
         <div className="footer-partners">
           <div className="footer-partner-group">
-            <span className="footer-partner-label">Cloud partnerships</span>
+            <span className="footer-partner-label">Cloud</span>
             <div className="footer-partner-items">
               <a href={`${BD}/partners/aws`} target="_blank" rel="noopener noreferrer">AWS</a>
               <span>Databricks</span>
@@ -320,7 +344,7 @@ export function Footer() {
             </div>
           </div>
           <div className="footer-partner-group">
-            <span className="footer-partner-label">Customer excellence</span>
+            <span className="footer-partner-label">Reviews</span>
             <div className="footer-partner-items">
               <span>Capterra</span>
               <span>GetApp</span>
@@ -328,23 +352,32 @@ export function Footer() {
             </div>
           </div>
           <div className="footer-partner-group">
-            <span className="footer-partner-label">Partnerships</span>
+            <span className="footer-partner-label">Partners</span>
             <div className="footer-partner-items">
               <span>Top Data Provider</span>
               <span>WIPO Alert</span>
               <span>BDV</span>
               <span>MRS</span>
               <span>Gartner</span>
-              <span>SOC</span>
-              <a href="https://brightdata.com/static/ISO_27001_2022_Certificate.pdf?md5=391501-61ff811d" target="_blank" rel="noopener noreferrer">ISO certified</a>
-              <a href={`${BD}/trustcenter/gdpr`} target="_blank" rel="noopener noreferrer">GDPR ready</a>
             </div>
           </div>
         </div>
 
-        <p className="footer-copy">
-          © Copyright {new Date().getFullYear()} Bright Data Ltd. | All rights reserved
-        </p>
+        {/* Bottom legal + addresses */}
+        <div className="footer-bottom">
+          <p className="footer-copy">
+            © Copyright {year} Bright Data Ltd. · All rights reserved
+          </p>
+          <div className="footer-bottom-links">
+            <a href={`${BD}/privacy`} target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+            <a href={`${BD}/license`} target="_blank" rel="noopener noreferrer">Service Agreement</a>
+            <a href={`${BD}/check_your_data`} target="_blank" rel="noopener noreferrer">Do Not Sell My Info</a>
+          </div>
+        </div>
+
+        <div className="footer-addresses">
+          <p>Bright Data Ltd. (HQ), 4 Hamahshev St., Netanya 4250714, Israel · Bright Data, Inc., 625 2nd St., San Francisco, CA 94107 · 500 7th Ave, New York, NY 10018 · IPPN Group Ltd.</p>
+        </div>
       </div>
     </footer>
   );
