@@ -60,7 +60,6 @@ export default function ScraperLibrary() {
 
       {showCurated ? (
         <>
-          {/* Featured row — top scrapers, bigger cards */}
           <div className="lib-section">
             <div className="lib-section-head">
               <h3>Most popular</h3>
@@ -74,14 +73,13 @@ export default function ScraperLibrary() {
                 View all →
               </a>
             </div>
-            <div className="lib-featured">
+            <div className="lib-grid">
               {popular.map((s) => (
-                <FeaturedCard key={s.id} s={s} />
+                <ScraperCard key={s.id} s={s} />
               ))}
             </div>
           </div>
 
-          {/* Category sections */}
           {CATALOG_CATEGORIES.filter((c) => c !== "All").map((category) => {
             const items = catalog.filter((s) => s.category === category && !s.popular);
             if (items.length === 0) return null;
@@ -103,7 +101,7 @@ export default function ScraperLibrary() {
                 </div>
                 <div className="lib-grid">
                   {items.map((s) => (
-                    <CompactCard key={s.id} s={s} />
+                    <ScraperCard key={s.id} s={s} />
                   ))}
                 </div>
               </div>
@@ -119,7 +117,7 @@ export default function ScraperLibrary() {
           {filtered.length > 0 ? (
             <div className="lib-grid">
               {filtered.map((s) => (
-                <CompactCard key={s.id} s={s} />
+                <ScraperCard key={s.id} s={s} />
               ))}
             </div>
           ) : (
@@ -127,7 +125,12 @@ export default function ScraperLibrary() {
               <p>No scraper found for &ldquo;{search || cat}&rdquo;</p>
               <p className="lib-empty-sub">
                 Can&apos;t find what you need?{" "}
-                <a href="https://brightdata.com/cp/scrapers/automation/chat" target="_blank" rel="noopener noreferrer" className="lib-empty-link">
+                <a
+                  href="https://brightdata.com/cp/scrapers/automation/chat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="lib-empty-link"
+                >
                   Build one with Scraper Studio →
                 </a>
               </p>
@@ -136,7 +139,6 @@ export default function ScraperLibrary() {
         </div>
       )}
 
-      {/* Bottom CTA */}
       <div className="lib-cta">
         <p>
           Showing {catalog.length} of <strong>1,300+ production-ready scrapers</strong> in the full library.
@@ -157,8 +159,8 @@ export default function ScraperLibrary() {
   );
 }
 
-function FeaturedCard({ s }: { s: CatalogScraper }) {
-  const href = `https://brightdata.com/cp/scrapers/browse?category=all`;
+function ScraperCard({ s }: { s: CatalogScraper }) {
+  const href = "https://brightdata.com/cp/scrapers/browse?category=all";
 
   return (
     <div className="fc">
@@ -175,7 +177,7 @@ function FeaturedCard({ s }: { s: CatalogScraper }) {
       <div className="fc-stats-row">
         <div className="fc-stat">
           <span className="fc-stat-val">{s.views}</span>
-          <span className="fc-stat-label">Records delivered</span>
+          <span className="fc-stat-label">Delivered</span>
         </div>
         <div className="fc-stat">
           <span className="fc-stat-val">{s.downloads}</span>
@@ -187,10 +189,9 @@ function FeaturedCard({ s }: { s: CatalogScraper }) {
         </div>
       </div>
       <div className="fc-foot">
-        <span className="fc-badge">✓ Auto-maintained</span>
-        <span className="fc-badge">✓ GDPR &amp; CCPA Compliance</span>
+        <span className="fc-badge">✓ GDPR &amp; CCPA</span>
         <a
-          href={`https://brightdata.com/cp/start`}
+          href="https://brightdata.com/cp/start"
           target="_blank"
           rel="noopener noreferrer"
           className="fc-cta"
@@ -200,24 +201,5 @@ function FeaturedCard({ s }: { s: CatalogScraper }) {
         </a>
       </div>
     </div>
-  );
-}
-
-function CompactCard({ s }: { s: CatalogScraper }) {
-  const href = `https://brightdata.com/cp/scrapers/browse?category=all`;
-
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="cc">
-      <div className="cc-top">
-        <span className="cc-name">{s.name}</span>
-        <span className="cc-domain">{s.domain}</span>
-      </div>
-      <p className="cc-desc">{s.desc}</p>
-      <div className="cc-meta">
-        <span>{s.views} records</span>
-        <span>{s.downloads} users</span>
-        <span>$1.50/1K</span>
-      </div>
-    </a>
   );
 }

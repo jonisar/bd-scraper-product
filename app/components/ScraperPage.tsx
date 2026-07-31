@@ -1340,31 +1340,6 @@ export default function ScraperPage() {
               </div>
             </div>
 
-            {/* Trusted by strip */}
-            <div className="mt-5 overflow-hidden rounded-2xl border border-bd-line bg-bd-panel py-4 sm:py-5">
-              <p className="px-4 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-bd-muted">
-                Trusted by 20,000+ customers worldwide
-              </p>
-              <div className="relative mt-3 sm:mt-4">
-                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-bd-panel to-transparent sm:w-16" />
-                <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-bd-panel to-transparent sm:w-16" />
-                <div className="logo-marquee flex w-max items-center gap-8 sm:gap-10">
-                  {[...Array(2)].map((_, i) => (
-                    <div key={i} className="flex shrink-0 items-center gap-8 sm:gap-10">
-                      <span className="whitespace-nowrap text-[14px] font-bold tracking-tight text-bd-muted/70 sm:text-[15px]">McDonald&apos;s</span>
-                      <span className="whitespace-nowrap text-[14px] font-bold tracking-tight text-bd-muted/70 sm:text-[15px]">Moody&apos;s</span>
-                      <span className="whitespace-nowrap text-[15px] font-extrabold tracking-tight text-bd-muted/70 sm:text-[16px]">NBCUniversal</span>
-                      <span className="whitespace-nowrap text-[15px] font-bold tracking-[0.12em] uppercase text-bd-muted/70 sm:text-[16px]">Nokia</span>
-                      <span className="whitespace-nowrap text-[12px] font-semibold text-bd-muted/70 sm:text-[13px]">University of Oxford</span>
-                      <span className="whitespace-nowrap text-[14px] font-bold text-bd-muted/70 sm:text-[15px]">Pfizer</span>
-                      <span className="whitespace-nowrap text-[14px] font-bold text-bd-muted/70 sm:text-[15px]">Shopee</span>
-                      <span className="whitespace-nowrap text-[14px] font-bold text-bd-muted/70 sm:text-[15px]">Taboola</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
             {/* Tabs */}
             <div className="animate-rise-delay mt-5 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
               <div className="sticky top-14 z-30 rounded-t-2xl border-b border-bd-line bg-bd-panel">
