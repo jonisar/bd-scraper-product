@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { catalog, CATALOG_CATEGORIES, type CatalogScraper } from "@/lib/catalog";
 import { templates, consoleUrl } from "@/lib/templates";
+import ScraperCard from "@/components/ScraperCard";
 
 function scraperHref(s: CatalogScraper): string {
   if (s.slug === "amazon-product" || s.id === "amazon-products") {
@@ -81,8 +82,7 @@ export default function ScraperLibrary() {
         <>
           <div className="lib-section">
             <div className="lib-section-head">
-              <h3>Most popular</h3>
-              <span className="lib-section-count">{popular.length} scrapers</span>
+              <h2>Popular web scrapers</h2>
               <a
                 href="https://brightdata.com/cp/scrapers/browse?category=all"
                 target="_blank"
@@ -94,7 +94,16 @@ export default function ScraperLibrary() {
             </div>
             <div className="lib-grid">
               {popular.map((s) => (
-                <ScraperCard key={s.id} s={s} />
+                <ScraperCard
+                  key={s.id}
+                  name={s.name}
+                  domain={s.domain}
+                  category={s.category}
+                  desc={s.desc}
+                  views={s.views}
+                  downloads={s.downloads}
+                  href={scraperHref(s)}
+                />
               ))}
             </div>
           </div>
@@ -106,9 +115,6 @@ export default function ScraperLibrary() {
               <div key={category} className="lib-section">
                 <div className="lib-section-head">
                   <h3>{category}</h3>
-                  <span className="lib-section-count">
-                    {catalog.filter((s) => s.category === category).length} scrapers
-                  </span>
                   <a
                     href={`https://brightdata.com/cp/scrapers/browse?category=${encodeURIComponent(category.toLowerCase())}`}
                     target="_blank"
@@ -120,7 +126,16 @@ export default function ScraperLibrary() {
                 </div>
                 <div className="lib-grid">
                   {items.map((s) => (
-                    <ScraperCard key={s.id} s={s} />
+                    <ScraperCard
+                      key={s.id}
+                      name={s.name}
+                      domain={s.domain}
+                      category={s.category}
+                      desc={s.desc}
+                      views={s.views}
+                      downloads={s.downloads}
+                      href={scraperHref(s)}
+                    />
                   ))}
                 </div>
               </div>
@@ -131,12 +146,20 @@ export default function ScraperLibrary() {
         <div className="lib-section">
           <div className="lib-section-head">
             <h3>{cat === "All" ? "Results" : cat}</h3>
-            <span className="lib-section-count">{filtered.length} scrapers</span>
           </div>
           {filtered.length > 0 ? (
             <div className="lib-grid">
               {filtered.map((s) => (
-                <ScraperCard key={s.id} s={s} />
+                <ScraperCard
+                  key={s.id}
+                  name={s.name}
+                  domain={s.domain}
+                  category={s.category}
+                  desc={s.desc}
+                  views={s.views}
+                  downloads={s.downloads}
+                  href={scraperHref(s)}
+                />
               ))}
             </div>
           ) : (
@@ -178,52 +201,3 @@ export default function ScraperLibrary() {
   );
 }
 
-function ScraperCard({ s }: { s: CatalogScraper }) {
-  const href = scraperHref(s);
-  const external = href.startsWith("http");
-
-  return (
-    <div className="fc">
-      <a
-        href={href}
-        className="fc-link"
-        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      >
-        <div className="fc-top">
-          <div className="fc-identity">
-            <span className="fc-name">{s.name}</span>
-            <span className="fc-domain">{s.domain}</span>
-          </div>
-          <span className="fc-cat">{s.category}</span>
-        </div>
-        <p className="fc-desc">{s.desc}</p>
-      </a>
-      <div className="fc-stats-row">
-        <div className="fc-stat">
-          <span className="fc-stat-val">{s.views}</span>
-          <span className="fc-stat-label">Delivered</span>
-        </div>
-        <div className="fc-stat">
-          <span className="fc-stat-val">{s.downloads}</span>
-          <span className="fc-stat-label">Active users</span>
-        </div>
-        <div className="fc-stat">
-          <span className="fc-stat-val">$1.50</span>
-          <span className="fc-stat-label">per 1K</span>
-        </div>
-      </div>
-      <div className="fc-foot">
-        <span className="fc-badge">✓ GDPR &amp; CCPA</span>
-        <a
-          href="https://brightdata.com/cp/start"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="fc-cta"
-          onClick={(e) => e.stopPropagation()}
-        >
-          Start free →
-        </a>
-      </div>
-    </div>
-  );
-}

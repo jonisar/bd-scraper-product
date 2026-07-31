@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Header, Footer } from "@/components/Chrome";
 import ScrollReveal from "@/components/ScrollReveal";
+import ScraperCard from "@/components/ScraperCard";
+import TrustedByStrip from "@/components/TrustedByStrip";
 import { AMAZON_SCRAPERS, AMAZON_SITE, AMAZON_FAQS } from "@/lib/amazon-scrapers";
 
 export const metadata: Metadata = {
@@ -83,16 +85,34 @@ export default function AmazonHubPage() {
                 Contact sales
               </a>
             </div>
-            <p className="hub-hero-note">No credit card required · {AMAZON_SITE.scraperCount} Amazon scrapers</p>
+            <p className="hub-hero-note">No credit card required</p>
 
-            <ul className="hub-hero-bullets">
-              <li>Free tier — 5K records a month</li>
-              <li>Scrape on demand via API or no-code</li>
-              <li>Pay only for successfully delivered results</li>
-              <li>Bulk request handling, up to 5K URLs</li>
-            </ul>
+            <div className="hub-highlights">
+              <div className="hub-highlight">
+                <span className="hub-highlight-icon">⚡</span>
+                <strong>5K free records/mo</strong>
+                <span>No credit card needed</span>
+              </div>
+              <div className="hub-highlight">
+                <span className="hub-highlight-icon">⟳</span>
+                <strong>API or no-code</strong>
+                <span>Scrape on demand</span>
+              </div>
+              <div className="hub-highlight">
+                <span className="hub-highlight-icon">✓</span>
+                <strong>Pay per success</strong>
+                <span>Failed requests are free</span>
+              </div>
+              <div className="hub-highlight">
+                <span className="hub-highlight-icon">⊞</span>
+                <strong>5K URLs per batch</strong>
+                <span>High-volume built in</span>
+              </div>
+            </div>
           </div>
         </section>
+
+        <TrustedByStrip />
 
         {/* AVAILABLE SCRAPERS */}
         <section className="section" id="scrapers">
@@ -108,47 +128,19 @@ export default function AmazonHubPage() {
 
             <div className="lib-grid">
               {AMAZON_SCRAPERS.map((s) => (
-                <div key={s.id} className="fc">
-                  <a
-                    href={s.href}
-                    className="fc-link"
-                    {...(!s.local ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  >
-                    <div className="fc-top">
-                      <div className="fc-identity">
-                        <span className="fc-name">{s.name}</span>
-                        <span className="fc-domain">{AMAZON_SITE.domain}</span>
-                      </div>
-                      <span className="fc-cat">E-commerce</span>
-                    </div>
-                    <p className="fc-desc">{s.desc}</p>
-                    <p className="fc-fields">{s.fieldsPreview}</p>
-                  </a>
-                  <div className="fc-stats-row">
-                    <div className="fc-stat">
-                      <span className="fc-stat-val">{s.views}</span>
-                      <span className="fc-stat-label">Delivered</span>
-                    </div>
-                    <div className="fc-stat">
-                      <span className="fc-stat-val">{s.downloads}</span>
-                      <span className="fc-stat-label">Active users</span>
-                    </div>
-                    <div className="fc-stat">
-                      <span className="fc-stat-val">$1.50</span>
-                      <span className="fc-stat-label">per 1K</span>
-                    </div>
-                  </div>
-                  <div className="fc-foot">
-                    <span className="fc-badge">✓ GDPR &amp; CCPA</span>
-                    <a
-                      href={s.local ? s.href : "https://brightdata.com/cp/start"}
-                      className="fc-cta"
-                      {...(!s.local ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    >
-                      {s.local ? "Open scraper →" : "Start free →"}
-                    </a>
-                  </div>
-                </div>
+                <ScraperCard
+                  key={s.id}
+                  name={s.name}
+                  domain={AMAZON_SITE.domain}
+                  category="E-commerce"
+                  desc={s.desc}
+                  fieldsPreview={s.fieldsPreview}
+                  views={s.views}
+                  downloads={s.downloads}
+                  href={s.href}
+                  ctaLabel={s.local ? "Open scraper →" : "Start free →"}
+                  ctaHref={s.local ? s.href : "https://brightdata.com/cp/start"}
+                />
               ))}
             </div>
 

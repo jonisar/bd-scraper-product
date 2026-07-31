@@ -1283,8 +1283,6 @@ export default function ScraperPage() {
           <span className="mx-1.5 text-bd-muted/50 sm:mx-2" aria-hidden="true">/</span>
           <a href="/products/web-scraper" className="hover:text-bd-navy">Web Scraper API</a>
           <span className="mx-1.5 text-bd-muted/50 sm:mx-2" aria-hidden="true">/</span>
-          <a href="/products/web-scraper/amazon" className="hover:text-bd-navy">Amazon</a>
-          <span className="mx-1.5 text-bd-muted/50 sm:mx-2" aria-hidden="true">/</span>
           <span className="font-medium text-bd-blue" aria-current="page">Amazon Product Scraper</span>
         </nav>
 
