@@ -126,11 +126,12 @@ export default function AmazonHubPage() {
             </div>
 
             <div className="hub-dataset-cta">
-              <div className="hub-dataset-cta-text">
+              <div className="hub-dataset-cta-body">
+                <span className="hub-dataset-cta-kicker">Amazon Datasets</span>
                 <strong>Just want Amazon data? Skip scraping.</strong>
                 <span>Get pre-collected, ready-to-use Amazon datasets — updated daily, delivered instantly.</span>
               </div>
-              <a href="https://brightdata.com/products/datasets/amazon" className="btn btn-ghost btn-pill" target="_blank" rel="noopener noreferrer">
+              <a href="https://brightdata.com/products/datasets/amazon" className="btn btn-primary btn-pill" target="_blank" rel="noopener noreferrer">
                 Browse Amazon datasets →
               </a>
             </div>

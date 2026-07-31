@@ -625,45 +625,68 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 }
 .lib-page .hub-dataset-cta,
 .hub-dataset-cta {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--s5);
   margin-top: var(--s6);
   padding: var(--s5) var(--s6);
-  background: linear-gradient(135deg, rgba(61,127,252,0.08) 0%, rgba(21,193,230,0.05) 100%);
-  border: 1px solid rgba(61,127,252,0.25);
+  background:
+    radial-gradient(ellipse 70% 120% at 0% 50%, rgba(61,127,252,0.14), transparent 55%),
+    linear-gradient(135deg, rgba(61,127,252,0.1) 0%, rgba(21,193,230,0.05) 55%, var(--surface) 100%);
+  border: 1px solid rgba(61,127,252,0.28);
   border-radius: var(--radius-lg);
-  box-shadow: 0 4px 24px rgba(61,127,252,0.08), inset 0 1px 0 rgba(255,255,255,0.03);
+  box-shadow: 0 6px 28px rgba(61,127,252,0.1), inset 0 1px 0 rgba(255,255,255,0.04);
+  overflow: hidden;
 }
-.hub-dataset-cta-text {
+.hub-dataset-cta::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--grad-proxy);
+  border-radius: 3px 0 0 3px;
+}
+.hub-dataset-cta-body {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  min-width: 0;
 }
-.hub-dataset-cta-text strong {
-  font-size: 16px;
+.hub-dataset-cta-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+.hub-dataset-cta-body strong {
+  font-size: 17px;
   font-weight: 700;
   color: var(--text-1);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
 }
-.hub-dataset-cta-text span {
+.hub-dataset-cta-body > span:last-child {
   font-size: 14px;
   color: var(--text-2);
-  line-height: 1.4;
+  line-height: 1.45;
+  max-width: 520px;
 }
 .hub-dataset-cta .btn {
   flex-shrink: 0;
-  background: rgba(61,127,252,0.12);
-  border-color: rgba(61,127,252,0.35);
-  color: var(--accent-2);
-  font-weight: 600;
-}
-.hub-dataset-cta .btn:hover {
-  background: rgba(61,127,252,0.2);
-  color: #fff;
+  white-space: nowrap;
 }
 @media (max-width: 640px) {
-  .hub-dataset-cta { flex-direction: column; align-items: flex-start; padding: var(--s4); }
+  .hub-dataset-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--s4) var(--s5);
+  }
+  .hub-dataset-cta .btn { width: 100%; justify-content: center; }
 }
 .compare-table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); }
 .compare-table { width: 100%; border-collapse: collapse; font-size: 14px; }
