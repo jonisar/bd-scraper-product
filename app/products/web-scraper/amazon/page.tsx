@@ -138,7 +138,7 @@ export default function AmazonHubPage() {
         </section>
 
         {/* PRICING */}
-        <section className="section section-alt animate-rise" id="pricing">
+        <section className="section animate-rise" id="pricing">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Amazon Scraper API Pricing</span>
