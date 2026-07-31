@@ -266,6 +266,65 @@ function FooterCol({ col }: { col: FooterColumn }) {
   );
 }
 
+function FooterIcon({ name }: { name: "linkedin" | "youtube" | "github" | "whatsapp" | "email" | "shield" | "iso" | "status" }) {
+  const common = {
+    className: "footer-icon",
+    viewBox: "0 0 24 24",
+    fill: "currentColor",
+    "aria-hidden": true as const,
+  };
+  switch (name) {
+    case "linkedin":
+      return (
+        <svg {...common}>
+          <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.36 4.26 5.44v6.3zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0z" />
+        </svg>
+      );
+    case "youtube":
+      return (
+        <svg {...common}>
+          <path d="M23.5 6.2a3.02 3.02 0 00-2.13-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.37.56A3.02 3.02 0 00.5 6.2 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.8 3.02 3.02 0 002.13 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.37-.56a3.02 3.02 0 002.13-2.14A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.8zM9.75 15.57V8.43L15.84 12l-6.09 3.57z" />
+        </svg>
+      );
+    case "github":
+      return (
+        <svg {...common}>
+          <path d="M12 .3a12 12 0 00-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.63-5.48 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58A12 12 0 0012 .3z" />
+        </svg>
+      );
+    case "whatsapp":
+      return (
+        <svg {...common}>
+          <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.04-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.8h-.01a9.77 9.77 0 01-4.97-1.36l-.36-.21-3.7.97 1-3.61-.23-.37a9.76 9.76 0 01-1.5-5.2 9.8 9.8 0 0119.6 0 9.78 9.78 0 01-9.83 9.78zm8.5-17.6A11.57 11.57 0 0012.03 0C5.45 0 .1 5.34.1 11.9c0 2.1.55 4.15 1.6 5.96L0 24l6.3-1.65a11.9 11.9 0 005.72 1.46h.01c6.58 0 11.93-5.35 11.93-11.91 0-3.18-1.24-6.17-3.49-8.41z" />
+        </svg>
+      );
+    case "email":
+      return (
+        <svg {...common}>
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+        </svg>
+      );
+    case "shield":
+      return (
+        <svg {...common}>
+          <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1.06 13.54l-3.18-3.18 1.41-1.41 1.77 1.77 4.24-4.24 1.41 1.41-5.65 5.65z" />
+        </svg>
+      );
+    case "iso":
+      return (
+        <svg {...common}>
+          <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+        </svg>
+      );
+    case "status":
+      return (
+        <svg {...common}>
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+        </svg>
+      );
+  }
+}
+
 export function Footer() {
   const year = new Date().getFullYear();
 
@@ -307,27 +366,45 @@ export function Footer() {
           <div className="footer-trust">
             <span className="footer-reassure-label">Trust</span>
             <div className="footer-trust-chips">
-              <a href={`${BD}/trustcenter`} target="_blank" rel="noopener noreferrer">Trust Center</a>
-              <a href="https://brightdata.com/static/ISO_27001_2022_Certificate.pdf?md5=391501-61ff811d" target="_blank" rel="noopener noreferrer">ISO 27001</a>
-              <a href={`${BD}/trustcenter/gdpr`} target="_blank" rel="noopener noreferrer">GDPR ready</a>
-              <span>SOC 2</span>
-              <a href={`${BD}/network-status`} target="_blank" rel="noopener noreferrer">Status</a>
+              <a href={`${BD}/trustcenter`} target="_blank" rel="noopener noreferrer">
+                <FooterIcon name="shield" /> Trust Center
+              </a>
+              <a href="https://brightdata.com/static/ISO_27001_2022_Certificate.pdf?md5=391501-61ff811d" target="_blank" rel="noopener noreferrer">
+                <FooterIcon name="iso" /> ISO 27001
+              </a>
+              <a href={`${BD}/trustcenter/gdpr`} target="_blank" rel="noopener noreferrer">
+                <FooterIcon name="shield" /> GDPR ready
+              </a>
+              <span><FooterIcon name="shield" /> SOC 2</span>
+              <a href={`${BD}/network-status`} target="_blank" rel="noopener noreferrer">
+                <FooterIcon name="status" /> Status
+              </a>
             </div>
           </div>
           <div className="footer-connect">
             <div className="footer-connect-group">
               <span className="footer-reassure-label">Follow</span>
               <div className="footer-connect-links">
-                <a href="https://il.linkedin.com/company/bright-data" target="_blank" rel="nofollow noopener noreferrer">LinkedIn</a>
-                <a href="https://www.youtube.com/channel/UCM_0cG1ljAoEUcZIyoUIq6g" target="_blank" rel="nofollow noopener noreferrer">YouTube</a>
-                <a href="https://github.com/luminati-io" target="_blank" rel="nofollow noopener noreferrer">GitHub</a>
+                <a href="https://il.linkedin.com/company/bright-data" target="_blank" rel="nofollow noopener noreferrer" aria-label="LinkedIn">
+                  <FooterIcon name="linkedin" /> LinkedIn
+                </a>
+                <a href="https://www.youtube.com/channel/UCM_0cG1ljAoEUcZIyoUIq6g" target="_blank" rel="nofollow noopener noreferrer" aria-label="YouTube">
+                  <FooterIcon name="youtube" /> YouTube
+                </a>
+                <a href="https://github.com/luminati-io" target="_blank" rel="nofollow noopener noreferrer" aria-label="GitHub">
+                  <FooterIcon name="github" /> GitHub
+                </a>
               </div>
             </div>
             <div className="footer-connect-group">
               <span className="footer-reassure-label">Contact</span>
               <div className="footer-connect-links">
-                <a href="https://wa.me/972543536332" target="_blank" rel="nofollow noopener noreferrer">WhatsApp</a>
-                <a href="mailto:sales@brightdata.com" rel="nofollow noopener noreferrer">Email</a>
+                <a href="https://wa.me/972543536332" target="_blank" rel="nofollow noopener noreferrer" aria-label="WhatsApp">
+                  <FooterIcon name="whatsapp" /> WhatsApp
+                </a>
+                <a href="mailto:sales@brightdata.com" rel="nofollow noopener noreferrer" aria-label="Email">
+                  <FooterIcon name="email" /> Email
+                </a>
               </div>
             </div>
           </div>

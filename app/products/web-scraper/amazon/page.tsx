@@ -4,12 +4,18 @@ import { Header, Footer } from "@/components/Chrome";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScraperCard from "@/components/ScraperCard";
 import TrustedByStrip from "@/components/TrustedByStrip";
-import { AMAZON_SCRAPERS, AMAZON_SITE, AMAZON_FAQS } from "@/lib/amazon-scrapers";
+import AmazonCodeExamples from "@/components/AmazonCodeExamples";
+import {
+  AMAZON_SCRAPERS,
+  AMAZON_SITE,
+  AMAZON_FAQS,
+  AMAZON_PRODUCT_TYPES,
+} from "@/lib/amazon-scrapers";
 
 export const metadata: Metadata = {
   title: "Amazon Scraper API - 5K records/Month for Free | Bright Data",
   description:
-    "Extract Amazon product data — prices, reviews, ratings, availability, and seller info — via API or no-code. Auto-maintained scrapers. Free trial: 5K records/month.",
+    "Scrape Amazon products and collect ASIN, prices, reviews, images, ratings, seller info, and more. Amazon Scraper API or no-code scraper. Free trial: 5K records/month.",
   openGraph: {
     title: "Amazon Scraper API - 5K records/Month for Free | Bright Data",
     description:
@@ -41,7 +47,6 @@ export default function AmazonHubPage() {
       <Header />
 
       <main>
-        {/* Breadcrumb */}
         <div className="container">
           <nav className="site-breadcrumb" aria-label="Breadcrumb">
             <a href="https://brightdata.com/products" target="_blank" rel="noopener noreferrer">
@@ -85,13 +90,14 @@ export default function AmazonHubPage() {
                 Contact sales
               </a>
             </div>
+            <p className="hub-hero-note">No credit card required · 5K free records/month</p>
           </div>
         </section>
 
         <TrustedByStrip />
 
         {/* AVAILABLE SCRAPERS */}
-        <section className="section scrapers-first" id="scrapers">
+        <section className="section scrapers-first hub-anchor" id="scrapers">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Web Scrapers</span>
@@ -137,8 +143,99 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
+        {/* API vs NO-CODE */}
+        <section className="section section-alt animate-rise hub-anchor" id="paths">
+          <div className="container">
+            <div className="section-head">
+              <span className="kicker">Choose your path</span>
+              <h2>Effortlessly scrape Amazon data</h2>
+              <p>Same scrapers, two ways to run them — pick the workflow that fits your team.</p>
+            </div>
+            <div className="hub-paths">
+              <a
+                href="https://brightdata.com/cp/start"
+                className="hub-path-card"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="hub-path-kicker">API-based scraper</span>
+                <h3>Amazon Scraper API</h3>
+                <p>Trigger collections with parameters, schedule at scale, and deliver to your storage or webhook.</p>
+                <ul className="hub-path-list">
+                  <li>Build requests in any language</li>
+                  <li>Automate with schedulers &amp; webhooks</li>
+                  <li>JSON, NDJSON, or CSV delivery</li>
+                </ul>
+                <span className="hub-path-cta">Start with API →</span>
+              </a>
+              <a
+                href="https://brightdata.com/cp/data_collector/collectors/create?camp=plg"
+                className="hub-path-card"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="hub-path-kicker">Control panel scraper</span>
+                <h3>Amazon no-code scraper</h3>
+                <p>Plug-and-play in the control panel — add inputs, run the scraper, download results.</p>
+                <ul className="hub-path-list">
+                  <li>No engineering required</li>
+                  <li>Configure inputs in the UI</li>
+                  <li>Download results from the CP</li>
+                </ul>
+                <span className="hub-path-cta">Open control panel →</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* PRODUCT TYPES */}
+        <section className="section animate-rise hub-anchor" id="types">
+          <div className="container">
+            <div className="section-head">
+              <span className="kicker">By data type</span>
+              <h2>Simplified Amazon data extraction</h2>
+              <p>Jump straight to the scraper that matches your use case.</p>
+            </div>
+            <div className="hub-types">
+              {AMAZON_PRODUCT_TYPES.map((item) =>
+                item.local ? (
+                  <Link key={item.title} href={item.href} className="hub-type-card">
+                    <h3>{item.title}</h3>
+                    <p>{item.desc}</p>
+                    <span className="hub-type-cta">Open scraper →</span>
+                  </Link>
+                ) : (
+                  <a
+                    key={item.title}
+                    href={item.href}
+                    className="hub-type-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <h3>{item.title}</h3>
+                    <p>{item.desc}</p>
+                    <span className="hub-type-cta">Open scraper →</span>
+                  </a>
+                )
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* CODE EXAMPLES */}
+        <section className="section section-alt animate-rise hub-anchor" id="code">
+          <div className="container">
+            <div className="section-head">
+              <span className="kicker">Code examples</span>
+              <h2>Easily scrape Amazon without getting blocked</h2>
+              <p>Copy a working request for products, reviews, or sellers — cURL, Python, or Node.js.</p>
+            </div>
+            <AmazonCodeExamples />
+          </div>
+        </section>
+
         {/* PRICING */}
-        <section className="section animate-rise" id="pricing">
+        <section className="section animate-rise hub-anchor" id="pricing">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Amazon Scraper API Pricing</span>
@@ -206,11 +303,41 @@ export default function AmazonHubPage() {
                 </a>
               </div>
             </div>
+
+            <div className="hub-plan-includes">
+              <h3>Every plan includes full access — pay less per record as you scale</h3>
+              <div className="hub-plan-cols">
+                <div>
+                  <h4>Data collection</h4>
+                  <ul>
+                    <li>Automated proxy management</li>
+                    <li>Full browser rendering</li>
+                    <li>CAPTCHA solving</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Performance at scale</h4>
+                  <ul>
+                    <li>Unlimited concurrency</li>
+                    <li>Batch &amp; scheduled collection</li>
+                    <li>Job management APIs</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Data delivery</h4>
+                  <ul>
+                    <li>Validation &amp; discovery</li>
+                    <li>JSON or CSV parsing</li>
+                    <li>Webhook or API delivery</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* HOW IT WORKS */}
-        <section className="section animate-rise" id="how">
+        <section className="section section-alt animate-rise hub-anchor" id="how">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Deploy faster</span>
@@ -253,7 +380,7 @@ export default function AmazonHubPage() {
         </section>
 
         {/* USE CASES */}
-        <section className="section section-alt animate-rise" id="use-cases">
+        <section className="section animate-rise hub-anchor" id="use-cases">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Use cases</span>
@@ -299,7 +426,7 @@ export default function AmazonHubPage() {
         </section>
 
         {/* WHY */}
-        <section className="section animate-rise" id="why">
+        <section className="section section-alt animate-rise hub-anchor" id="why">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Why Bright Data</span>
@@ -335,7 +462,7 @@ export default function AmazonHubPage() {
         </section>
 
         {/* FAQ */}
-        <section className="section section-alt animate-rise" id="faq">
+        <section className="section animate-rise hub-anchor" id="faq">
           <div className="container">
             <div className="section-head">
               <span className="kicker">FAQs</span>

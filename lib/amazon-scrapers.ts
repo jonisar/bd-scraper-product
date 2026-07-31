@@ -162,6 +162,36 @@ export const AMAZON_SCRAPERS: AmazonScraper[] = [
   },
 ];
 
+/** Deep-link cards for common Amazon extraction jobs */
+export const AMAZON_PRODUCT_TYPES: {
+  title: string;
+  desc: string;
+  href: string;
+  local?: boolean;
+}[] = [
+  {
+    title: "Amazon Reviews Scraper",
+    desc: "Review text, ratings, verified purchase, dates, and reviewer details.",
+    href: "https://brightdata.com/products/web-scraper/amazon/reviews",
+  },
+  {
+    title: "Amazon ASIN Scraper",
+    desc: "Product pages by ASIN — title, brand, price, images, availability, and more.",
+    href: "/products/web-scraper/amazon/amazon-product-scraper",
+    local: true,
+  },
+  {
+    title: "Amazon Seller Scraper",
+    desc: "Seller name, ID, ratings, feedback, shipping, and business details.",
+    href: "https://brightdata.com/products/web-scraper/amazon/seller",
+  },
+  {
+    title: "Amazon Price Scraper",
+    desc: "Current vs original price, discounts, deals, currency, and stock status.",
+    href: "https://brightdata.com/products/web-scraper/amazon/price",
+  },
+];
+
 export const AMAZON_FAQS = [
   {
     q: "What is the Amazon Scraper API?",
@@ -185,11 +215,11 @@ export const AMAZON_FAQS = [
   },
   {
     q: "Is there a free tier available for the Amazon Scraper API?",
-    a: "Yes. New Bright Data accounts include 5,000 free records per month — no credit card required. Credits apply to Scrapers, Unlocker API, and SERP API, and renew on the 1st of each month.",
+    a: "Yes. New Bright Data accounts include 5,000 free records per month (~$7.50 value) — no credit card, promo code, or commitment. Credits apply to Scrapers, Unlocker API, and SERP API, and renew on the 1st of each month.",
   },
   {
     q: "What happens when my free credits run out while using the Amazon Scraper API?",
-    a: "If you have deposited funds, usage continues at pay-as-you-go rates. Without funds, requests error until you add balance or credits renew. Unused free credits do not roll over.",
+    a: "If you have deposited funds, usage continues at pay-as-you-go rates. Without funds, requests error until you add balance or credits renew. Unused free credits do not roll over. Enable auto-recharge in billing settings to avoid interruptions.",
   },
   {
     q: "What are the usage limits for the Amazon Scraper API?",
@@ -200,7 +230,11 @@ export const AMAZON_FAQS = [
     a: "Yes. Bright Data offers 24/7 support for the Amazon Scraper API, with dedicated help for enterprise plans.",
   },
   {
-    q: "What delivery methods and file formats are available?",
-    a: "Deliver via API, webhook, Amazon S3, Google Cloud Storage, Google Pub/Sub, Azure Storage, Snowflake, or SFTP. Formats include JSON, NDJSON, JSON lines, CSV, and .gz.",
+    q: "What delivery methods are available?",
+    a: "API download, webhook, Amazon S3, Google Cloud Storage, Google Pub/Sub, Microsoft Azure Storage, Snowflake, and SFTP.",
+  },
+  {
+    q: "What file formats are available?",
+    a: "JSON, NDJSON, JSON lines, CSV, and .gz (compressed).",
   },
 ] as const;
