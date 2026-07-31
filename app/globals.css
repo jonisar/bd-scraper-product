@@ -407,7 +407,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 /* Scraper card (one design for all) */
 .fc { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--s4); transition: all .18s ease; gap: 0; box-shadow: 0 4px 16px rgba(0,0,0,0.25); }
 .fc:hover { border-color: rgba(61,127,252,0.35); box-shadow: 0 8px 28px rgba(61,127,252,0.12); }
-.fc-link { display: block; text-decoration: none; }
+.fc-link { display: block; text-decoration: none; flex: 1; }
 .fc-link:hover .fc-name { color: var(--accent-2); }
 .fc-top { display: flex; align-items: flex-start; gap: var(--s3); }
 .fc-identity { flex: 1; min-width: 0; }
