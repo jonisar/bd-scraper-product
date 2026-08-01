@@ -100,20 +100,38 @@ export default function StudioPage() {
       <Header />
 
       <main>
-        {/* HERO — ratings + SEO h1 above the interactive prompt */}
-        <section className="hero" style={{ paddingBottom: 0 }}>
-          <div className="container hero-inner">
-            <div className="hero-ratings">
-              <a className="hero-rating" href="https://www.trustpilot.com/review/brightdata.com" target="_blank" rel="noopener noreferrer">
-                <span className="stars">★★★★★</span>
+        {/* HERO — unified section with ratings flowing into prompt */}
+        <section className="studio-hero">
+          <div className="container studio-hero-inner">
+            <div className="studio-hero-ratings">
+              <a className="studio-hero-rating" href="https://www.trustpilot.com/review/brightdata.com" target="_blank" rel="noopener noreferrer">
+                <span className="studio-stars" aria-label="4.6 out of 5 stars">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </span>
                 <strong>4.6</strong> Trustpilot
               </a>
-              <a className="hero-rating" href="https://www.g2.com/products/bright-data/reviews" target="_blank" rel="noopener noreferrer">
-                <span className="stars">★★★★★</span>
+              <a className="studio-hero-rating" href="https://www.g2.com/products/bright-data/reviews" target="_blank" rel="noopener noreferrer">
+                <span className="studio-stars" aria-label="4.6 out of 5 stars">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </span>
                 <strong>4.6</strong> G2
               </a>
-              <a className="hero-rating" href="https://www.capterra.com/p/146810/Luminati/" target="_blank" rel="noopener noreferrer">
-                <span className="stars">★★★★★</span>
+              <a className="studio-hero-rating" href="https://www.capterra.com/p/146810/Luminati/" target="_blank" rel="noopener noreferrer">
+                <span className="studio-stars" aria-label="4.8 out of 5 stars">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </span>
                 <strong>4.8</strong> Capterra
               </a>
             </div>
@@ -121,8 +139,19 @@ export default function StudioPage() {
           </div>
         </section>
 
-        {/* Interactive Prompt — the product IS the hero */}
         <AiPromptCta variant="hero" />
+
+        {/* HERO VALUE PROPS — key benefits directly under the prompt */}
+        <section className="studio-value-props">
+          <div className="container">
+            <ul className="studio-props-list">
+              <li><span className="studio-prop-check">✓</span> Scale coverage to tens or hundreds of domains</li>
+              <li><span className="studio-prop-check">✓</span> Cut manual maintenance with self-healing engine</li>
+              <li><span className="studio-prop-check">✓</span> Manage, schedule, &amp; monitor via IDE or API</li>
+              <li><span className="studio-prop-check">✓</span> IPs, unlocking, JS rendering, retries — all handled</li>
+            </ul>
+          </div>
+        </section>
 
         <TrustedByStrip />
 
@@ -367,19 +396,81 @@ export default function StudioPage() {
             <p className="pricing-note">
               Sign up now and we&rsquo;ll match your first deposit dollar for dollar, up to <strong>$500</strong>
             </p>
+
+            {/* Every plan includes */}
+            <div className="hub-plan-includes">
+              <div className="hub-plan-includes-head">
+                <span className="hub-plan-includes-kicker">What&rsquo;s included</span>
+                <h3>Every plan gives you full access &mdash; pay less per record as you scale</h3>
+              </div>
+              <div className="hub-plan-cols">
+                <div className="hub-plan-col">
+                  <div className="hub-plan-col-title">
+                    <span className="hub-plan-col-icon">⬡</span>
+                    <h4>Data Collection</h4>
+                  </div>
+                  <ul>
+                    <li><span>Automated proxy management</span></li>
+                    <li><span>Full browser rendering</span></li>
+                    <li><span>CAPTCHA solving</span></li>
+                  </ul>
+                </div>
+                <div className="hub-plan-col">
+                  <div className="hub-plan-col-title">
+                    <span className="hub-plan-col-icon">∞</span>
+                    <h4>Performance at Scale</h4>
+                  </div>
+                  <ul>
+                    <li><span>Unlimited concurrency</span></li>
+                    <li><span>Batch &amp; scheduled collection</span></li>
+                    <li><span>Job management APIs</span></li>
+                  </ul>
+                </div>
+                <div className="hub-plan-col">
+                  <div className="hub-plan-col-title">
+                    <span className="hub-plan-col-icon">◈</span>
+                    <h4>Data Delivery</h4>
+                  </div>
+                  <ul>
+                    <li><span>Data validation &amp; discovery</span></li>
+                    <li><span>Parsing (JSON or CSV)</span></li>
+                    <li><span>Webhook or API delivery</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* STAT BANNER */}
-        <section className="stat-banner animate-rise">
+        {/* SUPPORT */}
+        <section className="section section-alt animate-rise" id="support">
           <div className="container">
-            <p className="stat-banner-text">
-              Over 20,000 customers trust Bright Data to power their web data pipelines.
-            </p>
+            <div className="section-head">
+              <span className="kicker">Support</span>
+              <h2>We&rsquo;ll support you every step of the way</h2>
+              <p>Talk to a web data expert to get the most out of your data.</p>
+            </div>
+            <div className="studio-support-grid">
+              <div className="studio-support-card">
+                <span className="studio-support-icon">🏆</span>
+                <strong>Rated #1</strong>
+                <span>by customers on G2</span>
+              </div>
+              <div className="studio-support-card">
+                <span className="studio-support-icon">⚡</span>
+                <strong>&lt; 10 min</strong>
+                <span>average response time</span>
+              </div>
+              <div className="studio-support-card">
+                <span className="studio-support-icon">🌐</span>
+                <strong>24/7</strong>
+                <span>support anytime, anywhere</span>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* COMPLIANCE */}
+        {/* INFRASTRUCTURE & COMPLIANCE */}
         <section className="section animate-rise" id="compliance">
           <div className="container">
             <div className="twin-cols">
@@ -387,17 +478,35 @@ export default function StudioPage() {
                 <span className="kicker">Infrastructure</span>
                 <h2>Powered by an award-winning proxy network</h2>
                 <p>
-                  400M+ proxy IPs across 195 countries, AI-based anti-bot bypass, CAPTCHA solving, and browser fingerprinting.
-                  The same infrastructure trusted by Fortune 500 companies.
+                  Unlock the most complex anti-bots using an AI-based web unlocker built on top of a hyper-extensive IP pool.
+                  Over 400M+ proxy IPs, best-in-class technology and the ability to target any country, city, ZIP code, carrier, &amp; ASN.
                 </p>
               </div>
               <div className="twin-col">
                 <span className="kicker">Compliance</span>
-                <h2>Ethical web data collection</h2>
+                <h2>Leading the way in ethical web data collection</h2>
                 <p>
                   Only publicly available data. ISO&nbsp;27001 certified, SOC&nbsp;2 controls,
                   GDPR &amp; CCPA compliant. Backed by an industry-first Compliance &amp; Ethics team.
                 </p>
+              </div>
+            </div>
+            <div className="studio-compliance-badges">
+              <div className="studio-compliance-item">
+                <span className="studio-compliance-icon">🛡</span>
+                <span>Collaborations with security giants like VirusTotal, Avast, and AVG</span>
+              </div>
+              <div className="studio-compliance-item">
+                <span className="studio-compliance-icon">🔍</span>
+                <span>Monitoring of 30+ billion domains, blocking unapproved content</span>
+              </div>
+              <div className="studio-compliance-item">
+                <span className="studio-compliance-icon">⚖</span>
+                <span>Adherence to GDPR, CCPA, and SEC regulations</span>
+              </div>
+              <div className="studio-compliance-item">
+                <span className="studio-compliance-icon">🤝</span>
+                <span>Proactive abuse prevention through global partnerships</span>
               </div>
             </div>
           </div>
