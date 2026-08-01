@@ -1334,11 +1334,28 @@ export default function ScraperPage() {
                 <span className="shrink-0 text-bd-line">·</span>
                 <span className="shrink-0"><span className="font-semibold text-bd-ink">5.7K+</span> users</span>
                 <span className="shrink-0 text-bd-line">·</span>
-                <span className="shrink-0 font-medium text-bd-success">98.4% success</span>
+                <span className="shrink-0 font-medium text-bd-success">99.2% success</span>
                 <span className="shrink-0 text-bd-line">·</span>
                 <span className="shrink-0 font-medium text-bd-success">Verified Jul 2026</span>
                 <span className="shrink-0 text-bd-line">·</span>
-                <span className="shrink-0 font-medium text-bd-success">GDPR &amp; CCPA</span>
+                <span className="shrink-0 font-medium text-bd-blue">⚡ MCP Ready</span>
+              </div>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <a
+                  href="https://brightdata.com/cp/start"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-lg bg-bd-blue px-4 py-2 text-sm font-bold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110"
+                >
+                  Start free
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setMainTab("Live Test")}
+                  className="rounded-lg border border-bd-line bg-bd-canvas px-4 py-2 text-sm font-semibold text-bd-ink transition hover:border-bd-blue-light hover:text-bd-navy"
+                >
+                  Try it free →
+                </button>
               </div>
             </div>
 
@@ -2386,49 +2403,65 @@ for p in products:
                 {/* ===== OUTPUT TAB ===== */}
                 {mainTab === "Output" ? (
                   <div className="space-y-5">
-                    <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Sample Output</h2>
+                    <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Output Schema</h2>
                     <p className="text-[15px] leading-7 text-bd-ink">
-                      Each successfully scraped product returns a JSON object with the following
-                      fields. All data can be exported as JSON, CSV, or NDJSON.
+                      Each successfully scraped product returns a structured JSON object. All data
+                      can be delivered as JSON, NDJSON, or CSV via API, webhook, S3, or GCS.
                     </p>
-                    <CodeBlock code={SAMPLE_OUTPUT} label="json" />
 
-                    <h3 className="text-base font-bold text-bd-navy">Amazon Scraper Output Fields</h3>
+                    <div className="flex flex-wrap items-center gap-2 text-xs">
+                      <span className="rounded-full bg-bd-success/10 px-2.5 py-1 font-semibold text-bd-success">14 fields per record</span>
+                      <span className="rounded-full bg-bd-blue/10 px-2.5 py-1 font-semibold text-bd-blue">MCP compatible</span>
+                      <span className="rounded-full border border-bd-line px-2.5 py-1 text-bd-muted">OpenAPI ready</span>
+                    </div>
+
+                    <h3 className="text-base font-bold text-bd-navy">Field Reference</h3>
                     <div className="overflow-x-auto rounded-xl border border-bd-line">
                       <table className="w-full text-sm">
                         <thead>
                           <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
                             <th className="px-4 py-2.5">Field</th>
                             <th className="px-4 py-2.5">Type</th>
+                            <th className="px-4 py-2.5">Nullable</th>
                             <th className="px-4 py-2.5">Description</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-bd-line text-bd-ink">
                           {[
-                            ["title", "string", "Product title"],
-                            ["url", "string", "Canonical Amazon product URL"],
-                            ["asin", "string", "Amazon Standard Identification Number"],
-                            ["price", "number", "Current selling price"],
-                            ["list_price", "number", "Original list / strike-through price"],
-                            ["currency", "string", "ISO currency code (USD, EUR, etc.)"],
-                            ["stars", "number", "Average rating (0–5)"],
-                            ["reviews_count", "number", "Total number of reviews"],
-                            ["in_stock", "boolean", "Whether the product is currently in stock"],
-                            ["brand", "string", "Brand name"],
-                            ["seller", "object", "Seller name, ID, and URL"],
-                            ["features", "array", "Bullet-point product features"],
-                            ["categories", "string", "Breadcrumb category path"],
-                            ["image", "string", "Main product image URL"],
-                          ].map(([field, type, desc]) => (
+                            ["title", "string", "No", "Product title"],
+                            ["url", "string", "No", "Canonical Amazon product URL"],
+                            ["asin", "string", "No", "Amazon Standard Identification Number"],
+                            ["price", "number", "Yes", "Current selling price (null if unavailable)"],
+                            ["list_price", "number", "Yes", "Original list / strike-through price"],
+                            ["currency", "string", "No", "ISO currency code (USD, EUR, GBP, JPY…)"],
+                            ["stars", "number", "Yes", "Average rating (0–5 scale, 1 decimal)"],
+                            ["reviews_count", "number", "Yes", "Total number of customer reviews"],
+                            ["in_stock", "boolean", "No", "Whether the product is currently in stock"],
+                            ["brand", "string", "Yes", "Brand name"],
+                            ["seller", "object", "Yes", "Seller name, ID, and marketplace URL"],
+                            ["features", "array", "Yes", "Bullet-point product features (strings)"],
+                            ["categories", "string", "Yes", "Breadcrumb category path"],
+                            ["image", "string", "Yes", "Main product image URL (high-res)"],
+                          ].map(([field, type, nullable, desc]) => (
                             <tr key={field}>
                               <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">{field}</td>
-                              <td className="px-4 py-2.5">{type}</td>
-                              <td className="px-4 py-2.5">{desc}</td>
+                              <td className="px-4 py-2.5">
+                                <span className="rounded bg-bd-canvas px-1.5 py-0.5 text-xs">{type}</span>
+                              </td>
+                              <td className="px-4 py-2.5">
+                                {nullable === "No"
+                                  ? <span className="text-bd-success font-medium">Required</span>
+                                  : <span className="text-bd-muted">Optional</span>}
+                              </td>
+                              <td className="px-4 py-2.5 text-bd-ink/80">{desc}</td>
                             </tr>
                           ))}
                         </tbody>
                       </table>
                     </div>
+
+                    <h3 className="text-base font-bold text-bd-navy">Sample Response</h3>
+                    <CodeBlock code={SAMPLE_OUTPUT} label="json" />
                   </div>
                 ) : null}
 

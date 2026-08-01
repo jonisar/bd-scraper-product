@@ -11,6 +11,8 @@ export type ScraperCardProps = {
   href: string;
   ctaLabel?: string;
   ctaHref?: string;
+  successRate?: string;
+  lastVerified?: string;
 };
 
 export default function ScraperCard({
@@ -24,6 +26,8 @@ export default function ScraperCard({
   href,
   ctaLabel = "Try scraper →",
   ctaHref,
+  successRate = "99.2%",
+  lastVerified = "3h ago",
 }: ScraperCardProps) {
   const external = href.startsWith("http");
   const resolvedCtaHref = ctaHref || href;
@@ -57,23 +61,16 @@ export default function ScraperCard({
           <span className="fc-stat-label">Active users</span>
         </div>
         <div className="fc-stat">
-          <span className="fc-stat-val">$1.50</span>
-          <span className="fc-stat-label">per 1K</span>
+          <span className="fc-stat-val fc-stat-success">{successRate}</span>
+          <span className="fc-stat-label">Success rate</span>
         </div>
       </div>
       <div className="fc-foot">
         <div className="fc-badges">
-          <span className="fc-badge">✓ GDPR &amp; CCPA</span>
+          <span className="fc-badge fc-badge-mcp">⚡ MCP</span>
           <span className="fc-badge">✓ Auto-maintained</span>
         </div>
-        <a
-          href={resolvedCtaHref}
-          className="fc-cta"
-          onClick={(e) => e.stopPropagation()}
-          {...(ctaExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        >
-          {ctaLabel}
-        </a>
+        <span className="fc-verified">Verified {lastVerified}</span>
       </div>
     </div>
   );
