@@ -1258,7 +1258,7 @@ function LiveTestPanel() {
 }
 
 export default function ScraperPage() {
-  const [mainTab, setMainTab] = useState<MainTab>("API");
+  const [mainTab, setMainTab] = useState<MainTab>("Overview");
   const [apiLang, setApiLang] = useState<ApiLang>("Python");
   const [apiMode, setApiMode] = useState<"sync" | "async">("sync");
   const [agentPlatform, setAgentPlatform] = useState<AgentPlatform>("Prompt");
