@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | Bright Data",
   },
   description:
-    "The most reliable Web Scraping API. 1,238+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering.",
+    "The most reliable Web Scraping API. 1,300+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering.",
   metadataBase: new URL("https://brightdata.com"),
   robots: { index: true, follow: true },
 };

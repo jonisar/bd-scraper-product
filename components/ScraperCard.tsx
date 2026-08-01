@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export type ScraperCardProps = {
   name: string;
   domain: string;
@@ -35,22 +37,41 @@ export default function ScraperCard({
 
   return (
     <div className="fc">
-      <a
-        href={href}
-        className="fc-link"
-        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        aria-label={`${name} — ${domain}`}
-      >
-        <div className="fc-top">
-          <div className="fc-identity">
-            <span className="fc-name">{name}</span>
-            <span className="fc-domain">{domain}</span>
+      {external ? (
+        <a
+          href={href}
+          className="fc-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${name} — ${domain}`}
+        >
+          <div className="fc-top">
+            <div className="fc-identity">
+              <span className="fc-name">{name}</span>
+              <span className="fc-domain">{domain}</span>
+            </div>
+            <span className="fc-cat">{category}</span>
           </div>
-          <span className="fc-cat">{category}</span>
-        </div>
-        <p className="fc-desc">{desc}</p>
-        {fieldsPreview ? <p className="fc-fields">{fieldsPreview}</p> : null}
-      </a>
+          <p className="fc-desc">{desc}</p>
+          {fieldsPreview ? <p className="fc-fields">{fieldsPreview}</p> : null}
+        </a>
+      ) : (
+        <Link
+          href={href}
+          className="fc-link"
+          aria-label={`${name} — ${domain}`}
+        >
+          <div className="fc-top">
+            <div className="fc-identity">
+              <span className="fc-name">{name}</span>
+              <span className="fc-domain">{domain}</span>
+            </div>
+            <span className="fc-cat">{category}</span>
+          </div>
+          <p className="fc-desc">{desc}</p>
+          {fieldsPreview ? <p className="fc-fields">{fieldsPreview}</p> : null}
+        </Link>
+      )}
       <div className="fc-stats-row">
         <div className="fc-stat">
           <span className="fc-stat-val">{views}</span>

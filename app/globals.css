@@ -472,11 +472,14 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 /* Library sections */
 .lib-section { margin-bottom: var(--s6); }
-.lib-section-head { display: flex; align-items: baseline; gap: var(--s3); margin-bottom: var(--s4); }
+.lib-section-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s3); margin-bottom: var(--s4); }
 .lib-page .lib-section-head h2,
 .lib-section-head h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
 .lib-page .lib-section-head h3,
-.lib-section-head h3 { font-size: 17px; font-weight: 600; margin: 0; }
+.lib-section-head h3 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+.lib-section-labels { display: flex; flex-wrap: wrap; gap: 6px; width: 100%; margin-top: 8px; }
+.lib-section-label { font-size: 11px; font-weight: 600; color: var(--text-2); background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 3px 10px; white-space: nowrap; text-decoration: none; transition: border-color .15s ease, color .15s ease, background .15s ease; }
+.lib-section-label:hover { color: #fff; border-color: rgba(61,127,252,0.5); background: rgba(61,127,252,0.08); }
 .lib-page .lib-section-more,
 .lib-section-more { margin-left: auto; font-size: 13px; color: var(--accent-2); font-weight: 500; white-space: nowrap; text-decoration: none; }
 .lib-page .lib-section-more:hover,
@@ -764,9 +767,10 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 @media (max-width: 700px) { .usecases-grid { grid-template-columns: 1fr; } }
 .usecase-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--s5); transition: border-color .15s; }
 .usecase-card:hover { border-color: var(--border-strong); }
-.usecase-card h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 10px; }
+.usecase-card h3 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; }
 .usecase-labels { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--s3); }
-.usecase-label { font-size: 11px; font-weight: 600; color: var(--text-2); background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 3px 10px; white-space: nowrap; }
+.usecase-label { font-size: 11px; font-weight: 600; color: var(--text-2); background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 3px 10px; white-space: nowrap; text-decoration: none; transition: border-color .15s ease, color .15s ease, background .15s ease; }
+.usecase-label:hover { color: #fff; border-color: rgba(61,127,252,0.5); background: rgba(61,127,252,0.08); }
 .lib-page .usecase-card p,
 .usecase-card p { font-size: 14px; color: var(--text-3); line-height: 1.55; margin-bottom: var(--s3); }
 .usecase-sites { font-size: 12px; color: var(--accent-2); font-weight: 500; }
@@ -1201,7 +1205,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   .hub-code-views { margin-left: 0; width: 100%; }
   .hub-code-block { padding: var(--s4); max-height: 320px; }
   .hub-code-block code { font-size: 11.5px; }
-  .usecase-card h3 { font-size: 18px; }
+  .usecase-card h3 { font-size: 22px; }
 }
 
 /* Pricing inclusions — roomy, readable proof band under tiers */
