@@ -95,7 +95,7 @@ export const templates: Template[] = [
     description:
       "Collect the full product detail page for any Amazon listing: title, brand, seller, price, availability, ratings, review count, categories and images. Handles regional domains and A/B page layouts.",
     popular: true,
-    datasetId: "gd_l7q7dkf244hwjntr0",
+    datasetId: "gd_l1vijqt9jfj7olije",
     mcp: { tool: "web_data_amazon_product", group: "ecommerce" },
     endpoints: [
       { name: "Collect by URL", desc: "Pass product URLs directly." },

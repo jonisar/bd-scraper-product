@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
+import Link from "next/link";
 import { Header, Footer } from "@/components/Chrome";
 import TrustedByStrip from "@/components/TrustedByStrip";
 
@@ -1282,9 +1283,9 @@ export default function ScraperPage() {
         <nav className="animate-rise mb-5 flex flex-wrap items-center gap-x-0 gap-y-1 text-sm text-bd-muted sm:mb-6" aria-label="Breadcrumb">
           <a href="https://brightdata.com/products" className="hover:text-bd-navy" target="_blank" rel="noreferrer">Products</a>
           <span className="mx-1.5 text-bd-muted/50 sm:mx-2" aria-hidden="true">/</span>
-          <a href="/products/web-scraper" className="hover:text-bd-navy">Web Scraper API</a>
+          <Link href="/products/web-scraper" className="hover:text-bd-navy">Web Scraper API</Link>
           <span className="mx-1.5 text-bd-muted/50 sm:mx-2" aria-hidden="true">/</span>
-          <a href="/products/web-scraper/amazon" className="hover:text-bd-navy">Amazon</a>
+          <Link href="/products/web-scraper/amazon" className="hover:text-bd-navy">Amazon</Link>
           <span className="mx-1.5 text-bd-muted/50 sm:mx-2" aria-hidden="true">/</span>
           <span className="font-medium text-bd-blue" aria-current="page">Amazon Product Scraper</span>
         </nav>
@@ -1547,7 +1548,7 @@ export default function ScraperPage() {
                         {[
                           { plan: "Free", price: "$0", detail: "5K records/month, no credit card", features: ["5,000 records/month", "All output formats", "Standard throughput", "Community support"], cta: "Start free", ctaHref: "https://brightdata.com/cp/start", ctaPrimary: true },
                           { plan: "Pay As You Go", price: "$1.50", detail: "Per 1K records, pay for success only", features: ["Unlimited records", "All output formats", "Standard throughput", "Email support", "Pay only for successful results"], cta: "Get started", ctaHref: "https://brightdata.com/cp/start", ctaPrimary: true },
-                          { plan: "Scale", price: "$1.30", detail: "Per 1K records, volume discounts + priority", features: ["Unlimited records", "All output formats", "Priority throughput", "Dedicated support", "Volume discounts", "Custom SLA available"], cta: "Contact sales", ctaHref: "https://brightdata.com/contact-sales", ctaPrimary: false },
+                          { plan: "Scale", price: "$1.30", detail: "Per 1K records, volume discounts + priority", features: ["Unlimited records", "All output formats", "Priority throughput", "Dedicated support", "Volume discounts", "Custom SLA available"], cta: "Contact sales", ctaHref: "https://brightdata.com/contact", ctaPrimary: false },
                         ].map((p) => (
                           <div key={p.plan} className="flex flex-col rounded-xl border border-bd-line bg-bd-canvas px-5 py-4">
                             <p className="text-xs font-semibold uppercase tracking-wider text-bd-muted">{p.plan}</p>
@@ -2869,7 +2870,7 @@ for p in products:
                   Start free
                 </a>
                 <a
-                  href="https://brightdata.com/contact-sales"
+                  href="https://brightdata.com/contact"
                   className="mt-2 block w-full rounded-xl border border-bd-line bg-bd-canvas px-4 py-3 text-center text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
                   target="_blank"
                   rel="noreferrer"
