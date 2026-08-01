@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Header, Footer } from "@/components/Chrome";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import ScraperCard from "@/components/ScraperCard";
+import AiPromptCta from "@/components/AiPromptCta";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Live Test" | "Issues" | "Connect Agent" | "Edit with AI";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
@@ -2900,45 +2901,8 @@ for p in products:
         {/* Related scrapers gallery — full width */}
         <RelatedScrapersCarousel />
 
-        {/* AI Studio CTA */}
-        <section className="studio-cta-section">
-          <div className="studio-cta-card">
-            <div className="studio-cta-glow" aria-hidden="true" />
-            <div className="studio-cta-content">
-              <span className="studio-cta-badge">AI-Powered</span>
-              <h2 className="studio-cta-title">
-                Create any scraper in <span className="studio-cta-accent">5 minutes</span>
-              </h2>
-              <p className="studio-cta-desc">
-                Describe what data you need in plain English. Our AI builds, tests, and deploys
-                a production-ready scraper — no code, no infrastructure, no maintenance.
-              </p>
-              <div className="studio-cta-features">
-                <span className="studio-cta-feat">Any website</span>
-                <span className="studio-cta-feat">Auto-healing</span>
-                <span className="studio-cta-feat">Instant deploy</span>
-              </div>
-              <div className="studio-cta-actions">
-                <a
-                  href="https://brightdata.com/cp/data_collector/collectors/create?camp=plg"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="studio-cta-btn-primary"
-                >
-                  Try Scraper Studio →
-                </a>
-                <a
-                  href="https://docs.brightdata.com/datasets/scraper-studio/ai-agent"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="studio-cta-btn-ghost"
-                >
-                  See how it works
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* AI Prompt CTA */}
+        <AiPromptCta />
       </main>
 
       <Footer />
