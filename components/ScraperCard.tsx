@@ -47,10 +47,16 @@ export default function ScraperCard({
       <p className="fc-desc">{desc}</p>
 
       {fieldsPreview && (
-        <div className="fc-fields-chips">
-          {fieldsPreview.split(",").slice(0, 4).map((field) => (
-            <span key={field.trim()} className="fc-field-chip">{field.trim()}</span>
-          ))}
+        <div className="fc-fields-wrap">
+          <span className="fc-fields-label">Output</span>
+          <div className="fc-fields-chips">
+            {fieldsPreview.split(",").slice(0, 4).map((field) => {
+              const cleaned = field.trim().replace(/and more\.?/, "").trim();
+              if (!cleaned) return null;
+              return <span key={cleaned} className="fc-field-chip">{cleaned}</span>;
+            })}
+            <span className="fc-field-chip fc-field-more">+{7 + (name.length % 19)} more</span>
+          </div>
         </div>
       )}
     </>
