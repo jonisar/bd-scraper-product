@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { catalog, CATALOG_CATEGORIES, type CatalogScraper } from "@/lib/catalog";
-import { templates, consoleUrl } from "@/lib/templates";
+import { templates, templateHref } from "@/lib/templates";
 import ScraperCard from "@/components/ScraperCard";
 
 function scraperHref(s: CatalogScraper): string {
@@ -14,11 +14,11 @@ function scraperHref(s: CatalogScraper): string {
   }
   if (s.slug) {
     const t = templates.find((tpl) => tpl.slug === s.slug);
-    if (t) return consoleUrl(t);
+    if (t) return templateHref(t);
   }
   const byDomain = templates.find((t) => t.domain === s.domain && t.popular)
     || templates.find((t) => t.domain === s.domain);
-  if (byDomain) return consoleUrl(byDomain);
+  if (byDomain) return templateHref(byDomain);
   return `https://brightdata.com/cp/scrapers/browse?category=all&q=${encodeURIComponent(s.name)}`;
 }
 

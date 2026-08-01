@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, useRef, useCallback } from "react";
-import { templates, consoleUrl } from "@/lib/templates";
+import { templates, templateHref } from "@/lib/templates";
 
 function domainOf(input: string) {
   const s = input.trim().toLowerCase();
@@ -41,11 +41,15 @@ export default function HeaderSearch() {
   const go = useCallback(
     (idx?: number) => {
       const target = matches[idx ?? activeIdx] ?? matches[0];
-      if (target) {
-        window.open(consoleUrl(target), "_blank");
-        setQ("");
-        setFocused(false);
+      if (!target) return;
+      const href = templateHref(target);
+      if (href.startsWith("/")) {
+        window.location.href = href;
+      } else {
+        window.open(href, "_blank", "noopener,noreferrer");
       }
+      setQ("");
+      setFocused(false);
     },
     [matches, activeIdx]
   );
@@ -57,7 +61,7 @@ export default function HeaderSearch() {
     }
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setActiveIdx((i) => Math.min(i + 1, Math.min(matches.length - 1, 5)));
+      setActiveIdx((i) => Math.min(i + 1, Math.min(matches.length - 1, 4)));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setActiveIdx((i) => Math.max(i - 1, -1));
@@ -112,12 +116,14 @@ export default function HeaderSearch() {
       {open && (
         <div className="hdr-search-panel" role="listbox">
           {matches.length > 0 ? (
-            matches.slice(0, 6).map((t, i) => (
+            matches.slice(0, 5).map((t, i) => {
+              const href = templateHref(t);
+              const external = href.startsWith("http");
+              return (
               <a
                 key={t.slug}
-                href={consoleUrl(t)}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={href}
+                {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className={`hdr-search-row${i === activeIdx ? " hdr-search-row-active" : ""}`}
                 role="option"
                 aria-selected={i === activeIdx}
@@ -132,7 +138,8 @@ export default function HeaderSearch() {
                   <span className="hdr-search-row-domain">{t.domain}</span>
                 </span>
               </a>
-            ))
+              );
+            })
           ) : (
             <div className="hdr-search-empty">
               <p>No scraper for <b>{dom || q}</b></p>

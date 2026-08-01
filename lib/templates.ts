@@ -63,6 +63,26 @@ export function consoleUrl(t: Template) {
   return `https://brightdata.com/cp/scrapers/${t.datasetId}/pdp/configuration`;
 }
 
+/**
+ * Preferred in-app / product href for a template.
+ * Local Amazon pages when available; otherwise console.
+ */
+export function templateHref(t: Template): string {
+  if (t.slug === "amazon-product") {
+    return "/products/web-scraper/amazon/amazon-product-scraper";
+  }
+  if (t.slug === "amazon-reviews") {
+    return "https://brightdata.com/products/web-scraper/amazon/reviews";
+  }
+  if (t.slug === "amazon-sellers") {
+    return "https://brightdata.com/products/web-scraper/amazon/seller";
+  }
+  if (t.domain === "amazon.com") {
+    return "/products/web-scraper/amazon";
+  }
+  return consoleUrl(t);
+}
+
 export const templates: Template[] = [
   {
     slug: "amazon-product",
