@@ -13,7 +13,7 @@ const PROMPT_SUGGESTIONS = [
 
 const TYPING_EXAMPLE = "Scrape all product names, prices, ratings, and availability from amazon.com/s?k=mechanical+keyboards — include seller name and shipping info...";
 
-export default function AiPromptCta() {
+export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
   const [promptText, setPromptText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
   const [typingIdx, setTypingIdx] = useState(0);
@@ -88,8 +88,8 @@ export default function AiPromptCta() {
   };
 
   return (
-    <section className="ai-prompt-section">
-      <div className="ai-prompt-outer">
+    <section className={`ai-prompt-section${variant === "hero" ? " ai-prompt-section--hero" : ""}`}>
+      <div className={`ai-prompt-outer${variant === "hero" ? " ai-prompt-outer--hero" : ""}`}>
         <div className="ai-prompt-glow" aria-hidden="true" />
 
         <div className="ai-prompt-header">

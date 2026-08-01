@@ -2040,6 +2040,15 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   background: linear-gradient(90deg, transparent, #3d7ffc 20%, #15c1e6 50%, #3d7ffc 80%, transparent);
 }
 
+.ai-prompt-section--hero { padding-top: 0; }
+.ai-prompt-outer--hero {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+.ai-prompt-outer--hero::before { display: none; }
+
 .ai-prompt-glow {
   position: absolute;
   top: -140px;

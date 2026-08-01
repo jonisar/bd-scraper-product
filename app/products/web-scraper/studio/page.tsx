@@ -49,19 +49,41 @@ const STUDIO_FAQS = [
     a: "Publicly available data from any website. Due to our commitment to privacy laws, we do not allow scraping behind log-ins. Bright Data is ISO 27001 certified, GDPR-ready, and SOC 2 compliant.",
   },
   {
+    q: "Do I have to wait while the scraper is being built?",
+    a: "No. Generation usually takes about 10–15 minutes. You can close the window and we'll email you as soon as the scraper is ready in the IDE.",
+  },
+  {
+    q: "What support is available if I get stuck?",
+    a: "24/7 chat and ticket support, rich documentation, plus an optional managed-service add-on where Bright Data builds and operates your scraping operations end-to-end.",
+  },
+  {
     q: "How much does it cost?",
     a: "Start free with 5,000 page loads/month — no credit card required. Pay-as-you-go pricing is $1.50 per 1,000 page loads. Scale plans start at $499/month with volume discounts.",
   },
 ] as const;
 
-const faqJsonLd = {
+const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: STUDIO_FAQS.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://brightdata.com/products/web-scraper/studio",
+      url: "https://brightdata.com/products/web-scraper/studio",
+      name: "AI Scraper Studio — Build Any Scraper With a Prompt | Bright Data",
+      description:
+        "Turn a plain-English prompt into a production-ready web scraper. AI generates, tests, and deploys your scraper with built-in proxies, auto-healing, and scheduled delivery.",
+      isPartOf: { "@id": "https://brightdata.com#website" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: STUDIO_FAQS.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    },
+  ],
 };
 
 const BD = "https://brightdata.com";
@@ -73,7 +95,7 @@ export default function StudioPage() {
     <div className="lib-page">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Header />
 
@@ -100,7 +122,7 @@ export default function StudioPage() {
         </section>
 
         {/* Interactive Prompt — the product IS the hero */}
-        <AiPromptCta />
+        <AiPromptCta variant="hero" />
 
         <TrustedByStrip />
 
