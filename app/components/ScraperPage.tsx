@@ -4,6 +4,8 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Header, Footer } from "@/components/Chrome";
 import TrustedByStrip from "@/components/TrustedByStrip";
+import ScraperCard from "@/components/ScraperCard";
+import AiPromptCta from "@/components/AiPromptCta";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Live Test" | "Issues" | "Connect Agent" | "Edit with AI";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
@@ -551,108 +553,84 @@ function SyncAsyncToggle({
 
 const RELATED_SCRAPERS = [
   {
-    title: "Amazon Reviews Scraper",
+    name: "Amazon Reviews Scraper",
+    domain: "amazon.com",
+    category: "Reviews",
     desc: "Extract review text, star ratings, author info, verified purchase status, helpful votes, and review dates at scale.",
-    deliveries: "7.2K+",
-    stars: 4.8,
-    fields: 28,
-    avgSpeed: "~25s",
-    price: "$1.50",
+    fieldsPreview: "review_text, rating, author, verified_purchase, helpful_votes, date",
+    views: "7.2K+",
+    downloads: "1.8K+",
     href: "https://brightdata.com/products/web-scraper/amazon/reviews",
-    signupHref: "https://brightdata.com/cp/start?scraper=amazon-reviews",
-    tag: "Reviews",
-    emoji: "⭐",
   },
   {
-    title: "Amazon Best Sellers",
+    name: "Amazon Best Sellers",
+    domain: "amazon.com",
+    category: "Rankings",
     desc: "Monitor bestseller rankings, category leaderboards, movers & shakers, and trending products across all departments.",
-    deliveries: "34.6K+",
-    stars: 4.9,
-    fields: 35,
-    avgSpeed: "~18s",
-    price: "$1.50",
+    fieldsPreview: "rank, title, price, rating, category, sales_volume",
+    views: "34.6K+",
+    downloads: "5.1K+",
     href: "/products/web-scraper/amazon",
-    signupHref: "https://brightdata.com/cp/start?scraper=amazon-best-sellers",
-    tag: "Rankings",
-    emoji: "🏆",
   },
   {
-    title: "Amazon Sellers Info",
+    name: "Amazon Sellers Info",
+    domain: "amazon.com",
+    category: "Sellers",
     desc: "Seller name, store rating, feedback count, return policy, business address, and seller metrics for competitive analysis.",
-    deliveries: "2.4K+",
-    stars: 4.7,
-    fields: 22,
-    avgSpeed: "~20s",
-    price: "$1.50",
+    fieldsPreview: "seller_name, rating, feedback_count, return_policy, address",
+    views: "2.4K+",
+    downloads: "820+",
     href: "https://brightdata.com/products/web-scraper/amazon/seller",
-    signupHref: "https://brightdata.com/cp/start?scraper=amazon-sellers",
-    tag: "Sellers",
-    emoji: "🏪",
   },
   {
-    title: "Amazon Price Tracker",
+    name: "Amazon Price Tracker",
+    domain: "amazon.com",
+    category: "Pricing",
     desc: "Real-time and historical pricing: current price, list price, discount %, deal badges, Buy Box winner, and stock levels.",
-    deliveries: "1.6K+",
-    stars: 4.8,
-    fields: 18,
-    avgSpeed: "~15s",
-    price: "$1.50",
+    fieldsPreview: "price, list_price, discount, buy_box, stock_status",
+    views: "1.6K+",
+    downloads: "540+",
     href: "https://brightdata.com/products/web-scraper/amazon/price",
-    signupHref: "https://brightdata.com/cp/start?scraper=amazon-price-tracker",
-    tag: "Pricing",
-    emoji: "💰",
   },
   {
-    title: "Walmart Products",
+    name: "Walmart Products",
+    domain: "walmart.com",
+    category: "E-commerce",
     desc: "SKUs, pricing, specifications, images, availability, reviews, and seller info from the second-largest US retailer.",
-    deliveries: "5.5K+",
-    stars: 4.7,
-    fields: 40,
-    avgSpeed: "~30s",
-    price: "$1.50",
+    fieldsPreview: "sku, price, specs, availability, reviews, seller",
+    views: "5.5K+",
+    downloads: "1.4K+",
     href: "https://brightdata.com/products/web-scraper/walmart",
-    signupHref: "https://brightdata.com/cp/start?scraper=walmart-products",
-    tag: "E-commerce",
-    emoji: "🛒",
   },
   {
-    title: "Google Maps Scraper",
+    name: "Google Maps Scraper",
+    domain: "google.com",
+    category: "Local",
     desc: "Business name, address, phone, website, ratings, review count, hours, photos, and popular times for any location.",
-    deliveries: "12.8K+",
-    stars: 4.9,
-    fields: 45,
-    avgSpeed: "~22s",
-    price: "$2.50",
+    fieldsPreview: "name, address, phone, rating, reviews, hours, website",
+    views: "12.8K+",
+    downloads: "3.9K+",
     href: "https://brightdata.com/products/web-scraper/google-maps",
-    signupHref: "https://brightdata.com/cp/start?scraper=google-maps",
-    tag: "Local",
-    emoji: "📍",
   },
   {
-    title: "LinkedIn Profiles",
+    name: "LinkedIn Profiles",
+    domain: "linkedin.com",
+    category: "Social",
     desc: "Professional data: name, headline, company, experience history, skills, education, certifications, and post activity.",
-    deliveries: "118.1K+",
-    stars: 4.9,
-    fields: 52,
-    avgSpeed: "~35s",
-    price: "$2.50",
+    fieldsPreview: "name, headline, company, experience, skills, education",
+    views: "118.1K+",
+    downloads: "28.4K+",
     href: "https://brightdata.com/products/web-scraper/linkedin",
-    signupHref: "https://brightdata.com/cp/start?scraper=linkedin-profiles",
-    tag: "Social",
-    emoji: "💼",
   },
   {
-    title: "Instagram Profiles",
+    name: "Instagram Profiles",
+    domain: "instagram.com",
+    category: "Social",
     desc: "Followers, posts, bio, business category, engagement rate, recent media, hashtag use, and account growth metrics.",
-    deliveries: "21.8K+",
-    stars: 4.8,
-    fields: 38,
-    avgSpeed: "~28s",
-    price: "$2.50",
+    fieldsPreview: "followers, posts, bio, engagement_rate, media, hashtags",
+    views: "21.8K+",
+    downloads: "6.2K+",
     href: "https://brightdata.com/products/web-scraper/instagram",
-    signupHref: "https://brightdata.com/cp/start?scraper=instagram-profiles",
-    tag: "Social",
-    emoji: "📸",
   },
 ];
 
@@ -762,56 +740,19 @@ function RelatedScrapersCarousel() {
         >
           {RELATED_SCRAPERS.map((s) => (
             <div
-              key={s.title}
-              className="group flex w-[min(280px,calc(100vw-2.5rem))] shrink-0 flex-col rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_4px_16px_rgba(0,0,0,0.2)] transition hover:border-bd-blue-light hover:shadow-[0_8px_24px_rgba(61,127,252,0.15)] sm:w-[290px]"
+              key={s.name}
+              className="w-[min(280px,calc(100vw-2.5rem))] shrink-0 sm:w-[290px]"
             >
-              <div className="mb-3 flex items-center gap-2">
-                <span className="text-lg">{s.emoji}</span>
-                <span className="rounded-full bg-bd-blue-soft px-2.5 py-0.5 text-[11px] font-semibold text-bd-blue">
-                  {s.tag}
-                </span>
-                <span className="ml-auto flex items-center gap-0.5 text-[11px] font-medium text-amber-500">
-                  <svg className="h-3 w-3 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.065 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z"/></svg>
-                  {s.stars}
-                </span>
-              </div>
-              <h3 className="text-[15px] font-bold text-bd-navy group-hover:text-bd-blue transition">
-                {s.title}
-              </h3>
-              <p className="mt-1.5 flex-1 text-[13px] leading-5 text-bd-ink/70">
-                {s.desc}
-              </p>
-              <div className="mt-4 grid grid-cols-3 gap-2 rounded-lg bg-bd-canvas px-3 py-2.5 text-center">
-                <div>
-                  <p className="text-[11px] text-bd-muted">Fields</p>
-                  <p className="text-sm font-bold text-bd-navy">{s.fields}</p>
-                </div>
-                <div>
-                  <p className="text-[11px] text-bd-muted">Speed</p>
-                  <p className="text-sm font-bold text-bd-navy">{s.avgSpeed}</p>
-                </div>
-                <div>
-                  <p className="text-[11px] text-bd-muted">From</p>
-                  <p className="text-sm font-bold text-bd-navy">{s.price}<span className="text-[10px] font-normal text-bd-muted">/1K</span></p>
-                </div>
-              </div>
-              <div className="mt-3 flex items-center gap-2 border-t border-bd-line pt-3">
-                <a
-                  href={s.signupHref}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-lg bg-bd-blue px-3 py-1.5 text-xs font-bold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110"
-                >
-                  Start free
-                </a>
-                <a
-                  href={s.href}
-                  {...(s.href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
-                  className="ml-auto text-xs font-semibold text-bd-blue hover:underline"
-                >
-                  View scraper →
-                </a>
-              </div>
+              <ScraperCard
+                name={s.name}
+                domain={s.domain}
+                category={s.category}
+                desc={s.desc}
+                fieldsPreview={s.fieldsPreview}
+                views={s.views}
+                downloads={s.downloads}
+                href={s.href}
+              />
             </div>
           ))}
         </div>
@@ -1701,14 +1642,12 @@ export default function ScraperPage() {
                         <span className="mt-0.5 text-lg leading-none">✨</span>
                         <p className="text-sm leading-6 text-bd-ink">
                           <strong>Need something different?</strong> Open this scraper in{" "}
-                          <a
-                            href="https://brightdata.com/products/web-scraper/studio"
+                          <Link
+                            href="/products/web-scraper/studio"
                             className="font-semibold text-bd-blue hover:underline"
-                            target="_blank"
-                            rel="noreferrer"
                           >
                             Scraper Studio
-                          </a>{" "}
+                          </Link>{" "}
                           to customize fields, add filters, or build an entirely new scraper
                           using natural language — no code required.
                         </p>
@@ -2801,14 +2740,12 @@ for p in products:
                             for a custom scraper.
                           </p>
                         </div>
-                        <a
-                          href="https://brightdata.com/products/web-scraper/studio"
+                        <Link
+                          href="/products/web-scraper/studio"
                           className="w-full shrink-0 rounded-xl bg-bd-blue px-5 py-2.5 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105 sm:w-auto"
-                          target="_blank"
-                          rel="noreferrer"
                         >
                           Launch Scraper Studio
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -2960,45 +2897,8 @@ for p in products:
         {/* Related scrapers gallery — full width */}
         <RelatedScrapersCarousel />
 
-        {/* AI Studio CTA */}
-        <section className="studio-cta-section">
-          <div className="studio-cta-card">
-            <div className="studio-cta-glow" aria-hidden="true" />
-            <div className="studio-cta-content">
-              <span className="studio-cta-badge">AI-Powered</span>
-              <h2 className="studio-cta-title">
-                Create any scraper in <span className="studio-cta-accent">5 minutes</span>
-              </h2>
-              <p className="studio-cta-desc">
-                Describe what data you need in plain English. Our AI builds, tests, and deploys
-                a production-ready scraper — no code, no infrastructure, no maintenance.
-              </p>
-              <div className="studio-cta-features">
-                <span className="studio-cta-feat">Any website</span>
-                <span className="studio-cta-feat">Auto-healing</span>
-                <span className="studio-cta-feat">Instant deploy</span>
-              </div>
-              <div className="studio-cta-actions">
-                <a
-                  href="https://brightdata.com/cp/data_collector/collectors/create?camp=plg"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="studio-cta-btn-primary"
-                >
-                  Try Scraper Studio →
-                </a>
-                <a
-                  href="https://docs.brightdata.com/datasets/scraper-studio/ai-agent"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="studio-cta-btn-ghost"
-                >
-                  See how it works
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* AI Prompt CTA */}
+        <AiPromptCta />
       </main>
 
       <Footer />

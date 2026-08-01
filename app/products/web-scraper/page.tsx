@@ -6,6 +6,7 @@ import AgentGetStarted from "@/components/AgentGetStarted";
 import StudioAgentPrompts from "@/components/StudioAgentPrompts";
 import ScrollReveal from "@/components/ScrollReveal";
 import TrustedByStrip from "@/components/TrustedByStrip";
+import AiPromptCta from "@/components/AiPromptCta";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -508,19 +509,8 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
-      <section className="section animate-rise">
-        <div className="container final-cta">
-          <h2>The easiest way to scrape web data</h2>
-          <p className="final-cta-sub">
-            1,300+ scrapers, 400M+ proxy IPs, auto-maintained 24/7. Start with 5,000 free records &mdash; no credit card required.
-          </p>
-          <div className="hero-ctas">
-            <a href="https://brightdata.com/cp/start" className="btn btn-primary btn-pill">Start free</a>
-            <a href="https://brightdata.com/contact" className="btn btn-ghost btn-pill">Contact sales</a>
-          </div>
-        </div>
-      </section>
+      {/* AI Prompt CTA */}
+      <AiPromptCta />
       </main>
 
       <Footer />

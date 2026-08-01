@@ -4,6 +4,7 @@ import { Header, Footer } from "@/components/Chrome";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScraperCard from "@/components/ScraperCard";
 import TrustedByStrip from "@/components/TrustedByStrip";
+import AiPromptCta from "@/components/AiPromptCta";
 import AmazonCodeExamples from "@/components/AmazonCodeExamples";
 import {
   AMAZON_SCRAPERS,
@@ -496,23 +497,8 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* FINAL CTA */}
-        <section className="section animate-rise">
-          <div className="container final-cta">
-            <h2>Want to scrape Amazon data?</h2>
-            <p className="final-cta-sub">
-              Talk to an expert about your Amazon scraping needs — or start free with 5,000 records/month.
-            </p>
-            <div className="hero-ctas">
-              <a href="https://brightdata.com/cp/start" className="btn btn-primary btn-pill" target="_blank" rel="noopener noreferrer">
-                Start free
-              </a>
-              <a href="https://brightdata.com/contact" className="btn btn-ghost btn-pill" target="_blank" rel="noopener noreferrer">
-                Contact sales
-              </a>
-            </div>
-          </div>
-        </section>
+        {/* AI Prompt CTA */}
+        <AiPromptCta />
       </main>
 
       <Footer />

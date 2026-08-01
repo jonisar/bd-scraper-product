@@ -1,0 +1,191 @@
+"use client";
+
+import { useState, useRef, useEffect, useCallback } from "react";
+
+const STUDIO_URL = "https://brightdata.com/cp/data_collector/collectors/create?camp=plg";
+
+const PROMPT_SUGGESTIONS = [
+  { label: "Amazon prices & reviews", prompt: "Scrape product prices, star ratings, and review counts from Amazon search results for \"wireless headphones\"" },
+  { label: "LinkedIn job listings", prompt: "Extract job title, company, location, salary range, and posting date from LinkedIn job search results for \"software engineer\" in San Francisco" },
+  { label: "Google Maps businesses", prompt: "Collect business name, address, phone number, rating, and number of reviews for all coffee shops in Manhattan from Google Maps" },
+  { label: "Real estate listings", prompt: "Scrape property price, address, square footage, bedrooms, and listing agent from Zillow search results in Austin, TX" },
+];
+
+const TYPING_EXAMPLE = "Scrape all product names, prices, ratings, and availability from amazon.com/s?k=mechanical+keyboards — include seller name and shipping info...";
+
+export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
+  const [promptText, setPromptText] = useState("");
+  const [isTyping, setIsTyping] = useState(true);
+  const [typingIdx, setTypingIdx] = useState(0);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const sendGuardRef = useRef(false);
+
+  useEffect(() => {
+    if (!isTyping) return;
+    if (typingIdx >= TYPING_EXAMPLE.length) {
+      typingTimerRef.current = setTimeout(() => {
+        setTypingIdx(0);
+        setPromptText("");
+      }, 3000);
+      return () => { if (typingTimerRef.current) clearTimeout(typingTimerRef.current); };
+    }
+    const speed = TYPING_EXAMPLE[typingIdx] === " " ? 60 : 28 + Math.random() * 32;
+    typingTimerRef.current = setTimeout(() => {
+      setPromptText(TYPING_EXAMPLE.slice(0, typingIdx + 1));
+      setTypingIdx((i) => i + 1);
+    }, speed);
+    return () => { if (typingTimerRef.current) clearTimeout(typingTimerRef.current); };
+  }, [isTyping, typingIdx]);
+
+  useEffect(() => {
+    if (!isTyping && textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, [isTyping]);
+
+  const stopTyping = useCallback(() => {
+    setIsTyping(false);
+    if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
+  }, []);
+
+  const handlePaneClick = useCallback(() => {
+    if (!isTyping) {
+      textareaRef.current?.focus();
+      return;
+    }
+    stopTyping();
+    setPromptText("");
+  }, [isTyping, stopTyping]);
+
+  const handleFocus = () => {
+    stopTyping();
+    if (promptText === TYPING_EXAMPLE.slice(0, typingIdx)) {
+      setPromptText("");
+    }
+  };
+
+  const openStudio = useCallback(() => {
+    if (sendGuardRef.current) return;
+    sendGuardRef.current = true;
+    window.open(STUDIO_URL, "_blank", "noopener,noreferrer");
+    setTimeout(() => { sendGuardRef.current = false; }, 1500);
+  }, []);
+
+  const handleSend = () => openStudio();
+
+  const handleSuggestion = (prompt: string) => {
+    stopTyping();
+    setPromptText(prompt);
+    setTimeout(() => openStudio(), 400);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
+  return (
+    <section className={`ai-prompt-section${variant === "hero" ? " ai-prompt-section--hero" : ""}`}>
+      <div className={`ai-prompt-outer${variant === "hero" ? " ai-prompt-outer--hero" : ""}`}>
+        <div className="ai-prompt-glow" aria-hidden="true" />
+
+        <div className="ai-prompt-header">
+          <span className="ai-prompt-badge">
+            <span className="ai-prompt-badge-dot" />
+            AI Scraper Studio
+          </span>
+          <h2 className="ai-prompt-title">
+            Describe it. <span className="ai-prompt-accent">We&apos;ll build it.</span>
+          </h2>
+          <p className="ai-prompt-subtitle">
+            Tell our AI what data you need — it creates, tests, and deploys a production scraper in minutes.
+          </p>
+        </div>
+
+        <div className="ai-prompt-pane">
+          <div className="ai-prompt-pane-chrome">
+            <div className="ai-prompt-dots" aria-hidden="true">
+              <span /><span /><span />
+            </div>
+            <span className="ai-prompt-pane-label">New Scraper</span>
+          </div>
+
+          <div className="ai-prompt-body">
+            <div className="ai-prompt-context">
+              <div className="ai-prompt-context-icon" aria-hidden="true">✦</div>
+              <div className="ai-prompt-context-text">
+                <strong>What would you like to scrape?</strong>
+                <span>Describe the website, the data fields you need, and any filters. I&apos;ll handle the rest.</span>
+              </div>
+            </div>
+
+            <div className="ai-prompt-suggestions">
+              {PROMPT_SUGGESTIONS.map((s) => (
+                <button
+                  key={s.label}
+                  type="button"
+                  className="ai-prompt-chip"
+                  onClick={() => handleSuggestion(s.prompt)}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="ai-prompt-input-area">
+              {isTyping ? (
+                <div
+                  className="ai-prompt-textarea-wrap"
+                  onClick={handlePaneClick}
+                  role="presentation"
+                  style={{ cursor: "text" }}
+                >
+                  <div className="ai-prompt-textarea" style={{ minHeight: 72 }}>
+                    {promptText}
+                    <span className="ai-prompt-cursor" />
+                  </div>
+                </div>
+              ) : (
+                <div className="ai-prompt-textarea-wrap">
+                  <textarea
+                    ref={textareaRef}
+                    className="ai-prompt-textarea"
+                    placeholder="e.g. Scrape all product titles, prices, and ratings from..."
+                    value={promptText}
+                    onChange={(e) => setPromptText(e.target.value)}
+                    onFocus={handleFocus}
+                    onKeyDown={handleKeyDown}
+                    rows={3}
+                  />
+                </div>
+              )}
+              <div className="ai-prompt-input-footer">
+                <span className="ai-prompt-hint">Press Enter to send</span>
+                <button
+                  type="button"
+                  className="ai-prompt-send"
+                  onClick={handleSend}
+                  aria-label="Create scraper"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22 11 13 2 9l20-7z"/></svg>
+                  <span>Create scraper</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="ai-prompt-pane-footer">
+            <span className="ai-prompt-footer-item"><span className="ai-prompt-check">✓</span> No code required</span>
+            <span className="ai-prompt-footer-item"><span className="ai-prompt-check">✓</span> Auto-healing selectors</span>
+            <span className="ai-prompt-footer-item"><span className="ai-prompt-check">✓</span> Deploys instantly</span>
+            <span className="ai-prompt-footer-item"><span className="ai-prompt-check">✓</span> Any website</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
