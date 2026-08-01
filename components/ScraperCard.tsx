@@ -35,6 +35,7 @@ export default function ScraperCard({
         href={href}
         className="fc-link"
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        aria-label={`${name} — ${domain}`}
       >
         <div className="fc-top">
           <div className="fc-identity">
