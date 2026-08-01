@@ -19,6 +19,7 @@ export default function AiPromptCta() {
   const [typingIdx, setTypingIdx] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const sendGuardRef = useRef(false);
 
   useEffect(() => {
     if (!isTyping) return;
@@ -37,18 +38,25 @@ export default function AiPromptCta() {
     return () => { if (typingTimerRef.current) clearTimeout(typingTimerRef.current); };
   }, [isTyping, typingIdx]);
 
+  useEffect(() => {
+    if (!isTyping && textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, [isTyping]);
+
   const stopTyping = useCallback(() => {
     setIsTyping(false);
     if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
   }, []);
 
   const handlePaneClick = useCallback(() => {
+    if (!isTyping) {
+      textareaRef.current?.focus();
+      return;
+    }
     stopTyping();
     setPromptText("");
-    requestAnimationFrame(() => {
-      textareaRef.current?.focus();
-    });
-  }, [stopTyping]);
+  }, [isTyping, stopTyping]);
 
   const handleFocus = () => {
     stopTyping();
@@ -57,16 +65,19 @@ export default function AiPromptCta() {
     }
   };
 
-  const handleSend = () => {
+  const openStudio = useCallback(() => {
+    if (sendGuardRef.current) return;
+    sendGuardRef.current = true;
     window.open(STUDIO_URL, "_blank", "noopener,noreferrer");
-  };
+    setTimeout(() => { sendGuardRef.current = false; }, 1500);
+  }, []);
+
+  const handleSend = () => openStudio();
 
   const handleSuggestion = (prompt: string) => {
     stopTyping();
     setPromptText(prompt);
-    setTimeout(() => {
-      window.open(STUDIO_URL, "_blank", "noopener,noreferrer");
-    }, 400);
+    setTimeout(() => openStudio(), 400);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

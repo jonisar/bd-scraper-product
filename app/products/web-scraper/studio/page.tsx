@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Header, Footer } from "@/components/Chrome";
 import ScrollReveal from "@/components/ScrollReveal";
 import TrustedByStrip from "@/components/TrustedByStrip";
@@ -79,8 +78,8 @@ export default function StudioPage() {
       <Header />
 
       <main>
-        {/* HERO — compact heading, the prompt pane IS the hero */}
-        <section className="hero">
+        {/* HERO — ratings + SEO h1 above the interactive prompt */}
+        <section className="hero" style={{ paddingBottom: 0 }}>
           <div className="container hero-inner">
             <div className="hero-ratings">
               <a className="hero-rating" href="https://www.trustpilot.com/review/brightdata.com" target="_blank" rel="noopener noreferrer">
@@ -96,20 +95,11 @@ export default function StudioPage() {
                 <strong>4.8</strong> Capterra
               </a>
             </div>
-
-            <h1>
-              Turn a prompt into a{" "}
-              <span className="grad-text">production scraper</span>
-            </h1>
-
-            <p className="hero-sub">
-              Describe what data you need in plain English.
-              Our AI builds, tests, and deploys a scraper with built-in proxies and auto-healing — ready in minutes.
-            </p>
+            <h1 className="sr-only">AI Scraper Studio — Build Any Web Scraper With a Prompt</h1>
           </div>
         </section>
 
-        {/* Interactive Prompt — the product demo */}
+        {/* Interactive Prompt — the product IS the hero */}
         <AiPromptCta />
 
         <TrustedByStrip />
@@ -414,7 +404,23 @@ export default function StudioPage() {
         </section>
 
         {/* FINAL CTA */}
-        <AiPromptCta />
+        <section className="final-cta animate-rise">
+          <div className="container" style={{ textAlign: "center" }}>
+            <h2>Ready to build your scraper?</h2>
+            <p style={{ maxWidth: 520, margin: "0 auto 1.5rem", opacity: 0.8 }}>
+              Start free with 5,000 page loads — no credit card, no code required. Describe what you need and let AI do the rest.
+            </p>
+            <a
+              href={SIGNUP}
+              className="btn btn-primary btn-pill"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: "1.05rem", padding: "0.85rem 2.4rem" }}
+            >
+              Start free trial
+            </a>
+          </div>
+        </section>
       </main>
 
       <Footer />

@@ -760,7 +760,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   margin: 0;
 }
 
-.final-cta { text-align: center; }
+.final-cta { text-align: center; padding: var(--s7) 0; }
 .lib-page .final-cta-sub,
 .final-cta-sub {
   color: var(--text-3);
