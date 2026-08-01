@@ -1642,14 +1642,12 @@ export default function ScraperPage() {
                         <span className="mt-0.5 text-lg leading-none">✨</span>
                         <p className="text-sm leading-6 text-bd-ink">
                           <strong>Need something different?</strong> Open this scraper in{" "}
-                          <a
-                            href="https://brightdata.com/products/web-scraper/studio"
+                          <Link
+                            href="/products/web-scraper/studio"
                             className="font-semibold text-bd-blue hover:underline"
-                            target="_blank"
-                            rel="noreferrer"
                           >
                             Scraper Studio
-                          </a>{" "}
+                          </Link>{" "}
                           to customize fields, add filters, or build an entirely new scraper
                           using natural language — no code required.
                         </p>
@@ -2742,14 +2740,12 @@ for p in products:
                             for a custom scraper.
                           </p>
                         </div>
-                        <a
-                          href="https://brightdata.com/products/web-scraper/studio"
+                        <Link
+                          href="/products/web-scraper/studio"
                           className="w-full shrink-0 rounded-xl bg-bd-blue px-5 py-2.5 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105 sm:w-auto"
-                          target="_blank"
-                          rel="noreferrer"
                         >
                           Launch Scraper Studio
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>

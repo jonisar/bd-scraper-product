@@ -23,19 +23,14 @@ export function Header() {
             <Link href="/products/web-scraper" className="transition hover:text-bd-navy">
               Scrapers
             </Link>
-            <a
-              href="https://brightdata.com/products/web-scraper/studio"
-              className="transition hover:text-bd-navy"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <Link href="/products/web-scraper/studio" className="transition hover:text-bd-navy">
               <span className="flex items-center gap-1">
                 AI Scraper Studio
                 <span className="rounded bg-bd-blue/15 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">
                   New
                 </span>
               </span>
-            </a>
+            </Link>
             <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
               Docs
             </a>
@@ -89,14 +84,14 @@ export function Header() {
             <Link href="/products/web-scraper" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>
               Scrapers
             </Link>
-            <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
+            <Link href="/products/web-scraper/studio" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>
               <span className="flex items-center gap-1.5">
                 AI Scraper Studio
                 <span className="rounded bg-bd-blue/15 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">
                   New
                 </span>
               </span>
-            </a>
+            </Link>
             <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Docs</a>
             <Link href="/products/web-scraper#pricing" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
             <a href="https://brightdata.com/cp" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Log in</a>
@@ -128,7 +123,7 @@ const FOOTER_ROWS: FooterColumn[][] = [
         { label: "Browser API", href: `${BD}/products/scraping-browser` },
         { label: "Crawl API", href: `${BD}/products/crawl-api` },
         { label: "Web Scraper APIs", href: `${BD}/products/web-scraper` },
-        { label: "Scraper Studio", href: `${BD}/products/web-scraper/studio` },
+        { label: "Scraper Studio", href: "/products/web-scraper/studio" },
         { label: "Datasets Marketplace", href: `${BD}/products/datasets` },
         { label: "Web Archive", href: `${BD}/products/archive-api` },
         { label: "Bright Insights", href: `${BD}/products/insights` },
