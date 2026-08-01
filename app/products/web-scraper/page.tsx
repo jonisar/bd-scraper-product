@@ -242,51 +242,84 @@ export default function WebScraperHome() {
           <div className="usecases-grid">
             <div className="usecase-card">
               <h3>E-commerce scraping API</h3>
+              <div className="usecase-labels">
+                <span className="usecase-label">Amazon</span>
+                <span className="usecase-label">Walmart</span>
+                <span className="usecase-label">Shopee</span>
+                <span className="usecase-label">Target</span>
+                <span className="usecase-label">eBay</span>
+              </div>
               <p>
                 Track competitor pricing, monitor stock levels, collect product reviews, and
                 benchmark seller performance across Amazon, Walmart, Shopee, and 50+ marketplaces.
               </p>
-              <span className="usecase-sites">Amazon · Walmart · Shopee · Target · eBay</span>
             </div>
             <div className="usecase-card">
               <h3>Social media scraping API</h3>
+              <div className="usecase-labels">
+                <span className="usecase-label">Instagram</span>
+                <span className="usecase-label">TikTok</span>
+                <span className="usecase-label">LinkedIn</span>
+                <span className="usecase-label">X</span>
+                <span className="usecase-label">Facebook</span>
+              </div>
               <p>
                 Extract public posts, profiles, followers, engagement metrics, and trending
                 hashtags. Power influencer analytics, sentiment analysis, and content monitoring at scale.
               </p>
-              <span className="usecase-sites">Instagram · TikTok · LinkedIn · X · Facebook</span>
             </div>
             <div className="usecase-card">
               <h3>Real estate scraping API</h3>
+              <div className="usecase-labels">
+                <span className="usecase-label">Zillow</span>
+                <span className="usecase-label">Realtor</span>
+                <span className="usecase-label">Redfin</span>
+                <span className="usecase-label">Airbnb</span>
+                <span className="usecase-label">Booking</span>
+              </div>
               <p>
                 Collect property listings, pricing history, neighborhood data, and agent info from
                 Zillow, Realtor.com, and Redfin. Build market intelligence for residential and commercial real estate.
               </p>
-              <span className="usecase-sites">Zillow · Realtor · Redfin · Airbnb · Booking</span>
             </div>
             <div className="usecase-card">
               <h3>Business &amp; B2B scraping API</h3>
+              <div className="usecase-labels">
+                <span className="usecase-label">LinkedIn</span>
+                <span className="usecase-label">Crunchbase</span>
+                <span className="usecase-label">Glassdoor</span>
+                <span className="usecase-label">Indeed</span>
+              </div>
               <p>
                 Enrich leads with company data, job listings, funding rounds, and employee info from
                 LinkedIn, Crunchbase, and Glassdoor. Fuel CRM enrichment, competitive intel, and market mapping.
               </p>
-              <span className="usecase-sites">LinkedIn · Crunchbase · Glassdoor · Indeed</span>
             </div>
             <div className="usecase-card">
               <h3>Search &amp; maps scraping API</h3>
+              <div className="usecase-labels">
+                <span className="usecase-label">Google Maps</span>
+                <span className="usecase-label">Yelp</span>
+                <span className="usecase-label">Tripadvisor</span>
+                <span className="usecase-label">Yellow Pages</span>
+              </div>
               <p>
                 Collect Google Maps business listings, reviews, ratings, and local SEO data.
                 Monitor rankings, analyze competitors, and track customer sentiment by location.
               </p>
-              <span className="usecase-sites">Google Maps · Yelp · Tripadvisor · Yellow Pages</span>
             </div>
             <div className="usecase-card">
               <h3>Financial data scraping API</h3>
+              <div className="usecase-labels">
+                <span className="usecase-label">Yahoo Finance</span>
+                <span className="usecase-label">Bloomberg</span>
+                <span className="usecase-label">SEC</span>
+                <span className="usecase-label">MarketWatch</span>
+              </div>
               <p>
                 Extract stock prices, market cap, earnings data, analyst ratings, and news sentiment
                 from Yahoo Finance and public filings. Build alternative data feeds for quantitative strategies.
               </p>
-              <span className="usecase-sites">Yahoo Finance · Bloomberg · SEC · MarketWatch</span>
             </div>
           </div>
         </div>
