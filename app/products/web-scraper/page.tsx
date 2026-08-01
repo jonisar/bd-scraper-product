@@ -151,8 +151,8 @@ export default function WebScraperHome() {
             <span>countries covered</span>
           </div>
           <div className="vb-item">
-            <strong>~3s</strong>
-            <span>real-time response</span>
+            <strong>MCP</strong>
+            <span>AI agent ready</span>
           </div>
         </div>
       </section>

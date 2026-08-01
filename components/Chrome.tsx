@@ -269,7 +269,7 @@ function FooterCol({ col }: { col: FooterColumn }) {
 function FooterIcon({
   name,
 }: {
-  name: "linkedin" | "youtube" | "github" | "whatsapp" | "email" | "telegram" | "shield" | "status";
+  name: "linkedin" | "youtube" | "github" | "whatsapp" | "email" | "telegram";
 }) {
   const common = {
     className: "footer-icon",
@@ -312,18 +312,6 @@ function FooterIcon({
       return (
         <svg {...common}>
           <path d="M9.78 18.65l.28-4.23 7.68-6.96c.34-.31-.07-.48-.52-.19L7.74 13.3 3.64 12c-.88-.27-.9-.86.2-1.3L19.87 5.3c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.9-.74 1.12-1.5.7l-4.15-3.05-2 .61c-.23.08-.44-.05-.47-.32z" />
-        </svg>
-      );
-    case "shield":
-      return (
-        <svg {...common}>
-          <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1.06 13.54l-3.18-3.18 1.41-1.41 1.77 1.77 4.24-4.24 1.41 1.41-5.65 5.65z" />
-        </svg>
-      );
-    case "status":
-      return (
-        <svg {...common}>
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
         </svg>
       );
   }
@@ -393,17 +381,6 @@ export function Footer() {
                 </a>
                 <a href="https://t.me/bright_data" target="_blank" rel="nofollow noopener noreferrer" aria-label="Telegram" title="Telegram">
                   <FooterIcon name="telegram" />
-                </a>
-              </div>
-            </div>
-            <div className="footer-connect-group">
-              <span className="footer-reassure-label">Trust</span>
-              <div className="footer-social-icons">
-                <a href={`${BD}/trustcenter`} target="_blank" rel="noopener noreferrer" aria-label="Trust Center" title="Trust Center">
-                  <FooterIcon name="shield" />
-                </a>
-                <a href={`${BD}/network-status`} target="_blank" rel="noopener noreferrer" aria-label="Network Status" title="Network Status">
-                  <FooterIcon name="status" />
                 </a>
               </div>
             </div>

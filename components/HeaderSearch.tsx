@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useRef, useCallback } from "react";
+import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import { templates, templateHref } from "@/lib/templates";
 
 function domainOf(input: string) {
@@ -82,6 +82,17 @@ export default function HeaderSearch() {
     blurTimer.current = setTimeout(() => setFocused(false), 180);
   };
 
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, []);
+
   return (
     <div className="hdr-search">
       <svg
@@ -112,11 +123,15 @@ export default function HeaderSearch() {
         aria-label="Search scrapers"
         autoComplete="off"
       />
+      {!focused && !q && (
+        <kbd className="hdr-search-kbd" aria-hidden>⌘K</kbd>
+      )}
 
       {open && (
         <div className="hdr-search-panel" role="listbox">
           {matches.length > 0 ? (
-            matches.slice(0, 5).map((t, i) => {
+            <>
+            {matches.slice(0, 5).map((t, i) => {
               const href = templateHref(t);
               const external = href.startsWith("http");
               return (
@@ -137,9 +152,22 @@ export default function HeaderSearch() {
                   <span className="hdr-search-row-name">{t.name}</span>
                   <span className="hdr-search-row-domain">{t.domain}</span>
                 </span>
+                <span className="hdr-search-row-avail">✓</span>
               </a>
               );
-            })
+            })}
+            {matches.length > 5 && (
+              <a
+                href={`https://brightdata.com/cp/scrapers/browse?category=all&q=${encodeURIComponent(q.trim())}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hdr-search-more"
+                onMouseDown={(e) => e.preventDefault()}
+              >
+                View all {matches.length} results →
+              </a>
+            )}
+            </>
           ) : (
             <div className="hdr-search-empty">
               <p>No scraper for <b>{dom || q}</b></p>
