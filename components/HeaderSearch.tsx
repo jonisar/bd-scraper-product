@@ -61,7 +61,7 @@ export default function HeaderSearch() {
     }
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setActiveIdx((i) => Math.min(i + 1, Math.min(matches.length - 1, 5)));
+      setActiveIdx((i) => Math.min(i + 1, Math.min(matches.length - 1, 4)));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setActiveIdx((i) => Math.max(i - 1, -1));
@@ -116,7 +116,7 @@ export default function HeaderSearch() {
       {open && (
         <div className="hdr-search-panel" role="listbox">
           {matches.length > 0 ? (
-            matches.slice(0, 6).map((t, i) => {
+            matches.slice(0, 5).map((t, i) => {
               const href = templateHref(t);
               const external = href.startsWith("http");
               return (
