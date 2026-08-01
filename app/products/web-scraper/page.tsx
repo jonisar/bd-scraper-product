@@ -190,7 +190,7 @@ export default function WebScraperHome() {
         <div className="container">
           <div className="section-head">
             <span className="kicker">Under the hood</span>
-            <h2>Never worry about proxies and CAPTCHAs again</h2>
+            <h2>Never get blocked again</h2>
             <p>
               Every scraper runs on Bright Data&rsquo;s infrastructure. One API call &mdash;
               we handle IP rotation, CAPTCHA solving, rendering, and retries automatically.

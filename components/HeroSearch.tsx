@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import type { Template } from "@/lib/templates";
-import { consoleUrl } from "@/lib/templates";
+import { templateHref } from "@/lib/templates";
 
 const POPULAR_SITES = [
   { label: "Amazon", domain: "amazon.com", color: "#FF9900", href: "/products/web-scraper/amazon" },
@@ -39,12 +39,7 @@ function domainOf(input: string) {
 }
 
 function resultHref(t: Template): string {
-  if (t.slug === "amazon-product" || t.domain === "amazon.com") {
-    return t.slug === "amazon-product"
-      ? "/products/web-scraper/amazon/amazon-product-scraper"
-      : "/products/web-scraper/amazon";
-  }
-  return consoleUrl(t);
+  return templateHref(t);
 }
 
 function scoreMatch(t: Template, needle: string, dom: string): number {

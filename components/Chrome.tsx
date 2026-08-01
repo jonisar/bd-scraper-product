@@ -20,7 +20,7 @@ export function Header() {
             </span>
           </Link>
           <nav className="hidden items-center gap-5 text-sm font-semibold text-bd-ink lg:flex">
-            <Link href="/products/web-scraper#library" className="transition hover:text-bd-navy">
+            <Link href="/products/web-scraper" className="transition hover:text-bd-navy">
               Scrapers
             </Link>
             <a
@@ -86,7 +86,7 @@ export function Header() {
       {mobileMenuOpen && (
         <nav className="border-t border-bd-line bg-bd-panel px-4 pb-4 pt-3 lg:hidden">
           <div className="flex flex-col gap-3 text-sm font-medium text-bd-navy/85">
-            <Link href="/products/web-scraper#library" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>
+            <Link href="/products/web-scraper" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>
               Scrapers
             </Link>
             <a href="https://brightdata.com/products/web-scraper/studio" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
