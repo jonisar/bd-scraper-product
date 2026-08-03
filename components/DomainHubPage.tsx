@@ -84,7 +84,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           <div className="container">
             <div className="section-head">
               <span className="kicker">Web Scrapers</span>
-              <h2>Available {hub.name} scrapers</h2>
+              <h2>Popular {hub.name} scrapers</h2>
               <p>
                 Production-ready {hub.name} scrapers — auto-maintained, unblockable, and ready to call via API or no-code.
               </p>

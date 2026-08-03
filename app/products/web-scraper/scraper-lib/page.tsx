@@ -50,7 +50,7 @@ export default function ScraperLibPage() {
               Scraper <span className="grad-text">Library</span>
             </h1>
             <p className="hero-sub">
-              1,300+ production-ready scrapers for any website. Built-in proxies,
+              <span className="hero-stat-accent">1,300+ production scrapers</span> for any website. Built-in proxies,
               anti-bot bypass, and structured data output — just pick one and go.
             </p>
             <HeroSearch templates={templates} />

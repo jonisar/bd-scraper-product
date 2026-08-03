@@ -102,7 +102,7 @@ export default function AmazonHubPage() {
           <div className="container">
             <div className="section-head">
               <span className="kicker">Web Scrapers</span>
-              <h2>Available Amazon scrapers</h2>
+              <h2>Popular Amazon scrapers</h2>
               <p>
                 Production-ready Amazon scrapers — auto-maintained, unblockable, and ready to call via API or no-code.
               </p>
