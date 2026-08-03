@@ -2513,34 +2513,52 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 /* Hero value propositions — directly below prompt */
 .studio-value-props {
-  padding: var(--s4) 0 var(--s5);
+  padding: var(--s5) 0 var(--s6);
 }
 
-.studio-props-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.studio-props-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s4);
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.studio-prop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+}
+
+.studio-prop-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--s4) var(--s6);
-  flex-wrap: wrap;
-}
-
-.studio-props-list li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: var(--text-2);
-  white-space: nowrap;
-}
-
-.studio-prop-check {
-  color: var(--mint);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(61,127,252,0.08);
+  border: 1px solid rgba(61,127,252,0.15);
+  color: var(--accent-2);
+  font-size: 16px;
   font-weight: 700;
-  font-size: 13px;
-  flex-shrink: 0;
+  margin-bottom: 6px;
+}
+
+.studio-prop strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: -0.01em;
+}
+
+.studio-prop > span:last-child {
+  font-size: 12px;
+  color: var(--text-3);
+  line-height: 1.4;
+  max-width: 180px;
 }
 
 /* Support section grid */
@@ -2612,8 +2630,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 @media (max-width: 768px) {
   .studio-hero-ratings { gap: var(--s4); }
-  .studio-props-list { gap: var(--s3) var(--s4); }
-  .studio-props-list li { font-size: 13px; }
+  .studio-props-grid { grid-template-columns: repeat(2, 1fr); gap: var(--s4); }
   .studio-support-grid { grid-template-columns: 1fr; max-width: 320px; }
   .studio-compliance-badges { grid-template-columns: 1fr; }
 }
@@ -2623,6 +2640,8 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   .studio-hero-rating { font-size: 12px; gap: 5px; }
   .studio-hero-rating strong { font-size: 13px; }
   .studio-stars svg { width: 12px; height: 12px; }
-  .studio-props-list { flex-direction: column; align-items: flex-start; padding: 0 var(--s3); gap: var(--s2); }
-  .studio-props-list li { white-space: normal; }
+  .studio-props-grid { grid-template-columns: repeat(2, 1fr); gap: var(--s3); }
+  .studio-prop-icon { width: 30px; height: 30px; font-size: 14px; }
+  .studio-prop strong { font-size: 13px; }
+  .studio-prop > span:last-child { font-size: 11px; }
 }
