@@ -951,7 +951,7 @@ function PricingTab() {
             />
             <div className="mt-1 flex justify-between text-[10px] text-bd-muted">
               {PRICING_TIERS.map((t, i) => (
-                <span key={t.label} className={i === tierIdx ? "font-bold text-bd-blue" : ""}>{t.label}</span>
+                <span key={t.label} className={`${i === tierIdx ? "font-bold text-bd-blue" : ""} ${i % 2 !== 0 && i !== tierIdx ? "hidden sm:inline" : ""}`}>{t.label}</span>
               ))}
             </div>
           </div>
@@ -1005,12 +1005,12 @@ function PricingTab() {
       <div className="grid gap-3 sm:grid-cols-3">
         {[
           { plan: "Free", price: "$0", detail: "5K records/month", features: ["5,000 records/month", "No credit card required", "All output formats", "Expert support"], cta: "Start free", ctaHref: "https://brightdata.com/cp/start", primary: true },
-          { plan: "Pay As You Go", price: "$1.50", detail: "Per 1K records", features: ["Unlimited records", "Pay only for success", "Set monthly spend limits", "Unlimited concurrency", "Expert support"], cta: "Get started", ctaHref: "https://brightdata.com/cp/start", primary: true },
+          { plan: "Pay As You Go", price: "$1.00–1.50", detail: "Per 1K records — less at higher volume", features: ["Unlimited records", "Pay only for success", "Set monthly spend limits", "Unlimited concurrency", "Expert support"], cta: "Get started", ctaHref: "https://brightdata.com/cp/start", primary: true },
           { plan: "Enterprise", price: "Custom", detail: "Volume discounts", features: ["Dedicated account manager", "Premium SLA", "Priority support", "SSO", "Custom integrations"], cta: "Talk to sales", ctaHref: "https://brightdata.com/contact", primary: false },
         ].map((p) => (
           <div key={p.plan} className="flex flex-col rounded-xl border border-bd-line bg-bd-panel p-5">
             <p className="text-[11px] font-semibold uppercase tracking-wider text-bd-muted">{p.plan}</p>
-            <p className="mt-1.5 text-2xl font-extrabold text-bd-navy">{p.price}</p>
+            <p className="mt-1.5 text-xl font-extrabold text-bd-navy sm:text-2xl">{p.price}</p>
             <p className="mt-0.5 text-xs text-bd-muted">{p.detail}</p>
             <ul className="mt-4 flex-1 space-y-2">
               {p.features.map((f) => (
@@ -2874,10 +2874,11 @@ for p in products:
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">
                   Pay as you go
                 </p>
-                <p className="mt-1.5 text-2xl font-extrabold tracking-tight text-bd-navy">
-                  $1.50{" "}
-                  <span className="text-sm font-semibold text-bd-muted sm:text-base">/ 1,000 records</span>
+                <p className="mt-1.5 text-[1.35rem] font-extrabold tracking-tight text-bd-navy sm:text-2xl">
+                  $1.00–1.50{" "}
+                  <span className="text-xs font-semibold text-bd-muted sm:text-sm">/ 1K records</span>
                 </p>
+                <p className="mt-0.5 text-xs text-bd-muted">Less at higher volume</p>
 
                 <div className="mt-4 space-y-2.5">
                   <div className="flex items-start gap-2.5">
@@ -2893,7 +2894,7 @@ for p in products:
                       <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
                     </span>
                     <p className="text-sm font-semibold leading-5 text-bd-navy">
-                      Volume discounts from $1.30/1K
+                      Cancel anytime
                     </p>
                   </div>
                 </div>
