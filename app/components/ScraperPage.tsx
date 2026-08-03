@@ -7,7 +7,7 @@ import TrustedByStrip from "@/components/TrustedByStrip";
 import ScraperCard from "@/components/ScraperCard";
 import AiPromptCta from "@/components/AiPromptCta";
 
-type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Live Test" | "Connect Agent" | "Customize";
+type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Playground" | "Connect Agent" | "Customize";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
 type AgentPlatform = "Prompt" | "MCP" | "OpenAI SDK" | "LangChain" | "CrewAI" | "REST API";
 
@@ -880,24 +880,86 @@ function recordFreeSample() {
   } catch { /* localStorage unavailable */ }
 }
 
-function LiveTestPanel() {
-  const [mode, setMode] = useState<"free" | "apikey">("free");
+function isAmazonUrl(url: string): boolean {
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    return host.includes("amazon.");
+  } catch {
+    return false;
+  }
+}
+
+const DEFAULT_URL = "https://www.amazon.com/dp/B09X7MPX8L";
+
+function PlaygroundPanel() {
+  const [url, setUrl] = useState(DEFAULT_URL);
   const [apiKey, setApiKey] = useState("");
-  const [urls, setUrls] = useState("https://www.amazon.com/dp/B09X7MPX8L");
-  const [format, setFormat] = useState<"json" | "csv" | "ndjson">("json");
+  const [showApiKey, setShowApiKey] = useState(false);
   const [status, setStatus] = useState<"idle" | "running" | "done" | "error">("idle");
   const [result, setResult] = useState("");
   const [elapsed, setElapsed] = useState(0);
   const [sampleState, setSampleState] = useState(getFreeSampleState);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const runFree = useCallback(async () => {
+  const urlIsAmazon = isAmazonUrl(url);
+  const urlIsEmpty = !url.trim();
+  const isUsingApiKey = apiKey.trim().length > 0;
+
+  const run = useCallback(async () => {
+    if (urlIsEmpty) {
+      inputRef.current?.focus();
+      return;
+    }
+
+    if (isUsingApiKey) {
+      setStatus("running");
+      setResult("");
+      const start = Date.now();
+      const timer = window.setInterval(() => setElapsed(Date.now() - start), 100);
+
+      try {
+        const res = await fetch(
+          `https://api.brightdata.com/datasets/v3/scrape?dataset_id=${DATASET_ID}&format=json&include_errors=true`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify([{ url: url.trim() }]),
+          }
+        );
+
+        window.clearInterval(timer);
+        setElapsed(Date.now() - start);
+        const text = await res.text();
+
+        if (!res.ok) {
+          setStatus("error");
+          setResult(`HTTP ${res.status} ${res.statusText}\n\n${text}`);
+          return;
+        }
+
+        try {
+          setResult(JSON.stringify(JSON.parse(text), null, 2));
+        } catch {
+          setResult(text);
+        }
+        setStatus("done");
+      } catch (err) {
+        window.clearInterval(timer);
+        setElapsed(Date.now() - start);
+        setStatus("error");
+        setResult(err instanceof Error ? err.message : "Request failed");
+      }
+      return;
+    }
+
     const state = getFreeSampleState();
     if (state.remaining <= 0) {
       setStatus("error");
       const mins = state.resetAt ? Math.ceil((state.resetAt - Date.now()) / 60000) : 0;
-      const hours = Math.floor(mins / 60);
-      const m = mins % 60;
-      setResult(`Free sample limit reached (3 per 24 hours).\nResets in ${hours}h ${m}m.\n\nUse your own API key for unlimited testing, or sign up free at brightdata.com/cp/start`);
+      setResult(`Free demo limit reached (${FREE_SAMPLE_LIMIT} per 24h). Resets in ${Math.floor(mins / 60)}h ${mins % 60}m.\n\nPaste an API key above for unlimited runs, or sign up free at brightdata.com/cp/start`);
       return;
     }
 
@@ -910,254 +972,108 @@ function LiveTestPanel() {
 
     window.clearInterval(timer);
     setElapsed(Date.now() - start);
-
     recordFreeSample();
     setSampleState(getFreeSampleState());
     setResult(JSON.stringify(FREE_SAMPLE_DATA, null, 2));
     setStatus("done");
-  }, []);
-
-  const runWithKey = useCallback(async () => {
-    if (!apiKey.trim()) {
-      setStatus("error");
-      setResult("Please enter your API key.");
-      return;
-    }
-
-    const urlList = urls
-      .split("\n")
-      .map((u) => u.trim())
-      .filter(Boolean)
-      .map((url) => ({ url }));
-
-    if (urlList.length === 0) {
-      setStatus("error");
-      setResult("Please enter at least one Amazon URL.");
-      return;
-    }
-
-    setStatus("running");
-    setResult("");
-    const start = Date.now();
-    const timer = window.setInterval(() => setElapsed(Date.now() - start), 100);
-
-    try {
-      const res = await fetch(
-        `https://api.brightdata.com/datasets/v3/scrape?dataset_id=${DATASET_ID}&format=${format}&include_errors=true`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(urlList),
-        }
-      );
-
-      window.clearInterval(timer);
-      setElapsed(Date.now() - start);
-
-      const text = await res.text();
-
-      if (!res.ok) {
-        setStatus("error");
-        setResult(`HTTP ${res.status} ${res.statusText}\n\n${text}`);
-        return;
-      }
-
-      if (format === "json") {
-        try {
-          setResult(JSON.stringify(JSON.parse(text), null, 2));
-        } catch {
-          setResult(text);
-        }
-      } else {
-        setResult(text);
-      }
-      setStatus("done");
-    } catch (err) {
-      window.clearInterval(timer);
-      setElapsed(Date.now() - start);
-      setStatus("error");
-      setResult(err instanceof Error ? err.message : "Request failed");
-    }
-  }, [apiKey, urls, format]);
+  }, [url, urlIsEmpty, isUsingApiKey, apiKey]);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
+      {/* URL input area */}
       <div>
-        <h2 className="text-xl font-bold text-bd-navy">Test the Amazon Scraper API Live</h2>
-        <p className="mt-1 text-sm text-bd-ink/70">
-          See what the Amazon Product Scraper returns. Try a free sample instantly
-          or use your API key for custom queries.
-        </p>
-      </div>
-
-      {/* Mode toggle */}
-      <div className="inline-flex rounded-lg border border-bd-line bg-bd-canvas p-0.5">
-        <button
-          type="button"
-          onClick={() => { setMode("free"); setStatus("idle"); setResult(""); }}
-          className={`rounded-md px-3.5 py-2 text-sm font-semibold transition ${
-            mode === "free"
-              ? "bg-bd-blue-soft text-bd-navy shadow-sm border border-bd-line"
-              : "text-bd-ink/70 hover:text-bd-navy"
-          }`}
-        >
-          Free sample
-        </button>
-        <button
-          type="button"
-          onClick={() => { setMode("apikey"); setStatus("idle"); setResult(""); }}
-          className={`rounded-md px-3.5 py-2 text-sm font-semibold transition ${
-            mode === "apikey"
-              ? "bg-bd-blue-soft text-bd-navy shadow-sm border border-bd-line"
-              : "text-bd-ink/70 hover:text-bd-navy"
-          }`}
-        >
-          With API key
-        </button>
-      </div>
-
-      {mode === "free" ? (
-          <div className="rounded-xl border border-bd-blue/30 bg-gradient-to-r from-bd-blue-soft to-bd-panel p-4">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="text-sm font-semibold text-bd-navy">
-                  Try it now — no login required
-                </p>
-                <p className="mt-0.5 text-[13px] text-bd-muted">
-                  Returns 5 real Amazon product records. {sampleState.remaining}/{FREE_SAMPLE_LIMIT} free samples remaining.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={runFree}
-                disabled={status === "running" || sampleState.remaining <= 0}
-                className="w-full shrink-0 rounded-xl bg-bd-blue px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105 disabled:opacity-60 sm:w-auto"
-              >
-                {status === "running" ? (
-                  <span className="flex items-center gap-2">
-                    <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                    </svg>
-                    Scraping…
-                  </span>
-                ) : sampleState.remaining <= 0 ? (
-                  "Limit reached"
-                ) : (
-                  "Run free sample"
-                )}
-              </button>
-            </div>
-            {sampleState.remaining <= 0 && sampleState.resetAt ? (
-              <p className="mt-2.5 text-xs text-bd-muted">
-                Resets in {Math.floor(Math.max(0, sampleState.resetAt - Date.now()) / 3600000)}h{" "}
-                {Math.ceil((Math.max(0, sampleState.resetAt - Date.now()) % 3600000) / 60000)}m.
-                Want unlimited? {" "}
-                <a href="https://brightdata.com/cp/start" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">
-                  Start free →
-                </a>
-              </p>
-            ) : null}
-          </div>
-      ) : (
-        <>
-          <div>
-            <label htmlFor="lt-key" className="block text-sm font-semibold text-bd-navy">
-              API Key
-            </label>
-            <input
-              id="lt-key"
-              type="password"
-              placeholder="Enter your Bright Data API key"
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-              className="mt-1.5 w-full rounded-lg border border-bd-line bg-bd-canvas px-3.5 py-2.5 font-mono text-sm text-bd-ink placeholder:text-bd-muted/50 focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
-            />
-            <p className="mt-1 text-xs text-bd-muted">
-              Get your key at{" "}
-              <a
-                href="https://brightdata.com/cp/setting/users"
-                className="text-bd-blue hover:underline"
-                target="_blank"
-                rel="noreferrer"
-              >
-                brightdata.com/cp/setting/users
-              </a>
-            </p>
-          </div>
-
-          <div>
-            <label htmlFor="lt-urls" className="block text-sm font-semibold text-bd-navy">
-              Amazon URLs <span className="font-normal text-bd-muted">(one per line)</span>
-            </label>
-            <textarea
-              id="lt-urls"
-              rows={3}
-              value={urls}
-              onChange={(e) => setUrls(e.target.value)}
-              className="mt-1.5 w-full rounded-lg border border-bd-line bg-bd-canvas px-3.5 py-2.5 font-mono text-sm text-bd-ink placeholder:text-bd-muted/50 focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
-              placeholder="https://www.amazon.com/dp/B09X7MPX8L"
-            />
-          </div>
-
-          <div className="flex flex-wrap items-end gap-3">
-            <div>
-              <label htmlFor="lt-format" className="block text-sm font-semibold text-bd-navy">
-                Format
-              </label>
-              <select
-                id="lt-format"
-                value={format}
-                onChange={(e) => setFormat(e.target.value as "json" | "csv" | "ndjson")}
-                className="mt-1.5 rounded-lg border border-bd-line bg-bd-canvas px-3 py-2.5 text-sm text-bd-ink focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
-              >
-                <option value="json">JSON</option>
-                <option value="csv">CSV</option>
-                <option value="ndjson">NDJSON</option>
-              </select>
-            </div>
+        <div className="flex items-center justify-between">
+          <label htmlFor="pg-url" className="text-sm font-semibold text-bd-navy">
+            Amazon product URL
+          </label>
+          {url !== DEFAULT_URL && url.trim() && (
             <button
               type="button"
-              onClick={runWithKey}
-              disabled={status === "running"}
-              className="rounded-xl bg-bd-blue px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105 disabled:opacity-60"
+              onClick={() => setUrl(DEFAULT_URL)}
+              className="text-xs text-bd-muted hover:text-bd-blue transition"
             >
-              {status === "running" ? (
-                <span className="flex items-center gap-2">
-                  <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                  </svg>
-                  Running…
-                </span>
-              ) : (
-                "Run scraper"
-              )}
+              Reset to default
             </button>
+          )}
+        </div>
+        <div className="mt-2 flex gap-2">
+          <div className="relative flex-1">
+            <input
+              ref={inputRef}
+              id="pg-url"
+              type="url"
+              value={url}
+              onChange={(e) => { setUrl(e.target.value); if (status !== "idle") { setStatus("idle"); setResult(""); } }}
+              onKeyDown={(e) => { if (e.key === "Enter") run(); }}
+              placeholder="https://www.amazon.com/dp/..."
+              className={`w-full rounded-lg border bg-bd-canvas px-3.5 py-3 pr-10 font-mono text-sm text-bd-ink placeholder:text-bd-muted/50 focus:outline-none focus:ring-2 transition ${
+                url.trim() && !urlIsAmazon
+                  ? "border-amber-500/60 focus:border-amber-500 focus:ring-amber-500/20"
+                  : "border-bd-line focus:border-bd-blue focus:ring-bd-blue/20"
+              }`}
+            />
+            {url.trim() && (
+              <span className={`absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium ${urlIsAmazon ? "text-bd-success" : "text-amber-400"}`}>
+                {urlIsAmazon ? "✓" : "⚠"}
+              </span>
+            )}
           </div>
-        </>
-      )}
+          <button
+            type="button"
+            onClick={run}
+            disabled={status === "running" || urlIsEmpty}
+            className="shrink-0 rounded-lg bg-bd-blue px-5 py-3 text-sm font-bold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110 disabled:opacity-50"
+          >
+            {status === "running" ? (
+              <span className="flex items-center gap-2">
+                <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                </svg>
+                Running
+              </span>
+            ) : (
+              <span className="flex items-center gap-1.5">
+                <svg viewBox="0 0 16 16" className="h-4 w-4 fill-current"><path d="M4.5 2.5a.5.5 0 01.764-.424l8 5a.5.5 0 010 .848l-8 5A.5.5 0 014.5 12.5v-10z"/></svg>
+                Run
+              </span>
+            )}
+          </button>
+        </div>
+        {url.trim() && !urlIsAmazon ? (
+          <p className="mt-1.5 text-xs text-amber-400">
+            This doesn&apos;t look like an Amazon URL. The scraper is optimized for amazon.com product pages.
+          </p>
+        ) : null}
+        {!isUsingApiKey && (
+          <p className="mt-1.5 text-xs text-bd-muted">
+            {sampleState.remaining}/{FREE_SAMPLE_LIMIT} free demo runs remaining — no sign-up required
+          </p>
+        )}
+      </div>
 
       {/* Status bar */}
       {status !== "idle" ? (
         <div
-          className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium ${
+          className={`flex items-center gap-2.5 rounded-lg px-4 py-2.5 text-sm font-medium ${
             status === "running"
               ? "border border-bd-blue/30 bg-bd-blue-soft text-bd-blue"
               : status === "done"
-                ? "border border-green-800 bg-green-950/50 text-green-400"
-                : "border border-red-800 bg-red-950/50 text-red-400"
+                ? "border border-green-800/60 bg-green-950/40 text-green-400"
+                : "border border-red-800/60 bg-red-950/40 text-red-400"
           }`}
         >
-          {status === "running" ? "⏳" : status === "done" ? "✅" : "❌"}
+          {status === "running" ? (
+            <svg className="h-4 w-4 animate-spin shrink-0" viewBox="0 0 24 24" fill="none">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            </svg>
+          ) : status === "done" ? "✅" : "❌"}
           <span>
             {status === "running"
               ? `Scraping… ${(elapsed / 1000).toFixed(1)}s`
               : status === "done"
-                ? `Completed in ${(elapsed / 1000).toFixed(1)}s — ${mode === "free" ? "5 sample records" : "live results"}`
+                ? `Done in ${(elapsed / 1000).toFixed(1)}s — ${isUsingApiKey ? "live results" : "5 sample records returned"}`
                 : "Error"}
           </span>
         </div>
@@ -1168,7 +1084,7 @@ function LiveTestPanel() {
         <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
             <span className="font-mono text-xs text-white/55">
-              {status === "done" ? (mode === "free" ? "sample response — 5 records" : "response") : "error"}
+              {status === "done" ? `response · json · ${isUsingApiKey ? "live" : "sample"} data` : "error"}
             </span>
             <CopyButton text={result} />
           </div>
@@ -1178,21 +1094,73 @@ function LiveTestPanel() {
         </div>
       ) : null}
 
-      {/* Callout */}
-      {status === "idle" ? (
-        <div className="flex items-start gap-2 rounded-lg border border-bd-line bg-bd-canvas px-4 py-3">
-          <span className="mt-0.5">{mode === "free" ? "🎁" : "🔒"}</span>
-          <p className="text-sm leading-6 text-bd-ink/70">
-            {mode === "free" ? (
-              <>Free samples show real data structure with 5 product records. No API key or sign-up needed. For live custom queries, switch to &quot;With API key&quot;.</>
-            ) : (
-              <>Your API key is sent directly from your browser to{" "}
-              <code className="rounded bg-bd-panel px-1 py-0.5 font-mono text-xs text-bd-ink">api.brightdata.com</code>.
-              It is never stored or sent to any other server.</>
-            )}
-          </p>
+      {/* Idle hint */}
+      {status === "idle" && !result ? (
+        <div className="rounded-xl border border-bd-line bg-bd-canvas p-5">
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-bd-blue/10 text-bd-blue text-sm">▶</span>
+            <div>
+              <p className="text-sm font-semibold text-bd-navy">Hit Run to see real data</p>
+              <p className="mt-0.5 text-[13px] leading-relaxed text-bd-muted">
+                Returns structured JSON with title, price, reviews, stock, seller info and more.
+                The default URL is pre-filled — just click Run.
+              </p>
+            </div>
+          </div>
         </div>
       ) : null}
+
+      {/* API key — expandable section below */}
+      <div className="border-t border-bd-line pt-5">
+        <button
+          type="button"
+          onClick={() => setShowApiKey(!showApiKey)}
+          className="flex items-center gap-2 text-sm font-medium text-bd-muted hover:text-bd-ink transition"
+        >
+          <svg viewBox="0 0 16 16" className={`h-3 w-3 fill-current transition-transform ${showApiKey ? "rotate-90" : ""}`}>
+            <path d="M6 3.5l4.5 4.5L6 12.5V3.5z" />
+          </svg>
+          {isUsingApiKey ? (
+            <span className="text-bd-success">API key active — running live queries</span>
+          ) : (
+            "Use your API key for live data"
+          )}
+        </button>
+
+        {showApiKey ? (
+          <div className="mt-3 space-y-3 rounded-lg border border-bd-line bg-bd-canvas p-4">
+            <div>
+              <label htmlFor="pg-key" className="block text-xs font-semibold text-bd-muted uppercase tracking-wider">
+                API Key
+              </label>
+              <input
+                id="pg-key"
+                type="password"
+                placeholder="Paste your Bright Data API key"
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+                className="mt-1.5 w-full rounded-lg border border-bd-line bg-bd-panel px-3.5 py-2.5 font-mono text-sm text-bd-ink placeholder:text-bd-muted/50 focus:border-bd-blue focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
+              />
+              <p className="mt-1.5 text-xs text-bd-muted">
+                Get your key at{" "}
+                <a href="https://brightdata.com/cp/setting/users" className="text-bd-blue hover:underline" target="_blank" rel="noreferrer">
+                  brightdata.com/cp/setting/users
+                </a>
+                {" "}· Your key is sent directly to api.brightdata.com — never stored.
+              </p>
+            </div>
+            {apiKey.trim() && (
+              <button
+                type="button"
+                onClick={() => { setApiKey(""); setStatus("idle"); setResult(""); }}
+                className="text-xs text-red-400 hover:text-red-300 transition"
+              >
+                Clear API key
+              </button>
+            )}
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -1203,7 +1171,7 @@ export default function ScraperPage() {
   const [apiMode, setApiMode] = useState<"sync" | "async">("sync");
   const [agentPlatform, setAgentPlatform] = useState<AgentPlatform>("Prompt");
 
-  const mainTabs: MainTab[] = ["Overview", "Pricing", "API", "Input", "Output", "Live Test", "Connect Agent", "Customize"];
+  const mainTabs: MainTab[] = ["Overview", "Pricing", "API", "Input", "Output", "Playground", "Connect Agent", "Customize"];
   const apiLangs: ApiLang[] = ["Python", "JavaScript", "cURL", "MCP", "OpenAPI"];
 
   function getCodeForLang() {
@@ -1279,14 +1247,14 @@ export default function ScraperPage() {
                 <button
                   type="button"
                   onClick={() => {
-                    setMainTab("Live Test");
+                    setMainTab("Playground");
                     setTimeout(() => {
                       document.getElementById("scraper-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" });
                     }, 50);
                   }}
                   className="group inline-flex items-center gap-1 text-sm font-semibold text-bd-blue transition hover:text-bd-navy"
                 >
-                  Test now
+                  Try in playground
                   <span className="inline-block transition-transform duration-150 group-hover:translate-x-0.5" aria-hidden="true">→</span>
                 </button>
               </div>
@@ -1295,36 +1263,27 @@ export default function ScraperPage() {
             <TrustedByStrip compact />
 
             {/* Tabs */}
-            <div id="scraper-tabs" className="animate-rise-delay mt-2 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
-              <div className="sticky top-14 z-30 rounded-t-2xl border-b border-bd-line bg-bd-panel">
-                <div className="tab-scroll flex gap-0.5 overflow-x-auto px-1.5 pt-2 sm:gap-1 sm:px-4">
+            <div id="scraper-tabs" className="animate-rise-delay mt-4 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
+              <div className="sticky top-14 z-30 relative overflow-hidden rounded-t-2xl bg-bd-panel">
+                <div className="tab-scroll flex overflow-x-auto border-b border-bd-line px-4 sm:px-5">
                   {mainTabs.map((tab) => (
                     <button
                       key={tab}
                       type="button"
                       onClick={() => setMainTab(tab)}
-                      className={`relative whitespace-nowrap rounded-t-lg px-2.5 py-2 text-[13px] font-semibold transition sm:px-3.5 sm:py-2.5 sm:text-sm ${
+                      className={`relative -mb-px shrink-0 border-b-2 px-3 py-3 text-[13px] font-medium transition-colors sm:px-3.5 sm:text-sm ${
                         mainTab === tab
-                          ? "text-bd-blue"
-                          : "text-bd-ink hover:text-bd-navy"
+                          ? "border-bd-blue text-bd-blue"
+                          : "border-transparent text-bd-muted hover:text-bd-ink"
                       }`}
                     >
-                      <span className="flex items-center gap-1">
-                        {tab === "Connect Agent" ? <span className="text-xs">🤖</span> : null}
-                        {tab === "Customize" ? <span className="text-xs">✨</span> : null}
-                        {tab}
-                      </span>
-                      {mainTab === tab ? (
-                        <span className="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-bd-blue" />
-                      ) : null}
+                      {tab}
                     </button>
                   ))}
                 </div>
-                <div className="pointer-events-none absolute left-0 top-0 h-full w-6 bg-gradient-to-r from-bd-panel to-transparent sm:hidden" />
-                <div className="pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-bd-panel to-transparent sm:hidden" />
               </div>
 
-              <div className="p-4 sm:p-6">
+              <div className="p-5 sm:p-7">
                 {/* ===== API TAB ===== */}
                 {mainTab === "API" ? (
                   <div>
@@ -2396,9 +2355,9 @@ for p in products:
                   </div>
                 ) : null}
 
-                {/* ===== LIVE TEST TAB ===== */}
-                {mainTab === "Live Test" ? (
-                  <LiveTestPanel />
+                {/* ===== PLAYGROUND TAB ===== */}
+                {mainTab === "Playground" ? (
+                  <PlaygroundPanel />
                 ) : null}
 
                 {/* ===== CONNECT AGENT TAB ===== */}
