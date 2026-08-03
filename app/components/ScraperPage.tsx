@@ -2878,9 +2878,8 @@ for p in products:
                   $1.00–1.50{" "}
                   <span className="text-xs font-semibold text-bd-muted sm:text-sm">/ 1K records</span>
                 </p>
-                <p className="mt-0.5 text-xs text-bd-muted">Less at higher volume</p>
 
-                <div className="mt-4 space-y-2.5">
+                <div className="mt-3.5 space-y-2.5">
                   <div className="flex items-start gap-2.5">
                     <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
                       <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
