@@ -880,6 +880,10 @@ function recordFreeSample() {
   } catch { /* localStorage unavailable */ }
 }
 
+function isValidUrl(str: string): boolean {
+  try { new URL(str); return true; } catch { return false; }
+}
+
 function isAmazonUrl(url: string): boolean {
   try {
     const host = new URL(url).hostname.toLowerCase();
@@ -887,6 +891,16 @@ function isAmazonUrl(url: string): boolean {
   } catch {
     return false;
   }
+}
+
+type UrlStatus = "empty" | "invalid" | "non-amazon" | "ok";
+
+function getUrlStatus(url: string): UrlStatus {
+  const trimmed = url.trim();
+  if (!trimmed) return "empty";
+  if (!isValidUrl(trimmed)) return "invalid";
+  if (!isAmazonUrl(trimmed)) return "non-amazon";
+  return "ok";
 }
 
 const DEFAULT_URL = "https://www.amazon.com/dp/B09X7MPX8L";
@@ -899,14 +913,18 @@ function PlaygroundPanel() {
   const [result, setResult] = useState("");
   const [elapsed, setElapsed] = useState(0);
   const [sampleState, setSampleState] = useState(getFreeSampleState);
+  const [touched, setTouched] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const urlIsAmazon = isAmazonUrl(url);
-  const urlIsEmpty = !url.trim();
+  const urlStatus = getUrlStatus(url);
   const isUsingApiKey = apiKey.trim().length > 0;
+  const canRun = status !== "running" && urlStatus !== "empty" && urlStatus !== "invalid";
 
   const run = useCallback(async () => {
-    if (urlIsEmpty) {
+    setTouched(true);
+    const us = getUrlStatus(url);
+
+    if (us === "empty" || us === "invalid") {
       inputRef.current?.focus();
       return;
     }
@@ -936,7 +954,10 @@ function PlaygroundPanel() {
 
         if (!res.ok) {
           setStatus("error");
-          setResult(`HTTP ${res.status} ${res.statusText}\n\n${text}`);
+          const hint = res.status === 401 ? "\n\nCheck that your API key is correct." :
+                       res.status === 403 ? "\n\nYour API key may lack the required permissions." :
+                       res.status === 429 ? "\n\nRate limit exceeded — try again in a few seconds." : "";
+          setResult(`HTTP ${res.status} ${res.statusText}${hint}\n\n${text}`);
           return;
         }
 
@@ -950,8 +971,18 @@ function PlaygroundPanel() {
         window.clearInterval(timer);
         setElapsed(Date.now() - start);
         setStatus("error");
-        setResult(err instanceof Error ? err.message : "Request failed");
+        const msg = err instanceof Error ? err.message : "Request failed";
+        const hint = msg.includes("Failed to fetch") || msg.includes("NetworkError")
+          ? "Network error — check your connection and try again."
+          : msg;
+        setResult(hint);
       }
+      return;
+    }
+
+    if (us === "non-amazon") {
+      setStatus("error");
+      setResult("This scraper only supports Amazon product URLs.\n\nEnter an amazon.com URL (e.g. https://www.amazon.com/dp/B09X7MPX8L) or use an API key to run custom queries.");
       return;
     }
 
@@ -959,7 +990,8 @@ function PlaygroundPanel() {
     if (state.remaining <= 0) {
       setStatus("error");
       const mins = state.resetAt ? Math.ceil((state.resetAt - Date.now()) / 60000) : 0;
-      setResult(`Free demo limit reached (${FREE_SAMPLE_LIMIT} per 24h). Resets in ${Math.floor(mins / 60)}h ${mins % 60}m.\n\nPaste an API key above for unlimited runs, or sign up free at brightdata.com/cp/start`);
+      setResult(`Free demo limit reached (${FREE_SAMPLE_LIMIT} per 24h). Resets in ${Math.floor(mins / 60)}h ${mins % 60}m.\n\nAdd your API key below for unlimited runs, or sign up free at brightdata.com/cp/start`);
+      setShowApiKey(true);
       return;
     }
 
@@ -976,7 +1008,20 @@ function PlaygroundPanel() {
     setSampleState(getFreeSampleState());
     setResult(JSON.stringify(FREE_SAMPLE_DATA, null, 2));
     setStatus("done");
-  }, [url, urlIsEmpty, isUsingApiKey, apiKey]);
+  }, [url, isUsingApiKey, apiKey]);
+
+  const inputBorderClass = (() => {
+    if (touched && urlStatus === "invalid") return "border-red-500/60 focus:border-red-500 focus:ring-red-500/20";
+    if (urlStatus === "non-amazon" && !isUsingApiKey) return "border-amber-500/60 focus:border-amber-500 focus:ring-amber-500/20";
+    return "border-bd-line focus:border-bd-blue focus:ring-bd-blue/20";
+  })();
+
+  const inputIcon = (() => {
+    if (urlStatus === "empty") return null;
+    if (urlStatus === "invalid") return touched ? <span className="text-red-400">✕</span> : null;
+    if (urlStatus === "non-amazon") return <span className="text-amber-400">⚠</span>;
+    return <span className="text-bd-success">✓</span>;
+  })();
 
   return (
     <div className="space-y-6">
@@ -989,7 +1034,7 @@ function PlaygroundPanel() {
           {url !== DEFAULT_URL && url.trim() && (
             <button
               type="button"
-              onClick={() => setUrl(DEFAULT_URL)}
+              onClick={() => { setUrl(DEFAULT_URL); setTouched(false); setStatus("idle"); setResult(""); }}
               className="text-xs text-bd-muted hover:text-bd-blue transition"
             >
               Reset to default
@@ -1004,25 +1049,22 @@ function PlaygroundPanel() {
               type="url"
               value={url}
               onChange={(e) => { setUrl(e.target.value); if (status !== "idle") { setStatus("idle"); setResult(""); } }}
+              onBlur={() => { if (url.trim()) setTouched(true); }}
               onKeyDown={(e) => { if (e.key === "Enter") run(); }}
               placeholder="https://www.amazon.com/dp/..."
-              className={`w-full rounded-lg border bg-bd-canvas px-3.5 py-3 pr-10 font-mono text-sm text-bd-ink placeholder:text-bd-muted/50 focus:outline-none focus:ring-2 transition ${
-                url.trim() && !urlIsAmazon
-                  ? "border-amber-500/60 focus:border-amber-500 focus:ring-amber-500/20"
-                  : "border-bd-line focus:border-bd-blue focus:ring-bd-blue/20"
-              }`}
+              className={`w-full rounded-lg border bg-bd-canvas px-3.5 py-3 pr-10 font-mono text-sm text-bd-ink placeholder:text-bd-muted/50 focus:outline-none focus:ring-2 transition ${inputBorderClass}`}
             />
-            {url.trim() && (
-              <span className={`absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium ${urlIsAmazon ? "text-bd-success" : "text-amber-400"}`}>
-                {urlIsAmazon ? "✓" : "⚠"}
+            {inputIcon ? (
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium">
+                {inputIcon}
               </span>
-            )}
+            ) : null}
           </div>
           <button
             type="button"
             onClick={run}
-            disabled={status === "running" || urlIsEmpty}
-            className="shrink-0 rounded-lg bg-bd-blue px-5 py-3 text-sm font-bold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110 disabled:opacity-50"
+            disabled={!canRun}
+            className="shrink-0 rounded-lg bg-bd-blue px-5 py-3 text-sm font-bold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {status === "running" ? (
               <span className="flex items-center gap-2">
@@ -1040,14 +1082,26 @@ function PlaygroundPanel() {
             )}
           </button>
         </div>
-        {url.trim() && !urlIsAmazon ? (
+        {/* Inline validation messages */}
+        {touched && urlStatus === "invalid" ? (
+          <p className="mt-1.5 text-xs text-red-400">
+            Enter a valid URL starting with https://
+          </p>
+        ) : urlStatus === "non-amazon" && !isUsingApiKey ? (
           <p className="mt-1.5 text-xs text-amber-400">
-            This doesn&apos;t look like an Amazon URL. The scraper is optimized for amazon.com product pages.
+            Not an Amazon URL — add an API key below to scrape non-Amazon sites, or enter an amazon.com product URL for the free demo.
+          </p>
+        ) : urlStatus === "non-amazon" && isUsingApiKey ? (
+          <p className="mt-1.5 text-xs text-amber-400">
+            This URL is not from Amazon. Results may differ from the expected schema.
           </p>
         ) : null}
-        {!isUsingApiKey && (
-          <p className="mt-1.5 text-xs text-bd-muted">
-            {sampleState.remaining}/{FREE_SAMPLE_LIMIT} free demo runs remaining — no sign-up required
+        {/* Free runs counter */}
+        {!isUsingApiKey && urlStatus !== "invalid" && (
+          <p className={`mt-1.5 text-xs ${sampleState.remaining <= 0 ? "text-amber-400" : "text-bd-muted"}`}>
+            {sampleState.remaining > 0
+              ? `${sampleState.remaining}/${FREE_SAMPLE_LIMIT} free demo runs remaining — no sign-up required`
+              : "Free demo limit reached — add your API key for unlimited runs"}
           </p>
         )}
       </div>
@@ -1055,7 +1109,7 @@ function PlaygroundPanel() {
       {/* Status bar */}
       {status !== "idle" ? (
         <div
-          className={`flex items-center gap-2.5 rounded-lg px-4 py-2.5 text-sm font-medium ${
+          className={`flex items-center justify-between rounded-lg px-4 py-2.5 text-sm font-medium ${
             status === "running"
               ? "border border-bd-blue/30 bg-bd-blue-soft text-bd-blue"
               : status === "done"
@@ -1063,19 +1117,30 @@ function PlaygroundPanel() {
                 : "border border-red-800/60 bg-red-950/40 text-red-400"
           }`}
         >
-          {status === "running" ? (
-            <svg className="h-4 w-4 animate-spin shrink-0" viewBox="0 0 24 24" fill="none">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-            </svg>
-          ) : status === "done" ? "✅" : "❌"}
-          <span>
-            {status === "running"
-              ? `Scraping… ${(elapsed / 1000).toFixed(1)}s`
-              : status === "done"
-                ? `Done in ${(elapsed / 1000).toFixed(1)}s — ${isUsingApiKey ? "live results" : "5 sample records returned"}`
-                : "Error"}
+          <span className="flex items-center gap-2.5">
+            {status === "running" ? (
+              <svg className="h-4 w-4 animate-spin shrink-0" viewBox="0 0 24 24" fill="none">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+            ) : status === "done" ? "✅" : "❌"}
+            <span>
+              {status === "running"
+                ? `Scraping… ${(elapsed / 1000).toFixed(1)}s`
+                : status === "done"
+                  ? `Done in ${(elapsed / 1000).toFixed(1)}s — ${isUsingApiKey ? "live results" : "5 sample records returned"}`
+                  : "Request failed"}
+            </span>
           </span>
+          {status !== "running" && (
+            <button
+              type="button"
+              onClick={() => { setStatus("idle"); setResult(""); }}
+              className="ml-3 shrink-0 text-xs opacity-60 hover:opacity-100 transition"
+            >
+              Dismiss
+            </button>
+          )}
         </div>
       ) : null}
 
@@ -1146,7 +1211,7 @@ function PlaygroundPanel() {
                 <a href="https://brightdata.com/cp/setting/users" className="text-bd-blue hover:underline" target="_blank" rel="noreferrer">
                   brightdata.com/cp/setting/users
                 </a>
-                {" "}· Your key is sent directly to api.brightdata.com — never stored.
+                {" "}· Sent directly to api.brightdata.com — never stored.
               </p>
             </div>
             {apiKey.trim() && (
