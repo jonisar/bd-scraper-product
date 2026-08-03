@@ -1040,7 +1040,7 @@ function PricingTab() {
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {[
             { title: "Full browser rendering", desc: "JavaScript pages, SPAs, infinite scroll — all handled" },
-            { title: "Automated proxy rotation", desc: "Residential proxies, CAPTCHA solving, anti-bot bypass" },
+            { title: "Built-in anti-bot bypass", desc: "Auto IP rotation, CAPTCHA solving, fingerprint management — never get blocked" },
             { title: "Structured data output", desc: "Clean JSON, CSV, or NDJSON — parsed and validated" },
             { title: "Unlimited concurrency", desc: "Run as many requests in parallel as you need" },
             { title: "Worldwide geotargeting", desc: "Scrape from 195+ countries for localized results" },
