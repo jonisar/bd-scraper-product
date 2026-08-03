@@ -1461,6 +1461,166 @@ function PlaygroundPanel() {
   );
 }
 
+/* ── Data fields explorer ── */
+const FIELD_CATEGORIES = [
+  {
+    tab: "All",
+    json: `{
+  "asin": "B09X7MPX8L",
+  "title": "SanDisk 1TB Extreme microSDXC",
+  "price": 145.50,
+  "list_price": 299.99,
+  "currency": "USD",
+  "stars": 4.8,
+  "reviews_count": 36704,
+  "brand": "SanDisk",
+  "seller": "Amazon.com",
+  "in_stock": true,
+  "bsr": 1284,
+  "categories": "Electronics > Memory Cards",
+  "image": "https://m.media-amazon.com/images/I/…",
+  "coupon": "Save 5%",
+  "delivery": "Free delivery Thu, Aug 7",
+  "dimensions": "0.59 x 0.43 x 0.04 inches",
+  "weight": "0.01 ounces"
+}`,
+    count: 40,
+  },
+  {
+    tab: "Pricing",
+    json: `{
+  "price": 145.50,
+  "list_price": 299.99,
+  "currency": "USD",
+  "discount_pct": 51,
+  "coupon": "Save 5%",
+  "subscribe_save": "$138.23 with Subscribe & Save",
+  "lightning_deal": false,
+  "price_per_unit": null
+}`,
+    count: 8,
+  },
+  {
+    tab: "Reviews",
+    json: `{
+  "stars": 4.8,
+  "reviews_count": 36704,
+  "star_distribution": {
+    "5": 0.82, "4": 0.10, "3": 0.04,
+    "2": 0.02, "1": 0.02
+  },
+  "top_review": {
+    "title": "Best SD card I've ever owned",
+    "text": "Transfer speeds are incredible…",
+    "stars": 5,
+    "verified": true,
+    "date": "2026-07-28"
+  }
+}`,
+    count: 6,
+  },
+  {
+    tab: "Seller",
+    json: `{
+  "seller": "Amazon.com",
+  "seller_url": "https://www.amazon.com/gp/…",
+  "brand": "SanDisk",
+  "manufacturer": "Western Digital",
+  "is_fba": true,
+  "is_prime": true,
+  "buy_box_winner": true
+}`,
+    count: 7,
+  },
+  {
+    tab: "Rankings",
+    json: `{
+  "bsr": 1284,
+  "bsr_category": "Electronics",
+  "categories": "Electronics > Memory Cards > Micro SD",
+  "breadcrumbs": [
+    "Electronics",
+    "Computers & Accessories",
+    "Data Storage",
+    "Memory Cards"
+  ],
+  "department": "Electronics"
+}`,
+    count: 5,
+  },
+  {
+    tab: "Media",
+    json: `{
+  "image": "https://m.media-amazon.com/images/I/…",
+  "images": [
+    "https://m.media-amazon.com/images/I/71vF…",
+    "https://m.media-amazon.com/images/I/81kP…"
+  ],
+  "video_count": 3,
+  "dimensions": "0.59 x 0.43 x 0.04 inches",
+  "weight": "0.01 ounces",
+  "bullet_points": [
+    "Up to 160MB/s read, 120MB/s write",
+    "A2 rated for faster app performance"
+  ]
+}`,
+    count: 7,
+  },
+];
+
+function DataFieldsExplorer() {
+  const [activeTab, setActiveTab] = useState(0);
+  const cat = FIELD_CATEGORIES[activeTab];
+
+  return (
+    <section id="info-data-fields">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 className="text-xl font-bold text-bd-navy">Output fields</h2>
+        <span className="rounded-full bg-bd-blue/10 px-2.5 py-0.5 text-xs font-bold text-bd-blue">40+ fields per record</span>
+      </div>
+      <p className="mt-2 text-[15px] leading-7 text-bd-ink/80">
+        Every request returns structured, typed JSON. Explore the response by category:
+      </p>
+
+      <div className="mt-4 overflow-hidden rounded-xl border border-bd-line">
+        {/* Category tabs */}
+        <div className="flex overflow-x-auto border-b border-bd-line bg-bd-canvas">
+          {FIELD_CATEGORIES.map((c, i) => (
+            <button
+              key={c.tab}
+              type="button"
+              onClick={() => setActiveTab(i)}
+              className={`relative shrink-0 px-4 py-2.5 text-xs font-semibold transition-colors ${
+                activeTab === i
+                  ? "text-bd-blue after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-bd-blue"
+                  : "text-bd-muted hover:text-bd-ink"
+              }`}
+            >
+              {c.tab}
+              <span className={`ml-1.5 inline-flex h-4 min-w-[1rem] items-center justify-center rounded-full px-1 text-[10px] font-bold ${
+                activeTab === i ? "bg-bd-blue/10 text-bd-blue" : "bg-bd-line/60 text-bd-muted"
+              }`}>{c.count}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* JSON preview */}
+        <div className="relative">
+          <CodeBlock code={cat.json} label="json" />
+          {activeTab === 0 && (
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0d1117] to-transparent" />
+          )}
+        </div>
+      </div>
+
+      <p className="mt-2.5 text-xs text-bd-muted">
+        Use <code className="rounded bg-bd-blue-soft px-1 py-0.5 font-mono text-[11px] text-bd-blue">custom_output_fields</code> to return only the fields you need.
+        See the <strong>Customize</strong> tab to build your query interactively.
+      </p>
+    </section>
+  );
+}
+
 const ALL_OUTPUT_FIELDS = [
   { name: "title", sample: '"SanDisk 1TB Extreme microSDXC"' },
   { name: "price", sample: "145.50" },
@@ -1683,26 +1843,23 @@ function CustomizeTab({ datasetId }: { datasetId: string }) {
         </div>
       </section>
 
-      {/* ── Input types ── */}
-      <section>
-        <h3 className="mb-3 text-lg font-bold text-bd-navy">Accepted inputs</h3>
-        <div className="grid gap-2 sm:grid-cols-2">
-          {[
-            { input: "url", example: "https://amazon.com/dp/B09X7MPX8L", desc: "Product, search, or category page" },
-            { input: "keyword", example: "wireless earbuds under $50", desc: "Search query — returns matching products" },
-            { input: "asin", example: "B09X7MPX8L", desc: "Product ID — no URL needed" },
-            { input: "country", example: "us · uk · de · jp · …", desc: "Target a specific marketplace" },
-          ].map((i) => (
-            <div key={i.input} className="flex items-start gap-3 rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
-              <code className="mt-0.5 shrink-0 rounded bg-bd-blue/10 px-2 py-0.5 text-xs font-bold text-bd-blue">{i.input}</code>
-              <div className="min-w-0">
-                <p className="text-[13px] font-medium text-bd-navy">{i.desc}</p>
-                <p className="mt-0.5 truncate font-mono text-[11px] text-bd-muted">{i.example}</p>
-              </div>
-            </div>
-          ))}
+      {/* ── CTA ── */}
+      <div className="rounded-xl border border-bd-blue/30 bg-gradient-to-r from-bd-blue-soft to-transparent px-5 py-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="font-bold text-bd-navy">Ready to customize?</p>
+            <p className="mt-0.5 text-sm text-bd-ink/70">Open this scraper in the control panel to apply your configuration.</p>
+          </div>
+          <a
+            href={`https://brightdata.com/cp/datasets/configure?dataset_id=${datasetId}`}
+            className="group shrink-0 text-sm font-bold text-bd-blue transition hover:brightness-110"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Customize scraper <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+          </a>
         </div>
-      </section>
+      </div>
     </div>
   );
 }
@@ -1824,7 +1981,10 @@ export default function ScraperPage() {
                     <button
                       key={tab}
                       type="button"
-                      onClick={() => setMainTab(tab)}
+                      onClick={() => {
+                        setMainTab(tab);
+                        document.getElementById("scraper-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }}
                       className={`relative -mb-px shrink-0 border-b-2 px-3 py-3 text-[13px] font-medium transition-colors sm:px-3.5 sm:text-sm ${
                         mainTab === tab
                           ? "border-bd-blue text-bd-blue"
@@ -2145,56 +2305,7 @@ export default function ScraperPage() {
 
                     {/* ── ACT 2: Product surface ── */}
 
-                    <section id="info-data-fields">
-                      <h2 className="text-xl font-bold text-bd-navy">
-                        What Amazon Data Can You Extract?
-                      </h2>
-                      <p className="mt-2">
-                        Each successful Amazon scraper request returns a rich JSON object with 40+ structured
-                        fields. All fields are parsed, typed, and ready for analytics, databases, or AI pipelines.
-                      </p>
-                      <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                        {[
-                          {
-                            cat: "Identity & Metadata",
-                            fields: "ASIN, parent ASIN, canonical URL, page type, scrape timestamp",
-                          },
-                          {
-                            cat: "Title & Copy",
-                            fields: "Full product title, bullet points, long-form description, A+ content",
-                          },
-                          {
-                            cat: "Brand & Seller",
-                            fields: "Brand name, manufacturer, store URL, seller name, FBA / Prime status",
-                          },
-                          {
-                            cat: "Pricing & Deals",
-                            fields: "Current price, list price, discount %, coupon, Subscribe & Save, lightning deals",
-                          },
-                          {
-                            cat: "Availability",
-                            fields: "In-stock status, max quantity, delivery date, fastest delivery estimate",
-                          },
-                          {
-                            cat: "Ratings & Reviews",
-                            fields: "Star rating, review count, star distribution, review text, verified purchase flag",
-                          },
-                          {
-                            cat: "Rankings & Categories",
-                            fields: "Best Sellers Rank (BSR), category breadcrumbs, department hierarchy",
-                          },
-                          {
-                            cat: "Media & Specs",
-                            fields: "High-res image URLs, video availability, technical details, dimensions, weight",
-                          },
-                        ].map((g) => (
-                          <div key={g.cat} className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
-                            <p className="text-sm font-bold text-bd-navy">{g.cat}</p>
-                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/70">{g.fields}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </section>
+                    <DataFieldsExplorer />
 
                     <section id="info-tech-specs">
                       <h2 className="text-xl font-bold text-bd-navy">
@@ -2218,7 +2329,7 @@ export default function ScraperPage() {
                             ].map(([label, value]) => (
                               <tr key={label}>
                                 <td className="whitespace-nowrap px-4 py-2.5 font-medium text-bd-navy">{label}</td>
-                                <td className="px-4 py-2.5 text-bd-ink/60">{value}</td>
+                                <td className="px-4 py-2.5 text-bd-ink/80">{value}</td>
                               </tr>
                             ))}
                           </tbody>
@@ -2253,45 +2364,38 @@ export default function ScraperPage() {
 
                     <section id="info-available-scrapers">
                       <h2 className="text-xl font-bold text-bd-navy">
-                        Available Amazon Scrapers
+                        Amazon Scraper Family
                       </h2>
                       <p className="mt-2">
-                        Bright Data offers a family of specialized Amazon scrapers, each optimized for a
-                        specific data type or input method:
+                        Specialized scrapers for every Amazon data type — choose the right one for your use case.
                       </p>
-                      <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+                      <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                         {[
-                          { name: "Amazon Products (by URL)", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Amazon Products by Best Sellers Category", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Amazon Products by Category URL", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Amazon Products by Keywords", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Amazon Products by UPC", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Amazon Reviews", href: "https://brightdata.com/products/web-scraper/amazon/reviews" },
-                          { name: "Amazon Sellers Info", href: "https://brightdata.com/products/web-scraper/amazon/seller" },
-                          { name: "Amazon Products Global Dataset", href: "/products/web-scraper/amazon" },
-                          { name: "Amazon Global by Category URL", href: "/products/web-scraper/amazon" },
-                          { name: "Amazon Global by Keyword Search", href: "/products/web-scraper/amazon" },
-                          { name: "Amazon Global by Best Sellers", href: "/products/web-scraper/amazon" },
-                          { name: "Amazon Global by Seller URL", href: "/products/web-scraper/amazon" },
-                          { name: "Amazon Global by Brand URL", href: "/products/web-scraper/amazon" },
-                          { name: "Amazon Products Search", href: "/products/web-scraper/amazon" },
-                        ].map((scraper) => (
-                          <a
-                            key={scraper.name}
-                            href={scraper.href}
-                            {...(scraper.href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
-                            className="group flex items-center gap-2 rounded-xl border border-bd-line bg-bd-canvas px-4 py-3 transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
+                          { name: "Products by URL", desc: "Pass product URLs, get structured data", href: "/products/web-scraper/amazon/amazon-product-scraper" },
+                          { name: "Products by Keyword", desc: "Search queries → matching products", href: "/products/web-scraper/amazon/amazon-product-scraper" },
+                          { name: "Products by Category", desc: "Scrape entire category pages", href: "/products/web-scraper/amazon/amazon-product-scraper" },
+                          { name: "Products by Best Sellers", desc: "Top-selling products per category", href: "/products/web-scraper/amazon/amazon-product-scraper" },
+                          { name: "Reviews", desc: "Review text, ratings, verified flags", href: "/products/web-scraper/amazon" },
+                          { name: "Seller Info", desc: "Seller profiles, FBA status, ratings", href: "/products/web-scraper/amazon" },
+                        ].map((s) => (
+                          <Link
+                            key={s.name}
+                            href={s.href}
+                            className="group flex items-start gap-3 rounded-xl border border-bd-line bg-bd-canvas px-4 py-3 transition hover:border-bd-blue/30 hover:bg-bd-blue-soft"
                           >
-                            <span className="text-sm text-bd-blue">●</span>
-                            <span className="min-w-0 flex-1 text-[13px] font-medium text-bd-navy group-hover:text-bd-blue">
-                              {scraper.name}
-                            </span>
-                            <span className="shrink-0 text-xs font-semibold text-bd-blue opacity-0 transition group-hover:opacity-100">
-                              →
-                            </span>
-                          </a>
+                            <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-[10px] font-bold text-bd-blue">A</span>
+                            <div className="min-w-0">
+                              <p className="text-[13px] font-semibold text-bd-navy group-hover:text-bd-blue">{s.name}</p>
+                              <p className="mt-0.5 text-[11px] text-bd-muted">{s.desc}</p>
+                            </div>
+                          </Link>
                         ))}
                       </div>
+                      <p className="mt-3">
+                        <Link href="/products/web-scraper/amazon" className="group text-sm font-semibold text-bd-blue hover:underline">
+                          View all Amazon scrapers <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+                        </Link>
+                      </p>
                     </section>
 
                     <section id="info-delivery">
@@ -2441,7 +2545,7 @@ export default function ScraperPage() {
                             ].map(([cap, diy, bd]) => (
                               <tr key={cap}>
                                 <td className="px-4 py-2.5 font-medium text-bd-navy">{cap}</td>
-                                <td className="px-4 py-2.5 text-bd-ink/60">{diy}</td>
+                                <td className="px-4 py-2.5 text-bd-ink/80">{diy}</td>
                                 <td className="px-4 py-2.5 font-medium text-bd-navy">{bd}</td>
                               </tr>
                             ))}
