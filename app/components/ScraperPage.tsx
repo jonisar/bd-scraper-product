@@ -848,6 +848,7 @@ const FREE_SAMPLE_DATA = [
 const FREE_SAMPLE_LIMIT = 3;
 const FREE_SAMPLE_COOLDOWN_MS = 24 * 60 * 60 * 1000;
 const LS_KEY = "bd_live_test_samples";
+const RUN_COOLDOWNS = [0, 5, 15, 30, 60, 120];
 
 function getFreeSampleState(): { remaining: number; resetAt: number | null } {
   if (typeof window === "undefined") return { remaining: FREE_SAMPLE_LIMIT, resetAt: null };
@@ -1143,11 +1144,35 @@ function PlaygroundPanel() {
   const [elapsed, setElapsed] = useState(0);
   const [sampleState, setSampleState] = useState(getFreeSampleState);
   const [touched, setTouched] = useState(false);
+  const [runCount, setRunCount] = useState(0);
+  const [cooldownEnd, setCooldownEnd] = useState(0);
+  const [cooldownLeft, setCooldownLeft] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    if (cooldownEnd <= Date.now()) { setCooldownLeft(0); return; }
+    const id = window.setInterval(() => {
+      const left = Math.max(0, Math.ceil((cooldownEnd - Date.now()) / 1000));
+      setCooldownLeft(left);
+      if (left <= 0) window.clearInterval(id);
+    }, 250);
+    return () => window.clearInterval(id);
+  }, [cooldownEnd]);
+
+  const inCooldown = cooldownLeft > 0;
   const urlStatus = getUrlStatus(url);
   const isUsingApiKey = apiKey.trim().length > 0;
-  const canRun = status !== "running" && urlStatus !== "empty" && urlStatus !== "invalid";
+  const canRun = status !== "running" && urlStatus !== "empty" && urlStatus !== "invalid" && !inCooldown;
+
+  const applyCooldown = useCallback((count: number) => {
+    const idx = Math.min(count, RUN_COOLDOWNS.length - 1);
+    const secs = RUN_COOLDOWNS[idx];
+    if (secs > 0) {
+      setCooldownEnd(Date.now() + secs * 1000);
+      setCooldownLeft(secs);
+    }
+    setRunCount(count);
+  }, []);
 
   const run = useCallback(async () => {
     setTouched(true);
@@ -1187,6 +1212,7 @@ function PlaygroundPanel() {
                        res.status === 403 ? "\n\nYour API key may lack the required permissions." :
                        res.status === 429 ? "\n\nRate limit exceeded — try again in a few seconds." : "";
           setResult(`HTTP ${res.status} ${res.statusText}${hint}\n\n${text}`);
+          applyCooldown(runCount + 1);
           return;
         }
 
@@ -1196,6 +1222,7 @@ function PlaygroundPanel() {
           setResult(text);
         }
         setStatus("done");
+        applyCooldown(runCount + 1);
       } catch (err) {
         window.clearInterval(timer);
         setElapsed(Date.now() - start);
@@ -1205,6 +1232,7 @@ function PlaygroundPanel() {
           ? "Network error — check your connection and try again."
           : msg;
         setResult(hint);
+        applyCooldown(runCount + 1);
       }
       return;
     }
@@ -1237,7 +1265,8 @@ function PlaygroundPanel() {
     setSampleState(getFreeSampleState());
     setResult(JSON.stringify(FREE_SAMPLE_DATA, null, 2));
     setStatus("done");
-  }, [url, isUsingApiKey, apiKey]);
+    applyCooldown(runCount + 1);
+  }, [url, isUsingApiKey, apiKey, runCount, applyCooldown]);
 
   const inputBorderClass = (() => {
     if (touched && urlStatus === "invalid") return "border-red-500/60 focus:border-red-500 focus:ring-red-500/20";
@@ -1293,7 +1322,11 @@ function PlaygroundPanel() {
             type="button"
             onClick={run}
             disabled={!canRun}
-            className="shrink-0 rounded-lg bg-bd-blue px-5 py-3 text-sm font-bold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+            className={`shrink-0 rounded-lg px-5 py-3 text-sm font-bold shadow-sm transition ${
+              inCooldown
+                ? "bg-bd-line text-bd-muted cursor-not-allowed"
+                : "bg-bd-blue text-white shadow-bd-blue/30 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+            }`}
           >
             {status === "running" ? (
               <span className="flex items-center gap-2">
@@ -1302,6 +1335,11 @@ function PlaygroundPanel() {
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
                 Running
+              </span>
+            ) : inCooldown ? (
+              <span className="flex items-center gap-1.5 tabular-nums">
+                <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 fill-current"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.5 3a.5.5 0 011 0v3.25l2.1 1.26a.5.5 0 01-.52.86L7.7 7.86A.5.5 0 017.5 7.4V4z"/></svg>
+                {cooldownLeft}s
               </span>
             ) : (
               <span className="flex items-center gap-1.5">
@@ -1325,14 +1363,22 @@ function PlaygroundPanel() {
             This URL is not from Amazon. Results may differ from the expected schema.
           </p>
         ) : null}
-        {/* Free runs counter */}
-        {!isUsingApiKey && urlStatus !== "invalid" && (
+        {/* Cooldown indicator */}
+        {inCooldown ? (
+          <p className="mt-1.5 flex items-center gap-1.5 text-xs text-bd-muted">
+            <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-amber-400" />
+            Ready in {cooldownLeft}s
+            {!isUsingApiKey && sampleState.remaining > 0 && (
+              <span className="text-bd-muted/60">· {sampleState.remaining}/{FREE_SAMPLE_LIMIT} free runs left</span>
+            )}
+          </p>
+        ) : !isUsingApiKey && urlStatus !== "invalid" ? (
           <p className={`mt-1.5 text-xs ${sampleState.remaining <= 0 ? "text-amber-400" : "text-bd-muted"}`}>
             {sampleState.remaining > 0
               ? `${sampleState.remaining}/${FREE_SAMPLE_LIMIT} free demo runs remaining — no sign-up required`
               : "Free demo limit reached — add your API key for unlimited runs"}
           </p>
-        )}
+        ) : null}
       </div>
 
       {/* Status bar */}
@@ -2169,6 +2215,12 @@ export default function ScraperPage() {
 
                     {/* ── Hero intro ── */}
                     <header>
+                      <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold tracking-wide text-bd-blue">
+                        <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-bd-blue/10">
+                          <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                        </span>
+                        Verified · Maintained by Bright Data
+                      </p>
                       <h2 className="text-2xl font-bold text-bd-navy sm:text-[1.65rem]">
                         Amazon Product Scraper
                       </h2>
