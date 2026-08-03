@@ -661,7 +661,7 @@ function RelatedScrapersCarousel() {
   const scroll = (dir: "left" | "right") => {
     const el = scrollRef.current;
     if (!el) return;
-    el.scrollBy({ left: dir === "left" ? -310 : 310, behavior: "smooth" });
+    el.scrollBy({ left: dir === "left" ? -330 : 330, behavior: "smooth" });
   };
 
   const ArrowBtn = ({ dir, show }: { dir: "left" | "right"; show: boolean }) => (
@@ -682,18 +682,16 @@ function RelatedScrapersCarousel() {
   );
 
   return (
-    <section className="mx-auto max-w-7xl px-4 pb-10 pt-2 sm:px-6">
-      <div className="flex items-end justify-between gap-3">
+    <section className="mx-auto max-w-7xl px-4 pb-12 pt-4 sm:px-6 sm:pt-6">
+      <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
-          <h2 className="text-xl font-bold text-bd-navy">Popular Similar Scrapers</h2>
+          <h2 className="text-xl font-bold text-bd-navy">Related Scrapers</h2>
           <p className="mt-1 text-sm text-bd-ink/70">
-            Related scrapers from the Bright Data library
-            <span className="mx-1.5 hidden text-bd-muted/40 sm:inline">·</span>
             <a
-              href="/products/web-scraper/scraper-lib"
-              className="mt-1 inline-block font-semibold text-bd-blue hover:underline sm:mt-0 sm:inline"
+              href="/products/web-scraper/amazon"
+              className="font-semibold text-bd-blue hover:underline"
             >
-              Browse all scrapers →
+              Browse all Amazon scrapers →
             </a>
           </p>
         </div>
@@ -734,12 +732,12 @@ function RelatedScrapersCarousel() {
 
         <div
           ref={scrollRef}
-          className="related-scroll flex gap-4 overflow-x-auto pb-4 scroll-smooth"
+          className="related-scroll flex items-stretch gap-4 overflow-x-auto pb-4 scroll-smooth"
         >
           {RELATED_SCRAPERS.map((s) => (
             <div
               key={s.name}
-              className="w-[min(280px,calc(100vw-2.5rem))] shrink-0 sm:w-[290px]"
+              className="flex w-[min(300px,calc(100vw-2.5rem))] shrink-0 sm:w-[310px]"
             >
               <ScraperCard
                 name={s.name}
@@ -1884,9 +1882,9 @@ export default function ScraperPage() {
     <div className="flex min-h-screen flex-col">
       <Header />
 
-      <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:py-10">
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-10 lg:py-12">
         {/* Breadcrumb */}
-        <nav className="animate-rise mb-5 flex flex-wrap items-center gap-x-0 gap-y-1 text-sm text-bd-muted sm:mb-6" aria-label="Breadcrumb">
+        <nav className="animate-rise mb-6 flex flex-wrap items-center gap-x-0 gap-y-1 text-sm text-bd-muted sm:mb-8" aria-label="Breadcrumb">
           <a href="https://brightdata.com/products" className="hover:text-bd-navy" target="_blank" rel="noreferrer">Products</a>
           <span className="mx-1.5 text-bd-muted/50 sm:mx-2" aria-hidden="true">/</span>
           <Link href="/products/web-scraper" className="hover:text-bd-navy">Web Scraper API</Link>
@@ -1896,11 +1894,11 @@ export default function ScraperPage() {
           <span className="font-medium text-bd-blue" aria-current="page">Amazon Product Scraper</span>
         </nav>
 
-        <section className="animate-rise grid gap-6 lg:grid-cols-[1fr_340px]">
+        <section className="animate-rise grid gap-6 lg:gap-8 lg:grid-cols-[1fr_340px]">
           {/* Main content */}
           <div className="min-w-0">
             {/* Hero card */}
-            <div className="rounded-2xl border border-bd-line bg-bd-panel p-4 shadow-[0_10px_40px_rgba(0,0,0,0.3)] sm:p-7">
+            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_40px_rgba(0,0,0,0.3)] sm:p-7">
               <div className="max-w-3xl">
                 <h1 className="text-[1.75rem] font-extrabold tracking-tight text-bd-navy sm:text-4xl">
                   Amazon Product Scraper
@@ -1924,7 +1922,7 @@ export default function ScraperPage() {
               </div>
 
               {/* Stats grid */}
-              <div className="mt-5 grid grid-cols-2 gap-2 border-t border-bd-line pt-4 sm:grid-cols-5">
+              <div className="mt-5 grid grid-cols-3 gap-2 border-t border-bd-line pt-4 sm:grid-cols-5">
                 {[
                   { value: "34.7K+", label: "Deliveries" },
                   { value: "5.7K+", label: "Users" },
@@ -1936,7 +1934,7 @@ export default function ScraperPage() {
                     <p className="text-[11px] text-bd-muted">{s.label}</p>
                   </div>
                 ))}
-                <div className="rounded-lg bg-bd-canvas px-3 py-2 col-span-2 sm:col-span-1">
+                <div className="rounded-lg bg-bd-canvas px-3 py-2">
                   <p className="flex items-center gap-1.5 text-sm font-extrabold text-bd-success">
                     <span className="h-1.5 w-1.5 rounded-full bg-bd-success animate-pulse" />
                     Verified
@@ -1974,7 +1972,7 @@ export default function ScraperPage() {
             <TrustedByStrip compact />
 
             {/* Tabs */}
-            <div id="scraper-tabs" className="animate-rise-delay mt-4 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
+            <div id="scraper-tabs" className="animate-rise-delay mt-6 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
               <div className="sticky top-14 z-30 relative overflow-hidden rounded-t-2xl bg-bd-panel">
                 <div className="tab-scroll flex overflow-x-auto border-b border-bd-line px-4 sm:px-5">
                   {mainTabs.map((tab) => (
@@ -3112,7 +3110,7 @@ export default function ScraperPage() {
 
           {/* ===== SIDEBAR ===== */}
           <aside className="animate-rise-delay">
-            <div className="lg:sticky lg:top-[4.5rem] space-y-4">
+            <div className="lg:sticky lg:top-[4.5rem] lg:max-h-[calc(100vh-5.5rem)] lg:overflow-y-auto lg:overscroll-contain space-y-4 scrollbar-thin">
             <div className="overflow-hidden rounded-2xl border border-bd-blue/30 bg-gradient-to-br from-bd-blue-soft via-bd-panel to-bd-panel shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
               {/* Free tier banner */}
               <div className="bg-gradient-to-r from-bd-blue to-[#5a9aff] px-4 py-4 sm:px-5">
@@ -3195,6 +3193,25 @@ export default function ScraperPage() {
             </a>
 
             <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">Quick start</p>
+              <div className="mt-3 space-y-1.5">
+                {[
+                  { step: "1", cmd: "npm i -g @brightdata/cli" },
+                  { step: "2", cmd: "brightdata login" },
+                  { step: "3", cmd: `brightdata scraper run ${DATASET_ID} "amazon.com/dp/…"` },
+                ].map((s) => (
+                  <div key={s.step} className="flex items-center gap-2 rounded-lg bg-black/60 px-2.5 py-2">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/15 text-[10px] font-bold text-bd-blue">{s.step}</span>
+                    <code className="min-w-0 flex-1 truncate font-mono text-[11px] text-[#d7e6ff]">{s.cmd}</code>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-3 text-[11px] text-bd-muted">
+                From URL to structured data in seconds.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">
                 Performance
               </p>
@@ -3217,47 +3234,15 @@ export default function ScraperPage() {
                 </div>
               </div>
             </div>
-
-            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">
-                Quick reference
-              </p>
-              <dl className="mt-3 space-y-2.5 text-sm">
-                <div>
-                  <dt className="text-bd-muted">Base URL</dt>
-                  <dd className="font-mono text-xs text-bd-ink">api.brightdata.com</dd>
-                </div>
-                <div>
-                  <dt className="text-bd-muted">Sync endpoint</dt>
-                  <dd className="font-mono text-xs text-bd-blue">/datasets/v3/scrape</dd>
-                </div>
-                <div>
-                  <dt className="text-bd-muted">Async endpoint</dt>
-                  <dd className="font-mono text-xs text-bd-blue">/datasets/v3/trigger</dd>
-                </div>
-                <div>
-                  <dt className="text-bd-muted">Auth</dt>
-                  <dd className="font-mono text-xs text-bd-ink">Bearer &lt;API_KEY&gt;</dd>
-                </div>
-                <div>
-                  <dt className="text-bd-muted">Dataset ID</dt>
-                  <dd className="font-mono text-xs text-bd-ink break-all">{DATASET_ID}</dd>
-                </div>
-                <div>
-                  <dt className="text-bd-muted">Formats</dt>
-                  <dd className="font-mono text-xs text-bd-ink">json, ndjson, csv</dd>
-                </div>
-              </dl>
-            </div>
             </div>
           </aside>
+
+          {/* Related scrapers gallery — full width, inside grid */}
+          <div className="lg:col-span-2">
+            <RelatedScrapersCarousel />
+            <AiPromptCta />
+          </div>
         </section>
-
-        {/* Related scrapers gallery — full width */}
-        <RelatedScrapersCarousel />
-
-        {/* AI Prompt CTA */}
-        <AiPromptCta />
       </main>
 
       <Footer />
