@@ -903,6 +903,202 @@ function getUrlStatus(url: string): UrlStatus {
   return "ok";
 }
 
+/* ── Pricing slider tiers ── */
+const PRICING_TIERS = [
+  { records: 5_000, label: "5K", monthly: 0, perK: 0, tag: "Free" },
+  { records: 10_000, label: "10K", monthly: 15, perK: 1.50, tag: "" },
+  { records: 50_000, label: "50K", monthly: 75, perK: 1.50, tag: "" },
+  { records: 100_000, label: "100K", monthly: 150, perK: 1.50, tag: "" },
+  { records: 250_000, label: "250K", monthly: 350, perK: 1.40, tag: "Save 7%" },
+  { records: 500_000, label: "500K", monthly: 650, perK: 1.30, tag: "Save 13%" },
+  { records: 1_000_000, label: "1M", monthly: 1_200, perK: 1.20, tag: "Save 20%" },
+  { records: 5_000_000, label: "5M", monthly: 5_000, perK: 1.00, tag: "Best value" },
+];
+
+function PricingTab() {
+  const [tierIdx, setTierIdx] = useState(3);
+  const tier = PRICING_TIERS[tierIdx];
+
+  return (
+    <div className="space-y-8">
+      {/* Hero messaging */}
+      <div>
+        <h2 className="text-xl font-bold text-bd-navy">Simple, transparent pricing</h2>
+        <p className="mt-2 text-[15px] leading-7 text-bd-ink">
+          Pay only for successfully delivered records. No setup fees, no hidden costs, no
+          surprises. Start free, scale predictably.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-3">
+          {[
+            { icon: "🎁", text: "5K records/mo free" },
+            { icon: "✓", text: "Pay only for success" },
+            { icon: "📉", text: "From $1.00/1K at volume" },
+            { icon: "🔒", text: "No lock-in, cancel anytime" },
+          ].map((b) => (
+            <span key={b.text} className="inline-flex items-center gap-1.5 rounded-full border border-bd-line bg-bd-canvas px-3 py-1.5 text-xs font-medium text-bd-ink">
+              <span>{b.icon}</span> {b.text}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Interactive pricing calculator */}
+      <section className="rounded-xl border border-bd-line bg-bd-canvas p-5 sm:p-6">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex-1">
+            <p className="text-xs font-semibold uppercase tracking-wider text-bd-muted">
+              Estimate your cost
+            </p>
+            <p className="mt-3 text-sm font-medium text-bd-ink">
+              Records per month: <span className="text-lg font-extrabold text-bd-navy">{tier.label}</span>
+            </p>
+
+            {/* Slider */}
+            <input
+              type="range"
+              min={0}
+              max={PRICING_TIERS.length - 1}
+              value={tierIdx}
+              onChange={(e) => setTierIdx(Number(e.target.value))}
+              className="pricing-slider mt-3 w-full cursor-pointer"
+            />
+            <div className="mt-1 flex justify-between text-[10px] text-bd-muted">
+              {PRICING_TIERS.map((t, i) => (
+                <span key={t.label} className={i === tierIdx ? "font-bold text-bd-blue" : ""}>{t.label}</span>
+              ))}
+            </div>
+          </div>
+
+          {/* Price display */}
+          <div className="shrink-0 rounded-xl border border-bd-line bg-bd-panel px-6 py-5 text-center sm:min-w-[200px]">
+            {tier.records === 5_000 ? (
+              <>
+                <p className="text-3xl font-extrabold text-bd-navy">$0</p>
+                <p className="mt-0.5 text-xs text-bd-muted">5,000 records/month</p>
+                <p className="mt-1 text-xs font-semibold text-bd-success">No credit card required</p>
+              </>
+            ) : (
+              <>
+                <p className="text-3xl font-extrabold text-bd-navy">
+                  ${tier.monthly.toLocaleString()}<span className="text-base font-semibold text-bd-muted">/mo</span>
+                </p>
+                <p className="mt-0.5 text-xs text-bd-muted">
+                  ${tier.perK.toFixed(2)} per 1,000 records
+                </p>
+                {tier.tag && (
+                  <span className="mt-2 inline-block rounded-full bg-bd-blue/10 px-2.5 py-0.5 text-[11px] font-bold text-bd-blue">
+                    {tier.tag}
+                  </span>
+                )}
+              </>
+            )}
+            <a
+              href="https://brightdata.com/cp/start"
+              className="mt-4 block w-full rounded-lg bg-bd-blue px-4 py-2.5 text-center text-sm font-bold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {tier.records === 5_000 ? "Start free" : "Get started"}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* What's included grid */}
+      <section>
+        <h3 className="text-lg font-bold text-bd-navy">Every plan includes</h3>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          {[
+            { title: "Full browser rendering", desc: "JavaScript pages, SPAs, infinite scroll — all handled" },
+            { title: "Automated proxy rotation", desc: "Residential proxies, CAPTCHA solving, anti-bot bypass" },
+            { title: "Structured data output", desc: "Clean JSON, CSV, or NDJSON — parsed and validated" },
+            { title: "Unlimited concurrency", desc: "Run as many requests in parallel as you need" },
+            { title: "Worldwide geotargeting", desc: "Scrape from 195+ countries for localized results" },
+            { title: "Webhook & API delivery", desc: "Push results to your endpoint or pull via REST API" },
+          ].map((f) => (
+            <div key={f.title} className="flex items-start gap-2.5 rounded-lg border border-bd-line bg-bd-panel px-4 py-3">
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
+                <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-bd-navy">{f.title}</p>
+                <p className="mt-0.5 text-xs text-bd-muted">{f.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Enterprise CTA */}
+      <section className="rounded-xl border border-bd-line bg-gradient-to-r from-bd-blue-soft to-bd-panel p-5 sm:p-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-bd-blue">Enterprise</p>
+            <p className="mt-1 text-lg font-bold text-bd-navy">Need higher volume or custom SLA?</p>
+            <p className="mt-1 text-sm text-bd-ink/70">
+              Dedicated account manager, priority support, SSO, volume discounts beyond published rates.
+            </p>
+          </div>
+          <a
+            href="https://brightdata.com/contact"
+            className="shrink-0 rounded-lg border border-bd-line bg-bd-canvas px-5 py-2.5 text-center text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Talk to sales
+          </a>
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <section>
+        <h3 className="text-lg font-bold text-bd-navy">Pricing FAQ</h3>
+        <div className="mt-3 space-y-2">
+          {[
+            { q: "What counts as a record?", a: "One successfully scraped product = one record. Each record is a single JSON object with all data fields (title, price, reviews, seller, etc.). Failed or errored requests are never charged." },
+            { q: "Are there setup fees or hidden costs?", a: "No. Zero setup fees, no minimum commitment, no per-request charges, no bandwidth fees. You pay only for successfully delivered records at the rate shown above." },
+            { q: "How does the free tier work?", a: "Every Bright Data account includes 5,000 free records per month — no credit card required. Use them with any scraper in the library. Credits renew on the 1st of each month." },
+            { q: "What happens when free credits run out?", a: "If you have pre-deposited funds, usage continues seamlessly at pay-as-you-go rates. Otherwise, API requests return a clear error until you add funds or credits renew next month." },
+            { q: "Can I set a spending limit?", a: "Yes. Set a monthly spend cap in your dashboard. When the limit is reached, requests pause automatically — no surprise bills." },
+            { q: "How do volume discounts work?", a: "Rates drop as volume increases, from $1.50/1K at pay-as-you-go down to $1.00/1K at 5M+ records. Enterprise customers can negotiate further. No long-term commitment required." },
+            { q: "What payment methods are accepted?", a: "All major credit cards, wire transfers, and AWS Marketplace for streamlined procurement and consolidated billing." },
+          ].map((item) => (
+            <details key={item.q} className="group rounded-xl border border-bd-line bg-bd-panel px-4 py-3">
+              <summary className="list-none flex cursor-pointer items-start justify-between gap-3 text-sm font-semibold text-bd-navy">
+                <span className="min-w-0">{item.q}</span>
+                <svg className="mt-0.5 h-4 w-4 shrink-0 text-bd-muted transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </summary>
+              <p className="mt-2 text-[13px] leading-6 text-bd-ink/70">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <div className="flex flex-wrap items-center gap-3">
+        <a
+          href="https://brightdata.com/cp/start"
+          className="rounded-lg bg-bd-blue px-5 py-2.5 text-sm font-bold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Start free — 5K records/month
+        </a>
+        <a
+          href="https://brightdata.com/contact"
+          className="rounded-lg border border-bd-line px-5 py-2.5 text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Contact sales
+        </a>
+      </div>
+    </div>
+  );
+}
+
 const DEFAULT_URL = "https://www.amazon.com/dp/B09X7MPX8L";
 
 function PlaygroundPanel() {
@@ -1489,82 +1685,7 @@ export default function ScraperPage() {
 
                 {/* ===== PRICING TAB ===== */}
                 {mainTab === "Pricing" ? (
-                  <div className="space-y-6">
-                    <section>
-                      <h2 className="text-xl font-bold text-bd-navy">
-                        Amazon Scraper Pricing
-                      </h2>
-                      <p className="mt-2 text-[15px] leading-7 text-bd-ink">
-                        Pay-as-you-go starts at <strong>$1.50 per 1,000 records</strong> — you only pay for
-                        successfully delivered results. Start with a free tier that includes <strong>5,000
-                        records/month</strong> (no credit card required). Scale plans drop to <strong>$1.30/1K</strong>{" "}
-                        with volume discounts, priority throughput, and dedicated support.
-                      </p>
-                      <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                        {[
-                          { plan: "Free", price: "$0", detail: "5K records/month, no credit card", features: ["5,000 records/month", "All output formats", "Standard throughput", "Community support"], cta: "Start free", ctaHref: "https://brightdata.com/cp/start", ctaPrimary: true },
-                          { plan: "Pay As You Go", price: "$1.50", detail: "Per 1K records, pay for success only", features: ["Unlimited records", "All output formats", "Standard throughput", "Email support", "Pay only for successful results"], cta: "Get started", ctaHref: "https://brightdata.com/cp/start", ctaPrimary: true },
-                          { plan: "Scale", price: "$1.30", detail: "Per 1K records, volume discounts + priority", features: ["Unlimited records", "All output formats", "Priority throughput", "Dedicated support", "Volume discounts", "Custom SLA available"], cta: "Contact sales", ctaHref: "https://brightdata.com/contact", ctaPrimary: false },
-                        ].map((p) => (
-                          <div key={p.plan} className="flex flex-col rounded-xl border border-bd-line bg-bd-canvas px-5 py-4">
-                            <p className="text-xs font-semibold uppercase tracking-wider text-bd-muted">{p.plan}</p>
-                            <p className="mt-1.5 text-3xl font-extrabold text-bd-navy">{p.price}</p>
-                            <p className="mt-0.5 text-xs text-bd-muted">{p.detail}</p>
-                            <ul className="mt-4 flex-1 space-y-2">
-                              {p.features.map((f) => (
-                                <li key={f} className="flex items-center gap-2 text-sm text-bd-ink">
-                                  <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
-                                    <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-                                  </span>
-                                  {f}
-                                </li>
-                              ))}
-                            </ul>
-                            <a
-                              href={p.ctaHref}
-                              className={`mt-auto block rounded-lg px-4 py-2.5 text-center text-sm font-bold transition ${p.ctaPrimary ? "bg-bd-blue text-white shadow-md shadow-bd-blue/30 hover:brightness-105" : "border border-bd-line bg-bd-canvas text-bd-ink hover:border-bd-blue-light hover:bg-bd-blue-soft"}`}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              {p.cta}
-                            </a>
-                          </div>
-                        ))}
-                      </div>
-                    </section>
-
-                    <section>
-                      <h3 className="text-lg font-bold text-bd-navy">How Pricing Works</h3>
-                      <div className="mt-3 space-y-2.5">
-                        {[
-                          { q: "What counts as a record?", a: "One successfully scraped product = one record. Failed or errored requests are not charged." },
-                          { q: "Are there setup fees?", a: "No setup fees, no minimum commitment. Start free and scale when ready." },
-                          { q: "How does the free tier work?", a: "Every Bright Data account includes 5,000 free records per month — no credit card required. Credits renew on the 1st of each month." },
-                          { q: "What happens when free credits run out?", a: "If you have pre-deposited funds, usage continues at PAYG rates. Otherwise, requests return an error until you add funds or credits renew." },
-                          { q: "Are there volume discounts?", a: "Yes. Scale plans start at $1.30/1K records with further discounts for high-volume commitments. Contact sales for custom pricing." },
-                        ].map((item) => (
-                          <details key={item.q} open className="group rounded-xl border border-bd-line bg-bd-panel px-4 py-3">
-                            <summary className="list-none flex cursor-pointer items-start justify-between gap-3 font-semibold text-bd-navy">
-                              <span className="min-w-0">{item.q}</span>
-                              <svg className="mt-0.5 h-4 w-4 shrink-0 text-bd-muted transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                              </svg>
-                            </summary>
-                            <p className="mt-2 text-[13px] leading-6 text-bd-ink/70">{item.a}</p>
-                          </details>
-                        ))}
-                      </div>
-                    </section>
-
-                    <a
-                      href="https://brightdata.com/cp/start"
-                      className="inline-block rounded-xl bg-bd-blue px-5 py-3 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Start free — 5K records/month
-                    </a>
-                  </div>
+                  <PricingTab />
                 ) : null}
 
                 {/* ===== INFORMATION TAB ===== */}
