@@ -6,8 +6,8 @@ import { templates, templateHref } from "@/lib/templates";
 import ScraperCard from "@/components/ScraperCard";
 
 const POPULAR_LIMIT = 9;
-const CATEGORY_PREVIEW_LIMIT = 6;
 const BATCH_SIZE = 12;
+const SECTION_CARD_BATCH = 6;
 
 type SortKey = "best-match" | "popular" | "most-used" | "az";
 
@@ -92,7 +92,6 @@ type DomainCardData = {
   scraperCount: number;
   totalDelivered: string;
   successRate: string;
-  topScrapers: string[];
   href: string;
 };
 
@@ -115,10 +114,6 @@ function buildTopDomains(): DomainCardData[] {
     const scrapers = catalog.filter((s) => s.domain === domain);
     const totalViews = scrapers.reduce((sum, s) => sum + parseViews(s.views), 0);
     const deliveredStr = totalViews >= 1000 ? `${(totalViews / 1000).toFixed(0)}K+` : `${totalViews}+`;
-    const topNames = scrapers
-      .sort((a, b) => parseViews(b.views) - parseViews(a.views))
-      .slice(0, 3)
-      .map((s) => s.name.replace(new RegExp(`^${meta.label}\\s*`, "i"), "").replace(/^scraper$/i, s.name));
     return {
       domain,
       label: meta.label,
@@ -129,7 +124,6 @@ function buildTopDomains(): DomainCardData[] {
       scraperCount: scrapers.length,
       totalDelivered: deliveredStr,
       successRate: "99.2%",
-      topScrapers: topNames,
       href: meta.href,
     };
   });
@@ -232,6 +226,85 @@ function writeUrlParams(cat: string, sort: SortKey, q: string) {
   window.history.replaceState(null, "", url);
 }
 
+/* ─── Lazy section: renders cards progressively once near viewport ─── */
+function LazyCardGrid({
+  scrapers,
+  batchSize = SECTION_CARD_BATCH,
+}: {
+  scrapers: CatalogScraper[];
+  batchSize?: number;
+}) {
+  const [visible, setVisible] = useState(0);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && visible === 0) setVisible(batchSize);
+      },
+      { rootMargin: "400px" },
+    );
+    obs.observe(root);
+    return () => obs.disconnect();
+  }, [batchSize, visible]);
+
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el || visible >= scrapers.length) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible((v) => Math.min(v + batchSize, scrapers.length));
+        }
+      },
+      { rootMargin: "200px" },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [visible, scrapers.length, batchSize]);
+
+  const slice = scrapers.slice(0, visible);
+  const hasMore = visible < scrapers.length;
+
+  return (
+    <div ref={rootRef}>
+      {visible > 0 && (
+        <div className="lib-grid slib-grid-animated">
+          {slice.map((s, i) => (
+            <div
+              key={s.id}
+              className="slib-card-appear"
+              style={{ animationDelay: `${Math.min(i % batchSize, 8) * 40}ms` }}
+            >
+              <ScraperCard
+                name={s.name}
+                domain={s.domain}
+                category={s.category}
+                desc={s.desc}
+                views={s.views}
+                downloads={s.downloads}
+                href={scraperHref(s)}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+      {hasMore && (
+        <div ref={sentinelRef} className="slib-sentinel">
+          <div className="slib-loading">
+            <span className="slib-loading-dot" />
+            <span className="slib-loading-dot" />
+            <span className="slib-loading-dot" />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function ScraperLibraryInfinite() {
   const [cat, setCat] = useState<string>("All");
   const [search, setSearch] = useState("");
@@ -242,7 +315,6 @@ export default function ScraperLibraryInfinite() {
   const sortRef = useRef<HTMLDivElement>(null);
   const initializedRef = useRef(false);
 
-  // Hydrate from URL params on mount
   useEffect(() => {
     if (initializedRef.current) return;
     initializedRef.current = true;
@@ -255,24 +327,19 @@ export default function ScraperLibraryInfinite() {
     }
   }, []);
 
-  // Sync state to URL
   useEffect(() => {
     if (!initializedRef.current) return;
     writeUrlParams(cat, sort, search.trim());
   }, [cat, sort, search]);
 
-  // Auto-switch sort when search changes
   const prevSearchRef = useRef("");
   useEffect(() => {
     if (!initializedRef.current) return;
     const trimmed = search.trim();
     const prev = prevSearchRef.current;
     prevSearchRef.current = trimmed;
-    if (trimmed && !prev) {
-      setSort("best-match");
-    } else if (!trimmed && prev) {
-      setSort("popular");
-    }
+    if (trimmed && !prev) setSort("best-match");
+    else if (!trimmed && prev) setSort("popular");
   }, [search]);
 
   const needle = search.trim().toLowerCase();
@@ -282,15 +349,13 @@ export default function ScraperLibraryInfinite() {
   const filtered = useMemo(() => {
     let list = [...catalog];
     if (cat !== "All") list = list.filter((s) => s.category === cat);
-    if (needle) {
-      list = list.filter((s) => scoreRelevancy(s, needle) > 0);
-    }
+    if (needle) list = list.filter((s) => scoreRelevancy(s, needle) > 0);
     return sortScrapers(list, sort, needle);
   }, [cat, needle, sort]);
 
   const popular = useMemo(
     () => sortScrapers(catalog.filter((s) => s.popular), "most-used").slice(0, POPULAR_LIMIT),
-    []
+    [],
   );
 
   const categorySections = useMemo(() => {
@@ -299,19 +364,14 @@ export default function ScraperLibraryInfinite() {
     return CATALOG_CATEGORIES
       .filter((c) => c !== "All")
       .map((category) => {
-        const all = catalog.filter((s) => s.category === category);
-        const preview = sortScrapers(
-          all.filter((s) => !popularIds.has(s.id)),
-          "most-used"
-        ).slice(0, CATEGORY_PREVIEW_LIMIT);
-        return { category, all, preview, labels: CATEGORY_LABELS[category] || [] };
+        const all = sortScrapers(catalog.filter((s) => s.category === category), "most-used");
+        const deduped = all.filter((s) => !popularIds.has(s.id));
+        return { category, scrapers: deduped, total: all.length, labels: CATEGORY_LABELS[category] || [] };
       })
-      .filter((sec) => sec.preview.length > 0);
+      .filter((sec) => sec.scrapers.length > 0);
   }, [isCurated, popular]);
 
-  useEffect(() => {
-    setVisibleCount(BATCH_SIZE);
-  }, [cat, needle, sort]);
+  useEffect(() => { setVisibleCount(BATCH_SIZE); }, [cat, needle, sort]);
 
   const loadMore = useCallback(() => {
     setVisibleCount((prev) => Math.min(prev + BATCH_SIZE, filtered.length));
@@ -320,15 +380,14 @@ export default function ScraperLibraryInfinite() {
   useEffect(() => {
     const sentinel = sentinelRef.current;
     if (!sentinel) return;
-    const observer = new IntersectionObserver(
+    const obs = new IntersectionObserver(
       (entries) => { if (entries[0].isIntersecting) loadMore(); },
-      { rootMargin: "200px" }
+      { rootMargin: "200px" },
     );
-    observer.observe(sentinel);
-    return () => observer.disconnect();
+    obs.observe(sentinel);
+    return () => obs.disconnect();
   }, [loadMore]);
 
-  // Close sort dropdown on outside click
   useEffect(() => {
     if (!sortOpen) return;
     const handler = (e: MouseEvent) => {
@@ -348,11 +407,11 @@ export default function ScraperLibraryInfinite() {
   const hasMore = visibleCount < filtered.length;
   const activeLabels = CATEGORY_LABELS[cat] || [];
 
-  const renderCard = (s: CatalogScraper, idx: number, animate = true) => (
+  const renderCard = (s: CatalogScraper, idx: number) => (
     <div
       key={s.id}
-      className={animate ? "slib-card-appear" : undefined}
-      style={animate ? { animationDelay: `${Math.min(idx % BATCH_SIZE, 8) * 40}ms` } : undefined}
+      className="slib-card-appear"
+      style={{ animationDelay: `${Math.min(idx % BATCH_SIZE, 8) * 40}ms` }}
     >
       <ScraperCard
         name={s.name}
@@ -368,7 +427,7 @@ export default function ScraperLibraryInfinite() {
 
   return (
     <div className="slib-infinite">
-      {/* Sticky filter bar */}
+      {/* ── Sticky filter bar ─────────────────────────────────── */}
       <div className="slib-filter-bar">
         <div className="lib-chips-wrap">
           <div className="lib-chips">
@@ -411,7 +470,6 @@ export default function ScraperLibraryInfinite() {
             )}
           </div>
 
-          {/* Sort dropdown */}
           <div className="slib-sort" ref={sortRef}>
             <button
               type="button"
@@ -469,7 +527,7 @@ export default function ScraperLibraryInfinite() {
         </div>
       )}
 
-      {/* Results count — shown in filtered/search modes */}
+      {/* Results count — filtered/search modes only */}
       {!isCurated && (
         <div className="slib-results-meta">
           <span className="slib-results-count">
@@ -483,13 +541,12 @@ export default function ScraperLibraryInfinite() {
       {/* ─── CURATED "ALL" VIEW ─────────────────────────────────── */}
       {isCurated ? (
         <div className="slib-curated">
-          {/* Top domain cards */}
+          {/* Domain cards */}
           <div className="slib-quicknav">
             {TOP_DOMAINS.map((d) => {
               const external = d.href.startsWith("http");
-              const Tag = external ? "a" : "a";
               return (
-                <Tag
+                <a
                   key={d.domain}
                   href={d.href}
                   {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
@@ -521,11 +578,6 @@ export default function ScraperLibraryInfinite() {
                     <span className="fc-cat">{d.scraperCount} scrapers</span>
                   </div>
                   <p className="cc-desc">{d.desc}</p>
-                  <div className="cc-domains">
-                    {d.topScrapers.map((n) => (
-                      <span key={n} className="cc-domain-pill">{n}</span>
-                    ))}
-                  </div>
                   <div className="cc-metrics">
                     <div className="fc-metric">
                       <span className="fc-metric-val">{d.totalDelivered}</span>
@@ -552,32 +604,26 @@ export default function ScraperLibraryInfinite() {
                     </div>
                     <span className="cc-cta">Browse scrapers →</span>
                   </div>
-                </Tag>
+                </a>
               );
             })}
           </div>
 
-          {/* Popular scrapers */}
+          {/* Popular scrapers — rendered immediately */}
           <div className="slib-curated-section">
             <div className="slib-curated-head">
               <div>
                 <h2>Popular scrapers</h2>
                 <p>The most-used scrapers across all categories</p>
               </div>
-              <button
-                type="button"
-                className="slib-viewall"
-                onClick={() => { setCat("All"); setSearch(""); setSort("most-used"); }}
-              >
-                View all 1,300+ →
-              </button>
+              <span className="slib-section-count">{catalog.length} total</span>
             </div>
             <div className="lib-grid slib-grid-animated">
               {popular.map((s, i) => renderCard(s, i))}
             </div>
           </div>
 
-          {/* Category sections */}
+          {/* Category sections — all scrapers, lazy-loaded per section */}
           {categorySections.map((sec) => (
             <div key={sec.category} className="slib-curated-section">
               <div className="slib-curated-head">
@@ -601,17 +647,9 @@ export default function ScraperLibraryInfinite() {
                     </div>
                   )}
                 </div>
-                <button
-                  type="button"
-                  className="slib-viewall"
-                  onClick={() => handleCatChange(sec.category)}
-                >
-                  All {sec.all.length} scrapers →
-                </button>
+                <span className="slib-section-count">{sec.total} scrapers</span>
               </div>
-              <div className="lib-grid">
-                {sec.preview.map((s, i) => renderCard(s, i, false))}
-              </div>
+              <LazyCardGrid scrapers={sec.scrapers} />
             </div>
           ))}
 
@@ -621,10 +659,7 @@ export default function ScraperLibraryInfinite() {
               <strong>Can&rsquo;t find what you need?</strong>
               <p>Build a custom scraper for any website in minutes with AI — no code required.</p>
             </div>
-            <a
-              href="/products/web-scraper/studio"
-              className="btn btn-primary btn-pill"
-            >
+            <a href="/products/web-scraper/studio" className="btn btn-primary btn-pill">
               Open Scraper Studio →
             </a>
           </div>
@@ -659,10 +694,7 @@ export default function ScraperLibraryInfinite() {
               <p>No scraper found for &ldquo;{search || cat}&rdquo;</p>
               <p className="lib-empty-sub">
                 Can&apos;t find what you need?{" "}
-                <a
-                  href="/products/web-scraper/studio"
-                  className="lib-empty-link"
-                >
+                <a href="/products/web-scraper/studio" className="lib-empty-link">
                   Build one with Scraper Studio →
                 </a>
               </p>
