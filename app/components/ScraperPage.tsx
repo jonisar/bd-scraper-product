@@ -1002,36 +1002,69 @@ function PricingTab() {
       </section>
 
       {/* Plan cards */}
-      <div className="grid gap-3 sm:grid-cols-3">
-        {[
-          { plan: "Free", price: "$0", detail: "No credit card required", features: ["5,000 records/month", "All output formats", "Standard throughput", "Expert support"], cta: "Start free", ctaHref: "https://brightdata.com/cp/start", primary: true },
-          { plan: "Pay As You Go", price: "$1.00–1.50", detail: "Per 1K records — less at higher volume", features: ["Unlimited records", "Pay only for success", "Set monthly spend limits", "Unlimited concurrency", "Expert support"], cta: "Get started", ctaHref: "https://brightdata.com/cp/start", primary: true },
-          { plan: "Enterprise", price: "Custom", detail: "Volume discounts", features: ["Dedicated account manager", "Premium SLA", "Priority support", "SSO", "Custom integrations"], cta: "Talk to sales", ctaHref: "https://brightdata.com/contact", primary: false },
-        ].map((p) => (
-          <div key={p.plan} className="flex flex-col rounded-xl border border-bd-line bg-bd-panel p-5">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-bd-muted">{p.plan}</p>
-            <p className="mt-1.5 text-xl font-extrabold text-bd-navy sm:text-2xl">{p.price}</p>
-            <p className="mt-0.5 text-xs text-bd-muted">{p.detail}</p>
-            <ul className="mt-4 flex-1 space-y-2">
-              {p.features.map((f) => (
-                <li key={f} className="flex items-center gap-2 text-sm text-bd-ink">
-                  <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
-                    <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-                  </span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <a
-              href={p.ctaHref}
-              className={`mt-5 block rounded-lg px-4 py-2.5 text-center text-sm font-bold transition ${p.primary ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/30 hover:brightness-110" : "border border-bd-line bg-bd-canvas text-bd-ink hover:border-bd-blue-light hover:bg-bd-blue-soft"}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {p.cta}
-            </a>
-          </div>
-        ))}
+      <div className="grid gap-4 sm:grid-cols-3">
+        {/* Free */}
+        <div className="flex flex-col rounded-xl border border-bd-line bg-bd-canvas p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-bd-muted">Free</p>
+          <p className="mt-1.5 text-xl font-extrabold text-bd-navy sm:text-2xl">$0</p>
+          <p className="mt-0.5 text-xs text-bd-muted">No credit card required</p>
+          <ul className="mt-4 flex-1 space-y-2">
+            {["5,000 records/month", "All output formats", "Standard throughput", "Expert support"].map((f) => (
+              <li key={f} className="flex items-center gap-2 text-sm text-bd-ink">
+                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
+                  <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                </span>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a href="https://brightdata.com/cp/start" className="mt-5 block rounded-lg bg-bd-blue px-4 py-2.5 text-center text-sm font-bold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110" target="_blank" rel="noreferrer">
+            Start free
+          </a>
+        </div>
+
+        {/* Pay As You Go — highlighted */}
+        <div className="relative flex flex-col rounded-xl border border-bd-blue/40 bg-gradient-to-b from-[#0d1a2e] to-bd-canvas p-5 shadow-[0_4px_24px_rgba(61,127,252,0.12)]">
+          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-bd-blue px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+            Most popular
+          </span>
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-bd-blue">Pay As You Go</p>
+          <p className="mt-1.5 text-xl font-extrabold text-bd-navy sm:text-2xl">$1.00–1.50</p>
+          <p className="mt-0.5 text-xs text-bd-muted">Per 1K records — less at higher volume</p>
+          <ul className="mt-4 flex-1 space-y-2">
+            {["Unlimited records", "Pay only for success", "Set monthly spend limits", "Unlimited concurrency", "Expert support"].map((f) => (
+              <li key={f} className="flex items-center gap-2 text-sm text-bd-ink">
+                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
+                  <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                </span>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a href="https://brightdata.com/cp/start" className="mt-5 block rounded-lg bg-bd-blue px-4 py-2.5 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-110" target="_blank" rel="noreferrer">
+            Get started
+          </a>
+        </div>
+
+        {/* Enterprise */}
+        <div className="flex flex-col rounded-xl border border-bd-line bg-bd-canvas p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-bd-muted">Enterprise</p>
+          <p className="mt-1.5 text-xl font-extrabold text-bd-navy sm:text-2xl">Custom</p>
+          <p className="mt-0.5 text-xs text-bd-muted">Volume discounts</p>
+          <ul className="mt-4 flex-1 space-y-2">
+            {["Dedicated account manager", "Premium SLA", "Priority support", "SSO", "Custom integrations"].map((f) => (
+              <li key={f} className="flex items-center gap-2 text-sm text-bd-ink">
+                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
+                  <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                </span>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a href="https://brightdata.com/contact" className="mt-5 block rounded-lg border border-bd-line bg-bd-panel px-4 py-2.5 text-center text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft" target="_blank" rel="noreferrer">
+            Talk to sales
+          </a>
+        </div>
       </div>
 
       {/* What's included grid */}
@@ -2885,7 +2918,7 @@ for p in products:
                       <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
                     </span>
                     <p className="text-sm font-semibold leading-5 text-bd-navy">
-                      Pay only for successful results
+                      Pay only for success
                     </p>
                   </div>
                   <div className="flex items-start gap-2.5">
