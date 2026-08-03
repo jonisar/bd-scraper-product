@@ -63,9 +63,21 @@ export function consoleUrl(t: Template) {
   return `https://brightdata.com/cp/scrapers/${t.datasetId}/pdp/configuration`;
 }
 
+const DOMAIN_HUB_BY_DOMAIN: Record<string, string> = {
+  "amazon.com": "/products/web-scraper/amazon",
+  "linkedin.com": "/products/web-scraper/linkedin",
+  "instagram.com": "/products/web-scraper/instagram",
+  "tiktok.com": "/products/web-scraper/tiktok",
+  "google.com/maps": "/products/web-scraper/google-maps",
+  "zillow.com": "/products/web-scraper/zillow",
+  "x.com": "/products/web-scraper/x",
+  "facebook.com": "/products/web-scraper/facebook",
+  "youtube.com": "/products/web-scraper/youtube",
+};
+
 /**
  * Preferred in-app / product href for a template.
- * Local Amazon pages when available; otherwise console.
+ * Local detail/hub pages when available; otherwise console.
  */
 export function templateHref(t: Template): string {
   if (t.slug === "amazon-product") {
@@ -77,9 +89,8 @@ export function templateHref(t: Template): string {
   if (t.slug === "amazon-sellers") {
     return "https://brightdata.com/products/web-scraper/amazon/seller";
   }
-  if (t.domain === "amazon.com") {
-    return "/products/web-scraper/amazon";
-  }
+  const hub = DOMAIN_HUB_BY_DOMAIN[t.domain];
+  if (hub) return hub;
   return consoleUrl(t);
 }
 

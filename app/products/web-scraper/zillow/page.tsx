@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { DOMAIN_HUBS } from "@/lib/domain-hubs";
-import DomainHubPage from "@/components/DomainHubPage";
+import DomainHub from "@/components/DomainHub";
 
 const hub = DOMAIN_HUBS.zillow;
 
@@ -18,5 +18,5 @@ export const metadata: Metadata = {
 };
 
 export default function ZillowPage() {
-  return <DomainHubPage hub={hub} />;
+  return <DomainHub hub={hub} />;
 }

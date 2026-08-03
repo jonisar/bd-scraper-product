@@ -1,9 +1,11 @@
 import { catalog, type CatalogScraper } from "./catalog";
+import { scraperHref } from "./scraper-href";
 
 export type DomainHubScraper = {
   id: string;
   name: string;
   desc: string;
+  category: string;
   fieldsPreview: string;
   views: string;
   downloads: string;
@@ -28,10 +30,11 @@ function catalogToHub(s: CatalogScraper): DomainHubScraper {
     id: s.id,
     name: s.name,
     desc: s.desc,
+    category: s.category,
     fieldsPreview: s.fields.slice(0, 5).join(", ") + ", and more.",
     views: s.views,
     downloads: s.downloads,
-    href: `/products/web-scraper/scraper-lib?q=${encodeURIComponent(s.name)}`,
+    href: scraperHref(s),
   };
 }
 
@@ -54,8 +57,8 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     slug: "linkedin",
     name: "LinkedIn",
     domain: "linkedin.com",
-    category: "Social Media",
-    title: "LinkedIn Scraper API - Extract Profiles, Companies & Jobs | Bright Data",
+    category: "Business (B2B)",
+    title: "LinkedIn Scraper API - Extract Profiles, Companies & Jobs",
     headline: "LinkedIn Scraper API",
     description:
       "Extract LinkedIn profiles, company pages, job listings, and post engagement data via API or no-code scraper. Auto-maintained and always unblocked.",
@@ -96,7 +99,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     name: "Instagram",
     domain: "instagram.com",
     category: "Social Media",
-    title: "Instagram Scraper API - Profiles, Posts, Reels & Comments | Bright Data",
+    title: "Instagram Scraper API - Profiles, Posts, Reels & Comments",
     headline: "Instagram Scraper API",
     description:
       "Extract Instagram profiles, posts, reels, comments, and engagement metrics via API or no-code scraper. Auto-maintained and always unblocked.",
@@ -137,7 +140,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     name: "TikTok",
     domain: "tiktok.com",
     category: "Social Media",
-    title: "TikTok Scraper API - Videos, Profiles & Hashtags | Bright Data",
+    title: "TikTok Scraper API - Videos, Profiles & Hashtags",
     headline: "TikTok Scraper API",
     description:
       "Extract TikTok profiles, videos, shop products, and trending hashtags via API or no-code scraper. Auto-maintained and always unblocked.",
@@ -178,7 +181,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     name: "Google Maps",
     domain: "google.com/maps",
     category: "Search",
-    title: "Google Maps Scraper API - Business Listings & Reviews | Bright Data",
+    title: "Google Maps Scraper API - Business Listings & Reviews",
     headline: "Google Maps Scraper API",
     description:
       "Extract Google Maps business listings, reviews, ratings, hours, and location data via API or no-code scraper. Auto-maintained and always unblocked.",
@@ -219,7 +222,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     name: "Zillow",
     domain: "zillow.com",
     category: "Real Estate",
-    title: "Zillow Scraper API - Listings, Zestimates & Rentals | Bright Data",
+    title: "Zillow Scraper API - Listings, Zestimates & Rentals",
     headline: "Zillow Scraper API",
     description:
       "Extract Zillow property listings, Zestimates, rental data, and neighborhood insights via API or no-code scraper. Auto-maintained and always unblocked.",
@@ -260,7 +263,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     name: "X (Twitter)",
     domain: "x.com",
     category: "Social Media",
-    title: "X (Twitter) Scraper API - Posts, Profiles & Trends | Bright Data",
+    title: "X (Twitter) Scraper API - Posts, Profiles & Trends",
     headline: "X (Twitter) Scraper API",
     description:
       "Extract X (Twitter) posts, profiles, engagement metrics, and trending topics via API or no-code scraper. Auto-maintained and always unblocked.",
@@ -301,7 +304,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     name: "Facebook",
     domain: "facebook.com",
     category: "Social Media",
-    title: "Facebook Scraper API - Pages, Posts & Ads Library | Bright Data",
+    title: "Facebook Scraper API - Pages, Posts & Ads Library",
     headline: "Facebook Scraper API",
     description:
       "Extract Facebook page posts, ads library data, reactions, and audience insights via API or no-code scraper. Auto-maintained and always unblocked.",
@@ -342,7 +345,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     name: "YouTube",
     domain: "youtube.com",
     category: "Social Media",
-    title: "YouTube Scraper API - Videos, Channels & Comments | Bright Data",
+    title: "YouTube Scraper API - Videos, Channels & Comments",
     headline: "YouTube Scraper API",
     description:
       "Extract YouTube videos, channels, comments, subscribers, and view counts via API or no-code scraper. Auto-maintained and always unblocked.",

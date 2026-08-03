@@ -41,7 +41,13 @@ export default function HeaderSearch() {
   const go = useCallback(
     (idx?: number) => {
       const target = matches[idx ?? activeIdx] ?? matches[0];
-      if (!target) return;
+      if (!target) {
+        const trimmed = q.trim();
+        if (trimmed) {
+          window.location.href = `/products/web-scraper/scraper-lib?q=${encodeURIComponent(trimmed)}`;
+        }
+        return;
+      }
       const href = templateHref(target);
       if (href.startsWith("/")) {
         window.location.href = href;
@@ -51,23 +57,22 @@ export default function HeaderSearch() {
       setQ("");
       setFocused(false);
     },
-    [matches, activeIdx]
+    [matches, activeIdx, q]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (!open) {
-      if (e.key === "Enter" && matches.length) go();
+    if (e.key === "Enter") {
+      e.preventDefault();
+      go();
       return;
     }
+    if (!open) return;
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setActiveIdx((i) => Math.min(i + 1, Math.min(matches.length - 1, 4)));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setActiveIdx((i) => Math.max(i - 1, -1));
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      go();
     } else if (e.key === "Escape") {
       inputRef.current?.blur();
     }

@@ -2,7 +2,8 @@
 
 import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import { catalog, CATALOG_CATEGORIES, type CatalogScraper } from "@/lib/catalog";
-import { templates, templateHref } from "@/lib/templates";
+import { CATEGORY_LABELS } from "@/lib/category-labels";
+import { scraperHref } from "@/lib/scraper-href";
 import ScraperCard from "@/components/ScraperCard";
 
 const POPULAR_LIMIT = 9;
@@ -17,58 +18,6 @@ const SORT_OPTIONS: { value: SortKey; label: string; searchOnly?: boolean }[] = 
   { value: "most-used", label: "Most used" },
   { value: "az", label: "A → Z" },
 ];
-
-const CATEGORY_LABELS: Record<string, { name: string; href: string }[]> = {
-  "Social Media": [
-    { name: "Instagram", href: "/products/web-scraper/instagram" },
-    { name: "TikTok", href: "/products/web-scraper/tiktok" },
-    { name: "LinkedIn", href: "/products/web-scraper/linkedin" },
-    { name: "Facebook", href: "/products/web-scraper/facebook" },
-    { name: "X (Twitter)", href: "/products/web-scraper/x" },
-  ],
-  "E-commerce": [
-    { name: "Amazon", href: "/products/web-scraper/amazon" },
-    { name: "Walmart", href: "https://brightdata.com/products/web-scraper/walmart" },
-    { name: "Shopee", href: "https://brightdata.com/products/web-scraper/shopee" },
-    { name: "eBay", href: "https://brightdata.com/products/web-scraper/ebay" },
-    { name: "Target", href: "https://brightdata.com/products/web-scraper/target" },
-  ],
-  "Business (B2B)": [
-    { name: "LinkedIn", href: "/products/web-scraper/linkedin" },
-    { name: "Crunchbase", href: "https://brightdata.com/products/web-scraper/crunchbase" },
-    { name: "Glassdoor", href: "https://brightdata.com/products/web-scraper/glassdoor" },
-  ],
-  "Real Estate": [
-    { name: "Zillow", href: "/products/web-scraper/zillow" },
-    { name: "Realtor", href: "https://brightdata.com/products/web-scraper/realtor" },
-    { name: "Redfin", href: "https://brightdata.com/products/web-scraper/redfin" },
-  ],
-  "Jobs": [
-    { name: "Indeed", href: "https://brightdata.com/products/web-scraper/indeed" },
-    { name: "LinkedIn Jobs", href: "/products/web-scraper/linkedin" },
-    { name: "Glassdoor", href: "https://brightdata.com/products/web-scraper/glassdoor" },
-  ],
-  "Travel": [
-    { name: "Booking", href: "https://brightdata.com/products/web-scraper/booking" },
-    { name: "Tripadvisor", href: "https://brightdata.com/products/web-scraper/tripadvisor" },
-    { name: "Airbnb", href: "https://brightdata.com/products/web-scraper/airbnb" },
-  ],
-  "Search": [
-    { name: "Google Maps", href: "/products/web-scraper/google-maps" },
-    { name: "Google Search", href: "https://brightdata.com/products/web-scraper/google" },
-    { name: "Yelp", href: "https://brightdata.com/products/web-scraper/yelp" },
-  ],
-  "News & Media": [
-    { name: "Reuters", href: "https://brightdata.com/products/web-scraper/reuters" },
-    { name: "Bloomberg", href: "https://brightdata.com/products/web-scraper/bloomberg" },
-    { name: "Reddit", href: "https://brightdata.com/products/web-scraper/reddit" },
-  ],
-  "Finance": [
-    { name: "Yahoo Finance", href: "https://brightdata.com/products/web-scraper/yahoo-finance" },
-    { name: "Bloomberg", href: "https://brightdata.com/products/web-scraper/bloomberg" },
-    { name: "CoinMarketCap", href: "https://brightdata.com/products/web-scraper/coinmarketcap" },
-  ],
-};
 
 const CATEGORY_ICONS: Record<string, string> = {
   "Social Media": "◎",
@@ -207,27 +156,6 @@ function sortScrapers(list: CatalogScraper[], sort: SortKey, needle?: string): C
   }
 }
 
-import { AMAZON_SCRAPERS } from "@/lib/amazon-scrapers";
-
-const amazonHrefMap = new Map(AMAZON_SCRAPERS.map((a) => [a.id, a.href]));
-
-function scraperHref(s: CatalogScraper): string {
-  const amazonHref = amazonHrefMap.get(s.id);
-  if (amazonHref) return amazonHref;
-
-  if (s.domain === "amazon.com") {
-    return "/products/web-scraper/amazon";
-  }
-  if (s.slug) {
-    const t = templates.find((tpl) => tpl.slug === s.slug);
-    if (t) return templateHref(t);
-  }
-  const byDomain = templates.find((t) => t.domain === s.domain && t.popular)
-    || templates.find((t) => t.domain === s.domain);
-  if (byDomain) return templateHref(byDomain);
-  return `/products/web-scraper/scraper-lib?q=${encodeURIComponent(s.name)}`;
-}
-
 function readUrlParams() {
   if (typeof window === "undefined") return { cat: "All", sort: "popular" as SortKey, q: "" };
   const params = new URLSearchParams(window.location.search);
@@ -336,6 +264,7 @@ export default function ScraperLibraryInfinite() {
   const sentinelRef = useRef<HTMLDivElement>(null);
   const sortRef = useRef<HTMLDivElement>(null);
   const initializedRef = useRef(false);
+  const didHydrateRef = useRef(false);
 
   useEffect(() => {
     if (initializedRef.current) return;
@@ -347,10 +276,11 @@ export default function ScraperLibraryInfinite() {
       setSearch(urlQ);
       if (!urlSort || urlSort === "popular") setSort("best-match");
     }
+    requestAnimationFrame(() => { didHydrateRef.current = true; });
   }, []);
 
   useEffect(() => {
-    if (!initializedRef.current) return;
+    if (!didHydrateRef.current) return;
     writeUrlParams(cat, sort, search.trim());
   }, [cat, sort, search]);
 
@@ -363,6 +293,12 @@ export default function ScraperLibraryInfinite() {
     if (trimmed && !prev) setSort("best-match");
     else if (!trimmed && prev) setSort("popular");
   }, [search]);
+
+  const categoryCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const s of catalog) counts.set(s.category, (counts.get(s.category) || 0) + 1);
+    return counts;
+  }, []);
 
   const needle = search.trim().toLowerCase();
   const isSearching = needle.length > 0;
@@ -463,7 +399,7 @@ export default function ScraperLibraryInfinite() {
                 {c}
                 {c !== "All" && (
                   <span className="lib-chip-n">
-                    {catalog.filter((s) => s.category === c).length}
+                    {categoryCounts.get(c) || 0}
                   </span>
                 )}
               </button>

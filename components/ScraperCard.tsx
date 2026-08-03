@@ -63,8 +63,6 @@ export type ScraperCardProps = {
   views: string;
   downloads: string;
   href: string;
-  ctaLabel?: string;
-  ctaHref?: string;
   successRate?: string;
   lastVerified?: string;
 };

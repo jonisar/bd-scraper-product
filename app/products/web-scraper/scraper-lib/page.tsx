@@ -7,11 +7,11 @@ import TrustedByStrip from "@/components/TrustedByStrip";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
-  title: "Scraper Library — 1,300+ Production-Ready Web Scrapers | Bright Data",
+  title: "Scraper Library — 1,300+ Production-Ready Web Scrapers",
   description:
     "Browse 1,300+ pre-built web scrapers for e-commerce, social media, real estate, B2B, jobs, travel, and more. Built-in proxy rotation, CAPTCHA solving, and auto-maintenance. Start free.",
   openGraph: {
-    title: "Scraper Library — 1,300+ Production-Ready Web Scrapers | Bright Data",
+    title: "Scraper Library — 1,300+ Production-Ready Web Scrapers",
     description:
       "Browse 1,300+ pre-built web scrapers. Built-in proxies, anti-bot bypass, and structured data output. Start free with 5K records/month.",
     type: "website",

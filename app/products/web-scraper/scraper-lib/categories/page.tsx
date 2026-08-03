@@ -4,11 +4,11 @@ import ScrollReveal from "@/components/ScrollReveal";
 import { CATALOG_CATEGORIES, catalog } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Scraper Categories — Browse by Industry & Platform | Bright Data",
+  title: "Scraper Categories — Browse by Industry & Platform",
   description:
     "Browse web scrapers by category: e-commerce, social media, B2B, jobs, real estate, travel, search, news, and finance. 1,300+ production-ready scrapers with built-in proxies.",
   openGraph: {
-    title: "Scraper Categories — Browse by Industry & Platform | Bright Data",
+    title: "Scraper Categories — Browse by Industry & Platform",
     description:
       "Browse web scrapers by category. 1,300+ production-ready scrapers organized by industry and platform.",
     type: "website",
@@ -116,13 +116,17 @@ export default function CategoriesPage() {
               {CATEGORY_DETAILS.map((cat) => (
                 <a
                   key={cat.slug}
-                  href={`/products/web-scraper/scraper-lib/categories/${cat.slug}`}
+                  href={
+                    cat.slug === "ecommerce"
+                      ? "/products/web-scraper/scraper-lib/categories/ecommerce"
+                      : `/products/web-scraper/scraper-lib?cat=${encodeURIComponent(cat.name)}`
+                  }
                   className="slib-category-card"
                 >
                   <div className="slib-category-header">
                     <span className="slib-category-icon">{cat.icon}</span>
                     <div>
-                      <strong>{cat.name}</strong>
+                      <h2 className="slib-category-name">{cat.name}</h2>
                       <span className="slib-category-count">{cat.count} scrapers</span>
                     </div>
                   </div>

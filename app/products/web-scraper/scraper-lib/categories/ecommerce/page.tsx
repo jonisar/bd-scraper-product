@@ -5,15 +5,14 @@ import ScrollReveal from "@/components/ScrollReveal";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 import { catalog } from "@/lib/catalog";
-import { templates, templateHref } from "@/lib/templates";
-import { AMAZON_SCRAPERS } from "@/lib/amazon-scrapers";
+import { scraperHref } from "@/lib/scraper-href";
 
 export const metadata: Metadata = {
-  title: "E-commerce Scrapers — Amazon, Walmart, eBay & More | Bright Data",
+  title: "E-commerce Scrapers — Amazon, Walmart, eBay & More",
   description:
     "Production-ready e-commerce scrapers for Amazon, Walmart, eBay, Etsy, Target, Shopify, and more. Track prices, reviews, stock levels, and seller data. Built-in proxies and auto-maintenance.",
   openGraph: {
-    title: "E-commerce Scrapers — Amazon, Walmart, eBay & More | Bright Data",
+    title: "E-commerce Scrapers — Amazon, Walmart, eBay & More",
     description:
       "Scrape product data from any e-commerce site. Price monitoring, review collection, and competitive intelligence at scale.",
     type: "website",
@@ -24,25 +23,6 @@ export const metadata: Metadata = {
 };
 
 const ecommerceScrapers = catalog.filter((s) => s.category === "E-commerce");
-
-const amazonHrefMap = new Map(AMAZON_SCRAPERS.map((a) => [a.id, a.href]));
-
-function scraperHref(s: typeof ecommerceScrapers[number]): string {
-  const amazonHref = amazonHrefMap.get(s.id);
-  if (amazonHref) return amazonHref;
-
-  if (s.domain === "amazon.com") {
-    return "/products/web-scraper/amazon";
-  }
-  if (s.slug) {
-    const t = templates.find((tpl) => tpl.slug === s.slug);
-    if (t) return templateHref(t);
-  }
-  const byDomain = templates.find((t) => t.domain === s.domain && t.popular)
-    || templates.find((t) => t.domain === s.domain);
-  if (byDomain) return templateHref(byDomain);
-  return `/products/web-scraper/scraper-lib?q=${encodeURIComponent(s.name)}&cat=E-commerce`;
-}
 
 const USE_CASES = [
   {

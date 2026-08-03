@@ -124,7 +124,7 @@ const FOOTER_ROWS: FooterColumn[][] = [
         { label: "SERP API", href: `${BD}/products/serp-api` },
         { label: "Browser API", href: `${BD}/products/scraping-browser` },
         { label: "Crawl API", href: `${BD}/products/crawl-api` },
-        { label: "Web Scraper APIs", href: `${BD}/products/web-scraper` },
+        { label: "Web Scraper APIs", href: "/products/web-scraper" },
         { label: "Scraper Studio", href: "/products/web-scraper/studio" },
         { label: "Datasets Marketplace", href: `${BD}/products/datasets` },
         { label: "Web Archive", href: `${BD}/products/archive-api` },
@@ -136,9 +136,10 @@ const FOOTER_ROWS: FooterColumn[][] = [
     {
       title: "Top Scraper APIs",
       links: [
-        { label: "LinkedIn Scraper", href: `${BD}/products/web-scraper/linkedin` },
-        { label: "eCommerce Scraper", href: `${BD}/products/web-scraper/ecommerce` },
-        { label: "Social Media Scraper", href: `${BD}/products/web-scraper/social-media-scrape` },
+        { label: "Amazon Scraper", href: "/products/web-scraper/amazon" },
+        { label: "LinkedIn Scraper", href: "/products/web-scraper/linkedin" },
+        { label: "eCommerce Scrapers", href: "/products/web-scraper/scraper-lib/categories/ecommerce" },
+        { label: "Scraper Library", href: "/products/web-scraper/scraper-lib" },
       ],
     },
     {

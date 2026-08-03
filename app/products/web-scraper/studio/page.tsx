@@ -5,11 +5,11 @@ import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 
 export const metadata: Metadata = {
-  title: "AI Scraper Studio — Build Any Scraper With a Prompt | Bright Data",
+  title: "AI Scraper Studio — Build Any Scraper With a Prompt",
   description:
     "Turn a plain-English prompt into a production-ready web scraper. AI generates, tests, and deploys your scraper with built-in proxies, auto-healing, and scheduled delivery. 5K page loads free.",
   openGraph: {
-    title: "AI Scraper Studio — Build Any Scraper With a Prompt | Bright Data",
+    title: "AI Scraper Studio — Build Any Scraper With a Prompt",
     description:
       "Describe the data you need. Our AI builds, tests, and deploys a production scraper in minutes — no code required.",
     type: "website",
@@ -69,7 +69,7 @@ const jsonLd = {
       "@type": "WebPage",
       "@id": "https://brightdata.com/products/web-scraper/studio",
       url: "https://brightdata.com/products/web-scraper/studio",
-      name: "AI Scraper Studio — Build Any Scraper With a Prompt | Bright Data",
+      name: "AI Scraper Studio — Build Any Scraper With a Prompt",
       description:
         "Turn a plain-English prompt into a production-ready web scraper. AI generates, tests, and deploys your scraper with built-in proxies, auto-healing, and scheduled delivery.",
       isPartOf: { "@id": "https://brightdata.com#website" },

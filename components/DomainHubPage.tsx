@@ -11,20 +11,6 @@ import type { DomainHubData } from "@/lib/domain-hubs";
 export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
   return (
     <div className="lib-page">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: hub.faqs.map((f) => ({
-              "@type": "Question",
-              name: f.q,
-              acceptedAnswer: { "@type": "Answer", text: f.a },
-            })),
-          }),
-        }}
-      />
       <Header />
 
       <main>
@@ -96,7 +82,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                   key={s.id}
                   name={s.name}
                   domain={hub.domain}
-                  category={hub.category}
+                  category={s.category || hub.category}
                   desc={s.desc}
                   fieldsPreview={s.fieldsPreview}
                   views={s.views}

@@ -25,6 +25,22 @@ export const metadata: Metadata = {
     "The most reliable Web Scraping API. 1,300+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering.",
   metadataBase: new URL("https://brightdata.com"),
   robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    siteName: "Bright Data",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://brightdata.com#website",
+  name: "Bright Data",
+  url: "https://brightdata.com",
 };
 
 export default function RootLayout({
@@ -34,7 +50,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${jakarta.variable} ${jetbrains.variable}`}>
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

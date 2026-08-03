@@ -252,7 +252,7 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
                   >
                     Build with AI Scraper Studio →
                   </a>
-                  <a href="#agents" className="hsearch-action" onMouseDown={(e) => e.preventDefault()}>
+                  <a href="/products/web-scraper#agents" className="hsearch-action" onMouseDown={(e) => e.preventDefault()}>
                     Or use your coding agent →
                   </a>
                 </div>

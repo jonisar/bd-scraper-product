@@ -610,7 +610,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "name, address, phone, rating, reviews, hours, website",
     views: "12.8K+",
     downloads: "3.9K+",
-    href: "https://brightdata.com/products/web-scraper/google-maps",
+    href: "/products/web-scraper/google-maps",
   },
   {
     name: "LinkedIn Profiles",
@@ -620,7 +620,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "name, headline, company, experience, skills, education",
     views: "118.1K+",
     downloads: "28.4K+",
-    href: "https://brightdata.com/products/web-scraper/linkedin",
+    href: "/products/web-scraper/linkedin",
   },
   {
     name: "Instagram Profiles",
@@ -630,7 +630,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "followers, posts, bio, engagement_rate, media, hashtags",
     views: "21.8K+",
     downloads: "6.2K+",
-    href: "https://brightdata.com/products/web-scraper/instagram",
+    href: "/products/web-scraper/instagram",
   },
 ];
 

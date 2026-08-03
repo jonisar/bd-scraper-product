@@ -3,6 +3,8 @@
  * All scrapers link to the Bright Data console.
  */
 
+import { AMAZON_SCRAPERS } from "./amazon-scrapers";
+
 export type CatalogScraper = {
   id: string;
   name: string;
@@ -1376,14 +1378,15 @@ for (let i = 0; i < ORIGINAL_COUNT; i++) catalog[i].popular = true;
 
 // ─── Merge domain-specific scraper lists into the searchable catalog ──────────
 // Amazon scrapers from lib/amazon-scrapers.ts that aren't already in the catalog.
-// This ensures search for "amazon" surfaces all 14 Amazon scrapers, not just 2.
-import { AMAZON_SCRAPERS } from "./amazon-scrapers";
-
+// This ensures search for "amazon" surfaces all Amazon scrapers, not just 2.
 const existingIds = new Set(catalog.map((s) => s.id));
+const existingNames = new Set(catalog.map((s) => s.name.toLowerCase()));
 const amazonFields = ["Title", "Brand", "Price", "Availability", "Reviews count", "Rating", "ASIN", "Categories", "Images", "Seller name", "Description"];
 
 for (const as of AMAZON_SCRAPERS) {
   if (existingIds.has(as.id)) continue;
+  // Catalog already has "Amazon Products" (id: amazon-products) — skip duplicate product entry
+  if (as.id === "amazon-product" || existingNames.has(as.name.toLowerCase())) continue;
   catalog.push({
     id: as.id,
     name: as.name,
@@ -1397,4 +1400,6 @@ for (const as of AMAZON_SCRAPERS) {
     downloads: as.downloads,
     slug: as.id,
   });
+  existingIds.add(as.id);
+  existingNames.add(as.name.toLowerCase());
 }
