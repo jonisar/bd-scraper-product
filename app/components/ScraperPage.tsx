@@ -1499,7 +1499,7 @@ export default function ScraperPage() {
                 <span className="shrink-0 text-bd-line">·</span>
                 <span className="shrink-0"><span className="font-semibold text-bd-ink">5.7K+</span> users</span>
                 <span className="shrink-0 text-bd-line">·</span>
-                <span className="shrink-0 font-medium text-bd-success">99.2% success</span>
+                <span className="shrink-0 font-medium text-bd-success">99.99% uptime</span>
                 <span className="shrink-0 text-bd-line">·</span>
                 <span className="shrink-0 font-medium text-bd-success">Verified 3h ago</span>
                 <span className="shrink-0 text-bd-line">·</span>
