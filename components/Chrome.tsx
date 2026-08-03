@@ -29,6 +29,9 @@ export function Header() {
             <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
               Docs
             </a>
+            <a href="https://brightdata.com/contact" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
+              Support
+            </a>
             <Link href="/products/web-scraper/studio" className="transition hover:text-bd-navy">
               <span className="flex items-center gap-1">
                 AI Scraper Studio
@@ -88,6 +91,7 @@ export function Header() {
               Pricing
             </Link>
             <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Docs</a>
+            <a href="https://brightdata.com/contact" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Support</a>
             <Link href="/products/web-scraper/studio" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>
               <span className="flex items-center gap-1.5">
                 AI Scraper Studio

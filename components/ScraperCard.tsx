@@ -79,7 +79,9 @@ export default function ScraperCard({
   successRate = "99.2%",
   lastVerified = "3h ago",
 }: ScraperCardProps) {
-  const external = href.startsWith("http");
+  // TEMP: all scraper cards → Amazon product scraper page (domain cards unaffected)
+  const cardHref = "/products/web-scraper/amazon/amazon-product-scraper";
+  void href;
   const bc = brandColor(domain);
 
   const cardContent = (
@@ -123,21 +125,9 @@ export default function ScraperCard({
     <div className="fc">
       <div className="fc-glow" aria-hidden="true" />
 
-      {external ? (
-        <a
-          href={href}
-          className="fc-link"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${name} — ${domain}`}
-        >
-          {cardContent}
-        </a>
-      ) : (
-        <Link href={href} className="fc-link" aria-label={`${name} — ${domain}`}>
-          {cardContent}
-        </Link>
-      )}
+      <Link href={cardHref} className="fc-link" aria-label={`${name} — ${domain}`}>
+        {cardContent}
+      </Link>
 
       <div className="fc-metrics">
         <div className="fc-metric">
