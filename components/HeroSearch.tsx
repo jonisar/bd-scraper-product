@@ -4,24 +4,21 @@ import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import type { Template } from "@/lib/templates";
 import { templateHref } from "@/lib/templates";
 
+const SEARCH_RESULTS_PATH = "/products/web-scraper/scraper-lib";
+
 const POPULAR_SITES = [
   { label: "Amazon", domain: "amazon.com", color: "#FF9900", href: "/products/web-scraper/amazon" },
-  { label: "LinkedIn", domain: "linkedin.com", color: "#0A66C2", slug: "linkedin-profile" },
-  { label: "Instagram", domain: "instagram.com", color: "#E4405F", slug: "instagram-profile" },
-  { label: "Google Maps", domain: "google.com", color: "#34A853", slug: "google-maps" },
-  { label: "Zillow", domain: "zillow.com", color: "#006AFF", slug: "zillow-listings" },
-  { label: "TikTok", domain: "tiktok.com", color: "#ff0050", slug: "tiktok-posts" },
-  {
-    label: "YouTube",
-    domain: "youtube.com",
-    color: "#FF0000",
-    href: "https://brightdata.com/cp/scrapers/browse?category=all",
-  },
+  { label: "LinkedIn", domain: "linkedin.com", color: "#0A66C2", href: "/products/web-scraper/linkedin" },
+  { label: "Instagram", domain: "instagram.com", color: "#E4405F", href: "/products/web-scraper/instagram" },
+  { label: "Google Maps", domain: "google.com", color: "#34A853", href: "/products/web-scraper/google-maps" },
+  { label: "Zillow", domain: "zillow.com", color: "#006AFF", href: "/products/web-scraper/zillow" },
+  { label: "TikTok", domain: "tiktok.com", color: "#ff0050", href: "/products/web-scraper/tiktok" },
+  { label: "YouTube", domain: "youtube.com", color: "#FF0000", href: "/products/web-scraper/youtube" },
   {
     label: "Walmart",
     domain: "walmart.com",
     color: "#0071CE",
-    href: "https://brightdata.com/cp/scrapers/browse?category=all",
+    href: "/products/web-scraper/scraper-lib?q=walmart",
   },
 ];
 
@@ -57,6 +54,10 @@ function scoreMatch(t: Template, needle: string, dom: string): number {
   if (category.includes(needle)) return 30;
   if (dom && root.includes(dom)) return 20;
   return 0;
+}
+
+function searchResultsUrl(query: string): string {
+  return `${SEARCH_RESULTS_PATH}?q=${encodeURIComponent(query.trim())}`;
 }
 
 export default function HeroSearch({ templates }: { templates: Template[] }) {
@@ -97,7 +98,7 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
     return () => document.removeEventListener("mousedown", onDoc);
   }, [open]);
 
-  const navigate = useCallback((t: Template) => {
+  const navigateTo = useCallback((t: Template) => {
     const href = resultHref(t);
     if (href.startsWith("/")) {
       window.location.href = href;
@@ -106,28 +107,25 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
     }
   }, []);
 
-  const go = useCallback(
-    (idx?: number) => {
-      const target = visible[idx ?? activeIdx] ?? visible[0] ?? matches[0];
-      if (target) navigate(target);
-    },
-    [visible, matches, activeIdx, navigate]
-  );
+  /** Navigate to the scraper-lib search results page */
+  const goToSearchResults = useCallback(() => {
+    const trimmed = q.trim();
+    if (!trimmed) return;
+    window.location.href = searchResultsUrl(trimmed);
+  }, [q]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (!open) {
-      if (e.key === "Enter") go();
+    if (e.key === "Enter") {
+      e.preventDefault();
+      goToSearchResults();
+    } else if (!open) {
       return;
-    }
-    if (e.key === "ArrowDown") {
+    } else if (e.key === "ArrowDown") {
       e.preventDefault();
       setActiveIdx((i) => Math.min(i + 1, visible.length - 1));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setActiveIdx((i) => Math.max(i - 1, 0));
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      go();
     } else if (e.key === "Escape") {
       setFocused(false);
       inputRef.current?.blur();
@@ -155,14 +153,14 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
     if ("slug" in site && site.slug) {
       const target = templates.find((t) => t.slug === site.slug);
       if (target) {
-        navigate(target);
+        navigateTo(target);
         return;
       }
     }
     const fallback =
       templates.find((t) => t.domain === site.domain && t.popular) ||
       templates.find((t) => t.domain === site.domain);
-    if (fallback) navigate(fallback);
+    if (fallback) navigateTo(fallback);
   };
 
   return (
@@ -186,7 +184,7 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
             onFocus={handleFocus}
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
-            placeholder="Search Amazon, LinkedIn, Zillow…"
+            placeholder="Find scrapers for Amazon, Instagram, TikTok..."
             aria-label="Search for a scraper"
             aria-expanded={open}
             aria-controls="hero-search-results"
@@ -197,8 +195,8 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
           <button
             type="button"
             className="btn btn-primary btn-sm btn-pill"
-            onClick={() => go()}
-            disabled={open ? matches.length === 0 : !needle}
+            onClick={goToSearchResults}
+            disabled={!needle}
           >
             Search
           </button>
@@ -233,17 +231,13 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
                     </a>
                   );
                 })}
-                {matches.length > MAX_RESULTS && (
-                  <a
-                    href={`https://brightdata.com/cp/scrapers/browse?category=all&q=${encodeURIComponent(q.trim())}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hsearch-more"
-                    onMouseDown={(e) => e.preventDefault()}
-                  >
-                    View all {matches.length} results →
-                  </a>
-                )}
+                <a
+                  href={searchResultsUrl(q)}
+                  className="hsearch-more"
+                  onMouseDown={(e) => e.preventDefault()}
+                >
+                  View all results for &ldquo;{q.trim()}&rdquo; →
+                </a>
               </>
             ) : (
               <div className="hsearch-empty">
@@ -252,15 +246,13 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
                 </div>
                 <div className="hsearch-empty-actions">
                   <a
-                    href="https://brightdata.com/cp/scrapers/automation/chat"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/products/web-scraper/studio"
                     className="hsearch-action"
                     onMouseDown={(e) => e.preventDefault()}
                   >
                     Build with AI Scraper Studio →
                   </a>
-                  <a href="#agents" className="hsearch-action" onMouseDown={(e) => e.preventDefault()}>
+                  <a href="/products/web-scraper#agents" className="hsearch-action" onMouseDown={(e) => e.preventDefault()}>
                     Or use your coding agent →
                   </a>
                 </div>

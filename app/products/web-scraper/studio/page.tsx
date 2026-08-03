@@ -5,11 +5,11 @@ import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 
 export const metadata: Metadata = {
-  title: "AI Scraper Studio — Build Any Scraper With a Prompt | Bright Data",
+  title: "AI Scraper Studio — Build Any Scraper With a Prompt",
   description:
     "Turn a plain-English prompt into a production-ready web scraper. AI generates, tests, and deploys your scraper with built-in proxies, auto-healing, and scheduled delivery. 5K page loads free.",
   openGraph: {
-    title: "AI Scraper Studio — Build Any Scraper With a Prompt | Bright Data",
+    title: "AI Scraper Studio — Build Any Scraper With a Prompt",
     description:
       "Describe the data you need. Our AI builds, tests, and deploys a production scraper in minutes — no code required.",
     type: "website",
@@ -69,7 +69,7 @@ const jsonLd = {
       "@type": "WebPage",
       "@id": "https://brightdata.com/products/web-scraper/studio",
       url: "https://brightdata.com/products/web-scraper/studio",
-      name: "AI Scraper Studio — Build Any Scraper With a Prompt | Bright Data",
+      name: "AI Scraper Studio — Build Any Scraper With a Prompt",
       description:
         "Turn a plain-English prompt into a production-ready web scraper. AI generates, tests, and deploys your scraper with built-in proxies, auto-healing, and scheduled delivery.",
       isPartOf: { "@id": "https://brightdata.com#website" },
@@ -144,12 +144,28 @@ export default function StudioPage() {
         {/* HERO VALUE PROPS — key benefits directly under the prompt */}
         <section className="studio-value-props">
           <div className="container">
-            <ul className="studio-props-list">
-              <li><span className="studio-prop-check">✓</span> Scale coverage to tens or hundreds of domains</li>
-              <li><span className="studio-prop-check">✓</span> Cut manual maintenance with self-healing engine</li>
-              <li><span className="studio-prop-check">✓</span> Manage, schedule, &amp; monitor via IDE or API</li>
-              <li><span className="studio-prop-check">✓</span> IPs, unlocking, JS rendering, retries — all handled</li>
-            </ul>
+            <div className="studio-props-grid">
+              <div className="studio-prop">
+                <span className="studio-prop-icon">⊞</span>
+                <strong>Any website</strong>
+                <span>Scale to hundreds of domains from one prompt</span>
+              </div>
+              <div className="studio-prop">
+                <span className="studio-prop-icon">⟳</span>
+                <strong>Self-healing</strong>
+                <span>AI auto-repairs when sites change layout</span>
+              </div>
+              <div className="studio-prop">
+                <span className="studio-prop-icon">∞</span>
+                <strong>Schedule &amp; monitor</strong>
+                <span>Run on intervals via IDE, API, or webhook</span>
+              </div>
+              <div className="studio-prop">
+                <span className="studio-prop-icon">☁</span>
+                <strong>Infra included</strong>
+                <span>Proxies, browsers, CAPTCHA solving built in</span>
+              </div>
+            </div>
           </div>
         </section>
 

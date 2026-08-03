@@ -10,11 +10,11 @@ import AiPromptCta from "@/components/AiPromptCta";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
-  title: "Web Scraping API - 5K Records/Month for Free | Bright Data",
+  title: "Web Scraping API - 5K Records/Month for Free",
   description:
     "The most reliable Web Scraping API. 1,300+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free — no credit card required.",
   openGraph: {
-    title: "Web Scraping API - 5K Records/Month for Free | Bright Data",
+    title: "Web Scraping API - 5K Records/Month for Free",
     description:
       "1,300+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free.",
     type: "website",
@@ -244,7 +244,7 @@ export default function WebScraperHome() {
             <div className="usecase-card">
               <h3>E-commerce scraping API</h3>
               <div className="usecase-labels">
-                <a href="https://brightdata.com/products/web-scraper/amazon" className="usecase-label">Amazon</a>
+                <a href="/products/web-scraper/amazon" className="usecase-label">Amazon</a>
                 <a href="https://brightdata.com/products/web-scraper/walmart" className="usecase-label">Walmart</a>
                 <a href="https://brightdata.com/products/web-scraper/shopee" className="usecase-label">Shopee</a>
                 <a href="https://brightdata.com/products/web-scraper/target" className="usecase-label">Target</a>
@@ -258,11 +258,12 @@ export default function WebScraperHome() {
             <div className="usecase-card">
               <h3>Social media scraping API</h3>
               <div className="usecase-labels">
-                <a href="https://brightdata.com/products/web-scraper/instagram" className="usecase-label">Instagram</a>
-                <a href="https://brightdata.com/products/web-scraper/tiktok" className="usecase-label">TikTok</a>
-                <a href="https://brightdata.com/products/web-scraper/linkedin" className="usecase-label">LinkedIn</a>
-                <a href="https://brightdata.com/products/web-scraper/x" className="usecase-label">X</a>
-                <a href="https://brightdata.com/products/web-scraper/facebook" className="usecase-label">Facebook</a>
+                <a href="/products/web-scraper/instagram" className="usecase-label">Instagram</a>
+                <a href="/products/web-scraper/tiktok" className="usecase-label">TikTok</a>
+                <a href="/products/web-scraper/linkedin" className="usecase-label">LinkedIn</a>
+                <a href="/products/web-scraper/youtube" className="usecase-label">YouTube</a>
+                <a href="/products/web-scraper/x" className="usecase-label">X</a>
+                <a href="/products/web-scraper/facebook" className="usecase-label">Facebook</a>
               </div>
               <p>
                 Extract public posts, profiles, followers, engagement metrics, and trending
@@ -272,7 +273,7 @@ export default function WebScraperHome() {
             <div className="usecase-card">
               <h3>Real estate scraping API</h3>
               <div className="usecase-labels">
-                <a href="https://brightdata.com/products/web-scraper/zillow" className="usecase-label">Zillow</a>
+                <a href="/products/web-scraper/zillow" className="usecase-label">Zillow</a>
                 <a href="https://brightdata.com/products/web-scraper/realtor" className="usecase-label">Realtor</a>
                 <a href="https://brightdata.com/products/web-scraper/redfin" className="usecase-label">Redfin</a>
                 <a href="https://brightdata.com/products/web-scraper/airbnb" className="usecase-label">Airbnb</a>
@@ -286,7 +287,7 @@ export default function WebScraperHome() {
             <div className="usecase-card">
               <h3>Business &amp; B2B scraping API</h3>
               <div className="usecase-labels">
-                <a href="https://brightdata.com/products/web-scraper/linkedin" className="usecase-label">LinkedIn</a>
+                <a href="/products/web-scraper/linkedin" className="usecase-label">LinkedIn</a>
                 <a href="https://brightdata.com/products/web-scraper/crunchbase" className="usecase-label">Crunchbase</a>
                 <a href="https://brightdata.com/products/web-scraper/glassdoor" className="usecase-label">Glassdoor</a>
                 <a href="https://brightdata.com/products/web-scraper/indeed" className="usecase-label">Indeed</a>
@@ -299,7 +300,7 @@ export default function WebScraperHome() {
             <div className="usecase-card">
               <h3>Search &amp; maps scraping API</h3>
               <div className="usecase-labels">
-                <a href="https://brightdata.com/products/web-scraper/google-maps" className="usecase-label">Google Maps</a>
+                <a href="/products/web-scraper/google-maps" className="usecase-label">Google Maps</a>
                 <a href="https://brightdata.com/products/web-scraper/yelp" className="usecase-label">Yelp</a>
                 <a href="https://brightdata.com/products/web-scraper/tripadvisor" className="usecase-label">Tripadvisor</a>
                 <a href="https://brightdata.com/products/web-scraper/yellow-pages" className="usecase-label">Yellow Pages</a>

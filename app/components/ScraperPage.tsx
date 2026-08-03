@@ -7,7 +7,7 @@ import TrustedByStrip from "@/components/TrustedByStrip";
 import ScraperCard from "@/components/ScraperCard";
 import AiPromptCta from "@/components/AiPromptCta";
 
-type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Live Test" | "Issues" | "Connect Agent" | "Edit with AI";
+type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Live Test" | "Connect Agent" | "Customize";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
 type AgentPlatform = "Prompt" | "MCP" | "OpenAI SDK" | "LangChain" | "CrewAI" | "REST API";
 
@@ -489,7 +489,7 @@ for p in products:
     print(f"{p['title']} — \${p['price']} ({p['stars']}★)")`;
 
 const DESCRIPTION =
-  "Collect Amazon product data at scale — titles, prices, reviews, seller info, stock levels, and more. No proxy management, no browser rendering, no anti-bot headaches. Just send URLs, get structured JSON back.";
+  "Extract prices, reviews, stock levels, and seller data from any Amazon product page via API. No proxy management, no anti-bot headaches — just send URLs and get structured JSON back.";
 
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -610,7 +610,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "name, address, phone, rating, reviews, hours, website",
     views: "12.8K+",
     downloads: "3.9K+",
-    href: "https://brightdata.com/products/web-scraper/google-maps",
+    href: "/products/web-scraper/google-maps",
   },
   {
     name: "LinkedIn Profiles",
@@ -620,7 +620,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "name, headline, company, experience, skills, education",
     views: "118.1K+",
     downloads: "28.4K+",
-    href: "https://brightdata.com/products/web-scraper/linkedin",
+    href: "/products/web-scraper/linkedin",
   },
   {
     name: "Instagram Profiles",
@@ -630,7 +630,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "followers, posts, bio, engagement_rate, media, hashtags",
     views: "21.8K+",
     downloads: "6.2K+",
-    href: "https://brightdata.com/products/web-scraper/instagram",
+    href: "/products/web-scraper/instagram",
   },
 ];
 
@@ -690,10 +690,8 @@ function RelatedScrapersCarousel() {
             Related scrapers from the Bright Data library
             <span className="mx-1.5 hidden text-bd-muted/40 sm:inline">·</span>
             <a
-              href="https://brightdata.com/cp/scrapers/browse"
+              href="/products/web-scraper/scraper-lib"
               className="mt-1 inline-block font-semibold text-bd-blue hover:underline sm:mt-0 sm:inline"
-              target="_blank"
-              rel="noreferrer"
             >
               Browse all scrapers →
             </a>
@@ -1205,7 +1203,7 @@ export default function ScraperPage() {
   const [apiMode, setApiMode] = useState<"sync" | "async">("sync");
   const [agentPlatform, setAgentPlatform] = useState<AgentPlatform>("Prompt");
 
-  const mainTabs: MainTab[] = ["Overview", "Pricing", "API", "Input", "Output", "Live Test", "Connect Agent", "Edit with AI", "Issues"];
+  const mainTabs: MainTab[] = ["Overview", "Pricing", "API", "Input", "Output", "Live Test", "Connect Agent", "Customize"];
   const apiLangs: ApiLang[] = ["Python", "JavaScript", "cURL", "MCP", "OpenAPI"];
 
   function getCodeForLang() {
@@ -1240,22 +1238,9 @@ export default function ScraperPage() {
                 <h1 className="text-[1.75rem] font-extrabold tracking-tight text-bd-navy sm:text-4xl">
                   Amazon Product Scraper
                 </h1>
-                <p className="mt-2 text-[15px] leading-7 text-bd-muted">
-                  Extract prices, reviews, stock levels &amp; seller data from any Amazon page via API
+                <p className="mt-2 text-[15px] leading-7 text-bd-ink">
+                  {DESCRIPTION}
                 </p>
-                <a
-                  href={`https://brightdata.com/cp/scrapers/${DATASET_ID}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-2.5 inline-flex max-w-full items-center gap-2 rounded-lg border border-bd-line bg-bd-canvas px-3 py-1.5 text-xs transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
-                >
-                  <span className="shrink-0 text-bd-muted">Dataset ID</span>
-                  <code className="min-w-0 truncate font-mono font-semibold text-bd-blue">{DATASET_ID}</code>
-                  <svg className="h-3 w-3 shrink-0 text-bd-muted" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-4.5-4.5h6m0 0v6m0-6L13.5 16.5" />
-                  </svg>
-                </a>
-                <p className="mt-3 text-[15px] leading-7 text-bd-ink">{DESCRIPTION}</p>
                 <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-bd-muted sm:gap-x-5">
                   {[
                     { name: "Trustpilot", rating: "4.6", color: "#f5b301", href: "https://www.trustpilot.com/review/brightdata.com" },
@@ -1278,11 +1263,11 @@ export default function ScraperPage() {
                 <span className="shrink-0 text-bd-line">·</span>
                 <span className="shrink-0 font-medium text-bd-success">99.2% success</span>
                 <span className="shrink-0 text-bd-line">·</span>
-                <span className="shrink-0 font-medium text-bd-success">Verified Jul 2026</span>
+                <span className="shrink-0 font-medium text-bd-success">Verified 3h ago</span>
                 <span className="shrink-0 text-bd-line">·</span>
-                <span className="shrink-0 font-medium text-bd-blue">⚡ MCP Ready</span>
+                <span className="shrink-0 font-medium text-bd-success">GDPR &amp; CCPA Compliant</span>
               </div>
-              <div className="mt-4 flex flex-wrap items-center gap-3">
+              <div className="mt-4 flex flex-wrap items-center gap-4">
                 <a
                   href="https://brightdata.com/cp/start"
                   target="_blank"
@@ -1293,10 +1278,16 @@ export default function ScraperPage() {
                 </a>
                 <button
                   type="button"
-                  onClick={() => setMainTab("Live Test")}
-                  className="rounded-lg border border-bd-line bg-bd-canvas px-4 py-2 text-sm font-semibold text-bd-ink transition hover:border-bd-blue-light hover:text-bd-navy"
+                  onClick={() => {
+                    setMainTab("Live Test");
+                    setTimeout(() => {
+                      document.getElementById("scraper-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }, 50);
+                  }}
+                  className="group inline-flex items-center gap-1 text-sm font-semibold text-bd-blue transition hover:text-bd-navy"
                 >
-                  Try it free →
+                  Test now
+                  <span className="inline-block transition-transform duration-150 group-hover:translate-x-0.5" aria-hidden="true">→</span>
                 </button>
               </div>
             </div>
@@ -1304,7 +1295,7 @@ export default function ScraperPage() {
             <TrustedByStrip compact />
 
             {/* Tabs */}
-            <div className="animate-rise-delay mt-2 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
+            <div id="scraper-tabs" className="animate-rise-delay mt-2 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
               <div className="sticky top-14 z-30 rounded-t-2xl border-b border-bd-line bg-bd-panel">
                 <div className="tab-scroll flex gap-0.5 overflow-x-auto px-1.5 pt-2 sm:gap-1 sm:px-4">
                   {mainTabs.map((tab) => (
@@ -1320,7 +1311,7 @@ export default function ScraperPage() {
                     >
                       <span className="flex items-center gap-1">
                         {tab === "Connect Agent" ? <span className="text-xs">🤖</span> : null}
-                        {tab === "Edit with AI" ? <span className="text-xs">✨</span> : null}
+                        {tab === "Customize" ? <span className="text-xs">✨</span> : null}
                         {tab}
                       </span>
                       {mainTab === tab ? (
@@ -2238,7 +2229,7 @@ for p in products:
                       </ul>
                       <p className="mt-3">
                         Browse all 1,000+ scrapers in the{" "}
-                        <a href="https://brightdata.com/cp/scrapers/browse" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">
+                        <a href="/products/web-scraper/scraper-lib" className="font-semibold text-bd-blue hover:underline">
                           Scraper Library
                         </a>.
                       </p>
@@ -2408,54 +2399,6 @@ for p in products:
                 {/* ===== LIVE TEST TAB ===== */}
                 {mainTab === "Live Test" ? (
                   <LiveTestPanel />
-                ) : null}
-
-                {/* ===== ISSUES TAB ===== */}
-                {mainTab === "Issues" ? (
-                  <div className="space-y-3">
-                    <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Feedback & Support</h2>
-                    <p className="text-[15px] leading-7 text-bd-ink">
-                      We&apos;re always working on improving scraper performance and data quality. If
-                      you encounter issues or have feature requests:
-                    </p>
-                    <ul className="list-disc space-y-1 pl-5 text-[15px] text-bd-ink">
-                      <li>
-                        Check the{" "}
-                        <a
-                          href="https://brightdata.com/cp/scrapers/gd_l1vijqt9jfj7olije/pdp/logs"
-                          className="font-semibold text-bd-blue hover:underline"
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          Logs tab
-                        </a>{" "}
-                        in the control panel for real-time run status.
-                      </li>
-                      <li>
-                        Contact our 24/7 support (under 10 minutes average response time) via{" "}
-                        <a
-                          href="https://brightdata.com/contact"
-                          className="font-semibold text-bd-blue hover:underline"
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          brightdata.com/contact
-                        </a>.
-                      </li>
-                      <li>
-                        Browse the{" "}
-                        <a
-                          href="https://docs.brightdata.com/"
-                          className="font-semibold text-bd-blue hover:underline"
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          documentation
-                        </a>{" "}
-                        for troubleshooting guides and API reference.
-                      </li>
-                    </ul>
-                  </div>
                 ) : null}
 
                 {/* ===== CONNECT AGENT TAB ===== */}
@@ -2667,12 +2610,12 @@ for p in products:
                   </div>
                 ) : null}
 
-                {/* ===== EDIT WITH AI TAB ===== */}
-                {mainTab === "Edit with AI" ? (
+                {/* ===== CUSTOMIZE TAB ===== */}
+                {mainTab === "Customize" ? (
                   <div className="space-y-6">
                     <div>
                       <h2 className="text-xl font-bold text-bd-navy">
-                        Edit the Amazon Scraper with AI
+                        Customize the Amazon Scraper
                       </h2>
                       <p className="mt-2 text-[15px] leading-7 text-bd-ink">
                         Customize this scraper or build an entirely new one using natural language.
@@ -2823,15 +2766,16 @@ for p in products:
               rel="noreferrer"
               className="group block overflow-hidden rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.25)] transition hover:shadow-[0_14px_36px_rgba(0,0,0,0.35)]"
             >
-              <div className="bg-gradient-to-r from-[#7b5ea7] via-[#9b6bb8] to-[#d94f8e] px-5 py-5 text-center">
-                <p className="text-[15px] font-semibold leading-6 text-white">
-                  Just want Amazon data?
+              <div className="bg-gradient-to-r from-[#7b5ea7] via-[#9b6bb8] to-[#d94f8e] px-5 py-6 text-center">
+                <p className="text-xs font-semibold uppercase tracking-widest text-white/70">
+                  Skip scraping
                 </p>
-                <p className="mt-1 text-[15px] leading-6 text-white">
+                <p className="mt-1.5 text-lg font-bold leading-tight text-white">
                   Purchase an{" "}
-                  <span className="font-bold underline decoration-white/60 underline-offset-2 group-hover:decoration-white">
-                    Amazon dataset
-                  </span>
+                  <span className="underline decoration-white/50 underline-offset-2 group-hover:decoration-white">
+                    Amazon Dataset
+                  </span>{" "}
+                  →
                 </p>
               </div>
             </a>

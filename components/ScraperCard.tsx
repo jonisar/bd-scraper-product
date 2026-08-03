@@ -2,6 +2,58 @@
 
 import Link from "next/link";
 
+const BRAND_COLORS: Record<string, string> = {
+  "amazon.com": "#FF9900",
+  "linkedin.com": "#0A66C2",
+  "instagram.com": "#E4405F",
+  "tiktok.com": "#00F2EA",
+  "google.com/maps": "#34A853",
+  "google.com": "#4285F4",
+  "zillow.com": "#006AFF",
+  "x.com": "#A8B3BD",
+  "facebook.com": "#1877F2",
+  "youtube.com": "#FF0000",
+  "crunchbase.com": "#0288D1",
+  "indeed.com": "#2164F3",
+  "walmart.com": "#0071CE",
+  "reddit.com": "#FF4500",
+  "glassdoor.com": "#0CAA41",
+  "booking.com": "#003580",
+  "airbnb.com": "#FF5A5F",
+  "finance.yahoo.com": "#6001D2",
+  "ebay.com": "#E53238",
+  "etsy.com": "#F1641E",
+  "shopify.com": "#96BF48",
+  "tripadvisor.com": "#34E0A1",
+  "pinterest.com": "#E60023",
+  "yelp.com": "#D32323",
+  "trustpilot.com": "#00B67A",
+  "target.com": "#CC0000",
+  "bestbuy.com": "#0046BE",
+  "twitch.tv": "#9146FF",
+  "discord.com": "#5865F2",
+  "quora.com": "#B92B27",
+  "medium.com": "#A8B3BD",
+  "expedia.com": "#FFDC00",
+  "redfin.com": "#A02021",
+  "realtor.com": "#D92228",
+  "apollo.io": "#6B4FBB",
+  "g2.com": "#FF492C",
+  "upwork.com": "#14A800",
+  "fiverr.com": "#1DBF73",
+  "coinmarketcap.com": "#17C784",
+  "bloomberg.com": "#5E00FF",
+};
+
+function brandColor(domain: string): string {
+  if (BRAND_COLORS[domain]) return BRAND_COLORS[domain];
+  const root = domain.split(".")[0];
+  for (const [key, color] of Object.entries(BRAND_COLORS)) {
+    if (key.startsWith(root)) return color;
+  }
+  return "#6ea0ff";
+}
+
 export type ScraperCardProps = {
   name: string;
   domain: string;
@@ -11,8 +63,6 @@ export type ScraperCardProps = {
   views: string;
   downloads: string;
   href: string;
-  ctaLabel?: string;
-  ctaHref?: string;
   successRate?: string;
   lastVerified?: string;
 };
@@ -29,13 +79,22 @@ export default function ScraperCard({
   successRate = "99.2%",
   lastVerified = "3h ago",
 }: ScraperCardProps) {
-  const external = href.startsWith("http");
+  // TEMP: all scraper cards → Amazon product scraper page (domain cards unaffected)
+  const cardHref = "/products/web-scraper/amazon/amazon-product-scraper";
+  void href;
+  const bc = brandColor(domain);
 
   const cardContent = (
     <>
       <div className="fc-header">
-        <div className="fc-icon">
-          <span className="fc-icon-letter">{domain.charAt(0).toUpperCase()}</span>
+        <div
+          className="fc-icon"
+          style={{
+            background: `linear-gradient(135deg, ${bc}22, ${bc}0a)`,
+            borderColor: `${bc}33`,
+          }}
+        >
+          <span className="fc-icon-letter" style={{ color: bc }}>{domain.charAt(0).toUpperCase()}</span>
         </div>
         <div className="fc-identity">
           <span className="fc-name">{name}</span>
@@ -66,21 +125,9 @@ export default function ScraperCard({
     <div className="fc">
       <div className="fc-glow" aria-hidden="true" />
 
-      {external ? (
-        <a
-          href={href}
-          className="fc-link"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${name} — ${domain}`}
-        >
-          {cardContent}
-        </a>
-      ) : (
-        <Link href={href} className="fc-link" aria-label={`${name} — ${domain}`}>
-          {cardContent}
-        </Link>
-      )}
+      <Link href={cardHref} className="fc-link" aria-label={`${name} — ${domain}`}>
+        {cardContent}
+      </Link>
 
       <div className="fc-metrics">
         <div className="fc-metric">
