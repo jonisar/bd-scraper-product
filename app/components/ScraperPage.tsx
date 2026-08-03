@@ -1868,6 +1868,30 @@ export default function ScraperPage() {
   const [apiMode, setApiMode] = useState<"sync" | "async">("sync");
   const [agentPlatform, setAgentPlatform] = useState<AgentPlatform>("Prompt");
 
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const [stickyTop, setStickyTop] = useState("4.5rem");
+
+  useEffect(() => {
+    const el = sidebarRef.current;
+    if (!el) return;
+    const update = () => {
+      const sidebarH = el.scrollHeight;
+      const vh = window.innerHeight;
+      const headerH = 72;
+      const pad = 24;
+      if (sidebarH > vh - headerH - pad) {
+        setStickyTop(`${vh - sidebarH - pad}px`);
+      } else {
+        setStickyTop("4.5rem");
+      }
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    window.addEventListener("resize", update);
+    return () => { ro.disconnect(); window.removeEventListener("resize", update); };
+  }, []);
+
   const mainTabs: MainTab[] = ["Overview", "Playground", "Pricing", "API", "Input", "Output", "Connect Agent", "Customize"];
   const apiLangs: ApiLang[] = ["Python", "JavaScript", "cURL", "MCP", "OpenAPI"];
 
@@ -3110,7 +3134,7 @@ export default function ScraperPage() {
 
           {/* ===== SIDEBAR ===== */}
           <aside className="animate-rise-delay">
-            <div className="lg:sticky lg:top-[4.5rem] lg:max-h-[calc(100vh-5.5rem)] lg:overflow-y-auto lg:overscroll-contain space-y-4 scrollbar-thin">
+            <div ref={sidebarRef} className="lg:sticky space-y-4" style={{ top: stickyTop }}>
             <div className="overflow-hidden rounded-2xl border border-bd-blue/30 bg-gradient-to-br from-bd-blue-soft via-bd-panel to-bd-panel shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
               {/* Free tier banner */}
               <div className="bg-gradient-to-r from-bd-blue to-[#5a9aff] px-4 py-4 sm:px-5">
