@@ -916,7 +916,7 @@ const PRICING_TIERS = [
 ];
 
 function PricingTab() {
-  const [tierIdx, setTierIdx] = useState(3);
+  const [tierIdx, setTierIdx] = useState(0);
   const tier = PRICING_TIERS[tierIdx];
 
   return (
@@ -1461,6 +1461,252 @@ function PlaygroundPanel() {
   );
 }
 
+const ALL_OUTPUT_FIELDS = [
+  { name: "title", sample: '"SanDisk 1TB Extreme microSDXC"' },
+  { name: "price", sample: "145.50" },
+  { name: "stars", sample: "4.8" },
+  { name: "reviews_count", sample: "36704" },
+  { name: "asin", sample: '"B09X7MPX8L"' },
+  { name: "brand", sample: '"SanDisk"' },
+  { name: "seller", sample: '{"name":"Amazon.com"}' },
+  { name: "in_stock", sample: "true" },
+  { name: "image", sample: '"https://m.media-amazon.com/…"' },
+  { name: "bsr", sample: "1284" },
+  { name: "description", sample: '"Professional-grade A2…"' },
+  { name: "bullet_points", sample: '["Up to 160MB/s","A2 rated"]' },
+  { name: "categories", sample: '"Electronics > Memory Cards"' },
+  { name: "coupon", sample: '"Save 5%"' },
+  { name: "list_price", sample: "299.99" },
+  { name: "currency", sample: '"USD"' },
+];
+const DEFAULT_ON = new Set(["title", "price", "stars", "reviews_count", "asin", "brand"]);
+
+const FORMAT_OPTIONS = ["JSON", "NDJSON", "CSV"] as const;
+const DELIVERY_OPTIONS = ["API response", "Amazon S3", "Google Cloud", "Webhook", "Snowflake", "SFTP"] as const;
+const GEO_OPTIONS = ["United States", "United Kingdom", "Germany", "Japan", "France", "India", "Canada", "Australia"] as const;
+const SCHEDULE_OPTIONS = ["Manual", "Hourly", "Daily", "Weekly"] as const;
+
+function CustomizeTab({ datasetId }: { datasetId: string }) {
+  const [fields, setFields] = useState<Set<string>>(() => new Set(DEFAULT_ON));
+  const [format, setFormat] = useState<string>("JSON");
+  const [delivery, setDelivery] = useState<string>("API response");
+  const [geo, setGeo] = useState<string>("United States");
+  const [schedule, setSchedule] = useState<string>("Manual");
+  const [recordLimit, setRecordLimit] = useState(5000);
+  const [spendCap, setSpendCap] = useState(150);
+
+  const toggleField = useCallback((name: string) => {
+    setFields((prev) => {
+      const next = new Set(prev);
+      if (next.has(name)) next.delete(name);
+      else next.add(name);
+      return next;
+    });
+  }, []);
+
+  const activeFields = ALL_OUTPUT_FIELDS.filter((f) => fields.has(f.name));
+  const apiParam = activeFields.map((f) => f.name).join("|");
+  const jsonPreview = activeFields.length > 0
+    ? `[{\n${activeFields.map((f) => `  "${f.name}": ${f.sample}`).join(",\n")}\n}]`
+    : "// Select at least one field above";
+
+  return (
+    <div className="space-y-8">
+      <header>
+        <h2 className="text-xl font-bold text-bd-navy">Customize output</h2>
+        <p className="mt-1.5 text-sm text-bd-ink/70">
+          Toggle fields and settings — the API call and response update live.
+        </p>
+      </header>
+
+      {/* ── Interactive field picker ── */}
+      <section>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mb-4">
+          <p className="text-sm font-bold text-bd-navy">Output fields</p>
+          <button type="button" onClick={() => setFields(new Set(ALL_OUTPUT_FIELDS.map((f) => f.name)))} className="text-[11px] font-medium text-bd-blue hover:underline">Select all</button>
+          <button type="button" onClick={() => setFields(new Set())} className="text-[11px] font-medium text-bd-muted hover:text-bd-ink hover:underline">Clear</button>
+          <span className="text-[11px] text-bd-muted">{fields.size} of {ALL_OUTPUT_FIELDS.length} selected</span>
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          {ALL_OUTPUT_FIELDS.map((f) => {
+            const on = fields.has(f.name);
+            return (
+              <button
+                key={f.name}
+                type="button"
+                onClick={() => toggleField(f.name)}
+                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all ${
+                  on
+                    ? "border border-bd-blue/40 bg-bd-blue-soft text-bd-blue shadow-sm shadow-bd-blue/10"
+                    : "border border-bd-line bg-bd-panel text-bd-muted hover:border-bd-blue/20 hover:text-bd-ink"
+                }`}
+              >
+                <span className={`inline-block h-2 w-2 rounded-full transition-colors ${on ? "bg-bd-blue" : "bg-bd-line"}`} />
+                {f.name}
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ── Interactive settings ── */}
+      <section>
+        <h3 className="mb-3 text-lg font-bold text-bd-navy">Scraper settings</h3>
+        <div className="overflow-hidden rounded-xl border border-bd-line">
+          {/* Format */}
+          <div className="flex items-center justify-between gap-4 px-4 py-3 sm:px-5">
+            <div className="min-w-0">
+              <p className="text-sm font-medium text-bd-navy">Output format</p>
+            </div>
+            <div className="flex shrink-0 gap-1">
+              {FORMAT_OPTIONS.map((opt) => (
+                <button key={opt} type="button" onClick={() => setFormat(opt)}
+                  className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
+                    format === opt
+                      ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/20"
+                      : "border border-bd-line bg-bd-canvas text-bd-muted hover:text-bd-ink"
+                  }`}
+                >{opt}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* Record limit */}
+          <div className="border-t border-bd-line px-4 py-3 sm:px-5">
+            <div className="flex items-center justify-between gap-4">
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-bd-navy">Record limit</p>
+                <p className="text-[11px] text-bd-muted">Max records per run</p>
+              </div>
+              <span className="shrink-0 rounded-lg bg-bd-canvas px-3 py-1 text-sm font-bold tabular-nums text-bd-navy">
+                {recordLimit === 10000 ? "No limit" : recordLimit.toLocaleString()}
+              </span>
+            </div>
+            <input
+              type="range" min={500} max={10000} step={500} value={recordLimit}
+              onChange={(e) => setRecordLimit(Number(e.target.value))}
+              className="pricing-slider mt-2 w-full cursor-pointer"
+            />
+            <div className="mt-0.5 flex justify-between text-[10px] text-bd-muted">
+              <span>500</span><span>2.5K</span><span>5K</span><span>No limit</span>
+            </div>
+          </div>
+
+          {/* Spend cap */}
+          <div className="border-t border-bd-line px-4 py-3 sm:px-5">
+            <div className="flex items-center justify-between gap-4">
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-bd-navy">Monthly spend cap</p>
+                <p className="text-[11px] text-bd-muted">Requests pause when reached</p>
+              </div>
+              <span className="shrink-0 rounded-lg bg-bd-canvas px-3 py-1 text-sm font-bold tabular-nums text-bd-navy">
+                {spendCap === 1000 ? "No limit" : `$${spendCap}`}
+              </span>
+            </div>
+            <input
+              type="range" min={0} max={1000} step={50} value={spendCap}
+              onChange={(e) => setSpendCap(Number(e.target.value))}
+              className="pricing-slider mt-2 w-full cursor-pointer"
+            />
+            <div className="mt-0.5 flex justify-between text-[10px] text-bd-muted">
+              <span>$0</span><span>$250</span><span>$500</span><span>No limit</span>
+            </div>
+          </div>
+
+          {/* Delivery */}
+          <div className="flex items-center justify-between gap-4 border-t border-bd-line px-4 py-3 sm:px-5">
+            <div className="min-w-0">
+              <p className="text-sm font-medium text-bd-navy">Delivery</p>
+            </div>
+            <select
+              value={delivery} onChange={(e) => setDelivery(e.target.value)}
+              className="shrink-0 cursor-pointer rounded-lg border border-bd-line bg-bd-canvas px-2.5 py-1.5 text-xs font-medium text-bd-ink outline-none focus:border-bd-blue"
+            >
+              {DELIVERY_OPTIONS.map((o) => <option key={o}>{o}</option>)}
+            </select>
+          </div>
+
+          {/* Schedule */}
+          <div className="flex items-center justify-between gap-4 border-t border-bd-line px-4 py-3 sm:px-5">
+            <div className="min-w-0">
+              <p className="text-sm font-medium text-bd-navy">Schedule</p>
+            </div>
+            <div className="flex shrink-0 gap-1">
+              {SCHEDULE_OPTIONS.map((opt) => (
+                <button key={opt} type="button" onClick={() => setSchedule(opt)}
+                  className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
+                    schedule === opt
+                      ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/20"
+                      : "border border-bd-line bg-bd-canvas text-bd-muted hover:text-bd-ink"
+                  }`}
+                >{opt}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* Geotargeting */}
+          <div className="flex items-center justify-between gap-4 border-t border-bd-line px-4 py-3 sm:px-5">
+            <div className="min-w-0">
+              <p className="text-sm font-medium text-bd-navy">Marketplace</p>
+              <p className="text-[11px] text-bd-muted">18 Amazon domains</p>
+            </div>
+            <select
+              value={geo} onChange={(e) => setGeo(e.target.value)}
+              className="shrink-0 cursor-pointer rounded-lg border border-bd-line bg-bd-canvas px-2.5 py-1.5 text-xs font-medium text-bd-ink outline-none focus:border-bd-blue"
+            >
+              {GEO_OPTIONS.map((o) => <option key={o}>{o}</option>)}
+            </select>
+          </div>
+        </div>
+        <p className="mt-2.5 text-xs text-bd-muted">
+          Configure these in the{" "}
+          <a href="https://brightdata.com/cp/datasets" className="font-medium text-bd-blue hover:underline" target="_blank" rel="noreferrer">control panel</a>
+          {" "}— no code needed.
+        </p>
+      </section>
+
+      {/* ── Live API preview ── */}
+      <section className="grid gap-3 lg:grid-cols-2">
+        <div>
+          <p className="mb-1.5 text-[11px] font-bold uppercase tracking-wider text-bd-muted">Generated API call</p>
+          <CodeBlock
+            code={`curl -X POST "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${datasetId}&format=${format.toLowerCase()}${activeFields.length > 0 && activeFields.length < ALL_OUTPUT_FIELDS.length ? `&custom_output_fields=${apiParam}` : ""}" \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '[{"url":"https://www.amazon.com/dp/B09X7MPX8L"}]'`}
+            label="bash"
+          />
+        </div>
+        <div>
+          <p className="mb-1.5 text-[11px] font-bold uppercase tracking-wider text-bd-muted">Response preview</p>
+          <CodeBlock code={jsonPreview} label="json" />
+        </div>
+      </section>
+
+      {/* ── Input types ── */}
+      <section>
+        <h3 className="mb-3 text-lg font-bold text-bd-navy">Accepted inputs</h3>
+        <div className="grid gap-2 sm:grid-cols-2">
+          {[
+            { input: "url", example: "https://amazon.com/dp/B09X7MPX8L", desc: "Product, search, or category page" },
+            { input: "keyword", example: "wireless earbuds under $50", desc: "Search query — returns matching products" },
+            { input: "asin", example: "B09X7MPX8L", desc: "Product ID — no URL needed" },
+            { input: "country", example: "us · uk · de · jp · …", desc: "Target a specific marketplace" },
+          ].map((i) => (
+            <div key={i.input} className="flex items-start gap-3 rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
+              <code className="mt-0.5 shrink-0 rounded bg-bd-blue/10 px-2 py-0.5 text-xs font-bold text-bd-blue">{i.input}</code>
+              <div className="min-w-0">
+                <p className="text-[13px] font-medium text-bd-navy">{i.desc}</p>
+                <p className="mt-0.5 truncate font-mono text-[11px] text-bd-muted">{i.example}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
 export default function ScraperPage() {
   const [mainTab, setMainTab] = useState<MainTab>("Overview");
   const [apiLang, setApiLang] = useState<ApiLang>("Python");
@@ -1742,7 +1988,7 @@ export default function ScraperPage() {
                     {/* ── Hero intro ── */}
                     <header>
                       <h2 className="text-2xl font-bold text-bd-navy sm:text-[1.65rem]">
-                        Amazon Product Scraper API
+                        Amazon Product Scraper
                       </h2>
                       <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/80">
                         Extract prices, reviews, stock levels, seller data, and 40+ fields from any Amazon page.
@@ -2754,205 +3000,7 @@ export default function ScraperPage() {
 
                 {/* ===== CUSTOMIZE TAB ===== */}
                 {mainTab === "Customize" ? (
-                  <div className="space-y-8">
-                    <header>
-                      <h2 className="text-xl font-bold text-bd-navy">Customize the Amazon Scraper</h2>
-                      <p className="mt-2 text-[15px] leading-7 text-bd-ink/80">
-                        Configure every aspect of this scraper from the dashboard — no code needed.
-                        Or open it in Scraper Studio to rebuild the extraction logic with AI.
-                      </p>
-                    </header>
-
-                    {/* ── No-code settings ── */}
-                    <section>
-                      <h3 className="mb-3 text-lg font-bold text-bd-navy">No-code configuration</h3>
-                      <p className="mb-4 text-sm text-bd-ink/70">
-                        All settings below are available in the control panel UI. Changes apply instantly — no deploys, no restarts.
-                      </p>
-
-                      {/* Settings mock */}
-                      <div className="overflow-hidden rounded-xl border border-bd-line">
-                        {/* Output fields */}
-                        <div className="border-b border-bd-line bg-bd-canvas px-4 py-3.5 sm:px-5">
-                          <div className="flex items-center justify-between">
-                            <p className="text-sm font-bold text-bd-navy">Output fields</p>
-                            <span className="rounded-full bg-bd-blue/10 px-2 py-0.5 text-[11px] font-bold text-bd-blue">40+ available</span>
-                          </div>
-                          <p className="mt-1 text-xs text-bd-muted">Toggle fields on/off to control what data you receive</p>
-                          <div className="mt-3 flex flex-wrap gap-1.5">
-                            {[
-                              { name: "title", on: true }, { name: "price", on: true }, { name: "stars", on: true },
-                              { name: "reviews_count", on: true }, { name: "asin", on: true }, { name: "brand", on: true },
-                              { name: "seller", on: true }, { name: "in_stock", on: true }, { name: "image", on: true },
-                              { name: "bsr", on: false }, { name: "description", on: false }, { name: "bullet_points", on: false },
-                              { name: "categories", on: false }, { name: "coupon", on: false },
-                            ].map((f) => (
-                              <span key={f.name} className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium transition ${
-                                f.on
-                                  ? "border border-bd-blue/30 bg-bd-blue-soft text-bd-blue"
-                                  : "border border-bd-line bg-bd-panel text-bd-muted"
-                              }`}>
-                                <span className={`inline-block h-1.5 w-1.5 rounded-full ${f.on ? "bg-bd-blue" : "bg-bd-line"}`} />
-                                {f.name}
-                              </span>
-                            ))}
-                            <span className="inline-flex items-center rounded-full border border-dashed border-bd-line px-2.5 py-1 text-xs text-bd-muted">+26 more</span>
-                          </div>
-                        </div>
-
-                        {/* Settings rows */}
-                        <div className="divide-y divide-bd-line">
-                          {[
-                            {
-                              label: "Record limit",
-                              desc: "Cap records per run to control costs",
-                              value: "5,000 records / run",
-                              type: "input" as const,
-                            },
-                            {
-                              label: "Monthly spend cap",
-                              desc: "Pause requests when budget is reached",
-                              value: "$150.00 / month",
-                              type: "input" as const,
-                            },
-                            {
-                              label: "Output format",
-                              desc: "JSON, NDJSON, or CSV",
-                              value: "JSON",
-                              type: "select" as const,
-                            },
-                            {
-                              label: "Schedule",
-                              desc: "Automate recurring collection runs",
-                              value: "Every day at 08:00 UTC",
-                              type: "select" as const,
-                            },
-                            {
-                              label: "Delivery destination",
-                              desc: "Where to send completed results",
-                              value: "Amazon S3",
-                              type: "select" as const,
-                            },
-                            {
-                              label: "Webhook notifications",
-                              desc: "Get notified on completion or errors",
-                              value: "https://api.example.com/hook",
-                              type: "input" as const,
-                            },
-                            {
-                              label: "Geotargeting",
-                              desc: "Scrape from a specific country",
-                              value: "United States",
-                              type: "select" as const,
-                            },
-                            {
-                              label: "Deadline",
-                              desc: "Max time before a run is cancelled",
-                              value: "1 hour",
-                              type: "select" as const,
-                            },
-                          ].map((row) => (
-                            <div key={row.label} className="flex items-center justify-between gap-4 bg-bd-panel px-4 py-3 sm:px-5">
-                              <div className="min-w-0">
-                                <p className="text-sm font-medium text-bd-navy">{row.label}</p>
-                                <p className="text-xs text-bd-muted">{row.desc}</p>
-                              </div>
-                              <div className={`shrink-0 rounded-lg border border-bd-line bg-bd-canvas px-3 py-1.5 text-xs font-medium text-bd-ink ${
-                                row.type === "select" ? "flex items-center gap-1.5" : ""
-                              }`}>
-                                {row.value}
-                                {row.type === "select" && (
-                                  <svg className="h-3 w-3 text-bd-muted" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
-                                )}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </section>
-
-                    {/* ── API field filtering ── */}
-                    <section>
-                      <h3 className="mb-3 text-lg font-bold text-bd-navy">Filter fields via API</h3>
-                      <p className="mb-3 text-sm text-bd-ink/70">
-                        Use <code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">custom_output_fields</code> to
-                        return only the fields you need — reduces payload size and speeds up processing.
-                      </p>
-                      <CodeBlock
-                        code={`curl -X POST "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${DATASET_ID}&format=json&custom_output_fields=title|price|stars|asin|in_stock" \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '[{"url":"https://www.amazon.com/dp/B09X7MPX8L"}]'
-
-# Response — only the 5 fields you requested:
-# [{"title":"SanDisk 1TB Extreme","price":145.50,"stars":4.8,"asin":"B09X7MPX8L","in_stock":true}]`}
-                        label="bash"
-                      />
-                    </section>
-
-                    {/* ── Input schema ── */}
-                    <section>
-                      <h3 className="mb-3 text-lg font-bold text-bd-navy">Input options</h3>
-                      <p className="mb-3 text-sm text-bd-ink/70">
-                        The scraper accepts multiple input types. Mix and match in a single request.
-                      </p>
-                      <div className="grid gap-2.5 sm:grid-cols-2">
-                        {[
-                          { input: "url", example: "https://amazon.com/dp/B09X7MPX8L", desc: "Any Amazon product, search, or category page" },
-                          { input: "keyword", example: "wireless earbuds under $50", desc: "Amazon search query — scraper finds matching products" },
-                          { input: "asin", example: "B09X7MPX8L", desc: "Product identifier — no URL needed" },
-                          { input: "country", example: "us, uk, de, jp …", desc: "Target a specific Amazon marketplace" },
-                        ].map((i) => (
-                          <div key={i.input} className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
-                            <code className="text-sm font-bold text-bd-blue">{i.input}</code>
-                            <p className="mt-1 text-xs text-bd-muted">{i.desc}</p>
-                            <p className="mt-1.5 font-mono text-[11px] text-bd-ink/50">{i.example}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </section>
-
-                    {/* ── Scraper Studio ── */}
-                    <section>
-                      <h3 className="mb-3 text-lg font-bold text-bd-navy">Advanced: Scraper Studio</h3>
-                      <p className="mb-4 text-sm text-bd-ink/70">
-                        Need to go beyond settings? Open this scraper in Scraper Studio to edit the extraction logic itself.
-                      </p>
-                      <div className="grid gap-3 sm:grid-cols-2">
-                        {[
-                          { title: "Edit with AI prompts", desc: "Describe changes in plain English — add fields, filter results, change logic. The AI updates the scraper instantly." },
-                          { title: "Custom output schema", desc: "Add fields, rename columns, set defaults, mark fields as required or PII. 18 field types supported." },
-                          { title: "Build a new scraper", desc: "Point the AI at any website and it generates interaction + parser code for a production-ready scraper." },
-                          { title: "Auto-fix on site changes", desc: "When a target site changes layout, the AI detects the break and suggests updated selectors." },
-                        ].map((f) => (
-                          <div key={f.title} className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
-                            <p className="font-bold text-bd-navy">{f.title}</p>
-                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/70">{f.desc}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </section>
-
-                    {/* CTA */}
-                    <div className="rounded-xl border border-bd-blue/30 bg-gradient-to-r from-bd-blue-soft to-bd-panel p-5">
-                      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                        <div>
-                          <h3 className="font-bold text-bd-navy">
-                            Open in Scraper Studio
-                          </h3>
-                          <p className="mt-1 text-sm text-bd-ink/70">
-                            Edit this scraper with AI or use it as a starting point for something new.
-                          </p>
-                        </div>
-                        <Link
-                          href="/products/web-scraper/studio"
-                          className="w-full shrink-0 rounded-xl bg-bd-blue px-5 py-2.5 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105 sm:w-auto"
-                        >
-                          Launch Studio
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
+                  <CustomizeTab datasetId={DATASET_ID} />
                 ) : null}
               </div>
             </div>
