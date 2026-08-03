@@ -2722,7 +2722,8 @@ for p in products:
           </div>
 
           {/* ===== SIDEBAR ===== */}
-          <aside className="animate-rise-delay space-y-4 lg:sticky lg:top-[4.5rem] lg:self-start">
+          <aside className="animate-rise-delay">
+            <div className="lg:sticky lg:top-[4.5rem] space-y-4">
             <div className="overflow-hidden rounded-2xl border border-bd-blue/30 bg-gradient-to-br from-bd-blue-soft via-bd-panel to-bd-panel shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
               {/* Free tier banner */}
               <div className="bg-gradient-to-r from-bd-blue to-[#5a9aff] px-4 py-4 sm:px-5">
@@ -2858,6 +2859,7 @@ for p in products:
                   <dd className="font-mono text-xs text-bd-ink">json, ndjson, csv</dd>
                 </div>
               </dl>
+            </div>
             </div>
           </aside>
         </section>
