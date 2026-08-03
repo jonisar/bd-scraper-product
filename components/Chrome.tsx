@@ -16,13 +16,19 @@ export function Header() {
               BD
             </span>
             <span className="text-[15px] font-extrabold tracking-tight text-bd-navy">
-              Bright Data
+              Web Scraper API
             </span>
           </Link>
           <nav className="hidden items-center gap-5 text-sm font-semibold text-bd-ink lg:flex">
-            <Link href="/products/web-scraper" className="transition hover:text-bd-navy">
-              Scrapers
+            <Link href="/products/web-scraper/scraper-lib" className="transition hover:text-bd-navy">
+              All Scrapers
             </Link>
+            <Link href="/products/web-scraper#pricing" className="transition hover:text-bd-navy">
+              Pricing
+            </Link>
+            <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
+              Docs
+            </a>
             <Link href="/products/web-scraper/studio" className="transition hover:text-bd-navy">
               <span className="flex items-center gap-1">
                 AI Scraper Studio
@@ -30,12 +36,6 @@ export function Header() {
                   New
                 </span>
               </span>
-            </Link>
-            <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
-              Docs
-            </a>
-            <Link href="/products/web-scraper#pricing" className="transition hover:text-bd-navy">
-              Pricing
             </Link>
           </nav>
         </div>
@@ -81,9 +81,13 @@ export function Header() {
       {mobileMenuOpen && (
         <nav className="border-t border-bd-line bg-bd-panel px-4 pb-4 pt-3 lg:hidden">
           <div className="flex flex-col gap-3 text-sm font-medium text-bd-navy/85">
-            <Link href="/products/web-scraper" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>
-              Scrapers
+            <Link href="/products/web-scraper/scraper-lib" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>
+              All Scrapers
             </Link>
+            <Link href="/products/web-scraper#pricing" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>
+              Pricing
+            </Link>
+            <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Docs</a>
             <Link href="/products/web-scraper/studio" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>
               <span className="flex items-center gap-1.5">
                 AI Scraper Studio
@@ -92,8 +96,6 @@ export function Header() {
                 </span>
               </span>
             </Link>
-            <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Docs</a>
-            <Link href="/products/web-scraper#pricing" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
             <a href="https://brightdata.com/cp" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Log in</a>
           </div>
         </nav>

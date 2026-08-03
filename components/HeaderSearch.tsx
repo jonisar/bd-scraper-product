@@ -158,9 +158,7 @@ export default function HeaderSearch() {
             })}
             {matches.length > 5 && (
               <a
-                href={`https://brightdata.com/cp/scrapers/browse?category=all&q=${encodeURIComponent(q.trim())}`}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`/products/web-scraper/scraper-lib?q=${encodeURIComponent(q.trim())}`}
                 className="hdr-search-more"
                 onMouseDown={(e) => e.preventDefault()}
               >
@@ -172,9 +170,7 @@ export default function HeaderSearch() {
             <div className="hdr-search-empty">
               <p>No scraper for <b>{dom || q}</b></p>
               <a
-                href="https://brightdata.com/cp/scrapers/automation/chat"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/products/web-scraper/studio"
                 className="hdr-search-empty-link"
                 onMouseDown={(e) => e.preventDefault()}
               >

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { catalog, CATALOG_CATEGORIES, type CatalogScraper } from "@/lib/catalog";
 import { templates, templateHref } from "@/lib/templates";
+import { AMAZON_SCRAPERS } from "@/lib/amazon-scrapers";
 import ScraperCard from "@/components/ScraperCard";
 
 const CATEGORY_LABELS: Record<string, { name: string; href: string }[]> = {
@@ -62,10 +63,12 @@ const CATEGORY_LABELS: Record<string, { name: string; href: string }[]> = {
   ],
 };
 
+const amazonHrefMap = new Map(AMAZON_SCRAPERS.map((a) => [a.id, a.href]));
+
 function scraperHref(s: CatalogScraper): string {
-  if (s.slug === "amazon-product" || s.id === "amazon-products") {
-    return "/products/web-scraper/amazon/amazon-product-scraper";
-  }
+  const amazonHref = amazonHrefMap.get(s.id);
+  if (amazonHref) return amazonHref;
+
   if (s.domain === "amazon.com") {
     return "/products/web-scraper/amazon";
   }
@@ -76,7 +79,7 @@ function scraperHref(s: CatalogScraper): string {
   const byDomain = templates.find((t) => t.domain === s.domain && t.popular)
     || templates.find((t) => t.domain === s.domain);
   if (byDomain) return templateHref(byDomain);
-  return `https://brightdata.com/cp/scrapers/browse?category=all&q=${encodeURIComponent(s.name)}`;
+  return `/products/web-scraper/scraper-lib?q=${encodeURIComponent(s.name)}`;
 }
 
 export default function ScraperLibrary() {
@@ -141,16 +144,14 @@ export default function ScraperLibrary() {
             <div className="lib-section-head">
               <h2>Popular web scrapers</h2>
               <a
-                href="https://brightdata.com/cp/scrapers/browse?category=all"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/products/web-scraper/scraper-lib"
                 className="lib-section-more"
               >
                 View all →
               </a>
             </div>
             <div className="lib-grid">
-              {popular.map((s) => (
+              {popular.slice(0, 9).map((s) => (
                 <ScraperCard
                   key={s.id}
                   name={s.name}
@@ -174,9 +175,7 @@ export default function ScraperLibrary() {
                 <div className="lib-section-head">
                   <h3>{category}</h3>
                   <a
-                    href={`https://brightdata.com/cp/scrapers/browse?category=${encodeURIComponent(category.toLowerCase())}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={`/products/web-scraper/scraper-lib?cat=${encodeURIComponent(category)}`}
                     className="lib-section-more"
                   >
                     View all →
@@ -240,9 +239,7 @@ export default function ScraperLibrary() {
               <p className="lib-empty-sub">
                 Can&apos;t find what you need?{" "}
                 <a
-                  href="https://brightdata.com/cp/scrapers/automation/chat"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/products/web-scraper/studio"
                   className="lib-empty-link"
                 >
                   Build one with Scraper Studio →
@@ -260,9 +257,7 @@ export default function ScraperLibrary() {
           <span>Proxy rotation, CAPTCHA solving, and anti-bot bypass — built in. Pay only for successful results.</span>
         </div>
         <a
-          href="https://brightdata.com/cp/scrapers/browse?category=all"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/products/web-scraper/scraper-lib"
           className="btn btn-primary btn-pill"
         >
           Browse all scrapers →

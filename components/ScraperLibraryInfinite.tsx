@@ -1,0 +1,675 @@
+"use client";
+
+import { useMemo, useState, useRef, useCallback, useEffect } from "react";
+import { catalog, CATALOG_CATEGORIES, type CatalogScraper } from "@/lib/catalog";
+import { templates, templateHref } from "@/lib/templates";
+import ScraperCard from "@/components/ScraperCard";
+
+const POPULAR_LIMIT = 9;
+const CATEGORY_PREVIEW_LIMIT = 6;
+const BATCH_SIZE = 12;
+
+type SortKey = "best-match" | "popular" | "most-used" | "az";
+
+const SORT_OPTIONS: { value: SortKey; label: string; searchOnly?: boolean }[] = [
+  { value: "best-match", label: "Best match", searchOnly: true },
+  { value: "popular", label: "Popular" },
+  { value: "most-used", label: "Most used" },
+  { value: "az", label: "A → Z" },
+];
+
+const CATEGORY_LABELS: Record<string, { name: string; href: string }[]> = {
+  "Social Media": [
+    { name: "Instagram", href: "https://brightdata.com/products/web-scraper/instagram" },
+    { name: "TikTok", href: "https://brightdata.com/products/web-scraper/tiktok" },
+    { name: "LinkedIn", href: "https://brightdata.com/products/web-scraper/linkedin" },
+    { name: "Facebook", href: "https://brightdata.com/products/web-scraper/facebook" },
+    { name: "X (Twitter)", href: "https://brightdata.com/products/web-scraper/x" },
+  ],
+  "E-commerce": [
+    { name: "Amazon", href: "/products/web-scraper/amazon" },
+    { name: "Walmart", href: "https://brightdata.com/products/web-scraper/walmart" },
+    { name: "Shopee", href: "https://brightdata.com/products/web-scraper/shopee" },
+    { name: "eBay", href: "https://brightdata.com/products/web-scraper/ebay" },
+    { name: "Target", href: "https://brightdata.com/products/web-scraper/target" },
+  ],
+  "Business (B2B)": [
+    { name: "LinkedIn", href: "https://brightdata.com/products/web-scraper/linkedin" },
+    { name: "Crunchbase", href: "https://brightdata.com/products/web-scraper/crunchbase" },
+    { name: "Glassdoor", href: "https://brightdata.com/products/web-scraper/glassdoor" },
+  ],
+  "Real Estate": [
+    { name: "Zillow", href: "https://brightdata.com/products/web-scraper/zillow" },
+    { name: "Realtor", href: "https://brightdata.com/products/web-scraper/realtor" },
+    { name: "Redfin", href: "https://brightdata.com/products/web-scraper/redfin" },
+  ],
+  "Jobs": [
+    { name: "Indeed", href: "https://brightdata.com/products/web-scraper/indeed" },
+    { name: "LinkedIn Jobs", href: "https://brightdata.com/products/web-scraper/linkedin" },
+    { name: "Glassdoor", href: "https://brightdata.com/products/web-scraper/glassdoor" },
+  ],
+  "Travel": [
+    { name: "Booking", href: "https://brightdata.com/products/web-scraper/booking" },
+    { name: "Tripadvisor", href: "https://brightdata.com/products/web-scraper/tripadvisor" },
+    { name: "Airbnb", href: "https://brightdata.com/products/web-scraper/airbnb" },
+  ],
+  "Search": [
+    { name: "Google Maps", href: "https://brightdata.com/products/web-scraper/google-maps" },
+    { name: "Google Search", href: "https://brightdata.com/products/web-scraper/google" },
+    { name: "Yelp", href: "https://brightdata.com/products/web-scraper/yelp" },
+  ],
+  "News & Media": [
+    { name: "Reuters", href: "https://brightdata.com/products/web-scraper/reuters" },
+    { name: "Bloomberg", href: "https://brightdata.com/products/web-scraper/bloomberg" },
+    { name: "Reddit", href: "https://brightdata.com/products/web-scraper/reddit" },
+  ],
+  "Finance": [
+    { name: "Yahoo Finance", href: "https://brightdata.com/products/web-scraper/yahoo-finance" },
+    { name: "Bloomberg", href: "https://brightdata.com/products/web-scraper/bloomberg" },
+    { name: "CoinMarketCap", href: "https://brightdata.com/products/web-scraper/coinmarketcap" },
+  ],
+};
+
+const CATEGORY_ICONS: Record<string, string> = {
+  "Social Media": "◎",
+  "E-commerce": "⛁",
+  "Business (B2B)": "⊞",
+  "Jobs": "⬡",
+  "Real Estate": "⌂",
+  "Travel": "✈",
+  "Search": "▲",
+  "News & Media": "◈",
+  "Finance": "∞",
+};
+
+type DomainCardData = {
+  domain: string;
+  label: string;
+  icon: string;
+  logo: string;
+  color: string;
+  desc: string;
+  scraperCount: number;
+  totalDelivered: string;
+  successRate: string;
+  topScrapers: string[];
+  href: string;
+};
+
+function buildTopDomains(): DomainCardData[] {
+  const DOMAIN_META: Record<string, { label: string; icon: string; logo: string; color: string; desc: string; href: string }> = {
+    "amazon.com":      { label: "Amazon",       icon: "A",  logo: "/logos/amazon.png",      color: "#FF9900", desc: "Products, reviews, pricing, sellers, and bestsellers data", href: "/products/web-scraper/amazon" },
+    "linkedin.com":    { label: "LinkedIn",     icon: "in", logo: "/logos/linkedin.png",     color: "#0A66C2", desc: "Profiles, companies, job listings, and post engagement data", href: "https://brightdata.com/products/web-scraper/linkedin" },
+    "instagram.com":   { label: "Instagram",    icon: "◎",  logo: "/logos/instagram.png",    color: "#E4405F", desc: "Profiles, posts, reels, comments, and engagement metrics", href: "https://brightdata.com/products/web-scraper/instagram" },
+    "tiktok.com":      { label: "TikTok",       icon: "♪",  logo: "/logos/tiktok.png",       color: "#00F2EA", desc: "Profiles, videos, shop products, and trending hashtags", href: "https://brightdata.com/products/web-scraper/tiktok" },
+    "google.com/maps": { label: "Google Maps",  icon: "G",  logo: "/logos/google-maps.png",  color: "#34A853", desc: "Business listings, reviews, ratings, hours, and locations", href: "https://brightdata.com/products/web-scraper/google-maps" },
+    "zillow.com":      { label: "Zillow",       icon: "Z",  logo: "/logos/zillow.png",       color: "#006AFF", desc: "Property listings, Zestimates, rentals, and neighborhood data", href: "https://brightdata.com/products/web-scraper/zillow" },
+    "x.com":           { label: "X (Twitter)",  icon: "𝕏",  logo: "/logos/x.png",            color: "#14171A", desc: "Posts, profiles, engagement metrics, and trending topics", href: "https://brightdata.com/products/web-scraper/x" },
+    "facebook.com":    { label: "Facebook",     icon: "f",  logo: "/logos/facebook.png",     color: "#1877F2", desc: "Page posts, ads library, reactions, and audience data", href: "https://brightdata.com/products/web-scraper/facebook" },
+    "youtube.com":     { label: "YouTube",      icon: "▶",  logo: "/logos/youtube.png",      color: "#FF0000", desc: "Videos, channels, comments, subscribers, and view counts", href: "https://brightdata.com/products/web-scraper/youtube" },
+  };
+
+  const domainOrder = Object.keys(DOMAIN_META);
+  return domainOrder.map((domain) => {
+    const meta = DOMAIN_META[domain];
+    const scrapers = catalog.filter((s) => s.domain === domain);
+    const totalViews = scrapers.reduce((sum, s) => sum + parseViews(s.views), 0);
+    const deliveredStr = totalViews >= 1000 ? `${(totalViews / 1000).toFixed(0)}K+` : `${totalViews}+`;
+    const topNames = scrapers
+      .sort((a, b) => parseViews(b.views) - parseViews(a.views))
+      .slice(0, 3)
+      .map((s) => s.name.replace(new RegExp(`^${meta.label}\\s*`, "i"), "").replace(/^scraper$/i, s.name));
+    return {
+      domain,
+      label: meta.label,
+      icon: meta.icon,
+      logo: meta.logo,
+      color: meta.color,
+      desc: meta.desc,
+      scraperCount: scrapers.length,
+      totalDelivered: deliveredStr,
+      successRate: "99.2%",
+      topScrapers: topNames,
+      href: meta.href,
+    };
+  });
+}
+
+const TOP_DOMAINS = buildTopDomains();
+
+function parseViews(v: string): number {
+  const n = parseFloat(v.replace(/[^0-9.]/g, ""));
+  if (v.includes("K")) return n * 1000;
+  if (v.includes("M")) return n * 1_000_000;
+  return n || 0;
+}
+
+/**
+ * Score how relevant a scraper is to the search query.
+ * Higher = more relevant. Returns 0 if no match.
+ */
+function scoreRelevancy(s: CatalogScraper, needle: string): number {
+  const name = s.name.toLowerCase();
+  const domain = s.domain.toLowerCase();
+  const root = domain.split(".")[0];
+  const category = s.category.toLowerCase();
+  const desc = s.desc.toLowerCase();
+  const dom = needle.replace(/^www\./, "").split("/")[0];
+
+  if (domain === needle || domain === dom) return 100;
+  if (root === needle || root === dom) return 95;
+  if (name.startsWith(needle)) return 85;
+  if (domain.startsWith(needle) || domain.startsWith(dom)) return 80;
+  if (name.includes(needle)) return 65;
+  if (domain.includes(needle) || domain.includes(dom)) return 55;
+  if (desc.includes(needle)) return 40;
+  if (category.includes(needle)) return 35;
+  if (s.fields.some((f) => f.toLowerCase().includes(needle))) return 25;
+  return 0;
+}
+
+function sortScrapers(list: CatalogScraper[], sort: SortKey, needle?: string): CatalogScraper[] {
+  const arr = [...list];
+  switch (sort) {
+    case "best-match": {
+      const q = needle || "";
+      return arr.sort((a, b) => {
+        const ra = scoreRelevancy(a, q);
+        const rb = scoreRelevancy(b, q);
+        if (rb !== ra) return rb - ra;
+        return parseViews(b.views) - parseViews(a.views);
+      });
+    }
+    case "popular":
+      return arr.sort((a, b) => (b.popular ? 1 : 0) - (a.popular ? 1 : 0) || parseViews(b.views) - parseViews(a.views));
+    case "most-used":
+      return arr.sort((a, b) => parseViews(b.views) - parseViews(a.views));
+    case "az":
+      return arr.sort((a, b) => a.name.localeCompare(b.name));
+    default:
+      return arr;
+  }
+}
+
+import { AMAZON_SCRAPERS } from "@/lib/amazon-scrapers";
+
+const amazonHrefMap = new Map(AMAZON_SCRAPERS.map((a) => [a.id, a.href]));
+
+function scraperHref(s: CatalogScraper): string {
+  const amazonHref = amazonHrefMap.get(s.id);
+  if (amazonHref) return amazonHref;
+
+  if (s.domain === "amazon.com") {
+    return "/products/web-scraper/amazon";
+  }
+  if (s.slug) {
+    const t = templates.find((tpl) => tpl.slug === s.slug);
+    if (t) return templateHref(t);
+  }
+  const byDomain = templates.find((t) => t.domain === s.domain && t.popular)
+    || templates.find((t) => t.domain === s.domain);
+  if (byDomain) return templateHref(byDomain);
+  return `/products/web-scraper/scraper-lib?q=${encodeURIComponent(s.name)}`;
+}
+
+function readUrlParams() {
+  if (typeof window === "undefined") return { cat: "All", sort: "popular" as SortKey, q: "" };
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get("cat") || "All";
+  const sort = (params.get("sort") as SortKey) || "popular";
+  const q = params.get("q") || "";
+  return { cat, sort, q };
+}
+
+function writeUrlParams(cat: string, sort: SortKey, q: string) {
+  if (typeof window === "undefined") return;
+  const params = new URLSearchParams();
+  if (cat !== "All") params.set("cat", cat);
+  if (sort !== "popular") params.set("sort", sort);
+  if (q) params.set("q", q);
+  const qs = params.toString();
+  const url = window.location.pathname + (qs ? `?${qs}` : "");
+  window.history.replaceState(null, "", url);
+}
+
+export default function ScraperLibraryInfinite() {
+  const [cat, setCat] = useState<string>("All");
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState<SortKey>("popular");
+  const [visibleCount, setVisibleCount] = useState(BATCH_SIZE);
+  const [sortOpen, setSortOpen] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const sortRef = useRef<HTMLDivElement>(null);
+  const initializedRef = useRef(false);
+
+  // Hydrate from URL params on mount
+  useEffect(() => {
+    if (initializedRef.current) return;
+    initializedRef.current = true;
+    const { cat: urlCat, sort: urlSort, q: urlQ } = readUrlParams();
+    if (CATALOG_CATEGORIES.includes(urlCat as typeof CATALOG_CATEGORIES[number])) setCat(urlCat);
+    if (SORT_OPTIONS.some((o) => o.value === urlSort)) setSort(urlSort);
+    if (urlQ) {
+      setSearch(urlQ);
+      if (!urlSort || urlSort === "popular") setSort("best-match");
+    }
+  }, []);
+
+  // Sync state to URL
+  useEffect(() => {
+    if (!initializedRef.current) return;
+    writeUrlParams(cat, sort, search.trim());
+  }, [cat, sort, search]);
+
+  // Auto-switch sort when search changes
+  const prevSearchRef = useRef("");
+  useEffect(() => {
+    if (!initializedRef.current) return;
+    const trimmed = search.trim();
+    const prev = prevSearchRef.current;
+    prevSearchRef.current = trimmed;
+    if (trimmed && !prev) {
+      setSort("best-match");
+    } else if (!trimmed && prev) {
+      setSort("popular");
+    }
+  }, [search]);
+
+  const needle = search.trim().toLowerCase();
+  const isSearching = needle.length > 0;
+  const isCurated = cat === "All" && !isSearching;
+
+  const filtered = useMemo(() => {
+    let list = [...catalog];
+    if (cat !== "All") list = list.filter((s) => s.category === cat);
+    if (needle) {
+      list = list.filter((s) => scoreRelevancy(s, needle) > 0);
+    }
+    return sortScrapers(list, sort, needle);
+  }, [cat, needle, sort]);
+
+  const popular = useMemo(
+    () => sortScrapers(catalog.filter((s) => s.popular), "most-used").slice(0, POPULAR_LIMIT),
+    []
+  );
+
+  const categorySections = useMemo(() => {
+    if (!isCurated) return [];
+    const popularIds = new Set(popular.map((s) => s.id));
+    return CATALOG_CATEGORIES
+      .filter((c) => c !== "All")
+      .map((category) => {
+        const all = catalog.filter((s) => s.category === category);
+        const preview = sortScrapers(
+          all.filter((s) => !popularIds.has(s.id)),
+          "most-used"
+        ).slice(0, CATEGORY_PREVIEW_LIMIT);
+        return { category, all, preview, labels: CATEGORY_LABELS[category] || [] };
+      })
+      .filter((sec) => sec.preview.length > 0);
+  }, [isCurated, popular]);
+
+  useEffect(() => {
+    setVisibleCount(BATCH_SIZE);
+  }, [cat, needle, sort]);
+
+  const loadMore = useCallback(() => {
+    setVisibleCount((prev) => Math.min(prev + BATCH_SIZE, filtered.length));
+  }, [filtered.length]);
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(
+      (entries) => { if (entries[0].isIntersecting) loadMore(); },
+      { rootMargin: "200px" }
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [loadMore]);
+
+  // Close sort dropdown on outside click
+  useEffect(() => {
+    if (!sortOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (!sortRef.current?.contains(e.target as Node)) setSortOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [sortOpen]);
+
+  const handleCatChange = (c: string) => {
+    setCat(c);
+    setSearch("");
+    setSort("popular");
+  };
+
+  const visible = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
+  const activeLabels = CATEGORY_LABELS[cat] || [];
+
+  const renderCard = (s: CatalogScraper, idx: number, animate = true) => (
+    <div
+      key={s.id}
+      className={animate ? "slib-card-appear" : undefined}
+      style={animate ? { animationDelay: `${Math.min(idx % BATCH_SIZE, 8) * 40}ms` } : undefined}
+    >
+      <ScraperCard
+        name={s.name}
+        domain={s.domain}
+        category={s.category}
+        desc={s.desc}
+        views={s.views}
+        downloads={s.downloads}
+        href={scraperHref(s)}
+      />
+    </div>
+  );
+
+  return (
+    <div className="slib-infinite">
+      {/* Sticky filter bar */}
+      <div className="slib-filter-bar">
+        <div className="lib-chips-wrap">
+          <div className="lib-chips">
+            {CATALOG_CATEGORIES.map((c) => (
+              <button
+                key={c}
+                type="button"
+                className={`lib-chip ${cat === c ? "active" : ""}`}
+                onClick={() => handleCatChange(c)}
+              >
+                {c}
+                {c !== "All" && (
+                  <span className="lib-chip-n">
+                    {catalog.filter((s) => s.category === c).length}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="slib-controls">
+          <div className="slib-search-wrap">
+            <input
+              className="lib-search"
+              placeholder="Find scrapers for Amazon, Instagram, TikTok..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              aria-label="Filter scrapers"
+            />
+            {search && (
+              <button
+                type="button"
+                className="slib-search-clear"
+                onClick={() => setSearch("")}
+                aria-label="Clear search"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+
+          {/* Sort dropdown */}
+          <div className="slib-sort" ref={sortRef}>
+            <button
+              type="button"
+              className="slib-sort-btn"
+              onClick={() => setSortOpen((o) => !o)}
+              aria-expanded={sortOpen}
+              aria-haspopup="listbox"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                <path d="M3 6h18M3 12h12M3 18h6" />
+              </svg>
+              {SORT_OPTIONS.find((o) => o.value === sort)?.label}
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" aria-hidden="true" className={`slib-sort-chevron${sortOpen ? " open" : ""}`}>
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+            {sortOpen && (
+              <div className="slib-sort-menu" role="listbox">
+                {SORT_OPTIONS.filter((o) => !o.searchOnly || isSearching).map((o) => (
+                  <button
+                    key={o.value}
+                    type="button"
+                    role="option"
+                    aria-selected={sort === o.value}
+                    className={`slib-sort-option${sort === o.value ? " active" : ""}`}
+                    onClick={() => { setSort(o.value); setSortOpen(false); }}
+                  >
+                    {o.label}
+                    {sort === o.value && (
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+                        <path d="M20 6 9 17l-5-5" />
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Active category labels */}
+      {activeLabels.length > 0 && !isSearching && (
+        <div className="slib-active-labels">
+          {activeLabels.map((l) => (
+            <a
+              key={l.name}
+              href={l.href}
+              {...(l.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className="lib-section-label"
+            >
+              {l.name}
+            </a>
+          ))}
+        </div>
+      )}
+
+      {/* Results count — shown in filtered/search modes */}
+      {!isCurated && (
+        <div className="slib-results-meta">
+          <span className="slib-results-count">
+            {filtered.length} scraper{filtered.length !== 1 ? "s" : ""}
+            {cat !== "All" && ` in ${cat}`}
+            {isSearching && ` matching \u201c${search.trim()}\u201d`}
+          </span>
+        </div>
+      )}
+
+      {/* ─── CURATED "ALL" VIEW ─────────────────────────────────── */}
+      {isCurated ? (
+        <div className="slib-curated">
+          {/* Top domain cards */}
+          <div className="slib-quicknav">
+            {TOP_DOMAINS.map((d) => {
+              const external = d.href.startsWith("http");
+              const Tag = external ? "a" : "a";
+              return (
+                <Tag
+                  key={d.domain}
+                  href={d.href}
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="cc"
+                >
+                  <div className="cc-glow" aria-hidden="true" />
+                  <div className="cc-header">
+                    <div className="cc-icon" style={{ background: `linear-gradient(135deg, ${d.color}22, ${d.color}0a)`, borderColor: `${d.color}33` }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={d.logo}
+                        alt={d.label}
+                        className={`cc-icon-logo${d.domain === "x.com" ? " cc-logo-invert" : ""}`}
+                        width={24}
+                        height={24}
+                        onError={(e) => {
+                          const t = e.currentTarget;
+                          t.style.display = "none";
+                          const fallback = t.nextElementSibling as HTMLElement;
+                          if (fallback) fallback.style.display = "";
+                        }}
+                      />
+                      <span className="cc-icon-letter" style={{ color: d.color, display: "none" }}>{d.icon}</span>
+                    </div>
+                    <div className="cc-identity">
+                      <span className="cc-name">{d.label}</span>
+                      <span className="cc-count">{d.domain}</span>
+                    </div>
+                    <span className="fc-cat">{d.scraperCount} scrapers</span>
+                  </div>
+                  <p className="cc-desc">{d.desc}</p>
+                  <div className="cc-domains">
+                    {d.topScrapers.map((n) => (
+                      <span key={n} className="cc-domain-pill">{n}</span>
+                    ))}
+                  </div>
+                  <div className="cc-metrics">
+                    <div className="fc-metric">
+                      <span className="fc-metric-val">{d.totalDelivered}</span>
+                      <span className="fc-metric-label">Delivered</span>
+                    </div>
+                    <div className="fc-metric-divider" />
+                    <div className="fc-metric">
+                      <span className="fc-metric-val">{d.scraperCount}</span>
+                      <span className="fc-metric-label">Scrapers</span>
+                    </div>
+                    <div className="fc-metric-divider" />
+                    <div className="fc-metric">
+                      <span className="fc-metric-val fc-metric-success">{d.successRate}</span>
+                      <span className="fc-metric-label">Success</span>
+                    </div>
+                  </div>
+                  <div className="cc-foot">
+                    <div className="fc-signals">
+                      <span className="fc-signal fc-signal-mcp">⚡ MCP</span>
+                      <span className="fc-signal fc-signal-live">
+                        <span className="fc-pulse" aria-hidden="true" />
+                        Verified 3h ago
+                      </span>
+                    </div>
+                    <span className="cc-cta">Browse scrapers →</span>
+                  </div>
+                </Tag>
+              );
+            })}
+          </div>
+
+          {/* Popular scrapers */}
+          <div className="slib-curated-section">
+            <div className="slib-curated-head">
+              <div>
+                <h2>Popular scrapers</h2>
+                <p>The most-used scrapers across all categories</p>
+              </div>
+              <button
+                type="button"
+                className="slib-viewall"
+                onClick={() => { setCat("All"); setSearch(""); setSort("most-used"); }}
+              >
+                View all 1,300+ →
+              </button>
+            </div>
+            <div className="lib-grid slib-grid-animated">
+              {popular.map((s, i) => renderCard(s, i))}
+            </div>
+          </div>
+
+          {/* Category sections */}
+          {categorySections.map((sec) => (
+            <div key={sec.category} className="slib-curated-section">
+              <div className="slib-curated-head">
+                <div>
+                  <h3>
+                    <span className="slib-curated-caticon">{CATEGORY_ICONS[sec.category] || "◈"}</span>
+                    {sec.category}
+                  </h3>
+                  {sec.labels.length > 0 && (
+                    <div className="slib-curated-labels">
+                      {sec.labels.map((l) => (
+                        <a
+                          key={l.name}
+                          href={l.href}
+                          {...(l.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                          className="lib-section-label"
+                        >
+                          {l.name}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  className="slib-viewall"
+                  onClick={() => handleCatChange(sec.category)}
+                >
+                  All {sec.all.length} scrapers →
+                </button>
+              </div>
+              <div className="lib-grid">
+                {sec.preview.map((s, i) => renderCard(s, i, false))}
+              </div>
+            </div>
+          ))}
+
+          {/* Bottom CTA */}
+          <div className="slib-bottom-cta">
+            <div className="slib-bottom-cta-body">
+              <strong>Can&rsquo;t find what you need?</strong>
+              <p>Build a custom scraper for any website in minutes with AI — no code required.</p>
+            </div>
+            <a
+              href="/products/web-scraper/studio"
+              className="btn btn-primary btn-pill"
+            >
+              Open Scraper Studio →
+            </a>
+          </div>
+        </div>
+      ) : (
+        /* ─── FILTERED / SEARCH VIEW (infinite scroll) ────────── */
+        <>
+          {visible.length > 0 ? (
+            <>
+              <div className="lib-grid slib-grid-animated">
+                {visible.map((s, idx) => renderCard(s, idx))}
+              </div>
+
+              {hasMore && (
+                <div ref={sentinelRef} className="slib-sentinel">
+                  <div className="slib-loading">
+                    <span className="slib-loading-dot" />
+                    <span className="slib-loading-dot" />
+                    <span className="slib-loading-dot" />
+                  </div>
+                </div>
+              )}
+
+              {!hasMore && filtered.length > BATCH_SIZE && (
+                <div className="slib-end-message">
+                  <p>You&rsquo;ve seen all {filtered.length} scrapers{cat !== "All" ? ` in ${cat}` : ""}.</p>
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="lib-empty">
+              <p>No scraper found for &ldquo;{search || cat}&rdquo;</p>
+              <p className="lib-empty-sub">
+                Can&apos;t find what you need?{" "}
+                <a
+                  href="/products/web-scraper/studio"
+                  className="lib-empty-link"
+                >
+                  Build one with Scraper Studio →
+                </a>
+              </p>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}

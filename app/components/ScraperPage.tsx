@@ -690,10 +690,8 @@ function RelatedScrapersCarousel() {
             Related scrapers from the Bright Data library
             <span className="mx-1.5 hidden text-bd-muted/40 sm:inline">·</span>
             <a
-              href="https://brightdata.com/cp/scrapers/browse"
+              href="/products/web-scraper/scraper-lib"
               className="mt-1 inline-block font-semibold text-bd-blue hover:underline sm:mt-0 sm:inline"
-              target="_blank"
-              rel="noreferrer"
             >
               Browse all scrapers →
             </a>
@@ -2238,7 +2236,7 @@ for p in products:
                       </ul>
                       <p className="mt-3">
                         Browse all 1,000+ scrapers in the{" "}
-                        <a href="https://brightdata.com/cp/scrapers/browse" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">
+                        <a href="/products/web-scraper/scraper-lib" className="font-semibold text-bd-blue hover:underline">
                           Scraper Library
                         </a>.
                       </p>
