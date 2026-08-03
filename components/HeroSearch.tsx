@@ -8,17 +8,12 @@ const SEARCH_RESULTS_PATH = "/products/web-scraper/scraper-lib";
 
 const POPULAR_SITES = [
   { label: "Amazon", domain: "amazon.com", color: "#FF9900", href: "/products/web-scraper/amazon" },
-  { label: "LinkedIn", domain: "linkedin.com", color: "#0A66C2", slug: "linkedin-profile" },
-  { label: "Instagram", domain: "instagram.com", color: "#E4405F", slug: "instagram-profile" },
-  { label: "Google Maps", domain: "google.com", color: "#34A853", slug: "google-maps" },
-  { label: "Zillow", domain: "zillow.com", color: "#006AFF", slug: "zillow-listings" },
-  { label: "TikTok", domain: "tiktok.com", color: "#ff0050", slug: "tiktok-posts" },
-  {
-    label: "YouTube",
-    domain: "youtube.com",
-    color: "#FF0000",
-    href: "/products/web-scraper/scraper-lib?q=youtube",
-  },
+  { label: "LinkedIn", domain: "linkedin.com", color: "#0A66C2", href: "/products/web-scraper/linkedin" },
+  { label: "Instagram", domain: "instagram.com", color: "#E4405F", href: "/products/web-scraper/instagram" },
+  { label: "Google Maps", domain: "google.com", color: "#34A853", href: "/products/web-scraper/google-maps" },
+  { label: "Zillow", domain: "zillow.com", color: "#006AFF", href: "/products/web-scraper/zillow" },
+  { label: "TikTok", domain: "tiktok.com", color: "#ff0050", href: "/products/web-scraper/tiktok" },
+  { label: "YouTube", domain: "youtube.com", color: "#FF0000", href: "/products/web-scraper/youtube" },
   {
     label: "Walmart",
     domain: "walmart.com",

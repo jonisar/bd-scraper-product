@@ -20,11 +20,11 @@ const SORT_OPTIONS: { value: SortKey; label: string; searchOnly?: boolean }[] = 
 
 const CATEGORY_LABELS: Record<string, { name: string; href: string }[]> = {
   "Social Media": [
-    { name: "Instagram", href: "https://brightdata.com/products/web-scraper/instagram" },
-    { name: "TikTok", href: "https://brightdata.com/products/web-scraper/tiktok" },
-    { name: "LinkedIn", href: "https://brightdata.com/products/web-scraper/linkedin" },
-    { name: "Facebook", href: "https://brightdata.com/products/web-scraper/facebook" },
-    { name: "X (Twitter)", href: "https://brightdata.com/products/web-scraper/x" },
+    { name: "Instagram", href: "/products/web-scraper/instagram" },
+    { name: "TikTok", href: "/products/web-scraper/tiktok" },
+    { name: "LinkedIn", href: "/products/web-scraper/linkedin" },
+    { name: "Facebook", href: "/products/web-scraper/facebook" },
+    { name: "X (Twitter)", href: "/products/web-scraper/x" },
   ],
   "E-commerce": [
     { name: "Amazon", href: "/products/web-scraper/amazon" },
@@ -34,18 +34,18 @@ const CATEGORY_LABELS: Record<string, { name: string; href: string }[]> = {
     { name: "Target", href: "https://brightdata.com/products/web-scraper/target" },
   ],
   "Business (B2B)": [
-    { name: "LinkedIn", href: "https://brightdata.com/products/web-scraper/linkedin" },
+    { name: "LinkedIn", href: "/products/web-scraper/linkedin" },
     { name: "Crunchbase", href: "https://brightdata.com/products/web-scraper/crunchbase" },
     { name: "Glassdoor", href: "https://brightdata.com/products/web-scraper/glassdoor" },
   ],
   "Real Estate": [
-    { name: "Zillow", href: "https://brightdata.com/products/web-scraper/zillow" },
+    { name: "Zillow", href: "/products/web-scraper/zillow" },
     { name: "Realtor", href: "https://brightdata.com/products/web-scraper/realtor" },
     { name: "Redfin", href: "https://brightdata.com/products/web-scraper/redfin" },
   ],
   "Jobs": [
     { name: "Indeed", href: "https://brightdata.com/products/web-scraper/indeed" },
-    { name: "LinkedIn Jobs", href: "https://brightdata.com/products/web-scraper/linkedin" },
+    { name: "LinkedIn Jobs", href: "/products/web-scraper/linkedin" },
     { name: "Glassdoor", href: "https://brightdata.com/products/web-scraper/glassdoor" },
   ],
   "Travel": [
@@ -54,7 +54,7 @@ const CATEGORY_LABELS: Record<string, { name: string; href: string }[]> = {
     { name: "Airbnb", href: "https://brightdata.com/products/web-scraper/airbnb" },
   ],
   "Search": [
-    { name: "Google Maps", href: "https://brightdata.com/products/web-scraper/google-maps" },
+    { name: "Google Maps", href: "/products/web-scraper/google-maps" },
     { name: "Google Search", href: "https://brightdata.com/products/web-scraper/google" },
     { name: "Yelp", href: "https://brightdata.com/products/web-scraper/yelp" },
   ],
@@ -98,14 +98,14 @@ type DomainCardData = {
 function buildTopDomains(): DomainCardData[] {
   const DOMAIN_META: Record<string, { label: string; icon: string; logo: string; color: string; desc: string; href: string }> = {
     "amazon.com":      { label: "Amazon",       icon: "A",  logo: "/logos/amazon.png",      color: "#FF9900", desc: "Products, reviews, pricing, sellers, and bestsellers data", href: "/products/web-scraper/amazon" },
-    "linkedin.com":    { label: "LinkedIn",     icon: "in", logo: "/logos/linkedin.png",     color: "#0A66C2", desc: "Profiles, companies, job listings, and post engagement data", href: "https://brightdata.com/products/web-scraper/linkedin" },
-    "instagram.com":   { label: "Instagram",    icon: "◎",  logo: "/logos/instagram.png",    color: "#E4405F", desc: "Profiles, posts, reels, comments, and engagement metrics", href: "https://brightdata.com/products/web-scraper/instagram" },
-    "tiktok.com":      { label: "TikTok",       icon: "♪",  logo: "/logos/tiktok.png",       color: "#00F2EA", desc: "Profiles, videos, shop products, and trending hashtags", href: "https://brightdata.com/products/web-scraper/tiktok" },
-    "google.com/maps": { label: "Google Maps",  icon: "G",  logo: "/logos/google-maps.png",  color: "#34A853", desc: "Business listings, reviews, ratings, hours, and locations", href: "https://brightdata.com/products/web-scraper/google-maps" },
-    "zillow.com":      { label: "Zillow",       icon: "Z",  logo: "/logos/zillow.png",       color: "#006AFF", desc: "Property listings, Zestimates, rentals, and neighborhood data", href: "https://brightdata.com/products/web-scraper/zillow" },
-    "x.com":           { label: "X (Twitter)",  icon: "𝕏",  logo: "/logos/x.png",            color: "#14171A", desc: "Posts, profiles, engagement metrics, and trending topics", href: "https://brightdata.com/products/web-scraper/x" },
-    "facebook.com":    { label: "Facebook",     icon: "f",  logo: "/logos/facebook.png",     color: "#1877F2", desc: "Page posts, ads library, reactions, and audience data", href: "https://brightdata.com/products/web-scraper/facebook" },
-    "youtube.com":     { label: "YouTube",      icon: "▶",  logo: "/logos/youtube.png",      color: "#FF0000", desc: "Videos, channels, comments, subscribers, and view counts", href: "https://brightdata.com/products/web-scraper/youtube" },
+    "linkedin.com":    { label: "LinkedIn",     icon: "in", logo: "/logos/linkedin.png",     color: "#0A66C2", desc: "Profiles, companies, job listings, and post engagement data", href: "/products/web-scraper/linkedin" },
+    "instagram.com":   { label: "Instagram",    icon: "◎",  logo: "/logos/instagram.png",    color: "#E4405F", desc: "Profiles, posts, reels, comments, and engagement metrics", href: "/products/web-scraper/instagram" },
+    "tiktok.com":      { label: "TikTok",       icon: "♪",  logo: "/logos/tiktok.png",       color: "#00F2EA", desc: "Profiles, videos, shop products, and trending hashtags", href: "/products/web-scraper/tiktok" },
+    "google.com/maps": { label: "Google Maps",  icon: "G",  logo: "/logos/google-maps.png",  color: "#34A853", desc: "Business listings, reviews, ratings, hours, and locations", href: "/products/web-scraper/google-maps" },
+    "zillow.com":      { label: "Zillow",       icon: "Z",  logo: "/logos/zillow.png",       color: "#006AFF", desc: "Property listings, Zestimates, rentals, and neighborhood data", href: "/products/web-scraper/zillow" },
+    "x.com":           { label: "X (Twitter)",  icon: "𝕏",  logo: "/logos/x.png",            color: "#14171A", desc: "Posts, profiles, engagement metrics, and trending topics", href: "/products/web-scraper/x" },
+    "facebook.com":    { label: "Facebook",     icon: "f",  logo: "/logos/facebook.png",     color: "#1877F2", desc: "Page posts, ads library, reactions, and audience data", href: "/products/web-scraper/facebook" },
+    "youtube.com":     { label: "YouTube",      icon: "▶",  logo: "/logos/youtube.png",      color: "#FF0000", desc: "Videos, channels, comments, subscribers, and view counts", href: "/products/web-scraper/youtube" },
   };
 
   const domainOrder = Object.keys(DOMAIN_META);
@@ -130,6 +130,28 @@ function buildTopDomains(): DomainCardData[] {
 }
 
 const TOP_DOMAINS = buildTopDomains();
+
+function DomainLogo({ domain, logo, label, icon, color }: { domain: string; logo: string; label: string; icon: string; color: string }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <div className="cc-icon" style={{ background: `linear-gradient(135deg, ${color}22, ${color}0a)`, borderColor: `${color}33` }}>
+      {!failed ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={logo}
+          alt={label}
+          className={`cc-icon-logo${domain === "x.com" ? " cc-logo-invert" : ""}`}
+          width={24}
+          height={24}
+          loading="eager"
+          onError={() => setFailed(true)}
+        />
+      ) : (
+        <span className="cc-icon-letter" style={{ color }}>{icon}</span>
+      )}
+    </div>
+  );
+}
 
 function parseViews(v: string): number {
   const n = parseFloat(v.replace(/[^0-9.]/g, ""));
@@ -554,23 +576,7 @@ export default function ScraperLibraryInfinite() {
                 >
                   <div className="cc-glow" aria-hidden="true" />
                   <div className="cc-header">
-                    <div className="cc-icon" style={{ background: `linear-gradient(135deg, ${d.color}22, ${d.color}0a)`, borderColor: `${d.color}33` }}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={d.logo}
-                        alt={d.label}
-                        className={`cc-icon-logo${d.domain === "x.com" ? " cc-logo-invert" : ""}`}
-                        width={24}
-                        height={24}
-                        onError={(e) => {
-                          const t = e.currentTarget;
-                          t.style.display = "none";
-                          const fallback = t.nextElementSibling as HTMLElement;
-                          if (fallback) fallback.style.display = "";
-                        }}
-                      />
-                      <span className="cc-icon-letter" style={{ color: d.color, display: "none" }}>{d.icon}</span>
-                    </div>
+                    <DomainLogo domain={d.domain} logo={d.logo} label={d.label} icon={d.icon} color={d.color} />
                     <div className="cc-identity">
                       <span className="cc-name">{d.label}</span>
                       <span className="cc-count">{d.domain}</span>

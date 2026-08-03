@@ -8,11 +8,11 @@ import ScraperCard from "@/components/ScraperCard";
 
 const CATEGORY_LABELS: Record<string, { name: string; href: string }[]> = {
   "Social Media": [
-    { name: "Instagram", href: "https://brightdata.com/products/web-scraper/instagram" },
-    { name: "TikTok", href: "https://brightdata.com/products/web-scraper/tiktok" },
-    { name: "LinkedIn", href: "https://brightdata.com/products/web-scraper/linkedin" },
-    { name: "Facebook", href: "https://brightdata.com/products/web-scraper/facebook" },
-    { name: "X (Twitter)", href: "https://brightdata.com/products/web-scraper/x" },
+    { name: "Instagram", href: "/products/web-scraper/instagram" },
+    { name: "TikTok", href: "/products/web-scraper/tiktok" },
+    { name: "LinkedIn", href: "/products/web-scraper/linkedin" },
+    { name: "Facebook", href: "/products/web-scraper/facebook" },
+    { name: "X (Twitter)", href: "/products/web-scraper/x" },
   ],
   "E-commerce": [
     { name: "Amazon", href: "/products/web-scraper/amazon" },
@@ -22,18 +22,18 @@ const CATEGORY_LABELS: Record<string, { name: string; href: string }[]> = {
     { name: "Target", href: "https://brightdata.com/products/web-scraper/target" },
   ],
   "Business (B2B)": [
-    { name: "LinkedIn", href: "https://brightdata.com/products/web-scraper/linkedin" },
+    { name: "LinkedIn", href: "/products/web-scraper/linkedin" },
     { name: "Crunchbase", href: "https://brightdata.com/products/web-scraper/crunchbase" },
     { name: "Glassdoor", href: "https://brightdata.com/products/web-scraper/glassdoor" },
     { name: "ZoomInfo", href: "https://brightdata.com/products/web-scraper/zoominfo" },
   ],
   "Jobs": [
     { name: "Indeed", href: "https://brightdata.com/products/web-scraper/indeed" },
-    { name: "LinkedIn Jobs", href: "https://brightdata.com/products/web-scraper/linkedin" },
+    { name: "LinkedIn Jobs", href: "/products/web-scraper/linkedin" },
     { name: "Glassdoor", href: "https://brightdata.com/products/web-scraper/glassdoor" },
   ],
   "Real Estate": [
-    { name: "Zillow", href: "https://brightdata.com/products/web-scraper/zillow" },
+    { name: "Zillow", href: "/products/web-scraper/zillow" },
     { name: "Realtor", href: "https://brightdata.com/products/web-scraper/realtor" },
     { name: "Redfin", href: "https://brightdata.com/products/web-scraper/redfin" },
     { name: "Airbnb", href: "https://brightdata.com/products/web-scraper/airbnb" },
@@ -45,7 +45,7 @@ const CATEGORY_LABELS: Record<string, { name: string; href: string }[]> = {
     { name: "Expedia", href: "https://brightdata.com/products/web-scraper/expedia" },
   ],
   "Search": [
-    { name: "Google Maps", href: "https://brightdata.com/products/web-scraper/google-maps" },
+    { name: "Google Maps", href: "/products/web-scraper/google-maps" },
     { name: "Google Search", href: "https://brightdata.com/products/web-scraper/google" },
     { name: "Yelp", href: "https://brightdata.com/products/web-scraper/yelp" },
     { name: "Yellow Pages", href: "https://brightdata.com/products/web-scraper/yellow-pages" },
