@@ -1004,7 +1004,7 @@ function PricingTab() {
       {/* Plan cards */}
       <div className="grid gap-3 sm:grid-cols-3">
         {[
-          { plan: "Free", price: "$0", detail: "5K records/month", features: ["5,000 records/month", "No credit card required", "All output formats", "Expert support"], cta: "Start free", ctaHref: "https://brightdata.com/cp/start", primary: true },
+          { plan: "Free", price: "$0", detail: "No credit card required", features: ["5,000 records/month", "All output formats", "Standard throughput", "Expert support"], cta: "Start free", ctaHref: "https://brightdata.com/cp/start", primary: true },
           { plan: "Pay As You Go", price: "$1.00–1.50", detail: "Per 1K records — less at higher volume", features: ["Unlimited records", "Pay only for success", "Set monthly spend limits", "Unlimited concurrency", "Expert support"], cta: "Get started", ctaHref: "https://brightdata.com/cp/start", primary: true },
           { plan: "Enterprise", price: "Custom", detail: "Volume discounts", features: ["Dedicated account manager", "Premium SLA", "Priority support", "SSO", "Custom integrations"], cta: "Talk to sales", ctaHref: "https://brightdata.com/contact", primary: false },
         ].map((p) => (
