@@ -921,31 +921,19 @@ function PricingTab() {
 
   return (
     <div className="space-y-8">
-      {/* Hero messaging */}
+      {/* Hero */}
       <div>
         <h2 className="text-xl font-bold text-bd-navy">Simple, transparent pricing</h2>
         <p className="mt-2 text-[15px] leading-7 text-bd-ink">
           Pay only for successfully delivered records. No setup fees, no hidden costs, no
           surprises. Start free, scale predictably.
         </p>
-        <div className="mt-4 flex flex-wrap gap-3">
-          {[
-            { icon: "🎁", text: "5K records/mo free" },
-            { icon: "✓", text: "Pay only for success" },
-            { icon: "📉", text: "From $1.00/1K at volume" },
-            { icon: "🔒", text: "No lock-in, cancel anytime" },
-          ].map((b) => (
-            <span key={b.text} className="inline-flex items-center gap-1.5 rounded-full border border-bd-line bg-bd-canvas px-3 py-1.5 text-xs font-medium text-bd-ink">
-              <span>{b.icon}</span> {b.text}
-            </span>
-          ))}
-        </div>
       </div>
 
       {/* Interactive pricing calculator */}
       <section className="rounded-xl border border-bd-line bg-bd-canvas p-5 sm:p-6">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold uppercase tracking-wider text-bd-muted">
               Estimate your cost
             </p>
@@ -953,7 +941,6 @@ function PricingTab() {
               Records per month: <span className="text-lg font-extrabold text-bd-navy">{tier.label}</span>
             </p>
 
-            {/* Slider */}
             <input
               type="range"
               min={0}
@@ -969,7 +956,6 @@ function PricingTab() {
             </div>
           </div>
 
-          {/* Price display */}
           <div className="shrink-0 rounded-xl border border-bd-line bg-bd-panel px-6 py-5 text-center sm:min-w-[200px]">
             {tier.records === 5_000 ? (
               <>
@@ -1002,7 +988,51 @@ function PricingTab() {
             </a>
           </div>
         </div>
+
+        {/* Key points inside the card */}
+        <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-bd-line pt-4 text-xs text-bd-muted">
+          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> Pay only for success</span>
+          <span className="hidden sm:inline text-bd-line">·</span>
+          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> 5K records/mo free</span>
+          <span className="hidden sm:inline text-bd-line">·</span>
+          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> From $1.00/1K at scale</span>
+          <span className="hidden sm:inline text-bd-line">·</span>
+          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> Cancel anytime</span>
+        </div>
       </section>
+
+      {/* Plan cards */}
+      <div className="grid gap-3 sm:grid-cols-3">
+        {[
+          { plan: "Free", price: "$0", detail: "5K records/month", features: ["5,000 records/month", "No credit card required", "All output formats", "Expert support"], cta: "Start free", ctaHref: "https://brightdata.com/cp/start", primary: true },
+          { plan: "Pay As You Go", price: "$1.50", detail: "Per 1K records", features: ["Unlimited records", "Pay only for success", "Set monthly spend limits", "Unlimited concurrency", "Expert support"], cta: "Get started", ctaHref: "https://brightdata.com/cp/start", primary: true },
+          { plan: "Enterprise", price: "Custom", detail: "Volume discounts", features: ["Dedicated account manager", "Premium SLA", "Priority support", "SSO", "Custom integrations"], cta: "Talk to sales", ctaHref: "https://brightdata.com/contact", primary: false },
+        ].map((p) => (
+          <div key={p.plan} className="flex flex-col rounded-xl border border-bd-line bg-bd-panel p-5">
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-bd-muted">{p.plan}</p>
+            <p className="mt-1.5 text-2xl font-extrabold text-bd-navy">{p.price}</p>
+            <p className="mt-0.5 text-xs text-bd-muted">{p.detail}</p>
+            <ul className="mt-4 flex-1 space-y-2">
+              {p.features.map((f) => (
+                <li key={f} className="flex items-center gap-2 text-sm text-bd-ink">
+                  <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
+                    <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                  </span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a
+              href={p.ctaHref}
+              className={`mt-5 block rounded-lg px-4 py-2.5 text-center text-sm font-bold transition ${p.primary ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/30 hover:brightness-110" : "border border-bd-line bg-bd-canvas text-bd-ink hover:border-bd-blue-light hover:bg-bd-blue-soft"}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {p.cta}
+            </a>
+          </div>
+        ))}
+      </div>
 
       {/* What's included grid */}
       <section>
@@ -1026,27 +1056,6 @@ function PricingTab() {
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Enterprise CTA */}
-      <section className="rounded-xl border border-bd-line bg-gradient-to-r from-bd-blue-soft to-bd-panel p-5 sm:p-6">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-bd-blue">Enterprise</p>
-            <p className="mt-1 text-lg font-bold text-bd-navy">Need higher volume or custom SLA?</p>
-            <p className="mt-1 text-sm text-bd-ink/70">
-              Dedicated account manager, priority support, SSO, volume discounts beyond published rates.
-            </p>
-          </div>
-          <a
-            href="https://brightdata.com/contact"
-            className="shrink-0 rounded-lg border border-bd-line bg-bd-canvas px-5 py-2.5 text-center text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Talk to sales
-          </a>
         </div>
       </section>
 
