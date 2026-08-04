@@ -15,7 +15,6 @@ type SortKey = "best-match" | "popular" | "most-used" | "az";
 const SORT_OPTIONS: { value: SortKey; label: string; searchOnly?: boolean }[] = [
   { value: "best-match", label: "Best match", searchOnly: true },
   { value: "popular", label: "Popular" },
-  { value: "most-used", label: "Most used" },
   { value: "az", label: "A → Z" },
 ];
 
