@@ -2379,34 +2379,24 @@ export default function ScraperPage() {
 
                     <section id="info-available-scrapers">
                       <h2 className="text-xl font-bold text-bd-navy">
-                        Amazon Scraper Family
+                        Popular Amazon Scrapers
                       </h2>
-                      <p className="mt-2">
-                        Specialized scrapers for every Amazon data type — choose the right one for your use case.
+                      <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/80">
+                        Specialized scrapers for every Amazon data type — pick the one that fits your use case.
                       </p>
-                      <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                         {[
-                          { name: "Products by URL", desc: "Pass product URLs, get structured data", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Products by Keyword", desc: "Search queries → matching products", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Products by Category", desc: "Scrape entire category pages", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Products by Best Sellers", desc: "Top-selling products per category", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Reviews", desc: "Review text, ratings, verified flags", href: "/products/web-scraper/amazon" },
-                          { name: "Seller Info", desc: "Seller profiles, FBA status, ratings", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Product Scraper", domain: "amazon.com", category: "E-commerce", desc: "Prices, titles, images, specs, stock levels, and 40+ fields from any product page.", fieldsPreview: "title, price, rating, reviews, stock, images", views: "48.2K+", downloads: "12.6K+", href: "/products/web-scraper/amazon/amazon-product-scraper" },
+                          { name: "Amazon Best Sellers", domain: "amazon.com", category: "Rankings", desc: "Bestseller rankings, category leaderboards, movers & shakers, and trending products.", fieldsPreview: "rank, title, price, rating, category, sales_volume", views: "34.6K+", downloads: "5.1K+", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Reviews Scraper", domain: "amazon.com", category: "Reviews", desc: "Review text, star ratings, author info, verified purchase status, and helpful votes.", fieldsPreview: "review_text, rating, author, verified, helpful_votes", views: "7.2K+", downloads: "1.8K+", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Sellers Info", domain: "amazon.com", category: "Sellers", desc: "Seller name, store rating, feedback count, return policy, and business address.", fieldsPreview: "seller_name, rating, feedback_count, return_policy", views: "2.4K+", downloads: "820+", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Price Tracker", domain: "amazon.com", category: "Pricing", desc: "Real-time pricing, discounts, deal badges, Buy Box winner, and stock availability.", fieldsPreview: "price, list_price, discount, buy_box, stock_status", views: "1.6K+", downloads: "540+", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Keyword Search", domain: "amazon.com", category: "Search", desc: "Search results by keyword — product listings, sponsored placements, and organic rankings.", fieldsPreview: "title, price, position, sponsored, rating, url", views: "3.8K+", downloads: "1.1K+", href: "/products/web-scraper/amazon" },
                         ].map((s) => (
-                          <Link
-                            key={s.name}
-                            href={s.href}
-                            className="group flex items-start gap-3 rounded-xl border border-bd-line bg-bd-canvas px-4 py-3 transition hover:border-bd-blue/30 hover:bg-bd-blue-soft"
-                          >
-                            <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-[10px] font-bold text-bd-blue">A</span>
-                            <div className="min-w-0">
-                              <p className="text-[13px] font-semibold text-bd-navy group-hover:text-bd-blue">{s.name}</p>
-                              <p className="mt-0.5 text-[11px] text-bd-muted">{s.desc}</p>
-                            </div>
-                          </Link>
+                          <ScraperCard key={s.name} {...s} />
                         ))}
                       </div>
-                      <p className="mt-3">
+                      <p className="mt-4">
                         <Link href="/products/web-scraper/amazon" className="group text-sm font-semibold text-bd-blue hover:underline">
                           View all Amazon scrapers <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
                         </Link>
