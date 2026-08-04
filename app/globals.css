@@ -773,8 +773,9 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 .pc-price {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: 6px;
+  gap: 4px 6px;
   margin-top: 8px;
 }
 .pc-price strong {
@@ -782,10 +783,12 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   font-weight: 800;
   color: var(--text-1);
   line-height: 1.1;
+  white-space: nowrap;
 }
 .pc-price span {
   font-size: 14px;
   color: var(--text-3);
+  white-space: nowrap;
 }
 
 .pc-features {

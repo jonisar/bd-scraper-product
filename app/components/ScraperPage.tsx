@@ -910,9 +910,9 @@ const PRICING_TIERS = [
   { records: 50_000, label: "50K", monthly: 75, perK: 1.50, tag: "" },
   { records: 100_000, label: "100K", monthly: 150, perK: 1.50, tag: "" },
   { records: 384_000, label: "384K", monthly: 499, perK: 1.30, tag: "Scale plan" },
-  { records: 500_000, label: "500K", monthly: 650, perK: 1.30, tag: "" },
-  { records: 1_000_000, label: "1M", monthly: 1_300, perK: 1.30, tag: "" },
-  { records: 5_000_000, label: "5M", monthly: 6_500, perK: 1.30, tag: "Enterprise" },
+  { records: 500_000, label: "500K", monthly: 600, perK: 1.20, tag: "" },
+  { records: 1_000_000, label: "1M", monthly: 1_100, perK: 1.10, tag: "" },
+  { records: 5_000_000, label: "5M", monthly: 5_000, perK: 1.00, tag: "Enterprise" },
 ];
 
 function PricingTab() {
@@ -988,7 +988,7 @@ function PricingTab() {
           <span className="hidden sm:inline text-bd-line">·</span>
           <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> 5K records/mo free</span>
           <span className="hidden sm:inline text-bd-line">·</span>
-          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> $1.30/1K on Scale plan</span>
+          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> From $1.00/1K at volume</span>
           <span className="hidden sm:inline text-bd-line">·</span>
           <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> Cancel anytime</span>
         </div>
@@ -1032,7 +1032,7 @@ function PricingTab() {
             { q: "How does the free tier work?", a: "Every Bright Data account includes 5,000 free records per month — no credit card required. Use them with any scraper in the library. Credits renew on the 1st of each month." },
             { q: "What happens when free credits run out?", a: "If you have pre-deposited funds, usage continues seamlessly at pay-as-you-go rates. Otherwise, API requests return a clear error until you add funds or credits renew next month." },
             { q: "Can I set a spending limit?", a: "Yes. Set a monthly spend cap in your dashboard. When the limit is reached, requests pause automatically — no surprise bills." },
-            { q: "How do volume discounts work?", a: "The Scale plan ($499/mo) includes 384K records at an effective $1.30/1K rate, with overages at $1.30/1K. Enterprise customers can negotiate further volume discounts. No long-term commitment required." },
+            { q: "How do volume discounts work?", a: "Rates drop as volume increases, from $1.50/1K at pay-as-you-go down to $1.00/1K at higher volumes. The Scale plan ($499/mo) includes 384K records. Enterprise customers can negotiate further. No long-term commitment required." },
             { q: "What payment methods are accepted?", a: "All major credit cards, wire transfers, and AWS Marketplace for streamlined procurement and consolidated billing." },
           ].map((item) => (
             <details key={item.q} className="group rounded-xl border border-bd-line bg-bd-panel px-4 py-3">
@@ -2163,7 +2163,7 @@ export default function ScraperPage() {
                         Verified · Maintained by Bright Data
                       </p>
                       <h2 className="text-2xl font-bold text-bd-navy sm:text-[1.65rem]">
-                        Amazon Product Scraper
+                        Scrape Amazon product data via API
                       </h2>
                       <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/80">
                         Extract prices, reviews, stock levels, seller data, and 40+ fields from any Amazon page.
@@ -3148,9 +3148,9 @@ export default function ScraperPage() {
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">
                   Pay as you go
                 </p>
-                <p className="mt-1.5 text-[1.35rem] font-extrabold tracking-tight text-bd-navy sm:text-2xl">
-                  $1.30–1.50{" "}
-                  <span className="text-xs font-semibold text-bd-muted sm:text-sm">/ 1K records</span>
+                <p className="mt-1.5 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
+                  <span className="whitespace-nowrap text-[1.35rem] font-extrabold tracking-tight text-bd-navy sm:text-2xl">$1.00–1.50</span>
+                  <span className="whitespace-nowrap text-xs font-semibold text-bd-muted sm:text-sm">/ 1K records</span>
                 </p>
 
                 <div className="mt-3 space-y-2.5">
