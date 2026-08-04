@@ -121,7 +121,7 @@ export default function CategoriesPage() {
               {CATEGORY_DETAILS.map((cat) => (
                 <a
                   key={cat.slug}
-                  href={`/products/web-scraper/scraper-lib/categories/${cat.slug}`}
+                  href={`/products/web-scraper/${cat.slug}`}
                   className="slib-category-card"
                 >
                   <div className="slib-category-header">

@@ -31,15 +31,15 @@ const CATEGORY_ICONS: Record<string, string> = {
 };
 
 const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string }> = {
-  "Social Media":   { label: "View all Social Media scrapers",   href: "/products/web-scraper/scraper-lib/categories/social-media" },
-  "E-commerce":     { label: "View all E-commerce scrapers",     href: "/products/web-scraper/scraper-lib/categories/ecommerce" },
-  "Business (B2B)": { label: "View all B2B scrapers",            href: "/products/web-scraper/scraper-lib/categories/b2b" },
-  "Jobs":           { label: "View all Jobs scrapers",           href: "/products/web-scraper/scraper-lib/categories/jobs" },
-  "Real Estate":    { label: "View all Real Estate scrapers",    href: "/products/web-scraper/scraper-lib/categories/real-estate" },
-  "Travel":         { label: "View all Travel scrapers",         href: "/products/web-scraper/scraper-lib/categories/travel" },
-  "Search":         { label: "View all Search scrapers",         href: "/products/web-scraper/scraper-lib/categories/search" },
-  "News & Media":   { label: "View all News & Media scrapers",   href: "/products/web-scraper/scraper-lib/categories/news-media" },
-  "Finance":        { label: "View all Finance scrapers",        href: "/products/web-scraper/scraper-lib/categories/finance" },
+  "Social Media":   { label: "View all Social Media scrapers",   href: "/products/web-scraper/social-media" },
+  "E-commerce":     { label: "View all E-commerce scrapers",     href: "/products/web-scraper/ecommerce" },
+  "Business (B2B)": { label: "View all B2B scrapers",            href: "/products/web-scraper/b2b" },
+  "Jobs":           { label: "View all Jobs scrapers",           href: "/products/web-scraper/jobs" },
+  "Real Estate":    { label: "View all Real Estate scrapers",    href: "/products/web-scraper/real-estate" },
+  "Travel":         { label: "View all Travel scrapers",         href: "/products/web-scraper/travel" },
+  "Search":         { label: "View all Search scrapers",         href: "/products/web-scraper/search" },
+  "News & Media":   { label: "View all News & Media scrapers",   href: "/products/web-scraper/news-media" },
+  "Finance":        { label: "View all Finance scrapers",        href: "/products/web-scraper/finance" },
 };
 
 type DomainCardData = {
