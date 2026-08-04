@@ -788,6 +788,13 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   color: var(--text-3);
 }
 
+.pc-subtitle {
+  margin: 4px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-2);
+}
+
 .pc-features {
   list-style: none;
   padding: 0;
@@ -854,6 +861,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 .pc-compact .pc-price strong { font-size: 22px; }
 .pc-compact .pc-price span { font-size: 12px; }
 .pc-compact .pc-price { margin-top: 6px; }
+.pc-compact .pc-subtitle { font-size: 10px; margin-top: 2px; }
 .pc-compact .pc-features { margin-top: 14px; gap: 6px; font-size: 12px; }
 .pc-compact .pc-cta { margin-top: 16px; padding: 9px 12px; font-size: 12px; border-radius: 10px; }
 

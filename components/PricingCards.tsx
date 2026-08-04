@@ -7,6 +7,7 @@ interface Plan {
   tier: string;
   price: string;
   unit: string;
+  subtitle?: string;
   features: string[];
   cta: string;
   href: string;
@@ -27,6 +28,7 @@ function getPlans(unit: string): Plan[] {
       tier: "Pay as you go",
       price: "$1.50",
       unit: `/1K ${unit}`,
+      subtitle: "From $1.30/1K on Scale",
       features: ["Pay only for success", "Unlimited concurrency", "Set monthly spend limits"],
       cta: "Start free",
       href: SIGNUP,
@@ -60,37 +62,8 @@ export function PricingCards({
 }) {
   const plans = getPlans(unit);
 
-  if (compact) {
-    return (
-      <div className="pc-grid pc-compact">
-        {plans.map((p) => (
-          <div key={p.tier} className={`pc-card${p.featured ? " pc-featured" : ""}`}>
-            <p className="pc-tier">{p.tier}</p>
-            <div className="pc-price">
-              <strong>{p.price}</strong>
-              {p.unit && <span>{p.unit}</span>}
-            </div>
-            <ul className="pc-features">
-              {p.features.map((f) => (
-                <li key={f}>{f}</li>
-              ))}
-            </ul>
-            <a
-              href={p.href}
-              className={`pc-cta${p.featured ? " pc-cta-primary" : ""}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {p.cta}
-            </a>
-          </div>
-        ))}
-      </div>
-    );
-  }
-
   return (
-    <div className="pc-grid">
+    <div className={`pc-grid${compact ? " pc-compact" : ""}`}>
       {plans.map((p) => (
         <div key={p.tier} className={`pc-card${p.featured ? " pc-featured" : ""}`}>
           <p className="pc-tier">{p.tier}</p>
@@ -98,6 +71,7 @@ export function PricingCards({
             <strong>{p.price}</strong>
             {p.unit && <span>{p.unit}</span>}
           </div>
+          {p.subtitle && <p className="pc-subtitle">{p.subtitle}</p>}
           <ul className="pc-features">
             {p.features.map((f) => (
               <li key={f}>{f}</li>
