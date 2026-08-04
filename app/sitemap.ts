@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/products/web-scraper/scraper-lib/categories/travel",
     "/products/web-scraper/scraper-lib/categories/search",
     "/products/web-scraper/scraper-lib/categories/finance",
+    "/products/web-scraper/scraper-lib/categories/news-media",
     "/products/web-scraper/studio",
     "/products/web-scraper/amazon",
     "/products/web-scraper/amazon/amazon-product-scraper",

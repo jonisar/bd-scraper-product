@@ -38,7 +38,7 @@ const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string }> = {
   "Real Estate":    { label: "View all Real Estate scrapers",    href: "/products/web-scraper/scraper-lib/categories/real-estate" },
   "Travel":         { label: "View all Travel scrapers",         href: "/products/web-scraper/scraper-lib/categories/travel" },
   "Search":         { label: "View all Search scrapers",         href: "/products/web-scraper/scraper-lib/categories/search" },
-  "News & Media":   { label: "View all News & Media scrapers",   href: "/products/web-scraper/scraper-lib?cat=News+%26+Media" },
+  "News & Media":   { label: "View all News & Media scrapers",   href: "/products/web-scraper/scraper-lib/categories/news-media" },
   "Finance":        { label: "View all Finance scrapers",        href: "/products/web-scraper/scraper-lib/categories/finance" },
 };
 

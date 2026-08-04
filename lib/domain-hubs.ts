@@ -1232,4 +1232,27 @@ export const CATEGORY_HUBS: Record<string, DomainHubData> = {
     ],
     scrapers: scrapersForCategory("Finance"),
   },
+  "news-media": {
+    slug: "news-media",
+    name: "News & Media",
+    domain: "news platforms",
+    category: "News & Media",
+    title: "News & Media Scraper API - Articles, Headlines & Trending Content",
+    headline: "News & Media Scraper API",
+    description: "Extract articles, headlines, comments, author data, and trending stories from Reuters, BBC, TechCrunch, Reddit, Medium, and more via API.",
+    useCases: [
+      { title: "Media monitoring & PR intelligence", body: "Track brand mentions, press coverage, and news sentiment across major outlets to measure PR impact, detect crises, and identify earned media opportunities.", tags: "Mentions · Coverage · Sentiment · PR" },
+      { title: "Content & trend analysis", body: "Scrape articles, headlines, and engagement data to identify trending topics, content formats, and editorial patterns that drive audience attention.", tags: "Headlines · Trends · Engagement · Patterns" },
+      { title: "Competitive intelligence", body: "Monitor competitor press releases, product announcements, and media coverage to stay informed about market moves and industry developments.", tags: "Press · Announcements · Competitors · Industry" },
+      { title: "Alternative data & research", body: "Aggregate news articles, community discussions, and editorial content to build alternative data feeds for financial analysis, academic research, and market signals.", tags: "Articles · Discussions · Research · Signals" },
+    ],
+    faqs: [
+      { q: "Which news sites can I scrape?", a: "Reuters, BBC, CNN, TechCrunch, Hacker News, Medium, Substack, Reddit, Wikipedia, and more. Each has dedicated scrapers optimized for article and content extraction." },
+      { q: "What news data can I extract?", a: "Article titles, full text, authors, publish dates, categories, tags, comments, upvotes, share counts, and media attachments — all as structured JSON." },
+      { q: "Can I monitor specific topics or keywords?", a: "Yes. Configure search queries, RSS-like keyword filters, or specific publication sections to collect only articles matching your criteria." },
+      { q: "How fresh is the news data?", a: "Scrapers run on-demand or on scheduled intervals. Use synchronous API calls for near-real-time article collection or schedule recurring runs." },
+      { q: "What output formats are supported?", a: "JSON, NDJSON, CSV, and .gz. Deliver via API response, webhook, S3, GCS, Snowflake, or SFTP." },
+    ],
+    scrapers: scrapersForCategory("News & Media"),
+  },
 };
