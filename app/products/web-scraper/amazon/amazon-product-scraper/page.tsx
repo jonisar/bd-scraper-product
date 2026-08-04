@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import ScraperPage from "@/app/components/ScraperPage";
 
 export const metadata: Metadata = {
-  title: "Amazon Product Scraper API",
+  title: "Amazon Product Scraper API - 5K Records/Month for Free",
   description:
-    "Extract prices, reviews, stock levels & seller data from any Amazon product page via API. Start free — 5K records/month.",
+    "Extract prices, reviews, stock levels & seller data from any Amazon product page via API. 40+ structured fields, 99.99% uptime SLA. Start free — 5K records/month, no credit card required.",
   openGraph: {
-    title: "Amazon Product Scraper API",
+    title: "Amazon Product Scraper API - 5K Records/Month for Free",
     description:
-      "Extract Amazon product data — prices, reviews, ratings, availability, seller info — via API or no-code. 99.2% success rate. Start free.",
+      "Extract Amazon product data — prices, reviews, ratings, availability, seller info — via API. 40+ structured fields, 99.99% uptime SLA. Start free.",
     type: "website",
     url: "https://brightdata.com/products/web-scraper/amazon/amazon-product-scraper",
     siteName: "Bright Data",

@@ -6,6 +6,7 @@ import { Header, Footer } from "@/components/Chrome";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import ScraperCard from "@/components/ScraperCard";
 import AiPromptCta from "@/components/AiPromptCta";
+import { PricingCards } from "@/components/PricingCards";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Playground" | "Connect Agent" | "Customize";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
@@ -523,33 +524,6 @@ function CodeBlock({ code, label }: { code: string; label: string }) {
   );
 }
 
-function SyncAsyncToggle({
-  mode,
-  onChange,
-}: {
-  mode: "sync" | "async";
-  onChange: (m: "sync" | "async") => void;
-}) {
-  return (
-    <div className="inline-flex rounded-lg border border-bd-line bg-bd-canvas p-0.5">
-      {(["sync", "async"] as const).map((m) => (
-        <button
-          key={m}
-          type="button"
-          onClick={() => onChange(m)}
-          className={`rounded-md px-2.5 py-1.5 text-xs font-semibold transition sm:px-3 ${
-            mode === m
-              ? "bg-bd-blue-soft text-bd-navy shadow-sm border border-bd-line"
-              : "text-bd-ink/70 hover:text-bd-navy"
-          }`}
-        >
-          <span className="sm:hidden">{m === "sync" ? "Sync" : "Async"}</span>
-          <span className="hidden sm:inline">{m === "sync" ? "Synchronous (Real-time)" : "Asynchronous (Bulk)"}</span>
-        </button>
-      ))}
-    </div>
-  );
-}
 
 const RELATED_SCRAPERS = [
   {
@@ -848,6 +822,7 @@ const FREE_SAMPLE_DATA = [
 const FREE_SAMPLE_LIMIT = 3;
 const FREE_SAMPLE_COOLDOWN_MS = 24 * 60 * 60 * 1000;
 const LS_KEY = "bd_live_test_samples";
+const RUN_COOLDOWNS = [0, 5, 15, 30, 60, 120];
 
 function getFreeSampleState(): { remaining: number; resetAt: number | null } {
   if (typeof window === "undefined") return { remaining: FREE_SAMPLE_LIMIT, resetAt: null };
@@ -904,13 +879,13 @@ function getUrlStatus(url: string): UrlStatus {
 /* ── Pricing slider tiers ── */
 const PRICING_TIERS = [
   { records: 5_000, label: "5K", monthly: 0, perK: 0, tag: "Free" },
-  { records: 10_000, label: "10K", monthly: 15, perK: 1.50, tag: "" },
+  { records: 10_000, label: "10K", monthly: 15, perK: 1.50, tag: "Pay As You Go" },
   { records: 50_000, label: "50K", monthly: 75, perK: 1.50, tag: "" },
   { records: 100_000, label: "100K", monthly: 150, perK: 1.50, tag: "" },
-  { records: 250_000, label: "250K", monthly: 350, perK: 1.40, tag: "Save 7%" },
-  { records: 500_000, label: "500K", monthly: 650, perK: 1.30, tag: "Save 13%" },
-  { records: 1_000_000, label: "1M", monthly: 1_200, perK: 1.20, tag: "Save 20%" },
-  { records: 5_000_000, label: "5M", monthly: 5_000, perK: 1.00, tag: "Best value" },
+  { records: 384_000, label: "384K", monthly: 499, perK: 1.30, tag: "Scale plan" },
+  { records: 500_000, label: "500K", monthly: 600, perK: 1.20, tag: "" },
+  { records: 1_000_000, label: "1M", monthly: 1_100, perK: 1.10, tag: "" },
+  { records: 5_000_000, label: "5M", monthly: 5_000, perK: 1.00, tag: "Enterprise" },
 ];
 
 function PricingTab() {
@@ -986,77 +961,14 @@ function PricingTab() {
           <span className="hidden sm:inline text-bd-line">·</span>
           <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> 5K records/mo free</span>
           <span className="hidden sm:inline text-bd-line">·</span>
-          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> From $1.00/1K at scale</span>
+          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> From $1.00/1K at volume</span>
           <span className="hidden sm:inline text-bd-line">·</span>
           <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> Cancel anytime</span>
         </div>
       </section>
 
       {/* Plan cards */}
-      <div className="grid gap-4 sm:grid-cols-3">
-        {/* Free */}
-        <div className="flex flex-col rounded-xl border border-bd-line bg-bd-canvas p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-bd-muted">Free</p>
-          <p className="mt-1.5 text-xl font-extrabold text-bd-navy sm:text-2xl">$0</p>
-          <p className="mt-0.5 text-xs text-bd-muted">No credit card required</p>
-          <ul className="mt-4 flex-1 space-y-2">
-            {["5,000 records/month", "All output formats", "Standard throughput", "Expert support"].map((f) => (
-              <li key={f} className="flex items-center gap-2 text-sm text-bd-ink">
-                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
-                  <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-                </span>
-                {f}
-              </li>
-            ))}
-          </ul>
-          <a href="https://brightdata.com/cp/start" className="mt-5 block rounded-lg bg-bd-blue px-4 py-2.5 text-center text-sm font-bold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110" target="_blank" rel="noreferrer">
-            Start free
-          </a>
-        </div>
-
-        {/* Pay As You Go — highlighted */}
-        <div className="relative flex flex-col rounded-xl border border-bd-blue/40 bg-gradient-to-b from-[#0d1a2e] to-bd-canvas p-5 shadow-[0_4px_24px_rgba(61,127,252,0.12)]">
-          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-bd-blue px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-            Most popular
-          </span>
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-bd-blue">Pay As You Go</p>
-          <p className="mt-1.5 text-xl font-extrabold text-bd-navy sm:text-2xl">$1.00–1.50</p>
-          <p className="mt-0.5 text-xs text-bd-muted">Per 1K records — less at higher volume</p>
-          <ul className="mt-4 flex-1 space-y-2">
-            {["Unlimited records", "Pay only for success", "Set monthly spend limits", "Unlimited concurrency", "Expert support"].map((f) => (
-              <li key={f} className="flex items-center gap-2 text-sm text-bd-ink">
-                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
-                  <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-                </span>
-                {f}
-              </li>
-            ))}
-          </ul>
-          <a href="https://brightdata.com/cp/start" className="mt-5 block rounded-lg bg-bd-blue px-4 py-2.5 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-110" target="_blank" rel="noreferrer">
-            Get started
-          </a>
-        </div>
-
-        {/* Enterprise */}
-        <div className="flex flex-col rounded-xl border border-bd-line bg-bd-canvas p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-bd-muted">Enterprise</p>
-          <p className="mt-1.5 text-xl font-extrabold text-bd-navy sm:text-2xl">Custom</p>
-          <p className="mt-0.5 text-xs text-bd-muted">Volume discounts</p>
-          <ul className="mt-4 flex-1 space-y-2">
-            {["Dedicated account manager", "Premium SLA", "Priority support", "SSO", "Custom integrations"].map((f) => (
-              <li key={f} className="flex items-center gap-2 text-sm text-bd-ink">
-                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
-                  <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-                </span>
-                {f}
-              </li>
-            ))}
-          </ul>
-          <a href="https://brightdata.com/contact" className="mt-5 block rounded-lg border border-bd-line bg-bd-panel px-4 py-2.5 text-center text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft" target="_blank" rel="noreferrer">
-            Talk to sales
-          </a>
-        </div>
-      </div>
+      <PricingCards unit="records" compact />
 
       {/* What's included grid */}
       <section>
@@ -1093,7 +1005,7 @@ function PricingTab() {
             { q: "How does the free tier work?", a: "Every Bright Data account includes 5,000 free records per month — no credit card required. Use them with any scraper in the library. Credits renew on the 1st of each month." },
             { q: "What happens when free credits run out?", a: "If you have pre-deposited funds, usage continues seamlessly at pay-as-you-go rates. Otherwise, API requests return a clear error until you add funds or credits renew next month." },
             { q: "Can I set a spending limit?", a: "Yes. Set a monthly spend cap in your dashboard. When the limit is reached, requests pause automatically — no surprise bills." },
-            { q: "How do volume discounts work?", a: "Rates drop as volume increases, from $1.50/1K at pay-as-you-go down to $1.00/1K at 5M+ records. Enterprise customers can negotiate further. No long-term commitment required." },
+            { q: "How do volume discounts work?", a: "Rates drop as volume increases, from $1.50/1K at pay-as-you-go down to $1.00/1K at higher volumes. The Scale plan ($499/mo) includes 384K records. Enterprise customers can negotiate further. No long-term commitment required." },
             { q: "What payment methods are accepted?", a: "All major credit cards, wire transfers, and AWS Marketplace for streamlined procurement and consolidated billing." },
           ].map((item) => (
             <details key={item.q} className="group rounded-xl border border-bd-line bg-bd-panel px-4 py-3">
@@ -1143,11 +1055,35 @@ function PlaygroundPanel() {
   const [elapsed, setElapsed] = useState(0);
   const [sampleState, setSampleState] = useState(getFreeSampleState);
   const [touched, setTouched] = useState(false);
+  const [runCount, setRunCount] = useState(0);
+  const [cooldownEnd, setCooldownEnd] = useState(0);
+  const [cooldownLeft, setCooldownLeft] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    if (cooldownEnd <= Date.now()) { setCooldownLeft(0); return; }
+    const id = window.setInterval(() => {
+      const left = Math.max(0, Math.ceil((cooldownEnd - Date.now()) / 1000));
+      setCooldownLeft(left);
+      if (left <= 0) window.clearInterval(id);
+    }, 250);
+    return () => window.clearInterval(id);
+  }, [cooldownEnd]);
+
+  const inCooldown = cooldownLeft > 0;
   const urlStatus = getUrlStatus(url);
   const isUsingApiKey = apiKey.trim().length > 0;
-  const canRun = status !== "running" && urlStatus !== "empty" && urlStatus !== "invalid";
+  const canRun = status !== "running" && urlStatus !== "empty" && urlStatus !== "invalid" && !inCooldown;
+
+  const applyCooldown = useCallback((count: number) => {
+    const idx = Math.min(count, RUN_COOLDOWNS.length - 1);
+    const secs = RUN_COOLDOWNS[idx];
+    if (secs > 0) {
+      setCooldownEnd(Date.now() + secs * 1000);
+      setCooldownLeft(secs);
+    }
+    setRunCount(count);
+  }, []);
 
   const run = useCallback(async () => {
     setTouched(true);
@@ -1187,6 +1123,7 @@ function PlaygroundPanel() {
                        res.status === 403 ? "\n\nYour API key may lack the required permissions." :
                        res.status === 429 ? "\n\nRate limit exceeded — try again in a few seconds." : "";
           setResult(`HTTP ${res.status} ${res.statusText}${hint}\n\n${text}`);
+          applyCooldown(runCount + 1);
           return;
         }
 
@@ -1196,6 +1133,7 @@ function PlaygroundPanel() {
           setResult(text);
         }
         setStatus("done");
+        applyCooldown(runCount + 1);
       } catch (err) {
         window.clearInterval(timer);
         setElapsed(Date.now() - start);
@@ -1205,6 +1143,7 @@ function PlaygroundPanel() {
           ? "Network error — check your connection and try again."
           : msg;
         setResult(hint);
+        applyCooldown(runCount + 1);
       }
       return;
     }
@@ -1237,7 +1176,8 @@ function PlaygroundPanel() {
     setSampleState(getFreeSampleState());
     setResult(JSON.stringify(FREE_SAMPLE_DATA, null, 2));
     setStatus("done");
-  }, [url, isUsingApiKey, apiKey]);
+    applyCooldown(runCount + 1);
+  }, [url, isUsingApiKey, apiKey, runCount, applyCooldown]);
 
   const inputBorderClass = (() => {
     if (touched && urlStatus === "invalid") return "border-red-500/60 focus:border-red-500 focus:ring-red-500/20";
@@ -1293,7 +1233,11 @@ function PlaygroundPanel() {
             type="button"
             onClick={run}
             disabled={!canRun}
-            className="shrink-0 rounded-lg bg-bd-blue px-5 py-3 text-sm font-bold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+            className={`shrink-0 rounded-lg px-5 py-3 text-sm font-bold shadow-sm transition ${
+              inCooldown
+                ? "bg-bd-line text-bd-muted cursor-not-allowed"
+                : "bg-bd-blue text-white shadow-bd-blue/30 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+            }`}
           >
             {status === "running" ? (
               <span className="flex items-center gap-2">
@@ -1302,6 +1246,11 @@ function PlaygroundPanel() {
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
                 Running
+              </span>
+            ) : inCooldown ? (
+              <span className="flex items-center gap-1.5 tabular-nums">
+                <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 fill-current"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.5 3a.5.5 0 011 0v3.25l2.1 1.26a.5.5 0 01-.52.86L7.7 7.86A.5.5 0 017.5 7.4V4z"/></svg>
+                {cooldownLeft}s
               </span>
             ) : (
               <span className="flex items-center gap-1.5">
@@ -1325,14 +1274,22 @@ function PlaygroundPanel() {
             This URL is not from Amazon. Results may differ from the expected schema.
           </p>
         ) : null}
-        {/* Free runs counter */}
-        {!isUsingApiKey && urlStatus !== "invalid" && (
+        {/* Cooldown indicator */}
+        {inCooldown ? (
+          <p className="mt-1.5 flex items-center gap-1.5 text-xs text-bd-muted">
+            <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-amber-400" />
+            Ready in {cooldownLeft}s
+            {!isUsingApiKey && sampleState.remaining > 0 && (
+              <span className="text-bd-muted/60">· {sampleState.remaining}/{FREE_SAMPLE_LIMIT} free runs left</span>
+            )}
+          </p>
+        ) : !isUsingApiKey && urlStatus !== "invalid" ? (
           <p className={`mt-1.5 text-xs ${sampleState.remaining <= 0 ? "text-amber-400" : "text-bd-muted"}`}>
             {sampleState.remaining > 0
               ? `${sampleState.remaining}/${FREE_SAMPLE_LIMIT} free demo runs remaining — no sign-up required`
               : "Free demo limit reached — add your API key for unlimited runs"}
           </p>
-        )}
+        ) : null}
       </div>
 
       {/* Status bar */}
@@ -1644,7 +1601,7 @@ const DELIVERY_OPTIONS = ["API response", "Amazon S3", "Google Cloud", "Webhook"
 const GEO_OPTIONS = ["United States", "United Kingdom", "Germany", "Japan", "France", "India", "Canada", "Australia"] as const;
 const SCHEDULE_OPTIONS = ["Manual", "Hourly", "Daily", "Weekly"] as const;
 
-function CustomizeTab({ datasetId }: { datasetId: string }) {
+function CustomizeTab({ datasetId, apiMode, onApiModeChange }: { datasetId: string; apiMode: "sync" | "async"; onApiModeChange: (m: "sync" | "async") => void }) {
   const [fields, setFields] = useState<Set<string>>(() => new Set(DEFAULT_ON));
   const [format, setFormat] = useState<string>("JSON");
   const [delivery, setDelivery] = useState<string>("API response");
@@ -1711,8 +1668,27 @@ function CustomizeTab({ datasetId }: { datasetId: string }) {
       <section>
         <h3 className="mb-3 text-lg font-bold text-bd-navy">Scraper settings</h3>
         <div className="overflow-hidden rounded-xl border border-bd-line">
-          {/* Format */}
+          {/* API mode */}
           <div className="flex items-center justify-between gap-4 px-4 py-3 sm:px-5">
+            <div className="min-w-0">
+              <p className="text-sm font-medium text-bd-navy">API mode</p>
+              <p className="text-[11px] text-bd-muted">{apiMode === "sync" ? "Real-time response via /scrape" : "Returns snapshot_id via /trigger"}</p>
+            </div>
+            <div className="flex shrink-0 gap-1">
+              {(["sync", "async"] as const).map((m) => (
+                <button key={m} type="button" onClick={() => onApiModeChange(m)}
+                  className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
+                    apiMode === m
+                      ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/20"
+                      : "border border-bd-line bg-bd-canvas text-bd-muted hover:text-bd-ink"
+                  }`}
+                >{m === "sync" ? "Sync" : "Async"}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* Format */}
+          <div className="flex items-center justify-between gap-4 border-t border-bd-line px-4 py-3 sm:px-5">
             <div className="min-w-0">
               <p className="text-sm font-medium text-bd-navy">Output format</p>
             </div>
@@ -1828,7 +1804,7 @@ function CustomizeTab({ datasetId }: { datasetId: string }) {
         <div>
           <p className="mb-1.5 text-[11px] font-bold uppercase tracking-wider text-bd-muted">Generated API call</p>
           <CodeBlock
-            code={`curl -X POST "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${datasetId}&format=${format.toLowerCase()}${activeFields.length > 0 && activeFields.length < ALL_OUTPUT_FIELDS.length ? `&custom_output_fields=${apiParam}` : ""}" \\
+            code={`curl -X POST "https://api.brightdata.com/datasets/v3/${apiMode === "sync" ? "scrape" : "trigger"}?dataset_id=${datasetId}&format=${format.toLowerCase()}${activeFields.length > 0 && activeFields.length < ALL_OUTPUT_FIELDS.length ? `&custom_output_fields=${apiParam}` : ""}" \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '[{"url":"https://www.amazon.com/dp/B09X7MPX8L"}]'`}
@@ -1963,7 +1939,10 @@ export default function ScraperPage() {
                     <span className="h-1.5 w-1.5 rounded-full bg-bd-success animate-pulse" />
                     Verified
                   </p>
-                  <p className="text-[11px] text-bd-success">3h ago</p>
+                  <p className="flex items-center gap-1 text-[11px] text-bd-muted">
+                    <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-bd-success" aria-hidden="true"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                    3h ago
+                  </p>
                 </div>
               </div>
 
@@ -2024,8 +2003,8 @@ export default function ScraperPage() {
                 {mainTab === "API" ? (
                   <div>
                     <p className="text-[15px] leading-7 text-bd-ink">
-                      Run this scraper programmatically using Bright Data&apos;s REST API. Choose
-                      synchronous for real-time results or asynchronous for bulk jobs.
+                      Run this scraper programmatically using Bright Data&apos;s REST API. Switch between sync and async modes in the{" "}
+                      <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">Customize</button> tab.
                     </p>
 
                     {/* Sync vs async table */}
@@ -2077,12 +2056,13 @@ export default function ScraperPage() {
                     <div className="mt-5">
                       {(apiLang === "Python" || apiLang === "JavaScript" || apiLang === "cURL") ? (
                         <div className="space-y-4">
-                          <div className="flex flex-wrap items-center justify-between gap-3">
-                            <h2 className="text-lg font-bold text-bd-navy">
-                              Amazon Scraper API — {apiLang} Example
-                            </h2>
-                            <SyncAsyncToggle mode={apiMode} onChange={setApiMode} />
-                          </div>
+                          <h2 className="text-lg font-bold text-bd-navy">
+                            Amazon Scraper API — {apiLang} {apiMode === "async" ? "(Async)" : ""} Example
+                          </h2>
+                          <p className="mt-1 text-xs text-bd-muted">
+                            Showing <strong className="text-bd-ink">{apiMode === "sync" ? "synchronous" : "asynchronous"}</strong> mode.
+                            Switch in the <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">Customize</button> tab.
+                          </p>
 
                           {apiLang === "Python" && apiMode === "sync" ? (
                             <div className="space-y-3">
@@ -2169,8 +2149,14 @@ export default function ScraperPage() {
 
                     {/* ── Hero intro ── */}
                     <header>
+                      <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold tracking-wide text-bd-blue">
+                        <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-bd-blue/10">
+                          <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                        </span>
+                        Verified · Maintained by Bright Data
+                      </p>
                       <h2 className="text-2xl font-bold text-bd-navy sm:text-[1.65rem]">
-                        Amazon Product Scraper
+                        Scrape Amazon product data via API
                       </h2>
                       <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/80">
                         Extract prices, reviews, stock levels, seller data, and 40+ fields from any Amazon page.
@@ -2386,34 +2372,24 @@ export default function ScraperPage() {
 
                     <section id="info-available-scrapers">
                       <h2 className="text-xl font-bold text-bd-navy">
-                        Amazon Scraper Family
+                        Popular Amazon Scrapers
                       </h2>
-                      <p className="mt-2">
-                        Specialized scrapers for every Amazon data type — choose the right one for your use case.
+                      <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/80">
+                        Specialized scrapers for every Amazon data type — pick the one that fits your use case.
                       </p>
-                      <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                         {[
-                          { name: "Products by URL", desc: "Pass product URLs, get structured data", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Products by Keyword", desc: "Search queries → matching products", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Products by Category", desc: "Scrape entire category pages", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Products by Best Sellers", desc: "Top-selling products per category", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Reviews", desc: "Review text, ratings, verified flags", href: "/products/web-scraper/amazon" },
-                          { name: "Seller Info", desc: "Seller profiles, FBA status, ratings", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Product Scraper", domain: "amazon.com", category: "E-commerce", desc: "Prices, titles, images, specs, stock levels, and 40+ fields from any product page.", fieldsPreview: "title, price, rating, reviews, stock, images", views: "48.2K+", downloads: "12.6K+", href: "/products/web-scraper/amazon/amazon-product-scraper" },
+                          { name: "Amazon Best Sellers", domain: "amazon.com", category: "Rankings", desc: "Bestseller rankings, category leaderboards, movers & shakers, and trending products.", fieldsPreview: "rank, title, price, rating, category, sales_volume", views: "34.6K+", downloads: "5.1K+", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Reviews Scraper", domain: "amazon.com", category: "Reviews", desc: "Review text, star ratings, author info, verified purchase status, and helpful votes.", fieldsPreview: "review_text, rating, author, verified, helpful_votes", views: "7.2K+", downloads: "1.8K+", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Sellers Info", domain: "amazon.com", category: "Sellers", desc: "Seller name, store rating, feedback count, return policy, and business address.", fieldsPreview: "seller_name, rating, feedback_count, return_policy", views: "2.4K+", downloads: "820+", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Price Tracker", domain: "amazon.com", category: "Pricing", desc: "Real-time pricing, discounts, deal badges, Buy Box winner, and stock availability.", fieldsPreview: "price, list_price, discount, buy_box, stock_status", views: "1.6K+", downloads: "540+", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Keyword Search", domain: "amazon.com", category: "Search", desc: "Search results by keyword — product listings, sponsored placements, and organic rankings.", fieldsPreview: "title, price, position, sponsored, rating, url", views: "3.8K+", downloads: "1.1K+", href: "/products/web-scraper/amazon" },
                         ].map((s) => (
-                          <Link
-                            key={s.name}
-                            href={s.href}
-                            className="group flex items-start gap-3 rounded-xl border border-bd-line bg-bd-canvas px-4 py-3 transition hover:border-bd-blue/30 hover:bg-bd-blue-soft"
-                          >
-                            <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-[10px] font-bold text-bd-blue">A</span>
-                            <div className="min-w-0">
-                              <p className="text-[13px] font-semibold text-bd-navy group-hover:text-bd-blue">{s.name}</p>
-                              <p className="mt-0.5 text-[11px] text-bd-muted">{s.desc}</p>
-                            </div>
-                          </Link>
+                          <ScraperCard key={s.name} {...s} />
                         ))}
                       </div>
-                      <p className="mt-3">
+                      <p className="mt-4">
                         <Link href="/products/web-scraper/amazon" className="group text-sm font-semibold text-bd-blue hover:underline">
                           View all Amazon scrapers <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
                         </Link>
@@ -3126,7 +3102,7 @@ export default function ScraperPage() {
 
                 {/* ===== CUSTOMIZE TAB ===== */}
                 {mainTab === "Customize" ? (
-                  <CustomizeTab datasetId={DATASET_ID} />
+                  <CustomizeTab datasetId={DATASET_ID} apiMode={apiMode} onApiModeChange={setApiMode} />
                 ) : null}
               </div>
             </div>
@@ -3155,12 +3131,12 @@ export default function ScraperPage() {
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">
                   Pay as you go
                 </p>
-                <p className="mt-1.5 text-[1.35rem] font-extrabold tracking-tight text-bd-navy sm:text-2xl">
-                  $1.00–1.50{" "}
-                  <span className="text-xs font-semibold text-bd-muted sm:text-sm">/ 1K records</span>
+                <p className="mt-1.5 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
+                  <span className="whitespace-nowrap text-[1.35rem] font-extrabold tracking-tight text-bd-navy sm:text-2xl">$1.00–1.50</span>
+                  <span className="whitespace-nowrap text-xs font-semibold text-bd-muted sm:text-sm">/ 1K records</span>
                 </p>
 
-                <div className="mt-3.5 space-y-2.5">
+                <div className="mt-3 space-y-2.5">
                   <div className="flex items-start gap-2.5">
                     <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
                       <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>

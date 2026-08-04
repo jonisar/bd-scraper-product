@@ -15,7 +15,6 @@ type SortKey = "best-match" | "popular" | "most-used" | "az";
 const SORT_OPTIONS: { value: SortKey; label: string; searchOnly?: boolean }[] = [
   { value: "best-match", label: "Best match", searchOnly: true },
   { value: "popular", label: "Popular" },
-  { value: "most-used", label: "Most used" },
   { value: "az", label: "A → Z" },
 ];
 
@@ -29,6 +28,18 @@ const CATEGORY_ICONS: Record<string, string> = {
   "Search": "▲",
   "News & Media": "◈",
   "Finance": "∞",
+};
+
+const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string }> = {
+  "Social Media":   { label: "View all Social Media scrapers",   href: "/products/web-scraper/scraper-lib/categories/social-media" },
+  "E-commerce":     { label: "View all E-commerce scrapers",     href: "/products/web-scraper/scraper-lib/categories/ecommerce" },
+  "Business (B2B)": { label: "View all B2B scrapers",            href: "/products/web-scraper/scraper-lib/categories/b2b" },
+  "Jobs":           { label: "View all Jobs scrapers",           href: "/products/web-scraper/scraper-lib/categories/jobs" },
+  "Real Estate":    { label: "View all Real Estate scrapers",    href: "/products/web-scraper/scraper-lib/categories/real-estate" },
+  "Travel":         { label: "View all Travel scrapers",         href: "/products/web-scraper/scraper-lib/categories/travel" },
+  "Search":         { label: "View all Search scrapers",         href: "/products/web-scraper/scraper-lib/categories/search" },
+  "News & Media":   { label: "View all News & Media scrapers",   href: "/products/web-scraper/scraper-lib?cat=News+%26+Media" },
+  "Finance":        { label: "View all Finance scrapers",        href: "/products/web-scraper/scraper-lib/categories/finance" },
 };
 
 type DomainCardData = {
@@ -46,15 +57,31 @@ type DomainCardData = {
 
 function buildTopDomains(): DomainCardData[] {
   const DOMAIN_META: Record<string, { label: string; icon: string; logo: string; color: string; desc: string; href: string }> = {
-    "amazon.com":      { label: "Amazon",       icon: "A",  logo: "/logos/amazon.png",      color: "#FF9900", desc: "Products, reviews, pricing, sellers, and bestsellers data", href: "/products/web-scraper/amazon" },
-    "linkedin.com":    { label: "LinkedIn",     icon: "in", logo: "/logos/linkedin.png",     color: "#0A66C2", desc: "Profiles, companies, job listings, and post engagement data", href: "/products/web-scraper/linkedin" },
-    "instagram.com":   { label: "Instagram",    icon: "◎",  logo: "/logos/instagram.png",    color: "#E4405F", desc: "Profiles, posts, reels, comments, and engagement metrics", href: "/products/web-scraper/instagram" },
-    "tiktok.com":      { label: "TikTok",       icon: "♪",  logo: "/logos/tiktok.png",       color: "#00F2EA", desc: "Profiles, videos, shop products, and trending hashtags", href: "/products/web-scraper/tiktok" },
-    "google.com/maps": { label: "Google Maps",  icon: "G",  logo: "/logos/google-maps.png",  color: "#34A853", desc: "Business listings, reviews, ratings, hours, and locations", href: "/products/web-scraper/google-maps" },
-    "zillow.com":      { label: "Zillow",       icon: "Z",  logo: "/logos/zillow.png",       color: "#006AFF", desc: "Property listings, Zestimates, rentals, and neighborhood data", href: "/products/web-scraper/zillow" },
-    "x.com":           { label: "X (Twitter)",  icon: "𝕏",  logo: "/logos/x.png",            color: "#14171A", desc: "Posts, profiles, engagement metrics, and trending topics", href: "/products/web-scraper/x" },
-    "facebook.com":    { label: "Facebook",     icon: "f",  logo: "/logos/facebook.png",     color: "#1877F2", desc: "Page posts, ads library, reactions, and audience data", href: "/products/web-scraper/facebook" },
-    "youtube.com":     { label: "YouTube",      icon: "▶",  logo: "/logos/youtube.png",      color: "#FF0000", desc: "Videos, channels, comments, subscribers, and view counts", href: "/products/web-scraper/youtube" },
+    "linkedin.com":       { label: "LinkedIn",       icon: "in", logo: "/logos/linkedin.png",       color: "#0A66C2", desc: "Profiles, companies, job listings, and post engagement data", href: "/products/web-scraper/linkedin" },
+    "instagram.com":      { label: "Instagram",      icon: "◎",  logo: "/logos/instagram.png",      color: "#E4405F", desc: "Profiles, posts, reels, comments, and engagement metrics", href: "/products/web-scraper/instagram" },
+    "tiktok.com":         { label: "TikTok",         icon: "♪",  logo: "/logos/tiktok.png",         color: "#00F2EA", desc: "Profiles, videos, shop products, and trending hashtags", href: "/products/web-scraper/tiktok" },
+    "facebook.com":       { label: "Facebook",       icon: "f",  logo: "/logos/facebook.png",       color: "#1877F2", desc: "Page posts, ads library, reactions, and audience data", href: "/products/web-scraper/facebook" },
+    "x.com":              { label: "X (Twitter)",    icon: "𝕏",  logo: "/logos/x.png",              color: "#14171A", desc: "Posts, profiles, engagement metrics, and trending topics", href: "/products/web-scraper/x" },
+    "openai.com":         { label: "ChatGPT",        icon: "◈",  logo: "/logos/chatgpt.png",        color: "#10A37F", desc: "AI conversations, responses, and model interaction data", href: "/products/web-scraper/chatgpt" },
+    "youtube.com":        { label: "YouTube",        icon: "▶",  logo: "/logos/youtube.png",        color: "#FF0000", desc: "Videos, channels, comments, subscribers, and view counts", href: "/products/web-scraper/youtube" },
+    "amazon.com":         { label: "Amazon",         icon: "A",  logo: "/logos/amazon.png",         color: "#FF9900", desc: "Products, reviews, pricing, sellers, and bestsellers data", href: "/products/web-scraper/amazon" },
+    "walmart.com":        { label: "Walmart",        icon: "W",  logo: "/logos/walmart.png",        color: "#0071CE", desc: "Products, prices, reviews, and inventory data", href: "/products/web-scraper/walmart" },
+    "booking.com":        { label: "Booking.com",    icon: "B",  logo: "/logos/booking.png",        color: "#003580", desc: "Hotels, prices, availability, and guest reviews", href: "/products/web-scraper/booking" },
+    "airbnb.com":         { label: "Airbnb",         icon: "A",  logo: "/logos/airbnb.png",         color: "#FF5A5F", desc: "Vacation rental listings, prices, and reviews", href: "/products/web-scraper/airbnb" },
+    "indeed.com":         { label: "Indeed",         icon: "I",  logo: "/logos/indeed.png",         color: "#003A9B", desc: "Job listings, salaries, company reviews, and labor market data", href: "/products/web-scraper/indeed" },
+    "crunchbase.com":     { label: "Crunchbase",     icon: "Cb", logo: "/logos/crunchbase.png",     color: "#0288D1", desc: "Companies, funding rounds, investors, and M&A data", href: "/products/web-scraper/crunchbase" },
+    "zillow.com":         { label: "Zillow",         icon: "Z",  logo: "/logos/zillow.png",         color: "#006AFF", desc: "Property listings, Zestimates, rentals, and neighborhood data", href: "/products/web-scraper/zillow" },
+    "google.com/maps":    { label: "Google Maps",    icon: "G",  logo: "/logos/google-maps.png",    color: "#34A853", desc: "Business listings, reviews, ratings, hours, and locations", href: "/products/web-scraper/google-maps" },
+    "glassdoor.com":      { label: "Glassdoor",      icon: "Gd", logo: "/logos/glassdoor.png",      color: "#0CAA41", desc: "Company reviews, salaries, interviews, and job listings", href: "/products/web-scraper/glassdoor" },
+    "yelp.com":           { label: "Yelp",           icon: "Y",  logo: "/logos/yelp.png",           color: "#D32323", desc: "Business listings, reviews, ratings, and local data", href: "/products/web-scraper/yelp" },
+    "play.google.com":    { label: "Google Play",    icon: "▷",  logo: "/logos/google-play.png",    color: "#01875F", desc: "Apps, reviews, rankings, and developer data", href: "/products/web-scraper/google-play" },
+    "homedepot.com":      { label: "Home Depot",     icon: "HD", logo: "/logos/homedepot.png",      color: "#F96302", desc: "Building materials, products, prices, and reviews", href: "/products/web-scraper/homedepot" },
+    "zoopla.co.uk":       { label: "Zoopla",         icon: "Zp", logo: "/logos/zoopla.png",         color: "#7B0099", desc: "UK property listings, prices, and market data", href: "/products/web-scraper/zoopla" },
+    "zonaprop.com.ar":    { label: "Zonaprop",       icon: "Zn", logo: "/logos/zonaprop.png",       color: "#FF6611", desc: "Argentina property listings and real estate data", href: "/products/web-scraper/zonaprop" },
+    "inmuebles24.com":    { label: "Inmuebles24",    icon: "I24",logo: "/logos/inmuebles24.png",    color: "#FF6611", desc: "Mexico property listings and real estate data", href: "/products/web-scraper/inmuebles24" },
+    "metrocuadrado.com":  { label: "Metrocuadrado",  icon: "Mc", logo: "/logos/metrocuadrado.png",  color: "#004CFF", desc: "Colombia property listings and real estate data", href: "/products/web-scraper/metrocuadrado" },
+    "agoda.com":          { label: "Agoda",          icon: "Ag", logo: "/logos/agoda.png",          color: "#5391D4", desc: "Hotels, prices, and reviews across Asia-Pacific", href: "/products/web-scraper/agoda" },
+    "trip.com":           { label: "Trip.com",       icon: "Tr", logo: "/logos/trip.png",           color: "#287DFA", desc: "Hotels, flights, and travel deals worldwide", href: "/products/web-scraper/trip" },
   };
 
   const domainOrder = Object.keys(DOMAIN_META);
@@ -563,6 +590,11 @@ export default function ScraperLibraryInfinite() {
             <div className="lib-grid slib-grid-animated">
               {popular.map((s, i) => renderCard(s, i))}
             </div>
+            <p className="slib-view-all">
+              <a href="/products/web-scraper/scraper-lib?sort=popular" className="slib-view-all-link">
+                View all scrapers →
+              </a>
+            </p>
           </div>
 
           {/* Category sections — all scrapers, lazy-loaded per section */}
@@ -592,6 +624,13 @@ export default function ScraperLibraryInfinite() {
                 <span className="slib-section-count">{sec.total} scrapers</span>
               </div>
               <LazyCardGrid scrapers={sec.scrapers} />
+              {CATEGORY_VIEW_ALL[sec.category] && (
+                <p className="slib-view-all">
+                  <a href={CATEGORY_VIEW_ALL[sec.category].href} className="slib-view-all-link">
+                    {CATEGORY_VIEW_ALL[sec.category].label} →
+                  </a>
+                </p>
+              )}
             </div>
           ))}
 

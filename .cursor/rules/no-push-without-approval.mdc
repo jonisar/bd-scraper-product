@@ -1,0 +1,14 @@
+---
+description: Never push to remote or merge PRs without explicit user approval
+alwaysApply: true
+---
+
+# Git Remote Operations Require Approval
+
+Never run any of the following without asking the user first and receiving explicit written confirmation:
+
+- `git push` (any variant)
+- `gh pr merge`
+- Any command that writes to a remote repository
+
+Always ask: "Ready for me to push/merge?" and wait for a clear "yes" before proceeding.

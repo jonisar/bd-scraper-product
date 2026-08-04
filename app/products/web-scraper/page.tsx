@@ -7,6 +7,7 @@ import StudioAgentPrompts from "@/components/StudioAgentPrompts";
 import ScrollReveal from "@/components/ScrollReveal";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
+import { PricingCards } from "@/components/PricingCards";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -242,10 +243,10 @@ export default function WebScraperHome() {
           </div>
           <div className="usecases-grid">
             <div className="usecase-card">
-              <h3>E-commerce scraping API</h3>
+              <h3><a href="/products/web-scraper/scraper-lib/categories/ecommerce" className="usecase-title-link">E-commerce scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/amazon" className="usecase-label">Amazon</a>
-                <a href="https://brightdata.com/products/web-scraper/walmart" className="usecase-label">Walmart</a>
+                <a href="/products/web-scraper/walmart" className="usecase-label">Walmart</a>
                 <a href="https://brightdata.com/products/web-scraper/shopee" className="usecase-label">Shopee</a>
                 <a href="https://brightdata.com/products/web-scraper/target" className="usecase-label">Target</a>
                 <a href="https://brightdata.com/products/web-scraper/ebay" className="usecase-label">eBay</a>
@@ -256,7 +257,7 @@ export default function WebScraperHome() {
               </p>
             </div>
             <div className="usecase-card">
-              <h3>Social media scraping API</h3>
+              <h3><a href="/products/web-scraper/scraper-lib/categories/social-media" className="usecase-title-link">Social media scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/instagram" className="usecase-label">Instagram</a>
                 <a href="/products/web-scraper/tiktok" className="usecase-label">TikTok</a>
@@ -271,7 +272,7 @@ export default function WebScraperHome() {
               </p>
             </div>
             <div className="usecase-card">
-              <h3>Real estate scraping API</h3>
+              <h3><a href="/products/web-scraper/scraper-lib/categories/real-estate" className="usecase-title-link">Real estate scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/zillow" className="usecase-label">Zillow</a>
                 <a href="https://brightdata.com/products/web-scraper/realtor" className="usecase-label">Realtor</a>
@@ -285,7 +286,7 @@ export default function WebScraperHome() {
               </p>
             </div>
             <div className="usecase-card">
-              <h3>Business &amp; B2B scraping API</h3>
+              <h3><a href="/products/web-scraper/scraper-lib/categories/b2b" className="usecase-title-link">Business &amp; B2B scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/linkedin" className="usecase-label">LinkedIn</a>
                 <a href="https://brightdata.com/products/web-scraper/crunchbase" className="usecase-label">Crunchbase</a>
@@ -298,7 +299,7 @@ export default function WebScraperHome() {
               </p>
             </div>
             <div className="usecase-card">
-              <h3>Search &amp; maps scraping API</h3>
+              <h3><a href="/products/web-scraper/scraper-lib/categories/search" className="usecase-title-link">Search &amp; maps scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/google-maps" className="usecase-label">Google Maps</a>
                 <a href="https://brightdata.com/products/web-scraper/yelp" className="usecase-label">Yelp</a>
@@ -311,7 +312,7 @@ export default function WebScraperHome() {
               </p>
             </div>
             <div className="usecase-card">
-              <h3>Financial data scraping API</h3>
+              <h3><a href="/products/web-scraper/scraper-lib/categories/finance" className="usecase-title-link">Financial data scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="https://brightdata.com/products/web-scraper/yahoo-finance" className="usecase-label">Yahoo Finance</a>
                 <a href="https://brightdata.com/products/web-scraper/bloomberg" className="usecase-label">Bloomberg</a>
@@ -396,67 +397,7 @@ export default function WebScraperHome() {
             <h2>Only pay for what&rsquo;s successfully delivered</h2>
             <p>No hidden fees. No charges for failed requests. Every plan includes full access to all scrapers and infrastructure.</p>
           </div>
-          <div className="pricing-grid">
-            <div className="price-card">
-              <div className="price-tier">Free</div>
-              <div className="price-amount">
-                <strong>5K</strong>
-                <span>records/mo</span>
-              </div>
-              <ul className="price-features">
-                <li>No credit card required</li>
-                <li>All scrapers included</li>
-                <li>Full API access</li>
-              </ul>
-              <a href="https://brightdata.com/cp/start" className="btn btn-ghost btn-pill price-cta">
-                Start free
-              </a>
-            </div>
-            <div className="price-card price-card-featured">
-              <div className="price-tier">Pay as you go</div>
-              <div className="price-amount">
-                <strong>$1.50</strong>
-                <span>/1K records</span>
-              </div>
-              <ul className="price-features">
-                <li>Pay only for success</li>
-                <li>Unlimited concurrency</li>
-                <li>Set monthly spend limits</li>
-              </ul>
-              <a href="https://brightdata.com/cp/start" className="btn btn-primary btn-pill price-cta">
-                Start free
-              </a>
-            </div>
-            <div className="price-card">
-              <div className="price-tier">Scale</div>
-              <div className="price-amount">
-                <strong>$499</strong>
-                <span>/month</span>
-              </div>
-              <ul className="price-features">
-                <li>384K records included</li>
-                <li>$1.30/1K additional</li>
-                <li>Cancel anytime</li>
-              </ul>
-              <a href="https://brightdata.com/cp/start" className="btn btn-ghost btn-pill price-cta">
-                Get started
-              </a>
-            </div>
-            <div className="price-card">
-              <div className="price-tier">Enterprise</div>
-              <div className="price-amount">
-                <strong>Custom</strong>
-              </div>
-              <ul className="price-features">
-                <li>Volume discounts</li>
-                <li>Account manager</li>
-                <li>Premium SLA &amp; SSO</li>
-              </ul>
-              <a href="https://brightdata.com/contact" className="btn btn-ghost btn-pill price-cta">
-                Talk to sales
-              </a>
-            </div>
-          </div>
+          <PricingCards unit="records" />
           <p className="pricing-note">
             Rated <strong>4.6/5</strong> on Trustpilot · <strong>4.6/5</strong> on G2 · <strong>4.8/5</strong> on Capterra
           </p>

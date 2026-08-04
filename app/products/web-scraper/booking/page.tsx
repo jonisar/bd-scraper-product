@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import { DOMAIN_HUBS } from "@/lib/domain-hubs";
 import DomainHub from "@/components/DomainHub";
-import { CATEGORY_HUBS } from "@/lib/domain-hubs";
 
-const hub = CATEGORY_HUBS["ecommerce"];
+const hub = DOMAIN_HUBS.booking;
 
 export const metadata: Metadata = {
   title: hub.title,
@@ -11,12 +11,12 @@ export const metadata: Metadata = {
     title: hub.title,
     description: hub.description,
     type: "website",
-    url: "https://brightdata.com/products/web-scraper/scraper-lib/categories/ecommerce",
+    url: `https://brightdata.com/products/web-scraper/${hub.slug}`,
     siteName: "Bright Data",
   },
-  alternates: { canonical: "https://brightdata.com/products/web-scraper/scraper-lib/categories/ecommerce" },
+  alternates: { canonical: `https://brightdata.com/products/web-scraper/${hub.slug}` },
 };
 
-export default function EcommerceCategoryPage() {
+export default function BookingPage() {
   return <DomainHub hub={hub} />;
 }
