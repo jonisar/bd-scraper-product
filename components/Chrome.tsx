@@ -142,7 +142,7 @@ const FOOTER_ROWS: FooterColumn[][] = [
       links: [
         { label: "Amazon Scraper", href: "/products/web-scraper/amazon" },
         { label: "LinkedIn Scraper", href: "/products/web-scraper/linkedin" },
-        { label: "eCommerce Scrapers", href: "/products/web-scraper/scraper-lib/categories/ecommerce" },
+        { label: "eCommerce Scrapers", href: "/products/web-scraper/ecommerce" },
         { label: "Scraper Library", href: "/products/web-scraper/scraper-lib" },
       ],
     },
