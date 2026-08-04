@@ -524,33 +524,6 @@ function CodeBlock({ code, label }: { code: string; label: string }) {
   );
 }
 
-function SyncAsyncToggle({
-  mode,
-  onChange,
-}: {
-  mode: "sync" | "async";
-  onChange: (m: "sync" | "async") => void;
-}) {
-  return (
-    <div className="inline-flex rounded-lg border border-bd-line bg-bd-canvas p-0.5">
-      {(["sync", "async"] as const).map((m) => (
-        <button
-          key={m}
-          type="button"
-          onClick={() => onChange(m)}
-          className={`rounded-md px-2.5 py-1.5 text-xs font-semibold transition sm:px-3 ${
-            mode === m
-              ? "bg-bd-blue-soft text-bd-navy shadow-sm border border-bd-line"
-              : "text-bd-ink/70 hover:text-bd-navy"
-          }`}
-        >
-          <span className="sm:hidden">{m === "sync" ? "Sync" : "Async"}</span>
-          <span className="hidden sm:inline">{m === "sync" ? "Synchronous (Real-time)" : "Asynchronous (Bulk)"}</span>
-        </button>
-      ))}
-    </div>
-  );
-}
 
 const RELATED_SCRAPERS = [
   {
@@ -1628,7 +1601,7 @@ const DELIVERY_OPTIONS = ["API response", "Amazon S3", "Google Cloud", "Webhook"
 const GEO_OPTIONS = ["United States", "United Kingdom", "Germany", "Japan", "France", "India", "Canada", "Australia"] as const;
 const SCHEDULE_OPTIONS = ["Manual", "Hourly", "Daily", "Weekly"] as const;
 
-function CustomizeTab({ datasetId }: { datasetId: string }) {
+function CustomizeTab({ datasetId, apiMode, onApiModeChange }: { datasetId: string; apiMode: "sync" | "async"; onApiModeChange: (m: "sync" | "async") => void }) {
   const [fields, setFields] = useState<Set<string>>(() => new Set(DEFAULT_ON));
   const [format, setFormat] = useState<string>("JSON");
   const [delivery, setDelivery] = useState<string>("API response");
@@ -1695,8 +1668,27 @@ function CustomizeTab({ datasetId }: { datasetId: string }) {
       <section>
         <h3 className="mb-3 text-lg font-bold text-bd-navy">Scraper settings</h3>
         <div className="overflow-hidden rounded-xl border border-bd-line">
-          {/* Format */}
+          {/* API mode */}
           <div className="flex items-center justify-between gap-4 px-4 py-3 sm:px-5">
+            <div className="min-w-0">
+              <p className="text-sm font-medium text-bd-navy">API mode</p>
+              <p className="text-[11px] text-bd-muted">{apiMode === "sync" ? "Real-time response via /scrape" : "Returns snapshot_id via /trigger"}</p>
+            </div>
+            <div className="flex shrink-0 gap-1">
+              {(["sync", "async"] as const).map((m) => (
+                <button key={m} type="button" onClick={() => onApiModeChange(m)}
+                  className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
+                    apiMode === m
+                      ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/20"
+                      : "border border-bd-line bg-bd-canvas text-bd-muted hover:text-bd-ink"
+                  }`}
+                >{m === "sync" ? "Sync" : "Async"}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* Format */}
+          <div className="flex items-center justify-between gap-4 border-t border-bd-line px-4 py-3 sm:px-5">
             <div className="min-w-0">
               <p className="text-sm font-medium text-bd-navy">Output format</p>
             </div>
@@ -1812,7 +1804,7 @@ function CustomizeTab({ datasetId }: { datasetId: string }) {
         <div>
           <p className="mb-1.5 text-[11px] font-bold uppercase tracking-wider text-bd-muted">Generated API call</p>
           <CodeBlock
-            code={`curl -X POST "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${datasetId}&format=${format.toLowerCase()}${activeFields.length > 0 && activeFields.length < ALL_OUTPUT_FIELDS.length ? `&custom_output_fields=${apiParam}` : ""}" \\
+            code={`curl -X POST "https://api.brightdata.com/datasets/v3/${apiMode === "sync" ? "scrape" : "trigger"}?dataset_id=${datasetId}&format=${format.toLowerCase()}${activeFields.length > 0 && activeFields.length < ALL_OUTPUT_FIELDS.length ? `&custom_output_fields=${apiParam}` : ""}" \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '[{"url":"https://www.amazon.com/dp/B09X7MPX8L"}]'`}
@@ -2011,8 +2003,8 @@ export default function ScraperPage() {
                 {mainTab === "API" ? (
                   <div>
                     <p className="text-[15px] leading-7 text-bd-ink">
-                      Run this scraper programmatically using Bright Data&apos;s REST API. Choose
-                      synchronous for real-time results or asynchronous for bulk jobs.
+                      Run this scraper programmatically using Bright Data&apos;s REST API. Switch between sync and async modes in the{" "}
+                      <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">Customize</button> tab.
                     </p>
 
                     {/* Sync vs async table */}
@@ -2064,12 +2056,13 @@ export default function ScraperPage() {
                     <div className="mt-5">
                       {(apiLang === "Python" || apiLang === "JavaScript" || apiLang === "cURL") ? (
                         <div className="space-y-4">
-                          <div className="flex flex-wrap items-center justify-between gap-3">
-                            <h2 className="text-lg font-bold text-bd-navy">
-                              Amazon Scraper API — {apiLang} Example
-                            </h2>
-                            <SyncAsyncToggle mode={apiMode} onChange={setApiMode} />
-                          </div>
+                          <h2 className="text-lg font-bold text-bd-navy">
+                            Amazon Scraper API — {apiLang} {apiMode === "async" ? "(Async)" : ""} Example
+                          </h2>
+                          <p className="mt-1 text-xs text-bd-muted">
+                            Showing <strong className="text-bd-ink">{apiMode === "sync" ? "synchronous" : "asynchronous"}</strong> mode.
+                            Switch in the <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">Customize</button> tab.
+                          </p>
 
                           {apiLang === "Python" && apiMode === "sync" ? (
                             <div className="space-y-3">
@@ -3109,7 +3102,7 @@ export default function ScraperPage() {
 
                 {/* ===== CUSTOMIZE TAB ===== */}
                 {mainTab === "Customize" ? (
-                  <CustomizeTab datasetId={DATASET_ID} />
+                  <CustomizeTab datasetId={DATASET_ID} apiMode={apiMode} onApiModeChange={setApiMode} />
                 ) : null}
               </div>
             </div>
