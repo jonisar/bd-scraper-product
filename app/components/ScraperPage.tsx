@@ -6,6 +6,7 @@ import { Header, Footer } from "@/components/Chrome";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import ScraperCard from "@/components/ScraperCard";
 import AiPromptCta from "@/components/AiPromptCta";
+import { PricingCards } from "@/components/PricingCards";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Playground" | "Connect Agent" | "Customize";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
@@ -994,90 +995,7 @@ function PricingTab() {
       </section>
 
       {/* Plan cards */}
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        {/* Free */}
-        <div className="flex flex-col rounded-xl border border-bd-line bg-bd-canvas p-3.5 sm:p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-bd-muted sm:text-[11px]">Free</p>
-          <p className="mt-1 text-lg font-extrabold text-bd-navy sm:text-2xl">$0</p>
-          <p className="mt-0.5 text-[10px] text-bd-muted sm:text-xs">5,000 records/month</p>
-          <ul className="mt-3 flex-1 space-y-1.5 sm:mt-4 sm:space-y-2">
-            {["No credit card required", "All output formats", "Full API access", "Expert support"].map((f) => (
-              <li key={f} className="flex items-start gap-1.5 text-xs text-bd-ink sm:gap-2 sm:text-sm">
-                <span className="mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue sm:h-4 sm:w-4">
-                  <svg viewBox="0 0 16 16" className="h-2 w-2 fill-current sm:h-2.5 sm:w-2.5"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-                </span>
-                {f}
-              </li>
-            ))}
-          </ul>
-          <a href="https://brightdata.com/cp/start" className="mt-4 block rounded-lg bg-bd-blue px-3 py-2 text-center text-xs font-bold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110 sm:mt-5 sm:px-4 sm:py-2.5 sm:text-sm" target="_blank" rel="noreferrer">
-            Start free
-          </a>
-        </div>
-
-        {/* Pay As You Go — highlighted */}
-        <div className="relative flex flex-col rounded-xl border border-bd-blue/40 bg-gradient-to-b from-[#0d1a2e] to-bd-canvas p-3.5 pt-5 sm:p-5 sm:pt-6 shadow-[0_4px_24px_rgba(61,127,252,0.12)]">
-          <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-bd-blue px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white sm:px-3 sm:text-[10px]">
-            Most popular
-          </span>
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-bd-blue sm:text-[11px]">Pay As You Go</p>
-          <p className="mt-1 text-lg font-extrabold text-bd-navy sm:text-2xl">$1.50</p>
-          <p className="mt-0.5 text-[10px] text-bd-muted sm:text-xs">Per 1K records</p>
-          <ul className="mt-3 flex-1 space-y-1.5 sm:mt-4 sm:space-y-2">
-            {["Pay only for success", "No monthly minimum", "Spend limits", "Unlimited concurrency", "Expert support"].map((f) => (
-              <li key={f} className="flex items-start gap-1.5 text-xs text-bd-ink sm:gap-2 sm:text-sm">
-                <span className="mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue sm:h-4 sm:w-4">
-                  <svg viewBox="0 0 16 16" className="h-2 w-2 fill-current sm:h-2.5 sm:w-2.5"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-                </span>
-                {f}
-              </li>
-            ))}
-          </ul>
-          <a href="https://brightdata.com/cp/start" className="mt-4 block rounded-lg bg-bd-blue px-3 py-2 text-center text-xs font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-110 sm:mt-5 sm:px-4 sm:py-2.5 sm:text-sm" target="_blank" rel="noreferrer">
-            Get started
-          </a>
-        </div>
-
-        {/* Scale */}
-        <div className="flex flex-col rounded-xl border border-bd-line bg-bd-canvas p-3.5 sm:p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-bd-muted sm:text-[11px]">Scale</p>
-          <p className="mt-1 text-lg font-extrabold text-bd-navy sm:text-2xl">$499</p>
-          <p className="mt-0.5 text-[10px] text-bd-muted sm:text-xs">/month</p>
-          <ul className="mt-3 flex-1 space-y-1.5 sm:mt-4 sm:space-y-2">
-            {["384K records included", "$1.30/1K overage", "Unlimited concurrency", "Cancel anytime", "Expert support"].map((f) => (
-              <li key={f} className="flex items-start gap-1.5 text-xs text-bd-ink sm:gap-2 sm:text-sm">
-                <span className="mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue sm:h-4 sm:w-4">
-                  <svg viewBox="0 0 16 16" className="h-2 w-2 fill-current sm:h-2.5 sm:w-2.5"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-                </span>
-                {f}
-              </li>
-            ))}
-          </ul>
-          <a href="https://brightdata.com/cp/start" className="mt-4 block rounded-lg border border-bd-line bg-bd-panel px-3 py-2 text-center text-xs font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft sm:mt-5 sm:px-4 sm:py-2.5 sm:text-sm" target="_blank" rel="noreferrer">
-            Get started
-          </a>
-        </div>
-
-        {/* Enterprise */}
-        <div className="flex flex-col rounded-xl border border-bd-line bg-bd-canvas p-3.5 sm:p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-bd-muted sm:text-[11px]">Enterprise</p>
-          <p className="mt-1 text-lg font-extrabold text-bd-navy sm:text-2xl">Custom</p>
-          <p className="mt-0.5 text-[10px] text-bd-muted sm:text-xs">Volume discounts</p>
-          <ul className="mt-3 flex-1 space-y-1.5 sm:mt-4 sm:space-y-2">
-            {["Account manager", "Premium SLA", "Priority support", "SSO", "Custom integrations"].map((f) => (
-              <li key={f} className="flex items-start gap-1.5 text-xs text-bd-ink sm:gap-2 sm:text-sm">
-                <span className="mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue sm:h-4 sm:w-4">
-                  <svg viewBox="0 0 16 16" className="h-2 w-2 fill-current sm:h-2.5 sm:w-2.5"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-                </span>
-                {f}
-              </li>
-            ))}
-          </ul>
-          <a href="https://brightdata.com/contact" className="mt-4 block rounded-lg border border-bd-line bg-bd-panel px-3 py-2 text-center text-xs font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft sm:mt-5 sm:px-4 sm:py-2.5 sm:text-sm" target="_blank" rel="noreferrer">
-            Talk to sales
-          </a>
-        </div>
-      </div>
+      <PricingCards unit="records" compact />
 
       {/* What's included grid */}
       <section>

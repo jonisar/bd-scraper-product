@@ -5,6 +5,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import ScraperCard from "@/components/ScraperCard";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
+import { PricingCards } from "@/components/PricingCards";
 import AmazonCodeExamples from "@/components/AmazonCodeExamples";
 import {
   AMAZON_SCRAPERS,
@@ -243,67 +244,7 @@ export default function AmazonHubPage() {
               <h2>Only pay for what&rsquo;s successfully delivered</h2>
               <p>No hidden fees. No charges for failed deliveries. Every plan includes full access to Amazon scrapers and infrastructure.</p>
             </div>
-            <div className="pricing-grid">
-              <div className="price-card">
-                <div className="price-tier">Free Tier</div>
-                <div className="price-amount">
-                  <strong>5K</strong>
-                  <span>records/mo</span>
-                </div>
-                <ul className="price-features">
-                  <li>No credit card required</li>
-                  <li>Expert support</li>
-                  <li>Full API access</li>
-                </ul>
-                <a href="https://brightdata.com/cp/start" className="btn btn-ghost btn-pill price-cta" target="_blank" rel="noopener noreferrer">
-                  Start free
-                </a>
-              </div>
-              <div className="price-card price-card-featured">
-                <div className="price-tier">Pay as you go</div>
-                <div className="price-amount">
-                  <strong>$1.50</strong>
-                  <span>/1K records</span>
-                </div>
-                <ul className="price-features">
-                  <li>Pay only for success</li>
-                  <li>Set monthly spend limits</li>
-                  <li>Unlimited concurrency</li>
-                </ul>
-                <a href="https://brightdata.com/cp/start" className="btn btn-primary btn-pill price-cta" target="_blank" rel="noopener noreferrer">
-                  Start free
-                </a>
-              </div>
-              <div className="price-card">
-                <div className="price-tier">Scale</div>
-                <div className="price-amount">
-                  <strong>$499</strong>
-                  <span>/month</span>
-                </div>
-                <ul className="price-features">
-                  <li>384K records included</li>
-                  <li>$1.30/1K additional</li>
-                  <li>Cancel anytime</li>
-                </ul>
-                <a href="https://brightdata.com/cp/start" className="btn btn-ghost btn-pill price-cta" target="_blank" rel="noopener noreferrer">
-                  Get started
-                </a>
-              </div>
-              <div className="price-card">
-                <div className="price-tier">Enterprise</div>
-                <div className="price-amount">
-                  <strong>Custom</strong>
-                </div>
-                <ul className="price-features">
-                  <li>Volume discounts</li>
-                  <li>Account manager</li>
-                  <li>Premium SLA &amp; SSO</li>
-                </ul>
-                <a href="https://brightdata.com/contact" className="btn btn-ghost btn-pill price-cta" target="_blank" rel="noopener noreferrer">
-                  Talk to sales
-                </a>
-              </div>
-            </div>
+            <PricingCards unit="records" />
 
             <div className="hub-plan-includes">
               <div className="hub-plan-includes-head">

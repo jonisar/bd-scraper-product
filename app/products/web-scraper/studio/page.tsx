@@ -3,6 +3,7 @@ import { Header, Footer } from "@/components/Chrome";
 import ScrollReveal from "@/components/ScrollReveal";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
+import { PricingCards } from "@/components/PricingCards";
 
 export const metadata: Metadata = {
   title: "AI Scraper Studio - Build Any Scraper With a Prompt",
@@ -348,67 +349,7 @@ export default function StudioPage() {
               <h2>Start free. Scale as you grow.</h2>
               <p>Every plan includes AI generation, proxies, unblocking, and cloud infrastructure. Pay only for page loads.</p>
             </div>
-            <div className="pricing-grid">
-              <div className="price-card">
-                <div className="price-tier">Free</div>
-                <div className="price-amount">
-                  <strong>5K</strong>
-                  <span>page loads/mo</span>
-                </div>
-                <ul className="price-features">
-                  <li>No credit card required</li>
-                  <li>AI generation included</li>
-                  <li>Expert support</li>
-                </ul>
-                <a href={SIGNUP} className="btn btn-ghost btn-pill price-cta" target="_blank" rel="noopener noreferrer">
-                  Start free
-                </a>
-              </div>
-              <div className="price-card price-card-featured">
-                <div className="price-tier">Pay as you go</div>
-                <div className="price-amount">
-                  <strong>$1.50</strong>
-                  <span>/1K page loads</span>
-                </div>
-                <ul className="price-features">
-                  <li>Pay only for success</li>
-                  <li>Unlimited concurrency</li>
-                  <li>Set monthly spend limits</li>
-                </ul>
-                <a href={SIGNUP} className="btn btn-primary btn-pill price-cta" target="_blank" rel="noopener noreferrer">
-                  Start free
-                </a>
-              </div>
-              <div className="price-card">
-                <div className="price-tier">Scale</div>
-                <div className="price-amount">
-                  <strong>$499</strong>
-                  <span>/month</span>
-                </div>
-                <ul className="price-features">
-                  <li>384K page loads included</li>
-                  <li>$1.30/1K additional</li>
-                  <li>Cancel anytime</li>
-                </ul>
-                <a href={SIGNUP} className="btn btn-ghost btn-pill price-cta" target="_blank" rel="noopener noreferrer">
-                  Get started
-                </a>
-              </div>
-              <div className="price-card">
-                <div className="price-tier">Enterprise</div>
-                <div className="price-amount">
-                  <strong>Custom</strong>
-                </div>
-                <ul className="price-features">
-                  <li>Volume discounts</li>
-                  <li>Account manager</li>
-                  <li>Premium SLA &amp; SSO</li>
-                </ul>
-                <a href={CONTACT} className="btn btn-ghost btn-pill price-cta" target="_blank" rel="noopener noreferrer">
-                  Talk to sales
-                </a>
-              </div>
-            </div>
+            <PricingCards unit="page loads" />
             <p className="pricing-note">
               Sign up now and we&rsquo;ll match your first deposit dollar for dollar, up to <strong>$500</strong>
             </p>

@@ -7,6 +7,7 @@ import StudioAgentPrompts from "@/components/StudioAgentPrompts";
 import ScrollReveal from "@/components/ScrollReveal";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
+import { PricingCards } from "@/components/PricingCards";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -396,67 +397,7 @@ export default function WebScraperHome() {
             <h2>Only pay for what&rsquo;s successfully delivered</h2>
             <p>No hidden fees. No charges for failed requests. Every plan includes full access to all scrapers and infrastructure.</p>
           </div>
-          <div className="pricing-grid">
-            <div className="price-card">
-              <div className="price-tier">Free</div>
-              <div className="price-amount">
-                <strong>5K</strong>
-                <span>records/mo</span>
-              </div>
-              <ul className="price-features">
-                <li>No credit card required</li>
-                <li>All scrapers included</li>
-                <li>Full API access</li>
-              </ul>
-              <a href="https://brightdata.com/cp/start" className="btn btn-ghost btn-pill price-cta">
-                Start free
-              </a>
-            </div>
-            <div className="price-card price-card-featured">
-              <div className="price-tier">Pay as you go</div>
-              <div className="price-amount">
-                <strong>$1.50</strong>
-                <span>/1K records</span>
-              </div>
-              <ul className="price-features">
-                <li>Pay only for success</li>
-                <li>Unlimited concurrency</li>
-                <li>Set monthly spend limits</li>
-              </ul>
-              <a href="https://brightdata.com/cp/start" className="btn btn-primary btn-pill price-cta">
-                Start free
-              </a>
-            </div>
-            <div className="price-card">
-              <div className="price-tier">Scale</div>
-              <div className="price-amount">
-                <strong>$499</strong>
-                <span>/month</span>
-              </div>
-              <ul className="price-features">
-                <li>384K records included</li>
-                <li>$1.30/1K additional</li>
-                <li>Cancel anytime</li>
-              </ul>
-              <a href="https://brightdata.com/cp/start" className="btn btn-ghost btn-pill price-cta">
-                Get started
-              </a>
-            </div>
-            <div className="price-card">
-              <div className="price-tier">Enterprise</div>
-              <div className="price-amount">
-                <strong>Custom</strong>
-              </div>
-              <ul className="price-features">
-                <li>Volume discounts</li>
-                <li>Account manager</li>
-                <li>Premium SLA &amp; SSO</li>
-              </ul>
-              <a href="https://brightdata.com/contact" className="btn btn-ghost btn-pill price-cta">
-                Talk to sales
-              </a>
-            </div>
-          </div>
+          <PricingCards unit="records" />
           <p className="pricing-note">
             Rated <strong>4.6/5</strong> on Trustpilot · <strong>4.6/5</strong> on G2 · <strong>4.8/5</strong> on Capterra
           </p>
