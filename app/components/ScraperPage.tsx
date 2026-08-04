@@ -944,6 +944,9 @@ function PricingTab() {
                   ? <span className="inline-block rounded-full bg-bd-blue/10 px-2.5 py-0.5 text-[11px] font-bold text-bd-blue">{tier.tag}</span>
                   : null}
             </p>
+            <p className="mt-1.5 text-[11px] leading-4 text-bd-muted">
+              This is your whole bill. Proxies, unblocking, and parsing included.
+            </p>
             <a
               href="https://brightdata.com/cp/start"
               className="mt-3 block w-full rounded-lg bg-bd-blue px-4 py-2.5 text-center text-sm font-bold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110"
@@ -963,7 +966,7 @@ function PricingTab() {
           <span className="hidden sm:inline text-bd-line">·</span>
           <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> From $1.00/1K at volume</span>
           <span className="hidden sm:inline text-bd-line">·</span>
-          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> Cancel anytime</span>
+          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> No compute, storage, or transfer fees</span>
         </div>
       </section>
 
@@ -972,15 +975,17 @@ function PricingTab() {
 
       {/* What's included grid */}
       <section>
-        <h3 className="text-lg font-bold text-bd-navy">Every plan includes</h3>
+        <h3 className="text-lg font-bold text-bd-navy">Included, never billed separately</h3>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {[
-            { title: "Full browser rendering", desc: "JavaScript pages, SPAs, infinite scroll — all handled" },
-            { title: "Built-in anti-bot bypass", desc: "Auto IP rotation, CAPTCHA solving, fingerprint management — never get blocked" },
-            { title: "Structured data output", desc: "Clean JSON, CSV, or NDJSON — parsed and validated" },
+            { title: "Full browser rendering", desc: "JavaScript pages, SPAs, and infinite scroll, all handled" },
+            { title: "Built-in anti-bot bypass", desc: "Auto IP rotation, CAPTCHA solving, and fingerprint management so you never get blocked" },
+            { title: "Residential proxy network", desc: "400M+ IPs routed automatically, with no separate proxy bill" },
+            { title: "Structured data output", desc: "Clean JSON, CSV, or NDJSON, parsed and validated" },
             { title: "Unlimited concurrency", desc: "Run as many requests in parallel as you need" },
             { title: "Worldwide geotargeting", desc: "Scrape from 195+ countries for localized results" },
             { title: "Webhook & API delivery", desc: "Push results to your endpoint or pull via REST API" },
+            { title: "24/7 support", desc: "Real engineers on chat and email, around the clock" },
           ].map((f) => (
             <div key={f.title} className="flex items-start gap-2.5 rounded-lg border border-bd-line bg-bd-panel px-4 py-3">
               <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
@@ -995,6 +1000,44 @@ function PricingTab() {
         </div>
       </section>
 
+      {/* Platform comparison (collapsed) */}
+      <section>
+        <details className="group rounded-xl border border-bd-line bg-bd-panel px-4 py-3">
+          <summary className="list-none flex cursor-pointer items-start justify-between gap-3 text-sm font-semibold text-bd-navy">
+            <span className="min-w-0">Comparing scraping platforms?</span>
+            <svg className="mt-0.5 h-4 w-4 shrink-0 text-bd-muted transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+          </summary>
+          <div className="mt-2 text-[13px] leading-6 text-bd-ink/70">
+            <p>
+              Most scraping platforms meter several line items on top of the advertised rate. Here, the
+              per-record price is the whole bill. Every one of these is included:
+            </p>
+            <ul className="mt-3 space-y-1.5">
+              {[
+                { item: "Compute / runtime units", note: "commonly metered per actor-hour or CU" },
+                { item: "Residential proxy bandwidth", note: "commonly billed per GB on top" },
+                { item: "Storage & dataset retention", note: "commonly billed per GB-month" },
+                { item: "Data transfer / egress", note: "commonly billed per GB out" },
+                { item: "Unblocking & CAPTCHA solving", note: "commonly a paid add-on" },
+                { item: "Parsing to structured JSON", note: "commonly your own code and maintenance" },
+              ].map((r) => (
+                <li key={r.item} className="flex items-start justify-between gap-3">
+                  <span className="min-w-0">
+                    <span className="font-medium text-bd-ink">{r.item}</span>
+                    <span className="text-bd-muted">: {r.note}</span>
+                  </span>
+                  <span className="flex shrink-0 items-center gap-1 font-semibold text-bd-success">
+                    <span>✓</span> Included
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </details>
+      </section>
+
       {/* FAQs */}
       <section>
         <h3 className="text-lg font-bold text-bd-navy">Pricing FAQ</h3>
@@ -1002,9 +1045,9 @@ function PricingTab() {
           {[
             { q: "What counts as a record?", a: "One successfully scraped product = one record. Each record is a single JSON object with all data fields (title, price, reviews, seller, etc.). Failed or errored requests are never charged." },
             { q: "Are there setup fees or hidden costs?", a: "No. Zero setup fees, no minimum commitment, no per-request charges, no bandwidth fees. You pay only for successfully delivered records at the rate shown above." },
-            { q: "How does the free tier work?", a: "Every Bright Data account includes 5,000 free records per month — no credit card required. Use them with any scraper in the library. Credits renew on the 1st of each month." },
+            { q: "How does the free tier work?", a: "Every Bright Data account includes 5,000 free records per month, no credit card required. Use them with any scraper in the library. Credits renew on the 1st of each month." },
             { q: "What happens when free credits run out?", a: "If you have pre-deposited funds, usage continues seamlessly at pay-as-you-go rates. Otherwise, API requests return a clear error until you add funds or credits renew next month." },
-            { q: "Can I set a spending limit?", a: "Yes. Set a monthly spend cap in your dashboard. When the limit is reached, requests pause automatically — no surprise bills." },
+            { q: "Can I set a spending limit?", a: "Yes. Set a monthly spend cap in your dashboard. When the limit is reached, requests pause automatically, so there are no surprise bills." },
             { q: "How do volume discounts work?", a: "Rates drop as volume increases, from $1.50/1K at pay-as-you-go down to $1.00/1K at higher volumes. The Scale plan ($499/mo) includes 384K records. Enterprise customers can negotiate further. No long-term commitment required." },
             { q: "What payment methods are accepted?", a: "All major credit cards, wire transfers, and AWS Marketplace for streamlined procurement and consolidated billing." },
           ].map((item) => (
@@ -1029,7 +1072,7 @@ function PricingTab() {
           target="_blank"
           rel="noreferrer"
         >
-          Start free — 5K records/month
+          Start free with 5K records/month
         </a>
         <a
           href="https://brightdata.com/contact"
