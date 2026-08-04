@@ -8,11 +8,11 @@ import { catalog } from "@/lib/catalog";
 import { scraperHref } from "@/lib/scraper-href";
 
 export const metadata: Metadata = {
-  title: "E-commerce Scrapers — Amazon, Walmart, eBay & More",
+  title: "E-commerce Scrapers - Amazon, Walmart, eBay & More",
   description:
     "Production-ready e-commerce scrapers for Amazon, Walmart, eBay, Etsy, Target, Shopify, and more. Track prices, reviews, stock levels, and seller data. Built-in proxies and auto-maintenance.",
   openGraph: {
-    title: "E-commerce Scrapers — Amazon, Walmart, eBay & More",
+    title: "E-commerce Scrapers - Amazon, Walmart, eBay & More",
     description:
       "Scrape product data from any e-commerce site. Price monitoring, review collection, and competitive intelligence at scale.",
     type: "website",
@@ -48,7 +48,7 @@ const jsonLd = {
   "@type": "CollectionPage",
   "@id": "https://brightdata.com/products/web-scraper/scraper-lib/categories/ecommerce",
   url: "https://brightdata.com/products/web-scraper/scraper-lib/categories/ecommerce",
-  name: "E-commerce Scrapers — Amazon, Walmart, eBay & More",
+  name: "E-commerce Scrapers - Amazon, Walmart, eBay & More",
   description: "Production-ready e-commerce web scrapers for price monitoring, review collection, and competitive intelligence.",
   isPartOf: { "@id": "https://brightdata.com#website" },
   inLanguage: "en-US",

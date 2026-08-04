@@ -14,11 +14,11 @@ import {
 } from "@/lib/amazon-scrapers";
 
 export const metadata: Metadata = {
-  title: "Amazon Scraper API - 5K records/Month for Free",
+  title: "Amazon Scraper API - 5K Records/Month for Free",
   description:
     "Scrape Amazon products and collect ASIN, prices, reviews, images, ratings, seller info, and more. Amazon Scraper API or no-code scraper. Free trial: 5K records/month.",
   openGraph: {
-    title: "Amazon Scraper API - 5K records/Month for Free",
+    title: "Amazon Scraper API - 5K Records/Month for Free",
     description:
       "Extract Amazon product data — prices, reviews, ratings, availability, and seller info — via API or no-code. Start free.",
     type: "website",

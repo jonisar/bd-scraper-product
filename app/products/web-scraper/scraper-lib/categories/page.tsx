@@ -4,11 +4,11 @@ import ScrollReveal from "@/components/ScrollReveal";
 import { CATALOG_CATEGORIES, catalog } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Scraper Categories — Browse by Industry & Platform",
+  title: "Scraper Categories - Browse by Industry & Platform",
   description:
     "Browse web scrapers by category: e-commerce, social media, B2B, jobs, real estate, travel, search, news, and finance. 1,300+ production-ready scrapers with built-in proxies.",
   openGraph: {
-    title: "Scraper Categories — Browse by Industry & Platform",
+    title: "Scraper Categories - Browse by Industry & Platform",
     description:
       "Browse web scrapers by category. 1,300+ production-ready scrapers organized by industry and platform.",
     type: "website",
@@ -69,7 +69,7 @@ const jsonLd = {
   "@type": "CollectionPage",
   "@id": "https://brightdata.com/products/web-scraper/scraper-lib/categories",
   url: "https://brightdata.com/products/web-scraper/scraper-lib/categories",
-  name: "Scraper Categories — Browse by Industry & Platform",
+  name: "Scraper Categories - Browse by Industry & Platform",
   description: "Browse 1,300+ web scrapers organized by category.",
   isPartOf: { "@id": "https://brightdata.com#website" },
   inLanguage: "en-US",
