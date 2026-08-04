@@ -30,6 +30,18 @@ const CATEGORY_ICONS: Record<string, string> = {
   "Finance": "∞",
 };
 
+const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string }> = {
+  "Social Media":   { label: "View all Social Media scrapers",   href: "/products/web-scraper/scraper-lib?cat=Social+Media" },
+  "E-commerce":     { label: "View all E-commerce scrapers",     href: "/products/web-scraper/scraper-lib/categories/ecommerce" },
+  "Business (B2B)": { label: "View all B2B scrapers",            href: "/products/web-scraper/scraper-lib?cat=Business+%28B2B%29" },
+  "Jobs":           { label: "View all Jobs scrapers",           href: "/products/web-scraper/scraper-lib?cat=Jobs" },
+  "Real Estate":    { label: "View all Real Estate scrapers",    href: "/products/web-scraper/scraper-lib?cat=Real+Estate" },
+  "Travel":         { label: "View all Travel scrapers",         href: "/products/web-scraper/scraper-lib?cat=Travel" },
+  "Search":         { label: "View all Search scrapers",         href: "/products/web-scraper/scraper-lib?cat=Search" },
+  "News & Media":   { label: "View all News & Media scrapers",   href: "/products/web-scraper/scraper-lib?cat=News+%26+Media" },
+  "Finance":        { label: "View all Finance scrapers",        href: "/products/web-scraper/scraper-lib?cat=Finance" },
+};
+
 type DomainCardData = {
   domain: string;
   label: string;
@@ -578,6 +590,11 @@ export default function ScraperLibraryInfinite() {
             <div className="lib-grid slib-grid-animated">
               {popular.map((s, i) => renderCard(s, i))}
             </div>
+            <p className="slib-view-all">
+              <a href="/products/web-scraper/scraper-lib?sort=popular" className="slib-view-all-link">
+                View all scrapers →
+              </a>
+            </p>
           </div>
 
           {/* Category sections — all scrapers, lazy-loaded per section */}
@@ -607,6 +624,13 @@ export default function ScraperLibraryInfinite() {
                 <span className="slib-section-count">{sec.total} scrapers</span>
               </div>
               <LazyCardGrid scrapers={sec.scrapers} />
+              {CATEGORY_VIEW_ALL[sec.category] && (
+                <p className="slib-view-all">
+                  <a href={CATEGORY_VIEW_ALL[sec.category].href} className="slib-view-all-link">
+                    {CATEGORY_VIEW_ALL[sec.category].label} →
+                  </a>
+                </p>
+              )}
             </div>
           ))}
 

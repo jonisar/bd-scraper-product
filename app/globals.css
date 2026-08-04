@@ -3156,6 +3156,15 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 .slib-curated-section {
   padding: var(--s5) 0;
 }
+.slib-view-all { margin-top: var(--s4); }
+.slib-view-all-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity .15s;
+}
+.slib-view-all-link:hover { opacity: 0.8; text-decoration: underline; }
 .slib-curated-head {
   display: flex;
   align-items: flex-start;
