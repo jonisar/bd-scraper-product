@@ -7,7 +7,6 @@ interface Plan {
   tier: string;
   price: string;
   unit: string;
-  subtitle?: string;
   features: string[];
   cta: string;
   href: string;
@@ -26,9 +25,8 @@ function getPlans(unit: string): Plan[] {
     },
     {
       tier: "Pay as you go",
-      price: "$1.50",
+      price: "$1.30–1.50",
       unit: `/1K ${unit}`,
-      subtitle: "From $1.30/1K on Scale",
       features: ["Pay only for success", "Unlimited concurrency", "Set monthly spend limits"],
       cta: "Start free",
       href: SIGNUP,
@@ -71,7 +69,6 @@ export function PricingCards({
             <strong>{p.price}</strong>
             {p.unit && <span>{p.unit}</span>}
           </div>
-          {p.subtitle && <p className="pc-subtitle">{p.subtitle}</p>}
           <ul className="pc-features">
             {p.features.map((f) => (
               <li key={f}>{f}</li>

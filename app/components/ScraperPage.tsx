@@ -1947,7 +1947,10 @@ export default function ScraperPage() {
                     <span className="h-1.5 w-1.5 rounded-full bg-bd-success animate-pulse" />
                     Verified
                   </p>
-                  <p className="text-[11px] text-bd-success">3h ago</p>
+                  <p className="flex items-center gap-1 text-[11px] text-bd-muted">
+                    <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-bd-success" aria-hidden="true"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                    3h ago
+                  </p>
                 </div>
               </div>
 
@@ -3146,10 +3149,9 @@ export default function ScraperPage() {
                   Pay as you go
                 </p>
                 <p className="mt-1.5 text-[1.35rem] font-extrabold tracking-tight text-bd-navy sm:text-2xl">
-                  $1.50{" "}
+                  $1.30–1.50{" "}
                   <span className="text-xs font-semibold text-bd-muted sm:text-sm">/ 1K records</span>
                 </p>
-                <p className="mt-1 text-xs text-bd-blue font-semibold">From $1.30/1K on Scale</p>
 
                 <div className="mt-3 space-y-2.5">
                   <div className="flex items-start gap-2.5">
