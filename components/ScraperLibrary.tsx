@@ -2,9 +2,23 @@
 
 import { useMemo, useState } from "react";
 import { catalog, CATALOG_CATEGORIES } from "@/lib/catalog";
-import { CATEGORY_LABELS } from "@/lib/category-labels";
 import { scraperHref } from "@/lib/scraper-href";
 import ScraperCard from "@/components/ScraperCard";
+
+const CARD_LIMIT = 9;
+
+const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string }> = {
+  All: { label: "View all scrapers", href: "/products/web-scraper/scraper-lib" },
+  "Social Media": { label: "View all Social Media scrapers", href: "/products/web-scraper/scraper-lib?cat=Social+Media" },
+  "E-commerce": { label: "View all E-commerce scrapers", href: "/products/web-scraper/scraper-lib?cat=E-commerce" },
+  "Business (B2B)": { label: "View all B2B scrapers", href: "/products/web-scraper/scraper-lib?cat=Business+%28B2B%29" },
+  Jobs: { label: "View all Jobs scrapers", href: "/products/web-scraper/scraper-lib?cat=Jobs" },
+  "Real Estate": { label: "View all Real Estate scrapers", href: "/products/web-scraper/scraper-lib?cat=Real+Estate" },
+  Travel: { label: "View all Travel scrapers", href: "/products/web-scraper/scraper-lib?cat=Travel" },
+  Search: { label: "View all Search scrapers", href: "/products/web-scraper/scraper-lib?cat=Search" },
+  "News & Media": { label: "View all News & Media scrapers", href: "/products/web-scraper/scraper-lib?cat=News+%26+Media" },
+  Finance: { label: "View all Finance scrapers", href: "/products/web-scraper/scraper-lib?cat=Finance" },
+};
 
 export default function ScraperLibrary() {
   const [cat, setCat] = useState<string>("All");
@@ -12,23 +26,34 @@ export default function ScraperLibrary() {
 
   const needle = search.trim().toLowerCase();
 
-  const filtered = useMemo(() => {
-    let list = catalog;
-    if (cat !== "All") list = list.filter((s) => s.category === cat);
+  const cards = useMemo(() => {
     if (needle) {
-      list = list.filter(
-        (s) =>
-          s.name.toLowerCase().includes(needle) ||
-          s.domain.includes(needle) ||
-          s.fields.some((f) => f.toLowerCase().includes(needle))
-      );
+      return catalog
+        .filter(
+          (s) =>
+            (cat === "All" || s.category === cat) &&
+            (s.name.toLowerCase().includes(needle) ||
+              s.domain.includes(needle) ||
+              s.fields.some((f) => f.toLowerCase().includes(needle)))
+        )
+        .slice(0, CARD_LIMIT);
     }
-    return list;
+
+    if (cat === "All") {
+      return catalog.filter((s) => s.popular).slice(0, CARD_LIMIT);
+    }
+
+    return catalog.filter((s) => s.category === cat).slice(0, CARD_LIMIT);
   }, [cat, needle]);
 
-  const popular = catalog.filter((s) => s.popular);
+  const viewAll = CATEGORY_VIEW_ALL[cat] || CATEGORY_VIEW_ALL.All;
 
-  const showCurated = cat === "All" && !needle;
+  const sectionTitle =
+    needle
+      ? `Results for "${search.trim()}"`
+      : cat === "All"
+        ? "Popular web scrapers"
+        : cat;
 
   return (
     <div className="lib">
@@ -62,117 +87,41 @@ export default function ScraperLibrary() {
         />
       </div>
 
-      {showCurated ? (
-        <>
-          <div className="lib-section">
-            <div className="lib-section-head">
-              <h2>Popular web scrapers</h2>
-              <a
-                href="/products/web-scraper/scraper-lib"
-                className="lib-section-more"
-              >
-                View all →
-              </a>
-            </div>
-            <div className="lib-grid">
-              {popular.slice(0, 9).map((s) => (
-                <ScraperCard
-                  key={s.id}
-                  name={s.name}
-                  domain={s.domain}
-                  category={s.category}
-                  desc={s.desc}
-                  views={s.views}
-                  downloads={s.downloads}
-                  href={scraperHref(s)}
-                />
-              ))}
-            </div>
-          </div>
-
-          {CATALOG_CATEGORIES.filter((c) => c !== "All").map((category) => {
-            const items = catalog.filter((s) => s.category === category && !s.popular);
-            if (items.length === 0) return null;
-            const labels = CATEGORY_LABELS[category] || [];
-            return (
-              <div key={category} className="lib-section">
-                <div className="lib-section-head">
-                  <h3>{category}</h3>
-                  <a
-                    href={`/products/web-scraper/scraper-lib?cat=${encodeURIComponent(category)}`}
-                    className="lib-section-more"
-                  >
-                    View all →
-                  </a>
-                  {labels.length > 0 && (
-                    <div className="lib-section-labels">
-                      {labels.map((l) => (
-                        <a
-                          key={l.name}
-                          href={l.href}
-                          {...(l.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                          className="lib-section-label"
-                        >
-                          {l.name}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <div className="lib-grid">
-                  {items.map((s) => (
-                    <ScraperCard
-                      key={s.id}
-                      name={s.name}
-                      domain={s.domain}
-                      category={s.category}
-                      desc={s.desc}
-                      views={s.views}
-                      downloads={s.downloads}
-                      href={scraperHref(s)}
-                    />
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </>
-      ) : (
-        <div className="lib-section">
-          <div className="lib-section-head">
-            <h3>{cat === "All" ? "Results" : cat}</h3>
-          </div>
-          {filtered.length > 0 ? (
-            <div className="lib-grid">
-              {filtered.map((s) => (
-                <ScraperCard
-                  key={s.id}
-                  name={s.name}
-                  domain={s.domain}
-                  category={s.category}
-                  desc={s.desc}
-                  views={s.views}
-                  downloads={s.downloads}
-                  href={scraperHref(s)}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="lib-empty">
-              <p>No scraper found for &ldquo;{search || cat}&rdquo;</p>
-              <p className="lib-empty-sub">
-                Can&apos;t find what you need?{" "}
-                <a
-                  href="/products/web-scraper/studio"
-                  className="lib-empty-link"
-                >
-                  Build one with Scraper Studio →
-                </a>
-              </p>
-            </div>
-          )}
+      <div className="lib-section">
+        <div className="lib-section-head">
+          <h2>{sectionTitle}</h2>
+          <a href={viewAll.href} className="lib-section-more">
+            {viewAll.label} →
+          </a>
         </div>
-      )}
+
+        {cards.length > 0 ? (
+          <div className="lib-grid">
+            {cards.map((s) => (
+              <ScraperCard
+                key={s.id}
+                name={s.name}
+                domain={s.domain}
+                category={s.category}
+                desc={s.desc}
+                views={s.views}
+                downloads={s.downloads}
+                href={scraperHref(s)}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="lib-empty">
+            <p>No scraper found for &ldquo;{search || cat}&rdquo;</p>
+            <p className="lib-empty-sub">
+              Can&apos;t find what you need?{" "}
+              <a href="/products/web-scraper/studio" className="lib-empty-link">
+                Build one with Scraper Studio →
+              </a>
+            </p>
+          </div>
+        )}
+      </div>
 
       <div className="lib-cta">
         <div className="lib-cta-body">
@@ -190,4 +139,3 @@ export default function ScraperLibrary() {
     </div>
   );
 }
-

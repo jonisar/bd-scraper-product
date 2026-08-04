@@ -23,9 +23,9 @@ export function Header() {
             <Link href="/products/web-scraper/scraper-lib" className="transition hover:text-bd-navy">
               All Scrapers
             </Link>
-            <Link href="/products/web-scraper#pricing" className="transition hover:text-bd-navy">
+            <a href="https://brightdata.com/pricing/web-scraper" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
               Pricing
-            </Link>
+            </a>
             <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
               Docs
             </a>
@@ -87,9 +87,9 @@ export function Header() {
             <Link href="/products/web-scraper/scraper-lib" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>
               All Scrapers
             </Link>
-            <Link href="/products/web-scraper#pricing" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>
+            <a href="https://brightdata.com/pricing/web-scraper" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)}>
               Pricing
-            </Link>
+            </a>
             <a href="https://docs.brightdata.com/" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Docs</a>
             <a href="https://brightdata.com/contact" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">Support</a>
             <Link href="/products/web-scraper/studio" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>
