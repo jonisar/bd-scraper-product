@@ -905,13 +905,13 @@ function getUrlStatus(url: string): UrlStatus {
 /* ── Pricing slider tiers ── */
 const PRICING_TIERS = [
   { records: 5_000, label: "5K", monthly: 0, perK: 0, tag: "Free" },
-  { records: 10_000, label: "10K", monthly: 15, perK: 1.50, tag: "" },
+  { records: 10_000, label: "10K", monthly: 15, perK: 1.50, tag: "Pay As You Go" },
   { records: 50_000, label: "50K", monthly: 75, perK: 1.50, tag: "" },
   { records: 100_000, label: "100K", monthly: 150, perK: 1.50, tag: "" },
-  { records: 250_000, label: "250K", monthly: 350, perK: 1.40, tag: "Save 7%" },
-  { records: 500_000, label: "500K", monthly: 650, perK: 1.30, tag: "Save 13%" },
-  { records: 1_000_000, label: "1M", monthly: 1_200, perK: 1.20, tag: "Save 20%" },
-  { records: 5_000_000, label: "5M", monthly: 5_000, perK: 1.00, tag: "Best value" },
+  { records: 384_000, label: "384K", monthly: 499, perK: 1.30, tag: "Scale plan" },
+  { records: 500_000, label: "500K", monthly: 650, perK: 1.30, tag: "" },
+  { records: 1_000_000, label: "1M", monthly: 1_300, perK: 1.30, tag: "" },
+  { records: 5_000_000, label: "5M", monthly: 6_500, perK: 1.30, tag: "Enterprise" },
 ];
 
 function PricingTab() {
@@ -987,21 +987,21 @@ function PricingTab() {
           <span className="hidden sm:inline text-bd-line">·</span>
           <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> 5K records/mo free</span>
           <span className="hidden sm:inline text-bd-line">·</span>
-          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> From $1.00/1K at scale</span>
+          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> $1.30/1K on Scale plan</span>
           <span className="hidden sm:inline text-bd-line">·</span>
           <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> Cancel anytime</span>
         </div>
       </section>
 
       {/* Plan cards */}
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {/* Free */}
         <div className="flex flex-col rounded-xl border border-bd-line bg-bd-canvas p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
           <p className="text-[11px] font-semibold uppercase tracking-wider text-bd-muted">Free</p>
           <p className="mt-1.5 text-xl font-extrabold text-bd-navy sm:text-2xl">$0</p>
-          <p className="mt-0.5 text-xs text-bd-muted">No credit card required</p>
+          <p className="mt-0.5 text-xs text-bd-muted">5,000 records/month</p>
           <ul className="mt-4 flex-1 space-y-2">
-            {["5,000 records/month", "All output formats", "Standard throughput", "Expert support"].map((f) => (
+            {["No credit card required", "All output formats", "Full API access", "Expert support"].map((f) => (
               <li key={f} className="flex items-center gap-2 text-sm text-bd-ink">
                 <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
                   <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
@@ -1021,10 +1021,10 @@ function PricingTab() {
             Most popular
           </span>
           <p className="text-[11px] font-semibold uppercase tracking-wider text-bd-blue">Pay As You Go</p>
-          <p className="mt-1.5 text-xl font-extrabold text-bd-navy sm:text-2xl">$1.00–1.50</p>
-          <p className="mt-0.5 text-xs text-bd-muted">Per 1K records — less at higher volume</p>
+          <p className="mt-1.5 text-xl font-extrabold text-bd-navy sm:text-2xl">$1.50</p>
+          <p className="mt-0.5 text-xs text-bd-muted">Per 1K records</p>
           <ul className="mt-4 flex-1 space-y-2">
-            {["Unlimited records", "Pay only for success", "Set monthly spend limits", "Unlimited concurrency", "Expert support"].map((f) => (
+            {["Pay only for success", "No monthly minimum", "Set monthly spend limits", "Unlimited concurrency", "Expert support"].map((f) => (
               <li key={f} className="flex items-center gap-2 text-sm text-bd-ink">
                 <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
                   <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
@@ -1034,6 +1034,26 @@ function PricingTab() {
             ))}
           </ul>
           <a href="https://brightdata.com/cp/start" className="mt-5 block rounded-lg bg-bd-blue px-4 py-2.5 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-110" target="_blank" rel="noreferrer">
+            Get started
+          </a>
+        </div>
+
+        {/* Scale */}
+        <div className="flex flex-col rounded-xl border border-bd-line bg-bd-canvas p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-bd-muted">Scale</p>
+          <p className="mt-1.5 text-xl font-extrabold text-bd-navy sm:text-2xl">$499</p>
+          <p className="mt-0.5 text-xs text-bd-muted">/month</p>
+          <ul className="mt-4 flex-1 space-y-2">
+            {["384K records included", "$1.30/1K additional records", "Unlimited concurrency", "Cancel anytime", "Expert support"].map((f) => (
+              <li key={f} className="flex items-center gap-2 text-sm text-bd-ink">
+                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
+                  <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                </span>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a href="https://brightdata.com/cp/start" className="mt-5 block rounded-lg border border-bd-line bg-bd-panel px-4 py-2.5 text-center text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft" target="_blank" rel="noreferrer">
             Get started
           </a>
         </div>
@@ -1094,7 +1114,7 @@ function PricingTab() {
             { q: "How does the free tier work?", a: "Every Bright Data account includes 5,000 free records per month — no credit card required. Use them with any scraper in the library. Credits renew on the 1st of each month." },
             { q: "What happens when free credits run out?", a: "If you have pre-deposited funds, usage continues seamlessly at pay-as-you-go rates. Otherwise, API requests return a clear error until you add funds or credits renew next month." },
             { q: "Can I set a spending limit?", a: "Yes. Set a monthly spend cap in your dashboard. When the limit is reached, requests pause automatically — no surprise bills." },
-            { q: "How do volume discounts work?", a: "Rates drop as volume increases, from $1.50/1K at pay-as-you-go down to $1.00/1K at 5M+ records. Enterprise customers can negotiate further. No long-term commitment required." },
+            { q: "How do volume discounts work?", a: "The Scale plan ($499/mo) includes 384K records at an effective $1.30/1K rate, with overages at $1.30/1K. Enterprise customers can negotiate further volume discounts. No long-term commitment required." },
             { q: "What payment methods are accepted?", a: "All major credit cards, wire transfers, and AWS Marketplace for streamlined procurement and consolidated billing." },
           ].map((item) => (
             <details key={item.q} className="group rounded-xl border border-bd-line bg-bd-panel px-4 py-3">
@@ -3208,7 +3228,7 @@ export default function ScraperPage() {
                   Pay as you go
                 </p>
                 <p className="mt-1.5 text-[1.35rem] font-extrabold tracking-tight text-bd-navy sm:text-2xl">
-                  $1.00–1.50{" "}
+                  $1.50{" "}
                   <span className="text-xs font-semibold text-bd-muted sm:text-sm">/ 1K records</span>
                 </p>
 

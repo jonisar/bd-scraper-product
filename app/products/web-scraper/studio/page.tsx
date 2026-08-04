@@ -386,7 +386,7 @@ export default function StudioPage() {
                   <span>/month</span>
                 </div>
                 <ul className="price-features">
-                  <li>383K page loads included</li>
+                  <li>384K page loads included</li>
                   <li>$1.30/1K additional</li>
                   <li>Cancel anytime</li>
                 </ul>
@@ -417,7 +417,7 @@ export default function StudioPage() {
             <div className="hub-plan-includes">
               <div className="hub-plan-includes-head">
                 <span className="hub-plan-includes-kicker">What&rsquo;s included</span>
-                <h3>Every plan gives you full access &mdash; pay less per record as you scale</h3>
+                <h3>Every plan gives you full access &mdash; pay less per page load as you scale</h3>
               </div>
               <div className="hub-plan-cols">
                 <div className="hub-plan-col">
