@@ -280,6 +280,18 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
           </>
         )}
       </div>
+
+      {!needle && (
+        <div className="hero-inline-ctas">
+          <a href="https://brightdata.com/cp/start" className="hero-cta-start" target="_blank" rel="noopener noreferrer">
+            Start free →
+          </a>
+          <span className="hero-cta-sep" />
+          <a href="https://brightdata.com/contact" className="hero-cta-sales" target="_blank" rel="noopener noreferrer">
+            Contact sales
+          </a>
+        </div>
+      )}
     </div>
   );
 }
