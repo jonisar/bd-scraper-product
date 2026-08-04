@@ -4,6 +4,7 @@ import { scraperHref } from "./scraper-href";
 export type DomainHubScraper = {
   id: string;
   name: string;
+  domain?: string;
   desc: string;
   category: string;
   fieldsPreview: string;
@@ -29,6 +30,7 @@ function catalogToHub(s: CatalogScraper): DomainHubScraper {
   return {
     id: s.id,
     name: s.name,
+    domain: s.domain,
     desc: s.desc,
     category: s.category,
     fieldsPreview: s.fields.slice(0, 5).join(", ") + ", and more.",
@@ -1035,5 +1037,199 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
       { q: "What output formats are supported?", a: "JSON, NDJSON, CSV, and .gz. Deliver via API, webhook, S3, GCS, Snowflake, or SFTP." },
     ],
     scrapers: scrapersForDomain("trip.com"),
+  },
+};
+
+function scrapersForCategory(category: string): DomainHubScraper[] {
+  return catalog
+    .filter((s) => s.category === category)
+    .sort((a, b) => parseViews(b.views) - parseViews(a.views))
+    .map(catalogToHub);
+}
+
+export const CATEGORY_HUBS: Record<string, DomainHubData> = {
+  "social-media": {
+    slug: "social-media",
+    name: "Social Media",
+    domain: "social media",
+    category: "Social Media",
+    title: "Social Media Scraper API - Extract Posts, Profiles & Engagement Data",
+    headline: "Social Media Scraper API",
+    description: "Extract public profiles, posts, comments, engagement metrics, and trending content from Instagram, TikTok, LinkedIn, Facebook, X, and YouTube via API.",
+    useCases: [
+      { title: "Influencer analytics & discovery", body: "Track follower growth, engagement rates, content performance, and audience demographics across Instagram, TikTok, and YouTube to identify high-impact creators.", tags: "Followers · Engagement · Audience · Creators" },
+      { title: "Brand monitoring & sentiment", body: "Monitor mentions, hashtags, and conversations across social platforms to measure brand perception, track campaigns, and detect PR crises early.", tags: "Mentions · Hashtags · Sentiment · Campaigns" },
+      { title: "Content & trend intelligence", body: "Analyze trending topics, viral content formats, and posting patterns to inform your content strategy and stay ahead of platform algorithm changes.", tags: "Trends · Viral · Algorithms · Content" },
+      { title: "Competitive benchmarking", body: "Compare your social presence against competitors — follower growth, posting frequency, engagement rates, and audience overlap across all platforms.", tags: "Benchmarks · Growth · Competitors · Overlap" },
+    ],
+    faqs: [
+      { q: "What social media platforms can I scrape?", a: "Instagram, TikTok, LinkedIn, Facebook, X (Twitter), YouTube, and more. Each platform has dedicated scrapers optimized for its data structure." },
+      { q: "What data can I extract from social media?", a: "Public profiles, posts, comments, likes, follower counts, engagement metrics, hashtags, video metadata, and trending content — all as structured JSON." },
+      { q: "Is scraping social media legal?", a: "Bright Data only collects publicly available data. We're ISO 27001 certified, GDPR & CCPA compliant, and backed by an industry-first Compliance & Ethics team." },
+      { q: "How often is social media data updated?", a: "Scrapers run on-demand via API or on scheduled intervals. You control the frequency — real-time, hourly, daily, or custom schedules." },
+      { q: "What output formats are supported?", a: "JSON, NDJSON, CSV, and .gz. Deliver via API response, webhook, S3, GCS, Snowflake, or SFTP." },
+    ],
+    scrapers: scrapersForCategory("Social Media"),
+  },
+  "ecommerce": {
+    slug: "ecommerce",
+    name: "E-commerce",
+    domain: "e-commerce sites",
+    category: "E-commerce",
+    title: "E-commerce Scraper API - Product Data, Prices & Reviews at Scale",
+    headline: "E-commerce Scraper API",
+    description: "Scrape product listings, pricing, reviews, inventory, and seller data from Amazon, Walmart, Shopee, eBay, and 50+ marketplaces via API.",
+    useCases: [
+      { title: "Dynamic pricing & repricing", body: "Monitor competitor prices, discounts, and promotions in real time across Amazon, Walmart, and other marketplaces to optimize your pricing strategy.", tags: "Prices · Discounts · Competitors · Repricing" },
+      { title: "Product catalog enrichment", body: "Collect product titles, descriptions, images, specifications, and category data to build comprehensive catalogs for your marketplace or comparison engine.", tags: "Titles · Images · Specs · Categories" },
+      { title: "Review & sentiment analysis", body: "Extract customer reviews, star ratings, and verified purchase data to analyze product quality, identify trends, and inform product development decisions.", tags: "Reviews · Ratings · Sentiment · Quality" },
+      { title: "Market & inventory intelligence", body: "Track stock levels, seller activity, bestseller rankings, and new product launches to identify market opportunities and optimize inventory planning.", tags: "Stock · Sellers · Rankings · Launches" },
+    ],
+    faqs: [
+      { q: "Which e-commerce sites can I scrape?", a: "Amazon, Walmart, Shopee, eBay, Target, Home Depot, Best Buy, Etsy, AliExpress, and 50+ more marketplaces. Each has dedicated pre-built scrapers." },
+      { q: "What e-commerce data can I extract?", a: "Product titles, prices, reviews, ratings, images, stock levels, seller info, category rankings, shipping details, and promotional data — all as structured JSON." },
+      { q: "Can I track price changes over time?", a: "Yes. Schedule recurring scraper runs to build price history datasets. Combine with webhook delivery for real-time price change alerts." },
+      { q: "How do you handle anti-bot protections?", a: "Automatic IP rotation through 400M+ residential IPs, CAPTCHA solving, browser fingerprinting, and JavaScript rendering — all built in." },
+      { q: "What output formats are supported?", a: "JSON, NDJSON, CSV, and .gz. Deliver via API response, webhook, S3, GCS, Snowflake, or SFTP." },
+    ],
+    scrapers: scrapersForCategory("E-commerce"),
+  },
+  "b2b": {
+    slug: "b2b",
+    name: "Business (B2B)",
+    domain: "B2B platforms",
+    category: "Business (B2B)",
+    title: "B2B Scraper API - Company Data, Leads & Business Intelligence",
+    headline: "B2B & Business Scraper API",
+    description: "Extract company profiles, funding data, employee info, and business intelligence from LinkedIn, Crunchbase, Glassdoor, and more via API.",
+    useCases: [
+      { title: "Lead generation & CRM enrichment", body: "Collect company profiles, contact info, employee headcounts, and tech stacks from LinkedIn and Crunchbase to build qualified prospect lists and enrich your CRM.", tags: "Leads · Contacts · CRM · Profiles" },
+      { title: "Competitive intelligence", body: "Monitor competitor hiring, funding rounds, product launches, and organizational changes to stay ahead in your market.", tags: "Hiring · Funding · Products · Strategy" },
+      { title: "Market mapping & TAM analysis", body: "Build comprehensive market maps with company data, industry classifications, revenue estimates, and growth signals to size your total addressable market.", tags: "Market size · Industries · Revenue · Growth" },
+      { title: "Investment & due diligence", body: "Aggregate funding history, board composition, employee growth, and financial signals to support investment research and due diligence workflows.", tags: "Funding · Board · Growth · Financials" },
+    ],
+    faqs: [
+      { q: "Which B2B platforms can I scrape?", a: "LinkedIn (profiles, companies, jobs), Crunchbase (companies, funding), Glassdoor (reviews, salaries), and other business data sources." },
+      { q: "What business data can I extract?", a: "Company profiles, employee data, job listings, funding rounds, investor info, salaries, reviews, tech stacks, and organizational data — all as structured JSON." },
+      { q: "Can I use this for lead generation?", a: "Yes. Extract public company and professional data to build prospect lists, enrich CRM records, and identify decision-makers at target accounts." },
+      { q: "Is B2B data scraping compliant?", a: "Bright Data only collects publicly available data. We're ISO 27001 certified, GDPR & CCPA compliant, and use ethical data collection practices." },
+      { q: "What output formats are supported?", a: "JSON, NDJSON, CSV, and .gz. Deliver via API response, webhook, S3, GCS, Snowflake, or SFTP." },
+    ],
+    scrapers: scrapersForCategory("Business (B2B)"),
+  },
+  "jobs": {
+    slug: "jobs",
+    name: "Jobs",
+    domain: "job platforms",
+    category: "Jobs",
+    title: "Jobs Scraper API - Job Listings, Salaries & Labor Market Data",
+    headline: "Jobs & Recruitment Scraper API",
+    description: "Extract job listings, salary data, company reviews, and labor market intelligence from Indeed, Glassdoor, LinkedIn Jobs, and more via API.",
+    useCases: [
+      { title: "Job market intelligence", body: "Track job posting volumes, required skills, salary ranges, and hiring trends across industries and geographies to understand labor market dynamics.", tags: "Postings · Skills · Salaries · Trends" },
+      { title: "Competitive hiring analysis", body: "Monitor competitor job openings, team growth, and compensation packages to benchmark your talent strategy and identify market moves.", tags: "Openings · Growth · Compensation · Benchmarks" },
+      { title: "Recruitment automation", body: "Build automated pipelines that collect fresh job listings matching your criteria — role, location, seniority, and salary — delivered to your ATS or data warehouse.", tags: "Pipeline · ATS · Automation · Matching" },
+      { title: "Salary benchmarking", body: "Aggregate salary data across roles, locations, and experience levels to inform compensation strategy, offer negotiations, and workforce planning.", tags: "Salary · Compensation · Offers · Planning" },
+    ],
+    faqs: [
+      { q: "Which job platforms can I scrape?", a: "Indeed, Glassdoor, LinkedIn Jobs, ZipRecruiter, Monster, and more. Each platform has dedicated scrapers optimized for job listing data." },
+      { q: "What job data can I extract?", a: "Job titles, descriptions, salary ranges, company names, locations, required skills, experience levels, posting dates, and application links — all as structured JSON." },
+      { q: "Can I track salary trends over time?", a: "Yes. Schedule recurring scraper runs to build historical salary datasets across roles, locations, and industries." },
+      { q: "Is scraping job sites allowed?", a: "Bright Data only collects publicly available job listing data. We're ISO 27001 certified and GDPR & CCPA compliant." },
+      { q: "What output formats are supported?", a: "JSON, NDJSON, CSV, and .gz. Deliver via API response, webhook, S3, GCS, Snowflake, or SFTP." },
+    ],
+    scrapers: scrapersForCategory("Jobs"),
+  },
+  "real-estate": {
+    slug: "real-estate",
+    name: "Real Estate",
+    domain: "real estate platforms",
+    category: "Real Estate",
+    title: "Real Estate Scraper API - Property Listings, Prices & Market Data",
+    headline: "Real Estate Scraper API",
+    description: "Extract property listings, pricing data, agent info, and market analytics from Zillow, Realtor, Redfin, Airbnb, and international platforms via API.",
+    useCases: [
+      { title: "Market analysis & valuation", body: "Collect property prices, listing history, and neighborhood data to build valuation models, identify underpriced assets, and forecast market trends.", tags: "Prices · History · Valuation · Forecasts" },
+      { title: "Investment opportunity detection", body: "Monitor new listings, price reductions, and days-on-market across neighborhoods to identify investment opportunities before the competition.", tags: "Listings · Price drops · Timing · Opportunities" },
+      { title: "Rental market intelligence", body: "Track rental prices, occupancy rates, and amenity data from Airbnb, Booking, and rental platforms to optimize portfolio strategy.", tags: "Rentals · Occupancy · Amenities · Portfolio" },
+      { title: "Agent & broker analytics", body: "Analyze agent listings, transaction history, and market share to inform partnerships, recruitment, and competitive positioning.", tags: "Agents · Transactions · Market share · Partners" },
+    ],
+    faqs: [
+      { q: "Which real estate sites can I scrape?", a: "Zillow, Realtor, Redfin, Airbnb, Booking, Zoopla (UK), Zonaprop (Argentina), Inmuebles24 (Mexico), and more." },
+      { q: "What real estate data can I extract?", a: "Property listings, prices, addresses, square footage, bedrooms/bathrooms, photos, agent info, listing history, Zestimates, and neighborhood data." },
+      { q: "Can I track property price changes?", a: "Yes. Schedule recurring runs to build price history datasets and detect price reductions, new listings, and market movements." },
+      { q: "Does it cover international markets?", a: "Yes. Scrapers cover US (Zillow, Realtor, Redfin), UK (Zoopla), Latin America (Zonaprop, Inmuebles24, Metrocuadrado), and more." },
+      { q: "What output formats are supported?", a: "JSON, NDJSON, CSV, and .gz. Deliver via API response, webhook, S3, GCS, Snowflake, or SFTP." },
+    ],
+    scrapers: scrapersForCategory("Real Estate"),
+  },
+  "travel": {
+    slug: "travel",
+    name: "Travel",
+    domain: "travel platforms",
+    category: "Travel",
+    title: "Travel Scraper API - Hotels, Flights & Booking Data at Scale",
+    headline: "Travel & Hospitality Scraper API",
+    description: "Extract hotel listings, flight prices, availability data, and guest reviews from Booking.com, Airbnb, Agoda, Trip.com, and more via API.",
+    useCases: [
+      { title: "Rate intelligence & parity", body: "Monitor hotel rates across OTAs and direct booking sites to maintain rate parity, detect undercuts, and optimize your pricing strategy.", tags: "Rates · OTAs · Parity · Pricing" },
+      { title: "Destination & demand analysis", body: "Track availability, pricing trends, and booking patterns to identify high-demand destinations, seasonal peaks, and emerging travel markets.", tags: "Demand · Seasons · Destinations · Markets" },
+      { title: "Competitive benchmarking", body: "Compare your properties against competitors — pricing, ratings, amenities, and review scores — to improve positioning and guest experience.", tags: "Competitors · Ratings · Amenities · Experience" },
+      { title: "Review & reputation monitoring", body: "Aggregate guest reviews from Booking, Airbnb, and TripAdvisor to track sentiment, identify operational issues, and improve service quality.", tags: "Reviews · Sentiment · Operations · Quality" },
+    ],
+    faqs: [
+      { q: "Which travel sites can I scrape?", a: "Booking.com, Airbnb, Agoda, Trip.com, TripAdvisor, Hotels.com, Expedia, and more. Each has dedicated scrapers for optimal data extraction." },
+      { q: "What travel data can I extract?", a: "Hotel listings, room rates, availability, amenities, guest reviews, flight prices, airline details, and booking options — all as structured JSON." },
+      { q: "Can I monitor prices across multiple OTAs?", a: "Yes. Run scrapers across Booking, Airbnb, Agoda, and others simultaneously to compare rates and detect pricing discrepancies." },
+      { q: "Is the data real-time?", a: "Yes. Use synchronous API calls for real-time data or schedule recurring runs for periodic monitoring. Results typically arrive in seconds." },
+      { q: "What output formats are supported?", a: "JSON, NDJSON, CSV, and .gz. Deliver via API response, webhook, S3, GCS, Snowflake, or SFTP." },
+    ],
+    scrapers: scrapersForCategory("Travel"),
+  },
+  "search": {
+    slug: "search",
+    name: "Search",
+    domain: "search engines",
+    category: "Search",
+    title: "Search Engine Scraper API - SERP, Maps & Local Business Data",
+    headline: "Search Engine Scraper API",
+    description: "Extract search results, local business listings, maps data, and SERP features from Google, Google Maps, Yelp, and more via API.",
+    useCases: [
+      { title: "SEO monitoring & rank tracking", body: "Track keyword rankings, SERP features, and competitor positions across Google and other search engines to optimize your SEO strategy.", tags: "Rankings · Keywords · SERP · Competitors" },
+      { title: "Local business intelligence", body: "Collect business listings, reviews, ratings, and contact info from Google Maps and Yelp to build location databases and analyze local markets.", tags: "Listings · Reviews · Locations · Markets" },
+      { title: "Ad intelligence & PPC research", body: "Monitor paid search ads, ad copy, landing pages, and bidding patterns to inform your advertising strategy and identify competitor tactics.", tags: "Ads · PPC · Bidding · Copy" },
+      { title: "Market research & trends", body: "Analyze search trends, autocomplete suggestions, and related queries to understand consumer intent and identify emerging market opportunities.", tags: "Trends · Intent · Autocomplete · Opportunities" },
+    ],
+    faqs: [
+      { q: "Which search engines can I scrape?", a: "Google Search, Google Maps, Bing, Yelp, Yellow Pages, TripAdvisor, and other local and vertical search engines." },
+      { q: "What search data can I extract?", a: "Organic results, ads, featured snippets, local pack, knowledge panels, maps listings, reviews, ratings, and business info — all as structured JSON." },
+      { q: "Can I track rankings for specific keywords?", a: "Yes. Send keyword queries with location and language parameters to track SERP positions, featured snippets, and competitor rankings over time." },
+      { q: "Does it support geotargeted searches?", a: "Yes. Target any country, city, or zip code for localized search results. Supports 195 countries via Bright Data's global proxy network." },
+      { q: "What output formats are supported?", a: "JSON, NDJSON, CSV, and .gz. Deliver via API response, webhook, S3, GCS, Snowflake, or SFTP." },
+    ],
+    scrapers: scrapersForCategory("Search"),
+  },
+  "finance": {
+    slug: "finance",
+    name: "Finance",
+    domain: "financial platforms",
+    category: "Finance",
+    title: "Financial Data Scraper API - Stock Prices, Market Data & News",
+    headline: "Financial Data Scraper API",
+    description: "Extract stock prices, market data, earnings reports, analyst ratings, and financial news from Yahoo Finance, Bloomberg, SEC, and more via API.",
+    useCases: [
+      { title: "Alternative data for investing", body: "Collect real-time financial data, sentiment signals, and market indicators to build alternative data feeds for quantitative and fundamental analysis.", tags: "Alternative data · Signals · Indicators · Analysis" },
+      { title: "Market monitoring & alerts", body: "Track stock prices, earnings surprises, analyst upgrades, and market-moving news to trigger alerts and inform trading decisions.", tags: "Prices · Earnings · Analysts · Alerts" },
+      { title: "Company & sector research", body: "Aggregate financial statements, SEC filings, and company profiles to support equity research, sector analysis, and due diligence.", tags: "Filings · Financials · Research · Sectors" },
+      { title: "News & sentiment analysis", body: "Extract financial news, press releases, and social sentiment to gauge market mood, detect narrative shifts, and forecast price movements.", tags: "News · Sentiment · Narratives · Forecasts" },
+    ],
+    faqs: [
+      { q: "Which financial sites can I scrape?", a: "Yahoo Finance, Bloomberg, MarketWatch, SEC EDGAR, Google Finance, and more. Each has dedicated scrapers for financial data extraction." },
+      { q: "What financial data can I extract?", a: "Stock prices, market cap, P/E ratios, earnings data, analyst ratings, financial statements, insider trades, and news — all as structured JSON." },
+      { q: "Can I build historical price datasets?", a: "Yes. Schedule recurring runs to collect price data over time, or extract historical data from sources that provide it." },
+      { q: "Is financial data scraping compliant?", a: "Bright Data only collects publicly available financial data. We're ISO 27001 certified and follow all applicable data access regulations." },
+      { q: "What output formats are supported?", a: "JSON, NDJSON, CSV, and .gz. Deliver via API response, webhook, S3, GCS, Snowflake, or SFTP." },
+    ],
+    scrapers: scrapersForCategory("Finance"),
   },
 };

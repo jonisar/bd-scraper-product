@@ -243,10 +243,10 @@ export default function WebScraperHome() {
           </div>
           <div className="usecases-grid">
             <div className="usecase-card">
-              <h3>E-commerce scraping API</h3>
+              <h3><a href="/products/web-scraper/scraper-lib/categories/ecommerce" className="usecase-title-link">E-commerce scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/amazon" className="usecase-label">Amazon</a>
-                <a href="https://brightdata.com/products/web-scraper/walmart" className="usecase-label">Walmart</a>
+                <a href="/products/web-scraper/walmart" className="usecase-label">Walmart</a>
                 <a href="https://brightdata.com/products/web-scraper/shopee" className="usecase-label">Shopee</a>
                 <a href="https://brightdata.com/products/web-scraper/target" className="usecase-label">Target</a>
                 <a href="https://brightdata.com/products/web-scraper/ebay" className="usecase-label">eBay</a>
@@ -257,7 +257,7 @@ export default function WebScraperHome() {
               </p>
             </div>
             <div className="usecase-card">
-              <h3>Social media scraping API</h3>
+              <h3><a href="/products/web-scraper/scraper-lib/categories/social-media" className="usecase-title-link">Social media scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/instagram" className="usecase-label">Instagram</a>
                 <a href="/products/web-scraper/tiktok" className="usecase-label">TikTok</a>
@@ -272,7 +272,7 @@ export default function WebScraperHome() {
               </p>
             </div>
             <div className="usecase-card">
-              <h3>Real estate scraping API</h3>
+              <h3><a href="/products/web-scraper/scraper-lib/categories/real-estate" className="usecase-title-link">Real estate scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/zillow" className="usecase-label">Zillow</a>
                 <a href="https://brightdata.com/products/web-scraper/realtor" className="usecase-label">Realtor</a>
@@ -286,7 +286,7 @@ export default function WebScraperHome() {
               </p>
             </div>
             <div className="usecase-card">
-              <h3>Business &amp; B2B scraping API</h3>
+              <h3><a href="/products/web-scraper/scraper-lib/categories/b2b" className="usecase-title-link">Business &amp; B2B scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/linkedin" className="usecase-label">LinkedIn</a>
                 <a href="https://brightdata.com/products/web-scraper/crunchbase" className="usecase-label">Crunchbase</a>
@@ -299,7 +299,7 @@ export default function WebScraperHome() {
               </p>
             </div>
             <div className="usecase-card">
-              <h3>Search &amp; maps scraping API</h3>
+              <h3><a href="/products/web-scraper/scraper-lib/categories/search" className="usecase-title-link">Search &amp; maps scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/google-maps" className="usecase-label">Google Maps</a>
                 <a href="https://brightdata.com/products/web-scraper/yelp" className="usecase-label">Yelp</a>
@@ -312,7 +312,7 @@ export default function WebScraperHome() {
               </p>
             </div>
             <div className="usecase-card">
-              <h3>Financial data scraping API</h3>
+              <h3><a href="/products/web-scraper/scraper-lib/categories/finance" className="usecase-title-link">Financial data scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="https://brightdata.com/products/web-scraper/yahoo-finance" className="usecase-label">Yahoo Finance</a>
                 <a href="https://brightdata.com/products/web-scraper/bloomberg" className="usecase-label">Bloomberg</a>

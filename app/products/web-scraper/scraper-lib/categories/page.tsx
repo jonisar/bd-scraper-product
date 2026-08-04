@@ -28,7 +28,12 @@ const CATEGORY_DETAILS: {
 }[] = CATALOG_CATEGORIES
   .filter((c) => c !== "All")
   .map((cat) => {
-    const SLUG_OVERRIDES: Record<string, string> = { "E-commerce": "ecommerce" };
+    const SLUG_OVERRIDES: Record<string, string> = {
+      "E-commerce": "ecommerce",
+      "Business (B2B)": "b2b",
+      "Real Estate": "real-estate",
+      "News & Media": "news-media",
+    };
     const slug = SLUG_OVERRIDES[cat] ?? cat.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/-+$/, "");
     const items = catalog.filter((s) => s.category === cat);
     const topSites = [...new Set(items.map((s) => s.domain.replace(/^www\./, "")))].slice(0, 5);
@@ -116,11 +121,9 @@ export default function CategoriesPage() {
               {CATEGORY_DETAILS.map((cat) => (
                 <a
                   key={cat.slug}
-                  href={
-                    cat.slug === "ecommerce"
-                      ? "/products/web-scraper/scraper-lib/categories/ecommerce"
-                      : `/products/web-scraper/scraper-lib?cat=${encodeURIComponent(cat.name)}`
-                  }
+                  href={cat.slug === "news-media"
+                    ? `/products/web-scraper/scraper-lib?cat=${encodeURIComponent(cat.name)}`
+                    : `/products/web-scraper/scraper-lib/categories/${cat.slug}`}
                   className="slib-category-card"
                 >
                   <div className="slib-category-header">

@@ -31,15 +31,15 @@ const CATEGORY_ICONS: Record<string, string> = {
 };
 
 const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string }> = {
-  "Social Media":   { label: "View all Social Media scrapers",   href: "/products/web-scraper/scraper-lib?cat=Social+Media" },
+  "Social Media":   { label: "View all Social Media scrapers",   href: "/products/web-scraper/scraper-lib/categories/social-media" },
   "E-commerce":     { label: "View all E-commerce scrapers",     href: "/products/web-scraper/scraper-lib/categories/ecommerce" },
-  "Business (B2B)": { label: "View all B2B scrapers",            href: "/products/web-scraper/scraper-lib?cat=Business+%28B2B%29" },
-  "Jobs":           { label: "View all Jobs scrapers",           href: "/products/web-scraper/scraper-lib?cat=Jobs" },
-  "Real Estate":    { label: "View all Real Estate scrapers",    href: "/products/web-scraper/scraper-lib?cat=Real+Estate" },
-  "Travel":         { label: "View all Travel scrapers",         href: "/products/web-scraper/scraper-lib?cat=Travel" },
-  "Search":         { label: "View all Search scrapers",         href: "/products/web-scraper/scraper-lib?cat=Search" },
+  "Business (B2B)": { label: "View all B2B scrapers",            href: "/products/web-scraper/scraper-lib/categories/b2b" },
+  "Jobs":           { label: "View all Jobs scrapers",           href: "/products/web-scraper/scraper-lib/categories/jobs" },
+  "Real Estate":    { label: "View all Real Estate scrapers",    href: "/products/web-scraper/scraper-lib/categories/real-estate" },
+  "Travel":         { label: "View all Travel scrapers",         href: "/products/web-scraper/scraper-lib/categories/travel" },
+  "Search":         { label: "View all Search scrapers",         href: "/products/web-scraper/scraper-lib/categories/search" },
   "News & Media":   { label: "View all News & Media scrapers",   href: "/products/web-scraper/scraper-lib?cat=News+%26+Media" },
-  "Finance":        { label: "View all Finance scrapers",        href: "/products/web-scraper/scraper-lib?cat=Finance" },
+  "Finance":        { label: "View all Finance scrapers",        href: "/products/web-scraper/scraper-lib/categories/finance" },
 };
 
 type DomainCardData = {

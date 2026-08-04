@@ -82,7 +82,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                 <ScraperCard
                   key={s.id}
                   name={s.name}
-                  domain={hub.domain}
+                  domain={s.domain || hub.domain}
                   category={s.category || hub.category}
                   desc={s.desc}
                   fieldsPreview={s.fieldsPreview}
