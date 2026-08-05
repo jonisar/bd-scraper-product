@@ -444,6 +444,54 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
+const AGENT_SKILL_PROMPT =
+  "Read https://brightdata.com/skills.md and set up the Amazon Product Scraper";
+
+function AgentSetupCta() {
+  const [copied, setCopied] = useState(false);
+
+  return (
+    <button
+      type="button"
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(AGENT_SKILL_PROMPT);
+        } catch {
+          const ta = document.createElement("textarea");
+          ta.value = AGENT_SKILL_PROMPT;
+          ta.style.position = "fixed";
+          ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          ta.remove();
+        }
+        setCopied(true);
+        window.setTimeout(() => setCopied(false), 2000);
+      }}
+      title={AGENT_SKILL_PROMPT}
+      className="inline-flex items-center gap-2 rounded-lg border border-bd-blue/30 bg-bd-blue-soft px-4 py-2.5 text-sm font-bold text-bd-blue transition hover:border-bd-blue-light hover:brightness-105"
+    >
+      {copied ? (
+        <>
+          <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 fill-current" aria-hidden="true">
+            <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z" />
+          </svg>
+          Copied — paste into your agent
+        </>
+      ) : (
+        <>
+          Set up with your coding agent
+          <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+            <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
+            <path d="M10.5 5.5v-2a1.5 1.5 0 00-1.5-1.5H4A1.5 1.5 0 002.5 3.5v5A1.5 1.5 0 004 10h1.5" />
+          </svg>
+        </>
+      )}
+    </button>
+  );
+}
+
 function AgentCmd({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -1915,6 +1963,7 @@ export default function ScraperPage() {
                 >
                   Start free
                 </a>
+                <AgentSetupCta />
                 <button
                   type="button"
                   onClick={() => {
@@ -2911,7 +2960,7 @@ export default function ScraperPage() {
                           <div className="space-y-5 p-4 sm:p-5">
                             <div className="space-y-2">
                               <p className="font-mono text-[13px] text-white/55">Tell your agent to:</p>
-                              <AgentCmd text="Read https://brightdata.com/skills.md and set up the Amazon Product Scraper" />
+                              <AgentCmd text={AGENT_SKILL_PROMPT} />
                             </div>
                             <div className="space-y-2">
                               <p className="font-mono text-[13px] text-white/55">Or run:</p>
