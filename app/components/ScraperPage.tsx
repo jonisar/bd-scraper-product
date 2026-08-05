@@ -10,7 +10,7 @@ import { PricingCards } from "@/components/PricingCards";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Playground" | "Connect Agent" | "Customize";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
-type AgentPlatform = "Prompt" | "MCP" | "OpenAI SDK" | "LangChain" | "CrewAI" | "REST API";
+type AgentPlatform = "Prompt" | "CLI" | "MCP" | "OpenAI SDK" | "LangChain" | "CrewAI" | "REST API";
 
 const DATASET_ID = "gd_l1vijqt9jfj7olije";
 
@@ -2900,7 +2900,7 @@ export default function ScraperPage() {
 
                     {/* Platform pills */}
                     <div className="flex flex-wrap gap-2">
-                      {(["Prompt", "MCP", "OpenAI SDK", "LangChain", "CrewAI", "REST API"] as AgentPlatform[]).map((p) => (
+                      {(["Prompt", "CLI", "MCP", "OpenAI SDK", "LangChain", "CrewAI", "REST API"] as AgentPlatform[]).map((p) => (
                         <button
                           key={p}
                           type="button"
@@ -2948,11 +2948,6 @@ export default function ScraperPage() {
                               <p className="font-mono text-[13px] text-white/55">Tell your agent to:</p>
                               <AgentCmd text={AGENT_SKILL_PROMPT} />
                             </div>
-                            <div className="space-y-2">
-                              <p className="font-mono text-[13px] text-white/55">Or run:</p>
-                              <AgentCmd text="npx -p @brightdata/cli bdata login" />
-                              <AgentCmd text={'bdata pipelines amazon_product "https://www.amazon.com/dp/B09X7MPX8L"'} />
-                            </div>
                           </div>
                           <div className="flex flex-wrap items-center gap-2 border-t border-white/10 px-4 py-3 sm:px-5">
                             <span className="font-mono text-xs text-white/45">Works with:</span>
@@ -2964,6 +2959,39 @@ export default function ScraperPage() {
                                 {c}
                               </span>
                             ))}
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {/* CLI */}
+                    {agentPlatform === "CLI" ? (
+                      <div className="space-y-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-bd-navy">
+                            Amazon scraper from the CLI
+                          </h3>
+                          <p className="mt-1 text-sm leading-6 text-bd-ink/70">
+                            Two commands in any terminal. The first opens browser sign-in
+                            (new users get a signup screen); the second returns product JSON.
+                          </p>
+                        </div>
+
+                        <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
+                          <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
+                            <span className="font-mono text-xs text-white/55">Terminal</span>
+                            <a
+                              href="https://docs.brightdata.com/cli/overview"
+                              className="text-xs font-medium text-bd-blue hover:underline"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              CLI docs →
+                            </a>
+                          </div>
+                          <div className="space-y-2 p-4 sm:p-5">
+                            <AgentCmd text="npx -p @brightdata/cli bdata login" />
+                            <AgentCmd text={'bdata pipelines amazon_product "https://www.amazon.com/dp/B09X7MPX8L"'} />
                           </div>
                         </div>
                       </div>
