@@ -284,22 +284,19 @@ const SAMPLE_OUTPUT = `{
 
 const AGENT_PROMPT = `Read https://brightdata.com/skills.md and set up Bright Data.
 
-Then, using the Amazon Product Scraper (pipeline: amazon_product):
+Then complete these tasks with the Amazon pipelines
+(amazon_product, amazon_product_reviews, amazon_product_search):
 
-1. Scrape one product and print title, price, and rating:
-   https://www.amazon.com/dp/B09X7MPX8L
+1. Scrape https://www.amazon.com/dp/B09X7MPX8L and report
+   title, price, stars, and in_stock.
 
-2. Bulk-scrape these products with location-specific pricing
-   (zipcodes 10001 and 94107):
-   https://www.amazon.com/dp/B09X7MPX8L
-   https://www.amazon.com/dp/B0D5CQPGFQ
+2. Pull reviews for the same product and summarize the top
+   complaints in 3 bullets.
 
-3. For batches over 20 URLs, use the async trigger and poll flow
-   from the skill and save the results to products.json.
+3. Search "wireless earbuds" on https://amazon.com and save
+   the results to earbuds.csv.
 
-Fields per product include: title, url, asin, price, list_price,
-currency, stars, reviews_count, in_stock, brand, seller, features,
-categories, image, delivery.`;
+When done, list the commands you ran so I can rerun them.`;
 
 const AGENT_MCP_CONFIG = `{
   "mcpServers": {
@@ -2972,7 +2969,7 @@ export default function ScraperPage() {
                                 <svg className="h-3.5 w-3.5 shrink-0 transition-transform group-open:rotate-90" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                 </svg>
-                                Full prompt: sync, bulk geotargeting, async pipelines
+                                Full prompt: product, reviews, search, CSV export
                               </summary>
                               <div className="mt-3">
                                 <CodeBlock code={AGENT_PROMPT} label="copy and hand to your agent" />
