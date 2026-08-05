@@ -2172,7 +2172,7 @@ export default function ScraperPage() {
                         <div className="divide-y divide-bd-line/50">
                           {[
                             { step: "1", cmd: "npx -p @brightdata/cli bdata login", label: "Authenticate" },
-                            { step: "2", cmd: `bdata scraper run ${DATASET_ID} "https://amazon.com/dp/B09X7MPX8L"`, label: "Scrape" },
+                            { step: "2", cmd: 'bdata pipelines amazon_product "https://amazon.com/dp/B09X7MPX8L"', label: "Scrape" },
                           ].map((s) => (
                             <div key={s.step} className="flex items-center gap-3 px-4 py-3 sm:px-5">
                               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-xs font-bold text-bd-blue">{s.step}</span>
@@ -3256,7 +3256,7 @@ export default function ScraperPage() {
               <div className="mt-3 space-y-1.5">
                 {[
                   { step: "1", cmd: "npx -p @brightdata/cli bdata login" },
-                  { step: "2", cmd: `bdata scraper run ${DATASET_ID} "amazon.com/dp/…"` },
+                  { step: "2", cmd: 'bdata pipelines amazon_product "amazon.com/dp/…"' },
                 ].map((s) => (
                   <div key={s.step} className="flex items-center gap-2 rounded-lg bg-black/60 px-2.5 py-2">
                     <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/15 text-[10px] font-bold text-bd-blue">{s.step}</span>
