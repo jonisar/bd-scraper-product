@@ -975,7 +975,7 @@ function PricingTab() {
 
       {/* What's included grid */}
       <section>
-        <h3 className="text-lg font-bold text-bd-navy">Included, never billed separately</h3>
+        <h3 className="text-lg font-bold text-bd-navy">Everything included</h3>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {[
             { title: "Full browser rendering", desc: "JavaScript pages, SPAs, and infinite scroll, all handled" },
