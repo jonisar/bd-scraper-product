@@ -508,6 +508,42 @@ function AgentSetupCta() {
   );
 }
 
+function QuickCmdRow({ step, display, copyText }: { step: string; display: string; copyText: string }) {
+  const [copied, setCopied] = useState(false);
+
+  return (
+    <div className="group flex items-center gap-2 rounded-lg bg-black/60 px-2.5 py-2">
+      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/15 text-[10px] font-bold text-bd-blue">{step}</span>
+      <code className="min-w-0 flex-1 truncate font-mono text-[11px] text-[#d7e6ff]">{display}</code>
+      <button
+        type="button"
+        aria-label="Copy command"
+        title="Copy"
+        onClick={async () => {
+          try {
+            await navigator.clipboard.writeText(copyText);
+          } catch {
+            const ta = document.createElement("textarea");
+            ta.value = copyText;
+            ta.style.position = "fixed";
+            ta.style.opacity = "0";
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+          }
+          setCopied(true);
+          window.setTimeout(() => setCopied(false), 1600);
+        }}
+        style={copied ? { opacity: 1 } : undefined}
+        className="shrink-0 text-xs text-white/60 opacity-0 transition hover:text-white group-hover:opacity-100"
+      >
+        {copied ? "✓" : "⧉"}
+      </button>
+    </div>
+  );
+}
+
 function AgentCmd({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -3256,15 +3292,16 @@ export default function ScraperPage() {
             <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">Quick start</p>
               <div className="mt-3 space-y-1.5">
-                {[
-                  { step: "1", cmd: "npx -p @brightdata/cli bdata login" },
-                  { step: "2", cmd: 'bdata pipelines amazon_product "amazon.com/dp/…"' },
-                ].map((s) => (
-                  <div key={s.step} className="flex items-center gap-2 rounded-lg bg-black/60 px-2.5 py-2">
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/15 text-[10px] font-bold text-bd-blue">{s.step}</span>
-                    <code className="min-w-0 flex-1 truncate font-mono text-[11px] text-[#d7e6ff]">{s.cmd}</code>
-                  </div>
-                ))}
+                <QuickCmdRow
+                  step="1"
+                  display="npx -p @brightdata/cli bdata login"
+                  copyText="npx -p @brightdata/cli bdata login"
+                />
+                <QuickCmdRow
+                  step="2"
+                  display='bdata pipelines amazon_product "amazon.com/dp/…"'
+                  copyText='bdata pipelines amazon_product "https://www.amazon.com/dp/B09X7MPX8L"'
+                />
               </div>
               <p className="mt-3 text-[11px] text-bd-muted">
                 From URL to structured data in seconds.
