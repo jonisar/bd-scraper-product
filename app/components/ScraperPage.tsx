@@ -2164,16 +2164,15 @@ export default function ScraperPage() {
                       <h3 className="mb-3 text-lg font-bold text-bd-navy">Quick start</h3>
                       <div className="overflow-hidden rounded-xl border border-bd-line bg-bd-canvas">
                         <div className="flex items-center justify-between border-b border-bd-line px-4 py-2.5 sm:px-5">
-                          <p className="text-xs text-bd-muted">Install the CLI, authenticate, scrape — 30 seconds</p>
+                          <p className="text-xs text-bd-muted">Authenticate and scrape in 30 seconds. Nothing to install.</p>
                           <a href="https://docs.brightdata.com/cli/overview" className="text-xs font-medium text-bd-blue hover:underline" target="_blank" rel="noreferrer">
                             CLI docs →
                           </a>
                         </div>
                         <div className="divide-y divide-bd-line/50">
                           {[
-                            { step: "1", cmd: "npm install -g @brightdata/cli", label: "Install" },
-                            { step: "2", cmd: "brightdata login", label: "Authenticate" },
-                            { step: "3", cmd: `brightdata scraper run ${DATASET_ID} "https://amazon.com/dp/B09X7MPX8L"`, label: "Scrape" },
+                            { step: "1", cmd: "npx -p @brightdata/cli bdata login", label: "Authenticate" },
+                            { step: "2", cmd: `bdata scraper run ${DATASET_ID} "https://amazon.com/dp/B09X7MPX8L"`, label: "Scrape" },
                           ].map((s) => (
                             <div key={s.step} className="flex items-center gap-3 px-4 py-3 sm:px-5">
                               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-xs font-bold text-bd-blue">{s.step}</span>
@@ -3228,9 +3227,8 @@ export default function ScraperPage() {
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">Quick start</p>
               <div className="mt-3 space-y-1.5">
                 {[
-                  { step: "1", cmd: "npm i -g @brightdata/cli" },
-                  { step: "2", cmd: "brightdata login" },
-                  { step: "3", cmd: `brightdata scraper run ${DATASET_ID} "amazon.com/dp/…"` },
+                  { step: "1", cmd: "npx -p @brightdata/cli bdata login" },
+                  { step: "2", cmd: `bdata scraper run ${DATASET_ID} "amazon.com/dp/…"` },
                 ].map((s) => (
                   <div key={s.step} className="flex items-center gap-2 rounded-lg bg-black/60 px-2.5 py-2">
                     <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/15 text-[10px] font-bold text-bd-blue">{s.step}</span>
