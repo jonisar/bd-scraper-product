@@ -282,72 +282,6 @@ const SAMPLE_OUTPUT = `{
   "return_policy": "Eligible for Return, Refund or Replacement within 30 days"
 }`;
 
-const AGENT_PROMPT = `"""Bright Data Amazon Product Scraper — bounded, re-runnable walkthrough."""
-import requests, json, os
-
-API_KEY = os.environ["BRIGHTDATA_API_KEY"]
-DATASET  = "${DATASET_ID}"
-BASE     = "https://api.brightdata.com/datasets/v3"
-HEADERS  = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
-
-# 1. Sync scrape — single product by URL (real-time, ≤20 URLs)
-product = requests.post(
-    f"{BASE}/scrape",
-    headers=HEADERS,
-    params={"dataset_id": DATASET, "format": "json"},
-    json=[{"url": "https://www.amazon.com/dp/B09X7MPX8L"}],
-).json()[0]
-
-print(product["title"], f"— \${product['price']} ({product['stars']}★)")
-
-# 2. Bulk scrape with location-specific pricing
-products = requests.post(
-    f"{BASE}/scrape",
-    headers=HEADERS,
-    params={"dataset_id": DATASET, "format": "json"},
-    json=[
-        {"url": "https://www.amazon.com/dp/B09X7MPX8L", "zipcode": "10001"},
-        {"url": "https://www.amazon.com/dp/B0D5CQPGFQ", "zipcode": "94107"},
-    ],
-).json()
-
-for p in products:
-    print(p["title"], p["price"], p["in_stock"], p["reviews_count"])
-
-# 3. Async trigger — for large jobs (>20 URLs, production pipelines)
-trigger = requests.post(
-    f"{BASE}/trigger",
-    headers=HEADERS,
-    params={"dataset_id": DATASET, "format": "json"},
-    json=[{"url": f"https://www.amazon.com/dp/{asin}"} for asin in [
-        "B09X7MPX8L", "B0D5CQPGFQ", "B08N5WRWNW", "B0BSHF7WHW",
-    ]],
-).json()
-snapshot_id = trigger["snapshot_id"]
-
-# Poll until ready, then fetch results
-import time
-while True:
-    status = requests.get(
-        f"{BASE}/snapshots/{snapshot_id}",
-        headers={"Authorization": f"Bearer {API_KEY}"},
-    ).json()
-    if status["status"] == "ready":
-        break
-    time.sleep(5)
-
-results = requests.get(
-    f"{BASE}/snapshots/{snapshot_id}",
-    headers={"Authorization": f"Bearer {API_KEY}"},
-    params={"format": "json"},
-).json()
-
-print(f"Fetched {len(results)} products via async pipeline")
-
-# Available fields per product:
-# title, url, asin, price, list_price, currency, stars, reviews_count,
-# in_stock, brand, seller, features, categories, image, delivery`;
-
 const AGENT_MCP_CONFIG = `{
   "mcpServers": {
     "brightdata": {
@@ -507,6 +441,31 @@ function CopyButton({ text }: { text: string }) {
     >
       {copied ? "Copied" : "Copy"}
     </button>
+  );
+}
+
+function AgentCmd({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+
+  return (
+    <div className="flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-white/5 px-4 py-3">
+      <code className="code-scroll min-w-0 flex-1 overflow-x-auto whitespace-nowrap font-mono text-[13px] leading-5 text-[#d7e6ff]">
+        {text}
+      </code>
+      <button
+        type="button"
+        aria-label="Copy to clipboard"
+        title="Copy"
+        onClick={async () => {
+          await navigator.clipboard.writeText(text);
+          setCopied(true);
+          window.setTimeout(() => setCopied(false), 1600);
+        }}
+        className="shrink-0 rounded-md border border-white/15 bg-white/5 px-2 py-1 text-xs font-medium text-white/80 transition hover:bg-white/10"
+      >
+        {copied ? "✓" : "⧉"}
+      </button>
+    </div>
   );
 }
 
@@ -2927,14 +2886,51 @@ export default function ScraperPage() {
                       <div className="space-y-4">
                         <div>
                           <h3 className="text-lg font-bold text-bd-navy">
-                            Amazon Scraper Prompt for Your Agent
+                            One prompt. Your agent does the rest.
                           </h3>
                           <p className="mt-1 text-sm leading-6 text-bd-ink/70">
-                            Copy and hand this to Claude Code, Cursor, Codex, or any coding agent.
-                            Covers sync scrape, bulk with geotargeting, and async pipelines.
+                            Hand this to Claude Code, Cursor, Codex, or any coding agent. It reads
+                            the{" "}
+                            <a
+                              href="https://github.com/brightdata/skills"
+                              className="font-semibold text-bd-blue hover:underline"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              Bright Data skill
+                            </a>
+                            , installs the CLI, signs in with browser OAuth (no API key to paste),
+                            and runs its first scrape.
                           </p>
                         </div>
-                        <CodeBlock code={AGENT_PROMPT} label="copy and hand to your agent" />
+
+                        <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
+                          <div className="border-b border-white/10 px-4 py-2.5 text-center font-mono text-xs text-white/55">
+                            Get started
+                          </div>
+                          <div className="space-y-5 p-4 sm:p-5">
+                            <div className="space-y-2">
+                              <p className="font-mono text-[13px] text-white/55">Tell your agent to:</p>
+                              <AgentCmd text="Read https://brightdata.com/skills.md and set up the Amazon Product Scraper" />
+                            </div>
+                            <div className="space-y-2">
+                              <p className="font-mono text-[13px] text-white/55">Or run:</p>
+                              <AgentCmd text="npx -p @brightdata/cli && bdata login" />
+                              <AgentCmd text={'bdata pipelines amazon_product "https://www.amazon.com/dp/B09X7MPX8L"'} />
+                            </div>
+                          </div>
+                          <div className="flex flex-wrap items-center gap-2 border-t border-white/10 px-4 py-3 sm:px-5">
+                            <span className="font-mono text-xs text-white/45">Works with:</span>
+                            {["✳ Claude Code", "▟ Cursor", "⌘ Codex", "</> Custom agents"].map((c) => (
+                              <span
+                                key={c}
+                                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/80"
+                              >
+                                {c}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     ) : null}
 
