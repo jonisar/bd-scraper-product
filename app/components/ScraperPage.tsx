@@ -2951,7 +2951,7 @@ export default function ScraperPage() {
                             </div>
                             <div className="space-y-2">
                               <p className="font-mono text-[13px] text-white/55">Or run:</p>
-                              <AgentCmd text="npx -p @brightdata/cli && bdata login" />
+                              <AgentCmd text="npx -p @brightdata/cli bdata login" />
                               <AgentCmd text={'bdata pipelines amazon_product "https://www.amazon.com/dp/B09X7MPX8L"'} />
                             </div>
                           </div>
