@@ -445,7 +445,7 @@ function CopyButton({ text }: { text: string }) {
 }
 
 const AGENT_SKILL_PROMPT =
-  "Read https://brightdata.com/skills.md and set up the Amazon Product Scraper";
+  "Read https://brightdata.com/skills.md and scrape this Amazon product: https://www.amazon.com/dp/B09X7MPX8L";
 
 function AgentSetupCta() {
   const [copied, setCopied] = useState(false);
