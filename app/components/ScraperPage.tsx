@@ -966,7 +966,7 @@ function PricingTab() {
           <span className="hidden sm:inline text-bd-line">·</span>
           <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> From $1.00/1K at volume</span>
           <span className="hidden sm:inline text-bd-line">·</span>
-          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> No compute, storage, or transfer fees</span>
+          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> No add-on fees</span>
         </div>
       </section>
 
