@@ -945,7 +945,7 @@ function PricingTab() {
                   : null}
             </p>
             <p className="mt-1.5 text-[11px] leading-4 text-bd-muted">
-              This is your whole bill. Proxies, unblocking, and parsing included.
+              Your whole bill. Proxies, unblocking, parsing included.
             </p>
             <a
               href="https://brightdata.com/cp/start"
