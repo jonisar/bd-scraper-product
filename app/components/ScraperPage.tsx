@@ -1964,19 +1964,6 @@ export default function ScraperPage() {
                   Start free
                 </a>
                 <AgentSetupCta />
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMainTab("Playground");
-                    setTimeout(() => {
-                      document.getElementById("scraper-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }, 50);
-                  }}
-                  className="group inline-flex items-center gap-1 text-sm font-semibold text-bd-blue transition hover:text-bd-navy"
-                >
-                  Try in playground
-                  <span className="inline-block transition-transform duration-150 group-hover:translate-x-0.5" aria-hidden="true">→</span>
-                </button>
               </div>
             </div>
 
