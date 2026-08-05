@@ -282,6 +282,72 @@ const SAMPLE_OUTPUT = `{
   "return_policy": "Eligible for Return, Refund or Replacement within 30 days"
 }`;
 
+const AGENT_PROMPT = `"""Bright Data Amazon Product Scraper — bounded, re-runnable walkthrough."""
+import requests, json, os
+
+API_KEY = os.environ["BRIGHTDATA_API_KEY"]
+DATASET  = "${DATASET_ID}"
+BASE     = "https://api.brightdata.com/datasets/v3"
+HEADERS  = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
+
+# 1. Sync scrape — single product by URL (real-time, ≤20 URLs)
+product = requests.post(
+    f"{BASE}/scrape",
+    headers=HEADERS,
+    params={"dataset_id": DATASET, "format": "json"},
+    json=[{"url": "https://www.amazon.com/dp/B09X7MPX8L"}],
+).json()[0]
+
+print(product["title"], f"— \${product['price']} ({product['stars']}★)")
+
+# 2. Bulk scrape with location-specific pricing
+products = requests.post(
+    f"{BASE}/scrape",
+    headers=HEADERS,
+    params={"dataset_id": DATASET, "format": "json"},
+    json=[
+        {"url": "https://www.amazon.com/dp/B09X7MPX8L", "zipcode": "10001"},
+        {"url": "https://www.amazon.com/dp/B0D5CQPGFQ", "zipcode": "94107"},
+    ],
+).json()
+
+for p in products:
+    print(p["title"], p["price"], p["in_stock"], p["reviews_count"])
+
+# 3. Async trigger — for large jobs (>20 URLs, production pipelines)
+trigger = requests.post(
+    f"{BASE}/trigger",
+    headers=HEADERS,
+    params={"dataset_id": DATASET, "format": "json"},
+    json=[{"url": f"https://www.amazon.com/dp/{asin}"} for asin in [
+        "B09X7MPX8L", "B0D5CQPGFQ", "B08N5WRWNW", "B0BSHF7WHW",
+    ]],
+).json()
+snapshot_id = trigger["snapshot_id"]
+
+# Poll until ready, then fetch results
+import time
+while True:
+    status = requests.get(
+        f"{BASE}/snapshots/{snapshot_id}",
+        headers={"Authorization": f"Bearer {API_KEY}"},
+    ).json()
+    if status["status"] == "ready":
+        break
+    time.sleep(5)
+
+results = requests.get(
+    f"{BASE}/snapshots/{snapshot_id}",
+    headers={"Authorization": f"Bearer {API_KEY}"},
+    params={"format": "json"},
+).json()
+
+print(f"Fetched {len(results)} products via async pipeline")
+
+# Available fields per product:
+# title, url, asin, price, list_price, currency, stars, reviews_count,
+# in_stock, brand, seller, features, categories, image, delivery`;
+
 const AGENT_MCP_CONFIG = `{
   "mcpServers": {
     "brightdata": {
@@ -2945,9 +3011,20 @@ export default function ScraperPage() {
                           </div>
                           <div className="space-y-5 p-4 sm:p-5">
                             <div className="space-y-2">
-                              <p className="font-mono text-[13px] text-white/55">Tell your agent to:</p>
+                              <p className="font-mono text-[13px] text-white/55">Quick prompt:</p>
                               <AgentCmd text={AGENT_SKILL_PROMPT} />
                             </div>
+                            <details className="group">
+                              <summary className="list-none flex cursor-pointer items-center gap-2 font-mono text-[13px] text-white/55 transition hover:text-white/80">
+                                <svg className="h-3.5 w-3.5 shrink-0 transition-transform group-open:rotate-90" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                </svg>
+                                Full prompt: sync, bulk geotargeting, async pipelines
+                              </summary>
+                              <div className="mt-3">
+                                <CodeBlock code={AGENT_PROMPT} label="copy and hand to your agent" />
+                              </div>
+                            </details>
                           </div>
                           <div className="flex flex-wrap items-center gap-2 border-t border-white/10 px-4 py-3 sm:px-5">
                             <span className="font-mono text-xs text-white/45">Works with:</span>
