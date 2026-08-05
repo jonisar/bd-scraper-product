@@ -2893,8 +2893,8 @@ export default function ScraperPage() {
                         Connect Your AI Agent to the Amazon Scraper
                       </h2>
                       <p className="mt-2 text-[15px] leading-7 text-bd-ink">
-                        Give any AI agent — GPT, Claude, Gemini, or your own — the ability to
-                        scrape Amazon product data in real time.
+                        Give any AI agent, from GPT and Claude to Gemini or your own, the ability
+                        to scrape Amazon product data in real time.
                       </p>
                     </div>
 
@@ -2986,7 +2986,7 @@ export default function ScraperPage() {
                         <div className="flex items-start gap-2 rounded-lg border border-bd-blue/30 bg-bd-blue-soft px-4 py-3">
                           <span className="mt-0.5 text-bd-blue">⚡</span>
                           <p className="text-sm leading-6 text-bd-ink">
-                            <strong>Hosted — no install needed.</strong> Just paste the URL into your
+                            <strong>Hosted, no install needed.</strong> Just paste the URL into your
                             MCP client settings. Replace <code className="rounded bg-bd-canvas px-1 py-0.5 font-mono text-xs text-bd-blue">&lt;YOUR_API_KEY&gt;</code> with
                             your key from{" "}
                             <a href="https://brightdata.com/cp/setting/users" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">brightdata.com/cp/setting/users</a>.
@@ -3088,7 +3088,7 @@ export default function ScraperPage() {
                             Amazon Scraper REST API Integration
                           </h3>
                           <p className="mt-1 text-sm leading-6 text-bd-ink/70">
-                            Wrap this function as a tool in any agent framework — AutoGen, Semantic
+                            Wrap this function as a tool in any agent framework: AutoGen, Semantic
                             Kernel, custom agents, or plain scripts. No SDK dependencies needed.
                           </p>
                         </div>
