@@ -6,6 +6,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import ScraperCard from "@/components/ScraperCard";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
+import AgentGetStarted from "@/components/AgentGetStarted";
 import { PricingCards } from "@/components/PricingCards";
 import type { DomainHubData } from "@/lib/domain-hubs";
 
@@ -226,7 +227,14 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
         </section>
 
         {hub.slug === "ecommerce" ? (
-          <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper." />
+          <>
+            <section className="section section-alt animate-rise hub-anchor" id="agents">
+              <div className="container">
+                <AgentGetStarted />
+              </div>
+            </section>
+            <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper." />
+          </>
         ) : (
           <AiPromptCta />
         )}
