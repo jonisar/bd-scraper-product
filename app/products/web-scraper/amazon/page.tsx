@@ -5,6 +5,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import ScraperCard from "@/components/ScraperCard";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
+import AgentGetStarted from "@/components/AgentGetStarted";
 import { PricingCards } from "@/components/PricingCards";
 import AmazonCodeExamples from "@/components/AmazonCodeExamples";
 import {
@@ -438,8 +439,15 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
+        {/* AGENT SECTION */}
+        <section className="section section-alt animate-rise hub-anchor" id="agents">
+          <div className="container">
+            <AgentGetStarted />
+          </div>
+        </section>
+
         {/* AI Prompt CTA */}
-        <AiPromptCta />
+        <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper." />
       </main>
 
       <Footer />

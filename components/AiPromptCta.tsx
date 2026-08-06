@@ -2,19 +2,34 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 
-const STUDIO_URL = "https://brightdata.com/cp/data_collector/collectors/create?camp=plg";
+const STUDIO_CHAT_URL = "https://brightdata.com/cp/scrapers/automation/chat";
+
+const AGENT_BUILD_PROMPT = `Build and run a Bright Data scraper. Run every Bright Data CLI command through \`npx -p @brightdata/cli\` so nothing is installed globally. Replace <TARGET_URL> and <FIELDS TO EXTRACT>, then do each step in order and stop if a step fails:
+
+1. Authenticate by running \`npx -p @brightdata/cli bdata login\`. npx fetches the CLI on demand, so there is nothing to install.
+2. Create a Bright Data scraper for <TARGET_URL> that extracts: <FIELDS TO EXTRACT>. Report the Collector ID.
+3. Run that scraper on the same URL and pretty-print the result.`;
 
 const PROMPT_SUGGESTIONS = [
-  { label: "Amazon prices & reviews", prompt: "Scrape product prices, star ratings, and review counts from Amazon search results for \"wireless headphones\"" },
-  { label: "LinkedIn job listings", prompt: "Extract job title, company, location, salary range, and posting date from LinkedIn job search results for \"software engineer\" in San Francisco" },
-  { label: "Google Maps businesses", prompt: "Collect business name, address, phone number, rating, and number of reviews for all coffee shops in Manhattan from Google Maps" },
-  { label: "Real estate listings", prompt: "Scrape property price, address, square footage, bedrooms, and listing agent from Zillow search results in Austin, TX" },
+  { label: "Product page scraper", prompt: "Build a PDP scraper for https://shopalto.xyz/product/aurora-wireless-headphones. Extract the product title, price, availability, brand, rating and all product image URLs. Return one row per input URL." },
+  { label: "Price monitoring", prompt: "Build a Discovery scraper for the category page https://www.dm.de/baby-und-kind. Return one row per item shown in the listing with title, price, rating and listing position. Do not open the individual product pages." },
+  { label: "Search results scraper", prompt: "Build a Search scraper for https://www.autodoc.de. For the keyword \"brake pads\" in Germany, return matching products with title, price, brand and product URL. No need to open each product page." },
+  { label: "Full catalog scraper", prompt: "Build a scraper using this sitemap: https://www.dm.de/sitemap.xml. Extract all product page URLs, visit each product page, and collect product name, price, SKU, description, image URL and availability. Return one row per product." },
 ];
 
-const TYPING_EXAMPLE = "Scrape all product names, prices, ratings, and availability from amazon.com/s?k=mechanical+keyboards — include seller name and shipping info...";
+const TYPING_EXAMPLE = "Build a Discovery + PDP scraper for the running shoes category on https://www.decathlon.fr: find every product, open each product page, and extract title, price, availability, rating and image URLs...";
 
-export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
+export default function AiPromptCta({
+  variant,
+  headingPlain = "Describe it.",
+  headingAccent = "We'll build it.",
+}: {
+  variant?: "hero";
+  headingPlain?: string;
+  headingAccent?: string;
+} = {}) {
   const [promptText, setPromptText] = useState("");
+  const [agentPromptCopied, setAgentPromptCopied] = useState(false);
   const [isTyping, setIsTyping] = useState(true);
   const [typingIdx, setTypingIdx] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -68,16 +83,21 @@ export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
   const openStudio = useCallback(() => {
     if (sendGuardRef.current) return;
     sendGuardRef.current = true;
-    window.open(STUDIO_URL, "_blank", "noopener,noreferrer");
+    const text = isTyping ? "" : promptText.trim();
+    const url = (text.match(/https?:\/\/[^\s"'<>]+/) || [""])[0].replace(/[.,]+$/, "");
+    const params = new URLSearchParams();
+    if (url) params.set("url", url);
+    if (text) params.set("prompt", text);
+    const target = params.size > 0 ? `${STUDIO_CHAT_URL}?${params.toString()}` : STUDIO_CHAT_URL;
+    window.open(target, "_blank", "noopener,noreferrer");
     setTimeout(() => { sendGuardRef.current = false; }, 1500);
-  }, []);
+  }, [isTyping, promptText]);
 
   const handleSend = () => openStudio();
 
   const handleSuggestion = (prompt: string) => {
     stopTyping();
     setPromptText(prompt);
-    setTimeout(() => openStudio(), 400);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -98,10 +118,10 @@ export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
             AI Scraper Studio
           </span>
           <h2 className="ai-prompt-title">
-            Describe it. <span className="ai-prompt-accent">We&apos;ll build it.</span>
+            {headingPlain} <span className="ai-prompt-accent">{headingAccent}</span>
           </h2>
           <p className="ai-prompt-subtitle">
-            Tell our AI what data you need — it creates, tests, and deploys a production scraper in minutes.
+            Tell our AI what data you need. It creates, tests, and deploys a production scraper in minutes.
           </p>
         </div>
 
@@ -183,6 +203,40 @@ export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
             <span className="ai-prompt-footer-item"><span className="ai-prompt-check">✓</span> Deploys instantly</span>
             <span className="ai-prompt-footer-item"><span className="ai-prompt-check">✓</span> Any website</span>
           </div>
+        </div>
+
+        <div className="ai-prompt-agent-row">
+          <span>Prefer your coding agent?</span>
+          <button
+            type="button"
+            className="btn btn-ghost btn-sm"
+            onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(AGENT_BUILD_PROMPT);
+              } catch {
+                const ta = document.createElement("textarea");
+                ta.value = AGENT_BUILD_PROMPT;
+                ta.style.position = "fixed";
+                ta.style.opacity = "0";
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand("copy");
+                ta.remove();
+              }
+              setAgentPromptCopied(true);
+              setTimeout(() => setAgentPromptCopied(false), 1600);
+            }}
+          >
+            {agentPromptCopied ? "Copied ✓" : "Copy agent prompt"}
+          </button>
+          <a
+            href="https://docs.brightdata.com/datasets/scraper-studio/coding-agent-prompts"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="value-link"
+          >
+            Agent prompt docs ↗
+          </a>
         </div>
 
       </div>

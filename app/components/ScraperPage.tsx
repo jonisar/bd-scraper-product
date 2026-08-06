@@ -10,7 +10,7 @@ import { PricingCards } from "@/components/PricingCards";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Playground" | "Connect Agent" | "Customize";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
-type AgentPlatform = "Prompt" | "MCP" | "OpenAI SDK" | "LangChain" | "CrewAI" | "REST API";
+type AgentPlatform = "Prompt" | "CLI" | "MCP" | "OpenAI SDK" | "LangChain" | "CrewAI" | "REST API";
 
 const DATASET_ID = "gd_l1vijqt9jfj7olije";
 
@@ -282,71 +282,21 @@ const SAMPLE_OUTPUT = `{
   "return_policy": "Eligible for Return, Refund or Replacement within 30 days"
 }`;
 
-const AGENT_PROMPT = `"""Bright Data Amazon Product Scraper — bounded, re-runnable walkthrough."""
-import requests, json, os
+const AGENT_PROMPT = `Read https://brightdata.com/skills.md and set up Bright Data.
 
-API_KEY = os.environ["BRIGHTDATA_API_KEY"]
-DATASET  = "${DATASET_ID}"
-BASE     = "https://api.brightdata.com/datasets/v3"
-HEADERS  = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
+Then complete these tasks with the Amazon pipelines
+(amazon_product, amazon_product_reviews, amazon_product_search):
 
-# 1. Sync scrape — single product by URL (real-time, ≤20 URLs)
-product = requests.post(
-    f"{BASE}/scrape",
-    headers=HEADERS,
-    params={"dataset_id": DATASET, "format": "json"},
-    json=[{"url": "https://www.amazon.com/dp/B09X7MPX8L"}],
-).json()[0]
+1. Scrape https://www.amazon.com/dp/B09X7MPX8L and report
+   title, price, stars, and in_stock.
 
-print(product["title"], f"— \${product['price']} ({product['stars']}★)")
+2. Pull reviews for the same product and summarize the top
+   complaints in 3 bullets.
 
-# 2. Bulk scrape with location-specific pricing
-products = requests.post(
-    f"{BASE}/scrape",
-    headers=HEADERS,
-    params={"dataset_id": DATASET, "format": "json"},
-    json=[
-        {"url": "https://www.amazon.com/dp/B09X7MPX8L", "zipcode": "10001"},
-        {"url": "https://www.amazon.com/dp/B0D5CQPGFQ", "zipcode": "94107"},
-    ],
-).json()
+3. Search "wireless earbuds" on https://amazon.com and save
+   the results to earbuds.csv.
 
-for p in products:
-    print(p["title"], p["price"], p["in_stock"], p["reviews_count"])
-
-# 3. Async trigger — for large jobs (>20 URLs, production pipelines)
-trigger = requests.post(
-    f"{BASE}/trigger",
-    headers=HEADERS,
-    params={"dataset_id": DATASET, "format": "json"},
-    json=[{"url": f"https://www.amazon.com/dp/{asin}"} for asin in [
-        "B09X7MPX8L", "B0D5CQPGFQ", "B08N5WRWNW", "B0BSHF7WHW",
-    ]],
-).json()
-snapshot_id = trigger["snapshot_id"]
-
-# Poll until ready, then fetch results
-import time
-while True:
-    status = requests.get(
-        f"{BASE}/snapshots/{snapshot_id}",
-        headers={"Authorization": f"Bearer {API_KEY}"},
-    ).json()
-    if status["status"] == "ready":
-        break
-    time.sleep(5)
-
-results = requests.get(
-    f"{BASE}/snapshots/{snapshot_id}",
-    headers={"Authorization": f"Bearer {API_KEY}"},
-    params={"format": "json"},
-).json()
-
-print(f"Fetched {len(results)} products via async pipeline")
-
-# Available fields per product:
-# title, url, asin, price, list_price, currency, stars, reviews_count,
-# in_stock, brand, seller, features, categories, image, delivery`;
+When done, list the commands you ran so I can rerun them.`;
 
 const AGENT_MCP_CONFIG = `{
   "mcpServers": {
@@ -507,6 +457,115 @@ function CopyButton({ text }: { text: string }) {
     >
       {copied ? "Copied" : "Copy"}
     </button>
+  );
+}
+
+const AGENT_SKILL_PROMPT =
+  "Read https://brightdata.com/skills.md and scrape this Amazon product: https://www.amazon.com/dp/B09X7MPX8L";
+
+function AgentSetupCta() {
+  const [copied, setCopied] = useState(false);
+
+  return (
+    <button
+      type="button"
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(AGENT_SKILL_PROMPT);
+        } catch {
+          const ta = document.createElement("textarea");
+          ta.value = AGENT_SKILL_PROMPT;
+          ta.style.position = "fixed";
+          ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          ta.remove();
+        }
+        setCopied(true);
+        window.setTimeout(() => setCopied(false), 4000);
+      }}
+      title={AGENT_SKILL_PROMPT}
+      className="inline-flex items-center gap-2 rounded-lg border border-bd-line bg-bd-canvas px-4 py-2.5 text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
+    >
+      {copied ? (
+        <>
+          <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 fill-current" aria-hidden="true">
+            <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z" />
+          </svg>
+          Copied, paste into your agent
+        </>
+      ) : (
+        <>
+          Try in your agent
+          <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+            <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
+            <path d="M10.5 5.5v-2a1.5 1.5 0 00-1.5-1.5H4A1.5 1.5 0 002.5 3.5v5A1.5 1.5 0 004 10h1.5" />
+          </svg>
+        </>
+      )}
+    </button>
+  );
+}
+
+function QuickCmdRow({ step, display, copyText }: { step: string; display: string; copyText: string }) {
+  const [copied, setCopied] = useState(false);
+
+  return (
+    <div className="group flex items-center gap-2 rounded-lg bg-black/60 px-2.5 py-2">
+      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/15 text-[10px] font-bold text-bd-blue">{step}</span>
+      <code className="min-w-0 flex-1 truncate font-mono text-[11px] text-[#d7e6ff]">{display}</code>
+      <button
+        type="button"
+        aria-label="Copy command"
+        title="Copy"
+        onClick={async () => {
+          try {
+            await navigator.clipboard.writeText(copyText);
+          } catch {
+            const ta = document.createElement("textarea");
+            ta.value = copyText;
+            ta.style.position = "fixed";
+            ta.style.opacity = "0";
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+          }
+          setCopied(true);
+          window.setTimeout(() => setCopied(false), 1600);
+        }}
+        style={copied ? { opacity: 1 } : undefined}
+        className="shrink-0 text-xs text-white/60 opacity-0 transition hover:text-white group-hover:opacity-100"
+      >
+        {copied ? "✓" : "⧉"}
+      </button>
+    </div>
+  );
+}
+
+function AgentCmd({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+
+  return (
+    <div className="flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-white/5 px-4 py-3">
+      <code className="code-scroll min-w-0 flex-1 overflow-x-auto whitespace-nowrap font-mono text-[13px] leading-5 text-[#d7e6ff]">
+        {text}
+      </code>
+      <button
+        type="button"
+        aria-label="Copy to clipboard"
+        title="Copy"
+        onClick={async () => {
+          await navigator.clipboard.writeText(text);
+          setCopied(true);
+          window.setTimeout(() => setCopied(false), 1600);
+        }}
+        className="shrink-0 rounded-md border border-white/15 bg-white/5 px-2 py-1 text-xs font-medium text-white/80 transition hover:bg-white/10"
+      >
+        {copied ? "✓" : "⧉"}
+      </button>
+    </div>
   );
 }
 
@@ -1999,19 +2058,7 @@ export default function ScraperPage() {
                 >
                   Start free
                 </a>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMainTab("Playground");
-                    setTimeout(() => {
-                      document.getElementById("scraper-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }, 50);
-                  }}
-                  className="group inline-flex items-center gap-1 text-sm font-semibold text-bd-blue transition hover:text-bd-navy"
-                >
-                  Try in playground
-                  <span className="inline-block transition-transform duration-150 group-hover:translate-x-0.5" aria-hidden="true">→</span>
-                </button>
+                <AgentSetupCta />
               </div>
             </div>
 
@@ -2206,32 +2253,6 @@ export default function ScraperPage() {
                         Send URLs or ASINs, get structured JSON back — no proxies, no CAPTCHAs, no browser rendering.
                       </p>
                     </header>
-
-                    {/* ── Quick start ── */}
-                    <section>
-                      <h3 className="mb-3 text-lg font-bold text-bd-navy">Quick start</h3>
-                      <div className="overflow-hidden rounded-xl border border-bd-line bg-bd-canvas">
-                        <div className="flex items-center justify-between border-b border-bd-line px-4 py-2.5 sm:px-5">
-                          <p className="text-xs text-bd-muted">Install the CLI, authenticate, scrape — 30 seconds</p>
-                          <a href="https://docs.brightdata.com/cli/overview" className="text-xs font-medium text-bd-blue hover:underline" target="_blank" rel="noreferrer">
-                            CLI docs →
-                          </a>
-                        </div>
-                        <div className="divide-y divide-bd-line/50">
-                          {[
-                            { step: "1", cmd: "npm install -g @brightdata/cli", label: "Install" },
-                            { step: "2", cmd: "brightdata login", label: "Authenticate" },
-                            { step: "3", cmd: `brightdata scraper run ${DATASET_ID} "https://amazon.com/dp/B09X7MPX8L"`, label: "Scrape" },
-                          ].map((s) => (
-                            <div key={s.step} className="flex items-center gap-3 px-4 py-3 sm:px-5">
-                              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-xs font-bold text-bd-blue">{s.step}</span>
-                              <code className="min-w-0 flex-1 truncate font-mono text-[13px] text-[#d7e6ff]">{s.cmd}</code>
-                              <span className="hidden shrink-0 text-[11px] text-bd-muted sm:inline">{s.label}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </section>
 
                     {/* ── REST API example ── */}
                     <section>
@@ -2942,14 +2963,14 @@ export default function ScraperPage() {
                         Connect Your AI Agent to the Amazon Scraper
                       </h2>
                       <p className="mt-2 text-[15px] leading-7 text-bd-ink">
-                        Give any AI agent — GPT, Claude, Gemini, or your own — the ability to
-                        scrape Amazon product data in real time.
+                        Give any AI agent, from GPT and Claude to Gemini or your own, the ability
+                        to scrape Amazon product data in real time.
                       </p>
                     </div>
 
                     {/* Platform pills */}
                     <div className="flex flex-wrap gap-2">
-                      {(["Prompt", "MCP", "OpenAI SDK", "LangChain", "CrewAI", "REST API"] as AgentPlatform[]).map((p) => (
+                      {(["Prompt", "CLI", "MCP", "OpenAI SDK", "LangChain", "CrewAI", "REST API"] as AgentPlatform[]).map((p) => (
                         <button
                           key={p}
                           type="button"
@@ -2970,14 +2991,90 @@ export default function ScraperPage() {
                       <div className="space-y-4">
                         <div>
                           <h3 className="text-lg font-bold text-bd-navy">
-                            Amazon Scraper Prompt for Your Agent
+                            One prompt. Your agent does the rest.
                           </h3>
                           <p className="mt-1 text-sm leading-6 text-bd-ink/70">
-                            Copy and hand this to Claude Code, Cursor, Codex, or any coding agent.
-                            Covers sync scrape, bulk with geotargeting, and async pipelines.
+                            Hand this to Claude Code, Cursor, Codex, or any coding agent. It reads
+                            the{" "}
+                            <a
+                              href="https://github.com/brightdata/skills"
+                              className="font-semibold text-bd-blue hover:underline"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              Bright Data skill
+                            </a>
+                            , installs the CLI, signs in with browser OAuth (no API key to paste),
+                            and runs its first scrape.
                           </p>
                         </div>
-                        <CodeBlock code={AGENT_PROMPT} label="copy and hand to your agent" />
+
+                        <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
+                          <div className="border-b border-white/10 px-4 py-2.5 text-center font-mono text-xs text-white/55">
+                            Get started
+                          </div>
+                          <div className="space-y-5 p-4 sm:p-5">
+                            <div className="space-y-2">
+                              <p className="font-mono text-[13px] text-white/55">Quick prompt:</p>
+                              <AgentCmd text={AGENT_SKILL_PROMPT} />
+                            </div>
+                            <details open className="group">
+                              <summary className="list-none flex cursor-pointer items-center gap-2 font-mono text-[13px] text-white/55 transition hover:text-white/80">
+                                <svg className="h-3.5 w-3.5 shrink-0 transition-transform group-open:rotate-90" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                </svg>
+                                Full prompt: product, reviews, search, CSV export
+                              </summary>
+                              <div className="mt-3">
+                                <CodeBlock code={AGENT_PROMPT} label="copy and hand to your agent" />
+                              </div>
+                            </details>
+                          </div>
+                          <div className="flex flex-wrap items-center gap-2 border-t border-white/10 px-4 py-3 sm:px-5">
+                            <span className="font-mono text-xs text-white/45">Works with:</span>
+                            {["✳ Claude Code", "▟ Cursor", "⌘ Codex", "</> Custom agents"].map((c) => (
+                              <span
+                                key={c}
+                                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/80"
+                              >
+                                {c}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {/* CLI */}
+                    {agentPlatform === "CLI" ? (
+                      <div className="space-y-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-bd-navy">
+                            Amazon scraper from the CLI
+                          </h3>
+                          <p className="mt-1 text-sm leading-6 text-bd-ink/70">
+                            Two commands in any terminal. The first opens browser sign-in
+                            (new users get a signup screen); the second returns product JSON.
+                          </p>
+                        </div>
+
+                        <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
+                          <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
+                            <span className="font-mono text-xs text-white/55">Terminal</span>
+                            <a
+                              href="https://docs.brightdata.com/cli/overview"
+                              className="text-xs font-medium text-bd-blue hover:underline"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              CLI docs →
+                            </a>
+                          </div>
+                          <div className="space-y-2 p-4 sm:p-5">
+                            <AgentCmd text="npx -p @brightdata/cli bdata login" />
+                            <AgentCmd text={'bdata pipelines amazon_product "https://www.amazon.com/dp/B09X7MPX8L"'} />
+                          </div>
+                        </div>
                       </div>
                     ) : null}
 
@@ -2998,7 +3095,7 @@ export default function ScraperPage() {
                         <div className="flex items-start gap-2 rounded-lg border border-bd-blue/30 bg-bd-blue-soft px-4 py-3">
                           <span className="mt-0.5 text-bd-blue">⚡</span>
                           <p className="text-sm leading-6 text-bd-ink">
-                            <strong>Hosted — no install needed.</strong> Just paste the URL into your
+                            <strong>Hosted, no install needed.</strong> Just paste the URL into your
                             MCP client settings. Replace <code className="rounded bg-bd-canvas px-1 py-0.5 font-mono text-xs text-bd-blue">&lt;YOUR_API_KEY&gt;</code> with
                             your key from{" "}
                             <a href="https://brightdata.com/cp/setting/users" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noreferrer">brightdata.com/cp/setting/users</a>.
@@ -3100,7 +3197,7 @@ export default function ScraperPage() {
                             Amazon Scraper REST API Integration
                           </h3>
                           <p className="mt-1 text-sm leading-6 text-bd-ink/70">
-                            Wrap this function as a tool in any agent framework — AutoGen, Semantic
+                            Wrap this function as a tool in any agent framework: AutoGen, Semantic
                             Kernel, custom agents, or plain scripts. No SDK dependencies needed.
                           </p>
                         </div>
@@ -3238,16 +3335,16 @@ export default function ScraperPage() {
             <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">Quick start</p>
               <div className="mt-3 space-y-1.5">
-                {[
-                  { step: "1", cmd: "npm i -g @brightdata/cli" },
-                  { step: "2", cmd: "brightdata login" },
-                  { step: "3", cmd: `brightdata scraper run ${DATASET_ID} "amazon.com/dp/…"` },
-                ].map((s) => (
-                  <div key={s.step} className="flex items-center gap-2 rounded-lg bg-black/60 px-2.5 py-2">
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/15 text-[10px] font-bold text-bd-blue">{s.step}</span>
-                    <code className="min-w-0 flex-1 truncate font-mono text-[11px] text-[#d7e6ff]">{s.cmd}</code>
-                  </div>
-                ))}
+                <QuickCmdRow
+                  step="1"
+                  display="npx -p @brightdata/cli bdata login"
+                  copyText="npx -p @brightdata/cli bdata login"
+                />
+                <QuickCmdRow
+                  step="2"
+                  display='bdata pipelines amazon_product "amazon.com/dp/…"'
+                  copyText='bdata pipelines amazon_product "https://www.amazon.com/dp/B09X7MPX8L"'
+                />
               </div>
               <p className="mt-3 text-[11px] text-bd-muted">
                 From URL to structured data in seconds.

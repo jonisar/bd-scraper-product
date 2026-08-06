@@ -3,7 +3,6 @@ import { Header, Footer } from "@/components/Chrome";
 import HeroSearch from "@/components/HeroSearch";
 import ScraperLibrary from "@/components/ScraperLibrary";
 import AgentGetStarted from "@/components/AgentGetStarted";
-import StudioAgentPrompts from "@/components/StudioAgentPrompts";
 import ScrollReveal from "@/components/ScrollReveal";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
@@ -447,13 +446,6 @@ export default function WebScraperHome() {
       <section className="section section-alt animate-rise" id="agents">
         <div className="container">
           <AgentGetStarted />
-        </div>
-      </section>
-
-      {/* BUILD YOUR OWN */}
-      <section className="section animate-rise" id="studio">
-        <div className="container">
-          <StudioAgentPrompts />
         </div>
       </section>
 
