@@ -61,6 +61,19 @@ export default function AgentGetStarted() {
           <p className="term-label mt">Or run it yourself:</p>
           <CopyCmd text="npx -p @brightdata/cli bdata login" />
           <CopyCmd text={'bdata pipelines amazon_product "https://www.amazon.com/dp/B09X7MPX8L"'} />
+
+          <p className="term-label mt">Or connect over MCP:</p>
+          <CopyCmd text="https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN" />
+          <p className="term-note">
+            <a
+              href="https://brightdata.com/cp/mcp"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="value-link"
+            >
+              Get your token-filled URL in the control panel ↗
+            </a>
+          </p>
         </div>
         <div className="works">
           <span className="works-label">Works with:</span>
