@@ -20,7 +20,7 @@ function CopyCmd({ text, label }: { text: string; label?: string }) {
 }
 
 const AGENT_PROMPT =
-  "Build and run a Bright Data scraper for amazon.com that extracts title, price and rating";
+  "Read https://brightdata.com/skills.md and scrape this Amazon product: https://www.amazon.com/dp/B09X7MPX8L";
 
 export default function AgentGetStarted() {
   return (
@@ -28,24 +28,25 @@ export default function AgentGetStarted() {
       {/* LEFT: heading + steps */}
       <div className="agent-left">
         <span className="kicker">For coding agents</span>
-        <h2>Your AI agent can use these scrapers</h2>
+        <h2>One prompt plugs your agent into this library</h2>
         <p>
-          MCP server, CLI, or REST API. Works inside Claude Code, Cursor, and Codex.
-          Describe the data you want — or just point it at a scraper from this library.
+          Paste one prompt. Your agent signs in with browser OAuth, picks the right
+          scraper and returns clean JSON. Works in Claude Code, Cursor and Codex via
+          MCP, CLI or REST API.
         </p>
 
         <div className="steps-list">
           <div className="step-row">
             <span className="n">01</span>
-            <span>Run with <code style={{ color: "var(--accent-2)" }}>npx</code> — nothing to install</span>
+            <span>Runs with <code style={{ color: "var(--accent-2)" }}>npx</code>, nothing to install</span>
           </div>
           <div className="step-row">
             <span className="n">02</span>
-            <span><code style={{ color: "var(--accent-2)" }}>bdata login</code> — browser auth, no key to paste</span>
+            <span><code style={{ color: "var(--accent-2)" }}>bdata login</code> opens browser auth, no key to paste</span>
           </div>
           <div className="step-row">
             <span className="n">03</span>
-            <span>Describe data or pass a scraper ID, get JSON back</span>
+            <span>Name a scraper, get JSON back</span>
           </div>
         </div>
       </div>
@@ -57,17 +58,16 @@ export default function AgentGetStarted() {
           <p className="term-label">Tell your agent:</p>
           <CopyCmd text={AGENT_PROMPT} />
 
-          <p className="term-label mt">Or run directly:</p>
+          <p className="term-label mt">Or run it yourself:</p>
           <CopyCmd text="npx -p @brightdata/cli bdata login" />
-          <CopyCmd text={`bdata scraper create <URL> "<fields you want>"`} />
-          <CopyCmd text="bdata scraper run <COLLECTOR_ID> <URL> --pretty" />
+          <CopyCmd text={'bdata pipelines amazon_product "https://www.amazon.com/dp/B09X7MPX8L"'} />
         </div>
         <div className="works">
           <span className="works-label">Works with:</span>
           <span className="agent-chip">✳ Claude Code</span>
           <span className="agent-chip">▟ Cursor</span>
           <span className="agent-chip">⌘ Codex</span>
-          <span className="agent-chip">◈ MCP</span>
+          <span className="agent-chip">◈ Any MCP client</span>
         </div>
       </div>
     </div>
