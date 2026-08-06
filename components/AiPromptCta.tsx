@@ -11,13 +11,13 @@ const AGENT_BUILD_PROMPT = `Build and run a Bright Data scraper. Run every Brigh
 3. Run that scraper on the same URL and pretty-print the result.`;
 
 const PROMPT_SUGGESTIONS = [
-  { label: "Amazon prices & reviews", prompt: "Scrape product prices, star ratings, and review counts from Amazon search results for \"wireless headphones\"" },
-  { label: "LinkedIn job listings", prompt: "Extract job title, company, location, salary range, and posting date from LinkedIn job search results for \"software engineer\" in San Francisco" },
-  { label: "Google Maps businesses", prompt: "Collect business name, address, phone number, rating, and number of reviews for all coffee shops in Manhattan from Google Maps" },
-  { label: "Real estate listings", prompt: "Scrape property price, address, square footage, bedrooms, and listing agent from Zillow search results in Austin, TX" },
+  { label: "Competitor shop prices", prompt: "Scrape product names, prices, availability, and shipping cost from a competitor webshop in Germany and track daily price changes" },
+  { label: "Berlin restaurant menus", prompt: "Extract dish names, descriptions, and prices from the menu pages of restaurants in Berlin" },
+  { label: "Dutch job listings", prompt: "Collect job title, company, salary, and posting date from a Dutch job board's search results" },
+  { label: "UK trade directory", prompt: "Scrape company name, contact info, and category from a UK trade directory's listing pages" },
 ];
 
-const TYPING_EXAMPLE = "Scrape all product names, prices, ratings, and availability from amazon.com/s?k=mechanical+keyboards — include seller name and shipping info...";
+const TYPING_EXAMPLE = "Scrape product names, prices, and stock status from a local electronics webshop in Munich and alert me when a price drops below a competitor's...";
 
 export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
   const [promptText, setPromptText] = useState("");
@@ -108,7 +108,7 @@ export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
             Describe it. <span className="ai-prompt-accent">We&apos;ll build it.</span>
           </h2>
           <p className="ai-prompt-subtitle">
-            Tell our AI what data you need — it creates, tests, and deploys a production scraper in minutes.
+            Tell our AI what data you need. It creates, tests, and deploys a production scraper in minutes.
           </p>
         </div>
 
