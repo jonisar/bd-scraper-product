@@ -483,7 +483,7 @@ function AgentSetupCta() {
           ta.remove();
         }
         setCopied(true);
-        window.setTimeout(() => setCopied(false), 2000);
+        window.setTimeout(() => setCopied(false), 4000);
       }}
       title={AGENT_SKILL_PROMPT}
       className="inline-flex items-center gap-2 rounded-lg border border-bd-line bg-bd-canvas px-4 py-2.5 text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
