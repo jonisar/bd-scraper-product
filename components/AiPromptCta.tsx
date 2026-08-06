@@ -11,13 +11,13 @@ const AGENT_BUILD_PROMPT = `Build and run a Bright Data scraper. Run every Brigh
 3. Run that scraper on the same URL and pretty-print the result.`;
 
 const PROMPT_SUGGESTIONS = [
-  { label: "Product page scraper", prompt: "Build a PDP scraper for dm.de. For each product URL I provide, extract the product title, price, availability, brand, rating and all product image URLs. Return one row per input URL." },
-  { label: "Price monitoring", prompt: "Build a Discovery scraper for the dm.de category page https://www.dm.de/baby-und-kind. Return one row per item shown in the listing with title, price, rating and listing position. Do not open the individual product pages." },
-  { label: "Search results scraper", prompt: "Build a Search scraper for autodoc.de. For the keyword \"brake pads\" in Germany, return matching products with title, price, brand and product URL. No need to open each product page." },
-  { label: "Full catalog scraper", prompt: "Build a Sitemap scraper for dm.de. Collect all product URLs from the sitemap, visit each product page, and extract product name, price, SKU, description, image URL and availability. Return one row per product." },
+  { label: "Product page scraper", prompt: "Build a PDP scraper for https://shopalto.xyz/product/aurora-wireless-headphones. Extract the product title, price, availability, brand, rating and all product image URLs. Return one row per input URL." },
+  { label: "Price monitoring", prompt: "Build a Discovery scraper for the category page https://www.dm.de/baby-und-kind. Return one row per item shown in the listing with title, price, rating and listing position. Do not open the individual product pages." },
+  { label: "Search results scraper", prompt: "Build a Search scraper for https://www.autodoc.de. For the keyword \"brake pads\" in Germany, return matching products with title, price, brand and product URL. No need to open each product page." },
+  { label: "Full catalog scraper", prompt: "Build a scraper using this sitemap: https://www.dm.de/sitemap.xml. Extract all product page URLs, visit each product page, and collect product name, price, SKU, description, image URL and availability. Return one row per product." },
 ];
 
-const TYPING_EXAMPLE = "Build a Discovery + PDP scraper for a running shoes category on decathlon.fr: find every product, open each product page, and extract title, price, availability, rating and image URLs...";
+const TYPING_EXAMPLE = "Build a Discovery + PDP scraper for the running shoes category on https://www.decathlon.fr: find every product, open each product page, and extract title, price, availability, rating and image URLs...";
 
 export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
   const [promptText, setPromptText] = useState("");
