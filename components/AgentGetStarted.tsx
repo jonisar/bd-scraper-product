@@ -28,7 +28,7 @@ export default function AgentGetStarted() {
       {/* LEFT: heading + steps */}
       <div className="agent-left">
         <span className="kicker">For coding agents</span>
-        <h2>One prompt plugs your agent into the scraper library</h2>
+        <h2>Plug the scraper library into your agent</h2>
         <p>
           Paste one prompt. Your agent signs in with browser OAuth, picks the right
           scraper and returns clean JSON. Works in Claude Code, Cursor and Codex via
