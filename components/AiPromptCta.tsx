@@ -4,6 +4,12 @@ import { useState, useRef, useEffect, useCallback } from "react";
 
 const STUDIO_URL = "https://brightdata.com/cp/data_collector/collectors/create?camp=plg";
 
+const AGENT_BUILD_PROMPT = `Build and run a Bright Data scraper. Run every Bright Data CLI command through \`npx -p @brightdata/cli\` so nothing is installed globally. Replace <TARGET_URL> and <FIELDS TO EXTRACT>, then do each step in order and stop if a step fails:
+
+1. Authenticate by running \`npx -p @brightdata/cli bdata login\`. npx fetches the CLI on demand, so there is nothing to install.
+2. Create a Bright Data scraper for <TARGET_URL> that extracts: <FIELDS TO EXTRACT>. Report the Collector ID.
+3. Run that scraper on the same URL and pretty-print the result.`;
+
 const PROMPT_SUGGESTIONS = [
   { label: "Amazon prices & reviews", prompt: "Scrape product prices, star ratings, and review counts from Amazon search results for \"wireless headphones\"" },
   { label: "LinkedIn job listings", prompt: "Extract job title, company, location, salary range, and posting date from LinkedIn job search results for \"software engineer\" in San Francisco" },
@@ -15,6 +21,7 @@ const TYPING_EXAMPLE = "Scrape all product names, prices, ratings, and availabil
 
 export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
   const [promptText, setPromptText] = useState("");
+  const [agentPromptCopied, setAgentPromptCopied] = useState(false);
   const [isTyping, setIsTyping] = useState(true);
   const [typingIdx, setTypingIdx] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -183,6 +190,40 @@ export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
             <span className="ai-prompt-footer-item"><span className="ai-prompt-check">✓</span> Deploys instantly</span>
             <span className="ai-prompt-footer-item"><span className="ai-prompt-check">✓</span> Any website</span>
           </div>
+        </div>
+
+        <div className="ai-prompt-agent-row">
+          <span>Prefer your coding agent?</span>
+          <button
+            type="button"
+            className="btn btn-ghost btn-sm"
+            onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(AGENT_BUILD_PROMPT);
+              } catch {
+                const ta = document.createElement("textarea");
+                ta.value = AGENT_BUILD_PROMPT;
+                ta.style.position = "fixed";
+                ta.style.opacity = "0";
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand("copy");
+                ta.remove();
+              }
+              setAgentPromptCopied(true);
+              setTimeout(() => setAgentPromptCopied(false), 1600);
+            }}
+          >
+            {agentPromptCopied ? "Copied ✓" : "Copy agent prompt"}
+          </button>
+          <a
+            href="https://docs.brightdata.com/datasets/scraper-studio/coding-agent-prompts"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="value-link"
+          >
+            Agent prompt docs ↗
+          </a>
         </div>
 
       </div>

@@ -2592,6 +2592,17 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   font-size: 11px;
 }
 
+.ai-prompt-agent-row {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 12px;
+  font-size: 13px;
+  color: var(--text-3);
+}
+
 /* ------- Tablet (768px) ------- */
 @media (max-width: 768px) {
   .ai-prompt-section {
