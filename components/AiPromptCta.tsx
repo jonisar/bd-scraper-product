@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 
-const STUDIO_URL = "https://brightdata.com/cp/data_collector/collectors/create?camp=plg";
+const STUDIO_CHAT_URL = "https://brightdata.com/cp/scrapers/automation/chat";
 
 const AGENT_BUILD_PROMPT = `Build and run a Bright Data scraper. Run every Bright Data CLI command through \`npx -p @brightdata/cli\` so nothing is installed globally. Replace <TARGET_URL> and <FIELDS TO EXTRACT>, then do each step in order and stop if a step fails:
 
@@ -75,16 +75,21 @@ export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
   const openStudio = useCallback(() => {
     if (sendGuardRef.current) return;
     sendGuardRef.current = true;
-    window.open(STUDIO_URL, "_blank", "noopener,noreferrer");
+    const text = isTyping ? "" : promptText.trim();
+    const url = (text.match(/https?:\/\/[^\s"'<>]+/) || [""])[0].replace(/[.,]+$/, "");
+    const params = new URLSearchParams();
+    if (url) params.set("url", url);
+    if (text) params.set("prompt", text);
+    const target = params.size > 0 ? `${STUDIO_CHAT_URL}?${params.toString()}` : STUDIO_CHAT_URL;
+    window.open(target, "_blank", "noopener,noreferrer");
     setTimeout(() => { sendGuardRef.current = false; }, 1500);
-  }, []);
+  }, [isTyping, promptText]);
 
   const handleSend = () => openStudio();
 
   const handleSuggestion = (prompt: string) => {
     stopTyping();
     setPromptText(prompt);
-    setTimeout(() => openStudio(), 400);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
