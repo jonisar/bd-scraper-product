@@ -11,13 +11,13 @@ const AGENT_BUILD_PROMPT = `Build and run a Bright Data scraper. Run every Brigh
 3. Run that scraper on the same URL and pretty-print the result.`;
 
 const PROMPT_SUGGESTIONS = [
-  { label: "Competitor shop prices", prompt: "Scrape product names, prices, availability, and shipping cost from a competitor webshop in Germany and track daily price changes" },
-  { label: "Berlin restaurant menus", prompt: "Extract dish names, descriptions, and prices from the menu pages of restaurants in Berlin" },
-  { label: "Dutch job listings", prompt: "Collect job title, company, salary, and posting date from a Dutch job board's search results" },
-  { label: "UK trade directory", prompt: "Scrape company name, contact info, and category from a UK trade directory's listing pages" },
+  { label: "Product page scraper", prompt: "Build a PDP scraper for dm.de. For each product URL I provide, extract the product title, price, availability, brand, rating and all product image URLs. Return one row per input URL." },
+  { label: "Price monitoring", prompt: "Build a Discovery scraper for the dm.de category page https://www.dm.de/baby-und-kind. Return one row per item shown in the listing with title, price, rating and listing position. Do not open the individual product pages." },
+  { label: "Search results scraper", prompt: "Build a Search scraper for autodoc.de. For the keyword \"brake pads\" in Germany, return matching products with title, price, brand and product URL. No need to open each product page." },
+  { label: "Full catalog scraper", prompt: "Build a Sitemap scraper for dm.de. Collect all product URLs from the sitemap, visit each product page, and extract product name, price, SKU, description, image URL and availability. Return one row per product." },
 ];
 
-const TYPING_EXAMPLE = "Scrape product names, prices, and stock status from a local electronics webshop in Munich and alert me when a price drops below a competitor's...";
+const TYPING_EXAMPLE = "Build a Discovery + PDP scraper for a running shoes category on decathlon.fr: find every product, open each product page, and extract title, price, availability, rating and image URLs...";
 
 export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
   const [promptText, setPromptText] = useState("");
