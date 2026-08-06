@@ -439,7 +439,7 @@ export default function AmazonHubPage() {
         </section>
 
         {/* AI Prompt CTA */}
-        <AiPromptCta />
+        <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper." />
       </main>
 
       <Footer />

@@ -19,7 +19,15 @@ const PROMPT_SUGGESTIONS = [
 
 const TYPING_EXAMPLE = "Build a Discovery + PDP scraper for the running shoes category on https://www.decathlon.fr: find every product, open each product page, and extract title, price, availability, rating and image URLs...";
 
-export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
+export default function AiPromptCta({
+  variant,
+  headingPlain = "Describe it.",
+  headingAccent = "We'll build it.",
+}: {
+  variant?: "hero";
+  headingPlain?: string;
+  headingAccent?: string;
+} = {}) {
   const [promptText, setPromptText] = useState("");
   const [agentPromptCopied, setAgentPromptCopied] = useState(false);
   const [isTyping, setIsTyping] = useState(true);
@@ -110,7 +118,7 @@ export default function AiPromptCta({ variant }: { variant?: "hero" } = {}) {
             AI Scraper Studio
           </span>
           <h2 className="ai-prompt-title">
-            Describe it. <span className="ai-prompt-accent">We&apos;ll build it.</span>
+            {headingPlain} <span className="ai-prompt-accent">{headingAccent}</span>
           </h2>
           <p className="ai-prompt-subtitle">
             Tell our AI what data you need. It creates, tests, and deploys a production scraper in minutes.

@@ -225,7 +225,11 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        <AiPromptCta />
+        {hub.slug === "ecommerce" ? (
+          <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper." />
+        ) : (
+          <AiPromptCta />
+        )}
       </main>
 
       <Footer />
