@@ -54,7 +54,7 @@ function MiniCodeBlock({ code, label }: { code: string; label: string }) {
   return (
     <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
       <div className="flex items-center justify-between border-b border-white/10 px-3 py-2 sm:px-4 sm:py-2.5">
-        <span className="font-mono text-[11px] text-white/55 sm:text-xs">{label}</span>
+        <span className="font-mono text-[11px] text-white/65 sm:text-xs">{label}</span>
         <CopyButton text={code} />
       </div>
       <pre className="code-scroll max-h-[280px] overflow-auto p-3 text-[11px] leading-5 text-[#d7e6ff] sm:max-h-[360px] sm:p-4 sm:text-[13px] sm:leading-6">
