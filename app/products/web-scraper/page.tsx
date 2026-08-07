@@ -401,8 +401,7 @@ export default function WebScraperHome() {
               <span className="kicker">Developer experience</span>
               <h2>Easy to start. Easier to scale.</h2>
               <p>
-                Get your API key and make your first call in minutes. Scale to millions of requests
-                with unlimited concurrency &mdash; same API, same reliability, no infrastructure changes.
+                Get your API key and make your first call in minutes. Scale to millions with the same API &mdash; no infra changes.
               </p>
             </div>
             <div className="twin-col">

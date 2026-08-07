@@ -181,7 +181,7 @@ export default function AmazonHubPage() {
             <div className="section-head">
               <span className="kicker">Choose your path</span>
               <h2>Effortlessly scrape Amazon data</h2>
-              <p>Same scrapers, two ways to run them — pick the workflow that fits your team.</p>
+              <p>Same scrapers, three ways to run them — pick the workflow that fits your team.</p>
             </div>
             <div className="hub-paths">
               <a
@@ -215,6 +215,17 @@ export default function AmazonHubPage() {
                   <li>Download results from the CP</li>
                 </ul>
                 <span className="hub-path-cta">Open control panel →</span>
+              </a>
+              <a href="#agents" className="hub-path-card">
+                <span className="hub-path-kicker">AI agent integration</span>
+                <h3>Amazon agent scraper</h3>
+                <p>Connect via MCP or CLI — your AI agent reads a skill file and scrapes autonomously.</p>
+                <ul className="hub-path-list">
+                  <li>Works with any MCP-compatible agent</li>
+                  <li>Single prompt to scrape</li>
+                  <li>Structured data returned to agent</li>
+                </ul>
+                <span className="hub-path-cta">Connect your agent →</span>
               </a>
             </div>
           </div>
@@ -468,8 +479,7 @@ export default function AmazonHubPage() {
                 <span className="kicker">Developer experience</span>
                 <h2>Easy to start. Easier to scale.</h2>
                 <p>
-                  Get your API key and make your first call in minutes. Scale to millions of requests
-                  with unlimited concurrency &mdash; same API, same reliability, no infrastructure changes.
+                  Get your API key and make your first call in minutes. Scale to millions with the same API &mdash; no infra changes.
                 </p>
               </div>
               <div className="twin-col">

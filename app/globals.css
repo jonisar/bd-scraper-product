@@ -1377,7 +1377,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 /* API vs no-code paths */
 .hub-paths {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--s5);
 }
 .hub-path-card {
@@ -1448,7 +1448,10 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   font-weight: 700;
   color: var(--accent-2);
 }
-@media (max-width: 700px) {
+@media (max-width: 900px) {
+  .hub-paths { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
   .hub-paths { grid-template-columns: 1fr; }
   .hub-path-card { padding: var(--s4) var(--s5); }
 }
