@@ -255,47 +255,18 @@ export default function AmazonHubPage() {
         {/* INCLUDED — what every plan gets */}
         <section className="section section-alt animate-rise hub-anchor" id="included">
           <div className="container">
-            <div className="hub-plan-includes">
-              <div className="hub-plan-includes-head">
-                <span className="hub-plan-includes-kicker">Included in every plan</span>
-                <h3>No feature gates between tiers</h3>
-                <p>Every plan includes the full platform — pay less per record as you scale.</p>
-              </div>
-              <div className="hub-plan-cols">
-                <div className="hub-plan-col">
-                  <div className="hub-plan-col-title">
-                    <span className="hub-plan-col-icon" aria-hidden="true">◎</span>
-                    <h4>No extra cost</h4>
-                  </div>
-                  <ul>
-                    <li><span>Proxies &amp; IP rotation</span></li>
-                    <li><span>CAPTCHA solving</span></li>
-                    <li><span>JS rendering</span></li>
-                  </ul>
-                </div>
-                <div className="hub-plan-col">
-                  <div className="hub-plan-col-title">
-                    <span className="hub-plan-col-icon" aria-hidden="true">∞</span>
-                    <h4>No limits</h4>
-                  </div>
-                  <ul>
-                    <li><span>Unlimited concurrency</span></li>
-                    <li><span>5,000 URLs per batch</span></li>
-                    <li><span>Scheduling &amp; webhooks</span></li>
-                  </ul>
-                </div>
-                <div className="hub-plan-col">
-                  <div className="hub-plan-col-title">
-                    <span className="hub-plan-col-icon" aria-hidden="true">⇢</span>
-                    <h4>Full delivery</h4>
-                  </div>
-                  <ul>
-                    <li><span>JSON, NDJSON, or CSV</span></li>
-                    <li><span>Webhook &amp; cloud storage</span></li>
-                    <li><span>Data validation built in</span></li>
-                  </ul>
-                </div>
-              </div>
+            <div className="section-head">
+              <span className="kicker">Included in every plan</span>
+              <h2>Everything you need, built in</h2>
+              <p>You pay for results. Proxies, rendering, concurrency, and delivery are always included — on every plan.</p>
+            </div>
+            <div className="features-grid">
+              <div className="feature-card"><span className="feature-icon">⟳</span><h3>400M+ proxy IPs</h3><p>Residential IPs across 195 countries. Automatic rotation. No extra charge.</p></div>
+              <div className="feature-card"><span className="feature-icon">◈</span><h3>CAPTCHA &amp; anti-bot</h3><p>Automated CAPTCHA solving, fingerprinting, and user-agent rotation. Always on.</p></div>
+              <div className="feature-card"><span className="feature-icon">⬡</span><h3>JS rendering</h3><p>Full browser rendering for SPAs and dynamic pages. No headless browser to manage.</p></div>
+              <div className="feature-card"><span className="feature-icon">∞</span><h3>Unlimited concurrency</h3><p>No rate limits. Scale from 10 to 10M requests with zero config changes.</p></div>
+              <div className="feature-card"><span className="feature-icon">⊞</span><h3>5K URLs per batch</h3><p>Bulk collection with scheduling, webhooks, and job management APIs.</p></div>
+              <div className="feature-card"><span className="feature-icon">⇢</span><h3>Flexible delivery</h3><p>JSON, NDJSON, or CSV. Deliver via API response, webhook, or cloud storage.</p></div>
             </div>
           </div>
         </section>
@@ -515,7 +486,7 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper." />
+        <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper" />
       </main>
 
       <Footer />
