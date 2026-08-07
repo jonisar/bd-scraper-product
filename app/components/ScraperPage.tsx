@@ -725,7 +725,7 @@ function RelatedScrapersCarousel() {
           {RELATED_SCRAPERS.map((s) => (
             <div
               key={s.name}
-              className="flex w-[min(300px,calc(100vw-2.5rem))] shrink-0 sm:w-[310px]"
+              className="flex w-[min(300px,85vw)] shrink-0 sm:w-[310px]"
             >
               <ScraperCard
                 name={s.name}
@@ -1875,10 +1875,10 @@ export default function ScraperPage() {
   }
 
   return (
-    <div className="scraper-page flex min-h-screen flex-col">
+    <div className="scraper-page flex min-h-screen flex-col overflow-x-clip">
       <Header />
 
-      <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-10 lg:py-12">
+      <main className="mx-auto w-full min-w-0 max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-10 lg:py-12">
         {/* Breadcrumb */}
         <nav className="animate-rise mb-6 flex flex-wrap items-center gap-x-0 gap-y-1 text-sm text-bd-muted sm:mb-8" aria-label="Breadcrumb">
           <a href="https://brightdata.com/products" className="hover:text-bd-navy" target="_blank" rel="noreferrer">Products</a>
