@@ -1377,6 +1377,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 }
 
 .hub-anchor { scroll-margin-top: 96px; }
+#scraper-tabs { scroll-margin-top: 60px; }
 
 /* API vs no-code paths */
 .hub-paths {
@@ -1735,8 +1736,6 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 .compare-table th.compare-highlight { color: var(--accent-2); background: rgba(61,127,252,0.06); }
 .compare-table td.compare-highlight { background: rgba(61,127,252,0.03); }
 
-/* Scraper page: non-sticky header */
-.scraper-page > header { position: relative; }
 
 /* Hidden-cost comparison collapsible */
 .hidden-cost-details {

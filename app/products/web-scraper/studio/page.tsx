@@ -4,6 +4,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 import { PricingCards } from "@/components/PricingCards";
+import FaqSection from "@/components/FaqSection";
 
 export const metadata: Metadata = {
   title: "AI Scraper Studio - Build Any Scraper With a Prompt",
@@ -475,27 +476,12 @@ export default function StudioPage() {
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="section section-alt animate-rise" id="faq">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">FAQs</span>
-              <h2>AI Scraper Studio FAQs</h2>
-              <p>
-                Common questions about Scraper Studio — how it works, what you can scrape,
-                self-healing, pricing, and getting started.
-              </p>
-            </div>
-            <div className="faq-list">
-              {STUDIO_FAQS.map((item) => (
-                <details key={item.q} className="faq-item">
-                  <summary>{item.q}</summary>
-                  <p>{item.a}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FaqSection
+          title="AI Scraper Studio FAQs"
+          description="Common questions about Scraper Studio — how it works, what you can scrape, self-healing, pricing, and getting started."
+          items={STUDIO_FAQS}
+          altBg
+        />
 
         {/* FINAL CTA */}
         <section className="final-cta animate-rise">

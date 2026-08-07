@@ -13,6 +13,15 @@ import PricingSlider from "@/components/PricingSlider";
 import AmazonCodeExamples from "@/components/AmazonCodeExamples";
 import StatBanner from "@/components/StatBanner";
 import ChooseYourPath from "@/components/ChooseYourPath";
+import HubStrip from "@/components/HubStrip";
+import HowItWorksSteps from "@/components/HowItWorksSteps";
+import IncludedInEveryPlan from "@/components/IncludedInEveryPlan";
+import UnderTheHood from "@/components/UnderTheHood";
+import UseCasesGrid from "@/components/UseCasesGrid";
+import CompareTable from "@/components/CompareTable";
+import DxComplianceSection from "@/components/DxComplianceSection";
+import FaqSection from "@/components/FaqSection";
+import HeroRatings from "@/components/HeroRatings";
 import {
   AMAZON_SCRAPERS,
   AMAZON_SITE,
@@ -70,20 +79,7 @@ export default function AmazonHubPage() {
         {/* HERO */}
         <section className="hero site-hub-hero">
           <div className="container hero-inner">
-            <div className="hero-ratings">
-              <a className="hero-rating" href="https://www.trustpilot.com/review/brightdata.com" target="_blank" rel="noopener noreferrer">
-                <span className="stars">★★★★★</span>
-                <strong>4.6</strong> Trustpilot
-              </a>
-              <a className="hero-rating" href="https://www.g2.com/products/bright-data/reviews" target="_blank" rel="noopener noreferrer">
-                <span className="stars">★★★★★</span>
-                <strong>4.6</strong> G2
-              </a>
-              <a className="hero-rating" href="https://www.capterra.com/p/146810/Luminati/" target="_blank" rel="noopener noreferrer">
-                <span className="stars">★★★★★</span>
-                <strong>4.8</strong> Capterra
-              </a>
-            </div>
+            <HeroRatings />
 
             <h1>
               <span className="grad-text">{AMAZON_SITE.headline}</span>
@@ -114,7 +110,7 @@ export default function AmazonHubPage() {
             </div>
 
             <div className="lib-grid">
-              {AMAZON_SCRAPERS.map((s) => (
+              {AMAZON_SCRAPERS.slice(0, 9).map((s) => (
                 <ScraperCard
                   key={s.id}
                   name={s.name}
@@ -128,13 +124,15 @@ export default function AmazonHubPage() {
                 />
               ))}
             </div>
+            {AMAZON_SCRAPERS.length > 9 && (
+              <p className="hub-view-all">
+                <a href="/products/web-scraper/scraper-lib?q=amazon" className="hub-view-all-link">
+                  View all {AMAZON_SCRAPERS.length} Amazon scrapers →
+                </a>
+              </p>
+            )}
 
-            <div className="hub-strip">
-              <div className="hub-strip-item"><span className="hub-strip-icon">⚡</span><strong>5K free records/mo</strong><span>No credit card</span></div>
-              <div className="hub-strip-item"><span className="hub-strip-icon">⟳</span><strong>API or no-code</strong><span>On demand</span></div>
-              <div className="hub-strip-item"><span className="hub-strip-icon">✓</span><strong>Pay per success</strong><span>Failed = free</span></div>
-              <div className="hub-strip-item"><span className="hub-strip-icon">⊞</span><strong>5K URLs/batch</strong><span>High volume</span></div>
-            </div>
+            <HubStrip />
 
             <div className="hub-dataset-cta">
               <div className="hub-dataset-cta-body">
@@ -149,33 +147,12 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* HOW IT WORKS — quick orientation */}
-        <section className="section section-alt animate-rise hub-anchor" id="steps">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">How it works</span>
-              <h2>From zero to Amazon data in 3 steps</h2>
-              <p>No proxies to configure, no infrastructure to manage. Just pick, call, and receive.</p>
-            </div>
-            <div className="steps-grid">
-              <div className="step-card">
-                <span className="step-icon">01</span>
-                <h3>Pick a scraper</h3>
-                <p>Choose from the Amazon scrapers above — products, reviews, sellers, rankings, and more.</p>
-              </div>
-              <div className="step-card">
-                <span className="step-icon">02</span>
-                <h3>Call the API</h3>
-                <p>One REST call with your target URL. Works with Python, Node.js, cURL, or any HTTP client.</p>
-              </div>
-              <div className="step-card">
-                <span className="step-icon">03</span>
-                <h3>Get structured data</h3>
-                <p>Receive clean, parsed data in JSON, NDJSON, or CSV. Delivered via API, webhook, or cloud storage.</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <HowItWorksSteps
+          heading="From zero to Amazon data in 3 steps"
+          step1="Choose from the Amazon scrapers above — products, reviews, sellers, rankings, and more."
+          altBg
+          hubAnchor
+        />
 
         {/* API vs NO-CODE */}
         <section className="section animate-rise hub-anchor" id="paths">
@@ -210,24 +187,7 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* INCLUDED — what every plan gets */}
-        <section className="section section-alt animate-rise hub-anchor" id="included">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">Included in every plan</span>
-              <h2>Everything you need, built in</h2>
-              <p>You pay for results. Proxies, rendering, concurrency, and delivery are always included — on every plan.</p>
-            </div>
-            <div className="features-grid">
-              <div className="feature-card"><span className="feature-icon">⟳</span><h3>400M+ proxy IPs</h3><p>Residential IPs across 195 countries. Automatic rotation. No extra charge.</p></div>
-              <div className="feature-card"><span className="feature-icon">◈</span><h3>CAPTCHA &amp; anti-bot</h3><p>Automated CAPTCHA solving, fingerprinting, and user-agent rotation. Always on.</p></div>
-              <div className="feature-card"><span className="feature-icon">⬡</span><h3>JS rendering</h3><p>Full browser rendering for SPAs and dynamic pages. No headless browser to manage.</p></div>
-              <div className="feature-card"><span className="feature-icon">∞</span><h3>Unlimited concurrency</h3><p>No rate limits. Scale from 10 to 10M requests with zero config changes.</p></div>
-              <div className="feature-card"><span className="feature-icon">⊞</span><h3>5K URLs per batch</h3><p>Bulk collection with scheduling, webhooks, and job management APIs.</p></div>
-              <div className="feature-card"><span className="feature-icon">⇢</span><h3>Flexible delivery</h3><p>JSON, NDJSON, or CSV. Deliver via API response, webhook, or cloud storage.</p></div>
-            </div>
-          </div>
-        </section>
+        <IncludedInEveryPlan altBg hubAnchor />
 
         {/* CODE EXAMPLES */}
         <section className="section animate-rise hub-anchor" id="code">
@@ -275,182 +235,39 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* HOW IT WORKS */}
-        <section className="section animate-rise hub-anchor" id="how">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">Under the hood</span>
-              <h2>Scrape Amazon with one API call</h2>
-              <p>Discovery, bulk handling, parsing, and validation — built into every Amazon scraper.</p>
-            </div>
-            <div className="features-grid">
-              <div className="feature-card">
-                <span className="feature-icon">◎</span>
-                <h3>Data discovery</h3>
-                <p>Detect structures and patterns for efficient, targeted Amazon extraction.</p>
-              </div>
-              <div className="feature-card">
-                <span className="feature-icon">⊞</span>
-                <h3>Bulk request handling</h3>
-                <p>Send up to 5,000 URLs per request. Optimize high-volume collection without ops overhead.</p>
-              </div>
-              <div className="feature-card">
-                <span className="feature-icon">⬡</span>
-                <h3>Data parsing</h3>
-                <p>Raw HTML becomes structured JSON, NDJSON, or CSV ready for your pipeline.</p>
-              </div>
-              <div className="feature-card">
-                <span className="feature-icon">✓</span>
-                <h3>Data validation</h3>
-                <p>Built-in checks improve reliability and cut manual preprocessing time.</p>
-              </div>
-              <div className="feature-card">
-                <span className="feature-icon">⟳</span>
-                <h3>Unblocking built in</h3>
-                <p>IP rotation, CAPTCHA solving, JS rendering, and residential proxies — automatic.</p>
-              </div>
-              <div className="feature-card">
-                <span className="feature-icon">∞</span>
-                <h3>Battle-proven scale</h3>
-                <p>99.99% uptime, 400M+ IPs across 195 countries. Powering 20,000+ companies.</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <UnderTheHood name="Amazon" hubAnchor />
 
         <StatBanner />
 
-        {/* USE CASES */}
-        <section className="section section-alt animate-rise hub-anchor" id="use-cases">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">Use cases</span>
-              <h2>Amazon data scraping use cases</h2>
-              <p>Real-time Amazon intelligence for pricing, competition, and brand reputation.</p>
-            </div>
-            <div className="usecases-grid">
-              <div className="usecase-card">
-                <h3>Product inventory and pricing strategy</h3>
-                <p>
-                  Scrape Amazon listings in real time to identify best sellers, track price changes, and monitor
-                  availability. Collect titles, prices, ASINs, brands, and stock status to optimize inventory and
-                  dynamic pricing.
-                </p>
-                <span className="usecase-sites">Products · Prices · ASINs · Availability</span>
-              </div>
-              <div className="usecase-card">
-                <h3>Stay ahead of the competition</h3>
-                <p>
-                  Monitor bestseller rankings, seller profiles, and listings to benchmark against category leaders.
-                  Collect seller ratings, feedback, and promotional signals to uncover product opportunities.
-                </p>
-                <span className="usecase-sites">Best sellers · Sellers · Rankings</span>
-              </div>
-              <div className="usecase-card">
-                <h3>Consumer sentiment and brand reputation</h3>
-                <p>
-                  Scrape Amazon reviews and ratings across categories and countries. Collect review text, star ratings,
-                  verified purchase status, and dates to spot demand shifts before they peak.
-                </p>
-                <span className="usecase-sites">Reviews · Ratings · Sentiment</span>
-              </div>
-              <div className="usecase-card">
-                <h3>Catalog &amp; marketplace intelligence</h3>
-                <p>
-                  Build rich Amazon catalogs with images, variants, features, and category trees — ready for analytics,
-                  enrichment, and machine learning pipelines.
-                </p>
-                <span className="usecase-sites">Catalog · Variants · Categories</span>
-              </div>
-            </div>
-          </div>
-        </section>
+        <UseCasesGrid
+          name="Amazon"
+          description="Real-time Amazon intelligence for pricing, competition, and brand reputation."
+          items={[
+            { title: "Product inventory and pricing strategy", body: "Scrape Amazon listings in real time to identify best sellers, track price changes, and monitor availability. Collect titles, prices, ASINs, brands, and stock status to optimize inventory and dynamic pricing.", tags: "Products · Prices · ASINs · Availability" },
+            { title: "Stay ahead of the competition", body: "Monitor bestseller rankings, seller profiles, and listings to benchmark against category leaders. Collect seller ratings, feedback, and promotional signals to uncover product opportunities.", tags: "Best sellers · Sellers · Rankings" },
+            { title: "Consumer sentiment and brand reputation", body: "Scrape Amazon reviews and ratings across categories and countries. Collect review text, star ratings, verified purchase status, and dates to spot demand shifts before they peak.", tags: "Reviews · Ratings · Sentiment" },
+            { title: "Catalog & marketplace intelligence", body: "Build rich Amazon catalogs with images, variants, features, and category trees — ready for analytics, enrichment, and machine learning pipelines.", tags: "Catalog · Variants · Categories" },
+          ]}
+          altBg
+          hubAnchor
+        />
 
-        {/* COMPARISON */}
-        <section className="section animate-rise hub-anchor" id="compare">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">Why Bright Data</span>
-              <h2>Amazon Scraper API vs DIY and other providers</h2>
-              <p>
-                Compare Bright Data&rsquo;s managed Amazon scrapers with building your own or using other services.
-              </p>
-            </div>
-            <div className="compare-table-wrap">
-              <table className="compare-table">
-                <caption className="sr-only">
-                  Amazon scraper comparison: Bright Data vs other providers vs DIY
-                </caption>
-                <thead>
-                  <tr>
-                    <th scope="col">Capability</th>
-                    <th scope="col" className="compare-highlight">Bright Data</th>
-                    <th scope="col">Other providers</th>
-                    <th scope="col">DIY (self-built)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>Auto-scaling infrastructure</td><td className="compare-highlight">✓ Unlimited</td><td>Partial</td><td>Manual</td></tr>
-                  <tr><td>Anti-bot &amp; CAPTCHA bypass</td><td className="compare-highlight">✓ Built-in</td><td>Partial</td><td>Build yourself</td></tr>
-                  <tr><td>Residential proxy network</td><td className="compare-highlight">✓ 400M+ IPs</td><td>Limited pool</td><td>Buy separately</td></tr>
-                  <tr><td>Pre-built Amazon scrapers</td><td className="compare-highlight">✓ 14+ ready</td><td>1–3</td><td>Build each</td></tr>
-                  <tr><td>Auto-maintenance (site changes)</td><td className="compare-highlight">✓ 24/7</td><td>Varies</td><td>Your team</td></tr>
-                  <tr><td>Compliance (GDPR, CCPA, SOC 2)</td><td className="compare-highlight">✓ Full</td><td>Partial</td><td>Your responsibility</td></tr>
-                  <tr><td>Structured output (JSON/CSV)</td><td className="compare-highlight">✓ Automatic</td><td>✓</td><td>Build parsers</td></tr>
-                  <tr><td>Free tier</td><td className="compare-highlight">✓ 5K records/mo</td><td>Varies</td><td>Infra costs</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
+        <CompareTable
+          name="Amazon"
+          title="Amazon Scraper API vs DIY and other providers"
+          description="Compare Bright Data&rsquo;s managed Amazon scrapers with building your own or using other services."
+          scraperRow={{ label: "Pre-built Amazon scrapers", bd: "✓ 14+ ready", others: "1–3", diy: "Build each" }}
+          hubAnchor
+        />
 
-        {/* DX + COMPLIANCE */}
-        <section className="section section-alt animate-rise hub-anchor" id="why">
-          <div className="container">
-            <div className="twin-cols">
-              <div className="twin-col">
-                <span className="kicker">Developer experience</span>
-                <h2>Easy to start. Easier to scale.</h2>
-                <p>
-                  Get your API key and make your first call in minutes. Scale to millions with the same API &mdash; no infra changes.
-                </p>
-              </div>
-              <div className="twin-col">
-                <span className="kicker">Compliance</span>
-                <h2>Leading ethical web data collection</h2>
-                <p>
-                  Only publicly available data. ISO&nbsp;27001 certified, SOC&nbsp;2 controls,
-                  GDPR &amp; CCPA compliant. Backed by an industry-first Compliance &amp; Ethics team.
-                </p>
-                <div className="compliance-badges">
-                  <span className="compliance-badge">GDPR</span>
-                  <span className="compliance-badge">CCPA</span>
-                  <span className="compliance-badge">ISO 27001</span>
-                  <span className="compliance-badge">SOC 2</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <DxComplianceSection altBg hubAnchor />
 
-        {/* FAQ */}
-        <section className="section animate-rise hub-anchor" id="faq">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">FAQs</span>
-              <h2>Amazon Scraper API FAQs</h2>
-              <p>Common questions about scraping Amazon with Bright Data&rsquo;s Web Scraper API.</p>
-            </div>
-            <div className="faq-list">
-              {AMAZON_FAQS.map((item) => (
-                <details key={item.q} className="faq-item">
-                  <summary>{item.q}</summary>
-                  <p>{item.a}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FaqSection
+          title="Amazon Scraper API FAQs"
+          description="Common questions about scraping Amazon with Bright Data&rsquo;s Web Scraper API."
+          items={AMAZON_FAQS}
+          hubAnchor
+        />
 
         <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper" />
       </main>

@@ -14,6 +14,15 @@ import { PricingCards } from "@/components/PricingCards";
 import HubCodeExample from "@/components/HubCodeExample";
 import ChooseYourPath from "@/components/ChooseYourPath";
 import StatBanner from "@/components/StatBanner";
+import HubStrip from "@/components/HubStrip";
+import HowItWorksSteps from "@/components/HowItWorksSteps";
+import IncludedInEveryPlan from "@/components/IncludedInEveryPlan";
+import UnderTheHood from "@/components/UnderTheHood";
+import UseCasesGrid from "@/components/UseCasesGrid";
+import CompareTable from "@/components/CompareTable";
+import DxComplianceSection from "@/components/DxComplianceSection";
+import FaqSection from "@/components/FaqSection";
+import HeroRatings from "@/components/HeroRatings";
 import { sampleUrlForDomain, type DomainHubData } from "@/lib/domain-hubs";
 
 export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
@@ -47,20 +56,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
         {/* HERO */}
         <section className="hero site-hub-hero">
           <div className="container hero-inner">
-            <div className="hero-ratings">
-              <a className="hero-rating" href="https://www.trustpilot.com/review/brightdata.com" target="_blank" rel="noopener noreferrer">
-                <span className="stars">★★★★★</span>
-                <strong>4.6</strong> Trustpilot
-              </a>
-              <a className="hero-rating" href="https://www.g2.com/products/bright-data/reviews" target="_blank" rel="noopener noreferrer">
-                <span className="stars">★★★★★</span>
-                <strong>4.6</strong> G2
-              </a>
-              <a className="hero-rating" href="https://www.capterra.com/p/146810/Luminati/" target="_blank" rel="noopener noreferrer">
-                <span className="stars">★★★★★</span>
-                <strong>4.8</strong> Capterra
-              </a>
-            </div>
+            <HeroRatings />
 
             <h1>
               <span className="grad-text">{hub.headline}</span>
@@ -116,42 +112,16 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
               </p>
             )}
 
-            <div className="hub-strip">
-              <div className="hub-strip-item"><span className="hub-strip-icon">⚡</span><strong>5K free records/mo</strong><span>No credit card</span></div>
-              <div className="hub-strip-item"><span className="hub-strip-icon">⟳</span><strong>API or no-code</strong><span>On demand</span></div>
-              <div className="hub-strip-item"><span className="hub-strip-icon">✓</span><strong>Pay per success</strong><span>Failed = free</span></div>
-              <div className="hub-strip-item"><span className="hub-strip-icon">⊞</span><strong>5K URLs/batch</strong><span>High volume</span></div>
-            </div>
+            <HubStrip />
           </div>
         </section>
 
-        {/* 2. HOW IT WORKS — quick orientation */}
-        <section className="section section-alt animate-rise hub-anchor" id="steps">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">How it works</span>
-              <h2>From zero to {hub.name} data in 3 steps</h2>
-              <p>No proxies to configure, no infrastructure to manage. Just pick, call, and receive.</p>
-            </div>
-            <div className="steps-grid">
-              <div className="step-card">
-                <span className="step-icon">01</span>
-                <h3>Pick a scraper</h3>
-                <p>Choose from the {hub.name} scrapers above or create your own with AI in minutes.</p>
-              </div>
-              <div className="step-card">
-                <span className="step-icon">02</span>
-                <h3>Call the API</h3>
-                <p>One REST call with your target URL. Works with Python, Node.js, cURL, or any HTTP client.</p>
-              </div>
-              <div className="step-card">
-                <span className="step-icon">03</span>
-                <h3>Get structured data</h3>
-                <p>Receive clean, parsed data in JSON, NDJSON, or CSV. Delivered via API, webhook, or cloud storage.</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <HowItWorksSteps
+          heading={`From zero to ${hub.name} data in 3 steps`}
+          step1={`Choose from the ${hub.name} scrapers above or create your own with AI in minutes.`}
+          altBg
+          hubAnchor
+        />
 
         {/* CODE EXAMPLE + SAMPLE OUTPUT */}
         <section className="section animate-rise hub-anchor" id="code">
@@ -225,151 +195,37 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* INCLUDED — what every plan gets */}
-        <section className="section animate-rise hub-anchor" id="included">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">Included in every plan</span>
-              <h2>Everything you need, built in</h2>
-              <p>You pay for results. Proxies, rendering, concurrency, and delivery are always included — on every plan.</p>
-            </div>
-            <div className="features-grid">
-              <div className="feature-card"><span className="feature-icon">⟳</span><h3>400M+ proxy IPs</h3><p>Residential IPs across 195 countries. Automatic rotation. No extra charge.</p></div>
-              <div className="feature-card"><span className="feature-icon">◈</span><h3>CAPTCHA &amp; anti-bot</h3><p>Automated CAPTCHA solving, fingerprinting, and user-agent rotation. Always on.</p></div>
-              <div className="feature-card"><span className="feature-icon">⬡</span><h3>JS rendering</h3><p>Full browser rendering for SPAs and dynamic pages. No headless browser to manage.</p></div>
-              <div className="feature-card"><span className="feature-icon">∞</span><h3>Unlimited concurrency</h3><p>No rate limits. Scale from 10 to 10M requests with zero config changes.</p></div>
-              <div className="feature-card"><span className="feature-icon">⊞</span><h3>5K URLs per batch</h3><p>Bulk collection with scheduling, webhooks, and job management APIs.</p></div>
-              <div className="feature-card"><span className="feature-icon">⇢</span><h3>Flexible delivery</h3><p>JSON, NDJSON, or CSV. Deliver via API response, webhook, or cloud storage.</p></div>
-            </div>
-          </div>
-        </section>
+        <IncludedInEveryPlan hubAnchor />
 
-        {/* UNDER THE HOOD — infrastructure value */}
-        <section className="section section-alt animate-rise hub-anchor" id="how">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">Under the hood</span>
-              <h2>Scrape {hub.name} with one API call</h2>
-              <p>Discovery, bulk handling, parsing, and validation — built into every {hub.name} scraper.</p>
-            </div>
-            <div className="features-grid">
-              <div className="feature-card"><span className="feature-icon">◎</span><h3>Data discovery</h3><p>Detect structures and patterns for efficient, targeted {hub.name} extraction.</p></div>
-              <div className="feature-card"><span className="feature-icon">⊞</span><h3>Bulk request handling</h3><p>Send up to 5,000 URLs per request. Optimize high-volume collection without ops overhead.</p></div>
-              <div className="feature-card"><span className="feature-icon">⬡</span><h3>Data parsing</h3><p>Raw HTML becomes structured JSON, NDJSON, or CSV ready for your pipeline.</p></div>
-              <div className="feature-card"><span className="feature-icon">✓</span><h3>Data validation</h3><p>Built-in checks improve reliability and cut manual preprocessing time.</p></div>
-              <div className="feature-card"><span className="feature-icon">⟳</span><h3>Unblocking built in</h3><p>IP rotation, CAPTCHA solving, JS rendering, and residential proxies — automatic.</p></div>
-              <div className="feature-card"><span className="feature-icon">∞</span><h3>Battle-proven scale</h3><p>99.99% uptime, 400M+ IPs across 195 countries. Powering 20,000+ companies.</p></div>
-            </div>
-          </div>
-        </section>
+        <UnderTheHood name={hub.name} altBg hubAnchor />
 
         <StatBanner />
 
-        {/* USE CASES — relevance */}
-        <section className="section animate-rise hub-anchor" id="use-cases">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">Use cases</span>
-              <h2>{hub.name} data scraping use cases</h2>
-              <p>Real-time {hub.name} intelligence for your business.</p>
-            </div>
-            <div className="usecases-grid">
-              {hub.useCases.map((uc) => (
-                <div key={uc.title} className="usecase-card">
-                  <h3>{uc.title}</h3>
-                  <p>{uc.body}</p>
-                  <span className="usecase-sites">{uc.tags}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <UseCasesGrid
+          name={hub.name}
+          description={`Real-time ${hub.name} intelligence for your business.`}
+          items={hub.useCases}
+          hubAnchor
+        />
 
-        {/* COMPARISON — decision-making */}
-        <section className="section section-alt animate-rise hub-anchor" id="compare">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">Why Bright Data</span>
-              <h2>{hub.name} Scraper API vs DIY and other providers</h2>
-              <p>
-                Compare Bright Data&rsquo;s managed scrapers with building your own or using other scraping services.
-              </p>
-            </div>
-            <div className="compare-table-wrap">
-              <table className="compare-table">
-                <caption className="sr-only">
-                  {hub.name} scraper comparison: Bright Data vs other providers vs DIY
-                </caption>
-                <thead>
-                  <tr>
-                    <th scope="col">Capability</th>
-                    <th scope="col" className="compare-highlight">Bright Data</th>
-                    <th scope="col">Other providers</th>
-                    <th scope="col">DIY (self-built)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>Auto-scaling infrastructure</td><td className="compare-highlight">✓ Unlimited</td><td>Partial</td><td>Manual</td></tr>
-                  <tr><td>Anti-bot &amp; CAPTCHA bypass</td><td className="compare-highlight">✓ Built-in</td><td>Partial</td><td>Build yourself</td></tr>
-                  <tr><td>Residential proxy network</td><td className="compare-highlight">✓ 400M+ IPs</td><td>Limited pool</td><td>Buy separately</td></tr>
-                  <tr><td>Pre-built {hub.name} scrapers</td><td className="compare-highlight">✓ Ready to use</td><td>Limited</td><td>Build each</td></tr>
-                  <tr><td>Auto-maintenance (site changes)</td><td className="compare-highlight">✓ 24/7</td><td>Varies</td><td>Your team</td></tr>
-                  <tr><td>Compliance (GDPR, CCPA, SOC 2)</td><td className="compare-highlight">✓ Full</td><td>Partial</td><td>Your responsibility</td></tr>
-                  <tr><td>Structured output (JSON/CSV)</td><td className="compare-highlight">✓ Automatic</td><td>✓</td><td>Build parsers</td></tr>
-                  <tr><td>Free tier</td><td className="compare-highlight">✓ 5K records/mo</td><td>Varies</td><td>Infra costs</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
+        <CompareTable
+          name={hub.name}
+          title={`${hub.name} Scraper API vs DIY and other providers`}
+          description="Compare Bright Data&rsquo;s managed scrapers with building your own or using other scraping services."
+          scraperRow={{ label: `Pre-built ${hub.name} scrapers`, bd: "✓ Ready to use", others: "Limited", diy: "Build each" }}
+          altBg
+          hubAnchor
+        />
 
-        {/* DX + COMPLIANCE — trust layer */}
-        <section className="section animate-rise hub-anchor" id="why">
-          <div className="container">
-            <div className="twin-cols">
-              <div className="twin-col">
-                <span className="kicker">Developer experience</span>
-                <h2>Easy to start. Easier to scale.</h2>
-                <p>
-                  Get your API key and make your first call in minutes. Scale to millions with the same API &mdash; no infra changes.
-                </p>
-              </div>
-              <div className="twin-col">
-                <span className="kicker">Compliance</span>
-                <h2>Leading ethical web data collection</h2>
-                <p>
-                  Only publicly available data. ISO&nbsp;27001 certified, SOC&nbsp;2 controls,
-                  GDPR &amp; CCPA compliant. Backed by an industry-first Compliance &amp; Ethics team.
-                </p>
-                <div className="compliance-badges">
-                  <span className="compliance-badge">GDPR</span>
-                  <span className="compliance-badge">CCPA</span>
-                  <span className="compliance-badge">ISO 27001</span>
-                  <span className="compliance-badge">SOC 2</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <DxComplianceSection hubAnchor />
 
-        {/* FAQ — reference at the bottom */}
-        <section className="section section-alt animate-rise hub-anchor" id="faq">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">FAQs</span>
-              <h2>{hub.name} Scraper API FAQs</h2>
-              <p>Common questions about scraping {hub.name} with Bright Data&rsquo;s Web Scraper API.</p>
-            </div>
-            <div className="faq-list">
-              {hub.faqs.map((item) => (
-                <details key={item.q} className="faq-item">
-                  <summary>{item.q}</summary>
-                  <p>{item.a}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FaqSection
+          title={`${hub.name} Scraper API FAQs`}
+          description={`Common questions about scraping ${hub.name} with Bright Data\u2019s Web Scraper API.`}
+          items={hub.faqs}
+          altBg
+          hubAnchor
+        />
 
         {hub.slug === "ecommerce" ? (
           <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper" />
