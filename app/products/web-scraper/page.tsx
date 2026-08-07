@@ -201,8 +201,15 @@ export default function WebScraperHome() {
         </div>
       </section>
 
+      {/* AGENT SECTION — modern dev workflow */}
+      <section className="section animate-rise" id="agents">
+        <div className="container">
+          <AgentGetStarted />
+        </div>
+      </section>
+
       {/* UNDER THE HOOD — what's included */}
-      <section className="section animate-rise" id="how">
+      <section className="section section-alt animate-rise" id="how">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Under the hood</span>
@@ -248,7 +255,7 @@ export default function WebScraperHome() {
       </section>
 
       {/* USE CASES */}
-      <section className="section section-alt animate-rise" id="use-cases">
+      <section className="section animate-rise" id="use-cases">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Use cases</span>
@@ -345,13 +352,6 @@ export default function WebScraperHome() {
               <a href="/products/web-scraper/finance" className="usecase-cta">View all Finance scrapers →</a>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* AGENT SECTION — modern dev workflow */}
-      <section className="section animate-rise" id="agents">
-        <div className="container">
-          <AgentGetStarted />
         </div>
       </section>
 
