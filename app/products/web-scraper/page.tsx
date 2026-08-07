@@ -9,6 +9,7 @@ import AiPromptCta from "@/components/AiPromptCta";
 import { PricingCards } from "@/components/PricingCards";
 import PricingAssurances from "@/components/PricingAssurances";
 import HubCodeExample from "@/components/HubCodeExample";
+import StatBanner from "@/components/StatBanner";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -284,6 +285,8 @@ export default function WebScraperHome() {
         </div>
       </section>
 
+      <StatBanner />
+
       {/* USE CASES */}
       <section className="section section-alt animate-rise" id="use-cases">
         <div className="container">
@@ -450,15 +453,6 @@ export default function WebScraperHome() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* STAT BANNER */}
-      <section className="stat-banner animate-rise">
-        <div className="container">
-          <p className="stat-banner-text">
-            Every 15 minutes, our customers scrape enough data to train ChatGPT from scratch.
-          </p>
         </div>
       </section>
 

@@ -11,6 +11,7 @@ import { PricingCards } from "@/components/PricingCards";
 import PricingAssurances from "@/components/PricingAssurances";
 import PricingSlider from "@/components/PricingSlider";
 import AmazonCodeExamples from "@/components/AmazonCodeExamples";
+import StatBanner from "@/components/StatBanner";
 import {
   AMAZON_SCRAPERS,
   AMAZON_SITE,
@@ -359,6 +360,8 @@ export default function AmazonHubPage() {
             </div>
           </div>
         </section>
+
+        <StatBanner />
 
         {/* USE CASES */}
         <section className="section section-alt animate-rise hub-anchor" id="use-cases">

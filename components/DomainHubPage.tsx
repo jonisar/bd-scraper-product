@@ -12,6 +12,7 @@ import PricingAssurances from "@/components/PricingAssurances";
 import PricingSlider from "@/components/PricingSlider";
 import { PricingCards } from "@/components/PricingCards";
 import HubCodeExample from "@/components/HubCodeExample";
+import StatBanner from "@/components/StatBanner";
 import { sampleUrlForDomain, type DomainHubData } from "@/lib/domain-hubs";
 
 export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
@@ -287,6 +288,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             </div>
           </div>
         </section>
+
+        <StatBanner />
 
         {/* USE CASES — relevance */}
         <section className="section animate-rise hub-anchor" id="use-cases">
