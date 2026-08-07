@@ -6,6 +6,7 @@ import ScraperCard from "@/components/ScraperCard";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 import AgentGetStarted from "@/components/AgentGetStarted";
+import AgentSetupCta from "@/components/AgentSetupCta";
 import { PricingCards } from "@/components/PricingCards";
 import AmazonCodeExamples from "@/components/AmazonCodeExamples";
 import {
@@ -89,9 +90,7 @@ export default function AmazonHubPage() {
               <a href="https://brightdata.com/cp/start" className="btn btn-primary btn-pill" target="_blank" rel="noopener noreferrer">
                 Start free
               </a>
-              <a href="https://brightdata.com/contact" className="btn btn-ghost btn-pill" target="_blank" rel="noopener noreferrer">
-                Contact sales
-              </a>
+              <AgentSetupCta variant="hub" />
             </div>
             <p className="hub-hero-note">No credit card required · 5K free records/month</p>
           </div>

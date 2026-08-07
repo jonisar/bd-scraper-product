@@ -7,6 +7,7 @@ import ScraperCard from "@/components/ScraperCard";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 import AgentGetStarted from "@/components/AgentGetStarted";
+import AgentSetupCta from "@/components/AgentSetupCta";
 import { PricingCards } from "@/components/PricingCards";
 import type { DomainHubData } from "@/lib/domain-hubs";
 
@@ -57,9 +58,10 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
               <a href="https://brightdata.com/cp/start" className="btn btn-primary btn-pill" target="_blank" rel="noopener noreferrer">
                 Start free
               </a>
-              <a href="https://brightdata.com/contact" className="btn btn-ghost btn-pill" target="_blank" rel="noopener noreferrer">
-                Contact sales
-              </a>
+              <AgentSetupCta
+                variant="hub"
+                prompt={`Read https://brightdata.com/skills.md and scrape data from ${hub.domain}`}
+              />
             </div>
             <p className="hub-hero-note">No credit card required · 5K free records/month</p>
           </div>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const DEFAULT_RESPONSE = `[{
+const SYNC_RESPONSE = `[{
   "title": "SanDisk 1TB Extreme microSDXC",
   "asin": "B09X7MPX8L",
   "price": 145.50,
@@ -16,6 +16,10 @@ const DEFAULT_RESPONSE = `[{
   "categories": "Electronics > Memory Cards",
   "image": "https://m.media-amazon.com/..."
 }]`;
+
+const ASYNC_RESPONSE = `{
+  "snapshot_id": "s_m4x9k2p1q8r7t6v5"
+}`;
 
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -62,25 +66,34 @@ function MiniCodeBlock({ code, label }: { code: string; label: string }) {
 
 type RestApiExampleProps = {
   datasetId: string;
+  mode?: "sync" | "async";
   sampleUrl?: string;
-  responseExample?: string;
   className?: string;
 };
 
 export default function RestApiExample({
   datasetId,
+  mode = "sync",
   sampleUrl = "https://www.amazon.com/dp/B09X7MPX8L",
-  responseExample = DEFAULT_RESPONSE,
   className = "",
 }: RestApiExampleProps) {
-  const requestCode = `curl -X POST "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${datasetId}&format=json" \\
+  const endpoint = mode === "sync" ? "scrape" : "trigger";
+  const requestCode = `curl -X POST "https://api.brightdata.com/datasets/v3/${endpoint}?dataset_id=${datasetId}&format=json" \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '[{"url":"${sampleUrl}"}]'`;
 
+  const responseExample = mode === "sync" ? SYNC_RESPONSE : ASYNC_RESPONSE;
+  const responseLabel = mode === "sync" ? "Response" : "Response (trigger)";
+
   return (
     <section className={className}>
-      <h3 className="mb-3 text-lg font-bold text-bd-navy">REST API example</h3>
+      <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+        <h3 className="text-lg font-bold text-bd-navy">REST API example</h3>
+        <p className="text-[11px] font-semibold uppercase tracking-wider text-bd-muted">
+          {mode === "sync" ? "Sync · /scrape" : "Async · /trigger"}
+        </p>
+      </div>
       <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
         <div className="min-w-0">
           <p className="mb-1.5 text-[11px] font-bold uppercase tracking-wider text-bd-muted">
@@ -90,9 +103,18 @@ export default function RestApiExample({
         </div>
         <div className="min-w-0">
           <p className="mb-1.5 text-[11px] font-bold uppercase tracking-wider text-bd-muted">
-            Response
+            {responseLabel}
           </p>
           <MiniCodeBlock code={responseExample} label="json" />
+          {mode === "async" ? (
+            <p className="mt-2 text-xs leading-5 text-bd-muted">
+              Poll{" "}
+              <code className="font-mono text-[11px] text-bd-blue">
+                /datasets/v3/snapshots/&#123;snapshot_id&#125;
+              </code>{" "}
+              or deliver via webhook to get the product JSON.
+            </p>
+          ) : null}
         </div>
       </div>
     </section>
