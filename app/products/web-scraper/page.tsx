@@ -10,6 +10,7 @@ import { PricingCards } from "@/components/PricingCards";
 import PricingAssurances from "@/components/PricingAssurances";
 import HubCodeExample from "@/components/HubCodeExample";
 import StatBanner from "@/components/StatBanner";
+import ChooseYourPath from "@/components/ChooseYourPath";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -239,8 +240,20 @@ export default function WebScraperHome() {
         </div>
       </section>
 
+      {/* CHOOSE YOUR PATH */}
+      <section className="section animate-rise" id="paths">
+        <div className="container">
+          <div className="section-head">
+            <span className="kicker">Choose your path</span>
+            <h2>Three ways to scrape any website</h2>
+            <p>Same scrapers, three ways to run them — pick the workflow that fits your team.</p>
+          </div>
+          <ChooseYourPath />
+        </div>
+      </section>
+
       {/* UNDER THE HOOD — what's included */}
-      <section className="section animate-rise" id="how">
+      <section className="section section-alt animate-rise" id="how">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Under the hood</span>
@@ -288,7 +301,7 @@ export default function WebScraperHome() {
       <StatBanner />
 
       {/* USE CASES */}
-      <section className="section section-alt animate-rise" id="use-cases">
+      <section className="section animate-rise" id="use-cases">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Use cases</span>
@@ -389,7 +402,7 @@ export default function WebScraperHome() {
       </section>
 
       {/* COMPARISON TABLE */}
-      <section className="section animate-rise" id="compare">
+      <section className="section section-alt animate-rise" id="compare">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Why Bright Data</span>
@@ -428,7 +441,7 @@ export default function WebScraperHome() {
       </section>
 
       {/* DX + COMPLIANCE */}
-      <section className="section section-alt animate-rise" id="why">
+      <section className="section animate-rise" id="why">
         <div className="container">
           <div className="twin-cols">
             <div className="twin-col">
@@ -457,7 +470,7 @@ export default function WebScraperHome() {
       </section>
 
       {/* FAQ — reference section at the bottom */}
-      <section className="section animate-rise" id="faq">
+      <section className="section section-alt animate-rise" id="faq">
         <div className="container">
           <div className="section-head">
             <span className="kicker">FAQs</span>

@@ -12,6 +12,7 @@ import PricingAssurances from "@/components/PricingAssurances";
 import PricingSlider from "@/components/PricingSlider";
 import { PricingCards } from "@/components/PricingCards";
 import HubCodeExample from "@/components/HubCodeExample";
+import ChooseYourPath from "@/components/ChooseYourPath";
 import StatBanner from "@/components/StatBanner";
 import { sampleUrlForDomain, type DomainHubData } from "@/lib/domain-hubs";
 
@@ -187,41 +188,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
               <h2>Effortlessly scrape {hub.name} data</h2>
               <p>Same scrapers, three ways to run them — pick the workflow that fits your team.</p>
             </div>
-            <div className="hub-paths">
-              <a href="https://brightdata.com/cp/start" className="hub-path-card" target="_blank" rel="noopener noreferrer">
-                <span className="hub-path-kicker">API-based scraper</span>
-                <h3>{hub.name} Scraper API</h3>
-                <p>Trigger collections with parameters, schedule at scale, and deliver to your storage or webhook.</p>
-                <ul className="hub-path-list">
-                  <li>Build requests in any language</li>
-                  <li>Automate with schedulers &amp; webhooks</li>
-                  <li>JSON, NDJSON, or CSV delivery</li>
-                </ul>
-                <span className="hub-path-cta">Start with API →</span>
-              </a>
-              <a href="https://brightdata.com/cp/data_collector/collectors/create?camp=plg" className="hub-path-card" target="_blank" rel="noopener noreferrer">
-                <span className="hub-path-kicker">Control panel scraper</span>
-                <h3>{hub.name} no-code scraper</h3>
-                <p>Plug-and-play in the control panel — add inputs, run the scraper, download results.</p>
-                <ul className="hub-path-list">
-                  <li>No engineering required</li>
-                  <li>Configure inputs in the UI</li>
-                  <li>Download results from the CP</li>
-                </ul>
-                <span className="hub-path-cta">Open control panel →</span>
-              </a>
-              <a href="#agents" className="hub-path-card">
-                <span className="hub-path-kicker">AI agent integration</span>
-                <h3>{hub.name} agent scraper</h3>
-                <p>Connect via MCP or CLI — your AI agent reads a skill file and scrapes autonomously.</p>
-                <ul className="hub-path-list">
-                  <li>Works with any MCP-compatible agent</li>
-                  <li>Single prompt to scrape</li>
-                  <li>Structured data returned to agent</li>
-                </ul>
-                <span className="hub-path-cta">Connect your agent →</span>
-              </a>
-            </div>
+            <ChooseYourPath name={hub.name} />
           </div>
         </section>
 
