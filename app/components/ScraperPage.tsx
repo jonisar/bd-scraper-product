@@ -2300,27 +2300,7 @@ export default function ScraperPage() {
                     {/* ── 4. REST API example ── */}
                     <RestApiExample datasetId={DATASET_ID} />
 
-                    {/* ── 5. Key capabilities ── */}
-                    <section>
-                      <h3 className="mb-3 text-lg font-bold text-bd-navy">Key capabilities</h3>
-                      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                        {[
-                          { title: "40+ structured fields", desc: "Prices, reviews, BSR, seller info, stock status, images — parsed and typed." },
-                          { title: "Anti-bot bypass", desc: "Proxy rotation, CAPTCHA solving, fingerprint management, and JS rendering." },
-                          { title: "18 marketplaces", desc: "Scrape .com, .co.uk, .de, .co.jp, and 14 more. Localized pricing and rankings." },
-                          { title: "Bulk & async", desc: "Up to 5,000 URLs per request. Async mode returns a snapshot ID for polling/webhook." },
-                          { title: "Pay for success", desc: "Charged only for successfully delivered records — failed scrapes are free." },
-                          { title: "Unlimited concurrency", desc: "Run as many parallel requests as you need. Scale plans get priority throughput." },
-                        ].map((f) => (
-                          <div key={f.title} className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
-                            <p className="font-bold text-bd-navy">{f.title}</p>
-                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/85">{f.desc}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </section>
-
-                    {/* ── 6. How to integrate ── */}
+                    {/* ── 5. How to integrate ── */}
                     <section>
                       <h3 className="mb-3 text-lg font-bold text-bd-navy">How to integrate</h3>
                       <div className="space-y-2">
@@ -2339,6 +2319,26 @@ export default function ScraperPage() {
                             <span className="mt-0.5 shrink-0 rounded bg-bd-blue/10 px-2 py-0.5 font-mono text-[11px] font-bold text-bd-blue">{m.method}</span>
                             <span className="text-[13px] leading-5 text-bd-ink/85">{m.desc}</span>
                           </button>
+                        ))}
+                      </div>
+                    </section>
+
+                    {/* ── 6. Key capabilities ── */}
+                    <section>
+                      <h3 className="mb-3 text-lg font-bold text-bd-navy">Key capabilities</h3>
+                      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                        {[
+                          { title: "40+ structured fields", desc: "Prices, reviews, BSR, seller info, stock status, images — parsed and typed." },
+                          { title: "Anti-bot bypass", desc: "Proxy rotation, CAPTCHA solving, fingerprint management, and JS rendering." },
+                          { title: "18 marketplaces", desc: "Scrape .com, .co.uk, .de, .co.jp, and 14 more. Localized pricing and rankings." },
+                          { title: "Bulk & async", desc: "Up to 5,000 URLs per request. Async mode returns a snapshot ID for polling/webhook." },
+                          { title: "Pay for success", desc: "Charged only for successfully delivered records — failed scrapes are free." },
+                          { title: "Unlimited concurrency", desc: "Run as many parallel requests as you need. Scale plans get priority throughput." },
+                        ].map((f) => (
+                          <div key={f.title} className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
+                            <p className="font-bold text-bd-navy">{f.title}</p>
+                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/85">{f.desc}</p>
+                          </div>
                         ))}
                       </div>
                     </section>
