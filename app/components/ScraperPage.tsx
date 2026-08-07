@@ -2096,6 +2096,7 @@ export default function ScraperPage() {
                     <RestApiExample
                       datasetId={DATASET_ID}
                       mode={apiMode}
+                      onModeChange={setApiMode}
                       className="border-t border-bd-line pt-8"
                     />
 
@@ -2269,12 +2270,31 @@ export default function ScraperPage() {
                           </span>
                         ))}
                       </div>
-                      <p className="mt-2.5 text-sm text-bd-ink/85">
-                        40+ fields per product.{" "}
-                        <button type="button" onClick={() => setMainTab("Output")} className="font-semibold text-bd-blue hover:underline">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setMainTab("Output");
+                          document.getElementById("scraper-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }}
+                        className="group mt-3 flex w-full flex-col gap-2 rounded-xl border border-bd-blue/25 bg-bd-blue/8 px-4 py-3.5 text-left transition hover:border-bd-blue/45 hover:bg-bd-blue/12 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+                      >
+                        <span className="flex min-w-0 items-start gap-3 sm:items-center">
+                          <span className="shrink-0 rounded-lg bg-bd-blue/20 px-2.5 py-1 text-[13px] font-extrabold tabular-nums leading-none text-bd-blue">
+                            40+
+                          </span>
+                          <span className="min-w-0">
+                            <span className="block text-[14px] font-bold leading-snug text-bd-navy">
+                              Fields per product — and that&apos;s just a sample
+                            </span>
+                            <span className="mt-0.5 block text-[12px] leading-snug text-bd-ink/85">
+                              Prices, reviews, sellers, stock, images, and more in the full schema
+                            </span>
+                          </span>
+                        </span>
+                        <span className="shrink-0 self-start text-[13px] font-bold text-bd-blue transition group-hover:translate-x-0.5 sm:self-center">
                           See full schema →
-                        </button>
-                      </p>
+                        </span>
+                      </button>
                     </section>
 
                     {/* ── 4. REST API example ── */}
