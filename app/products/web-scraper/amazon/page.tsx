@@ -9,6 +9,7 @@ import AgentGetStarted from "@/components/AgentGetStarted";
 import AgentSetupCta from "@/components/AgentSetupCta";
 import { PricingCards } from "@/components/PricingCards";
 import PricingAssurances from "@/components/PricingAssurances";
+import PricingSlider from "@/components/PricingSlider";
 import AmazonCodeExamples from "@/components/AmazonCodeExamples";
 import {
   AMAZON_SCRAPERS,
@@ -146,8 +147,36 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
+        {/* HOW IT WORKS — quick orientation */}
+        <section className="section section-alt animate-rise hub-anchor" id="steps">
+          <div className="container">
+            <div className="section-head">
+              <span className="kicker">How it works</span>
+              <h2>From zero to Amazon data in 3 steps</h2>
+              <p>No proxies to configure, no infrastructure to manage. Just pick, call, and receive.</p>
+            </div>
+            <div className="steps-grid">
+              <div className="step-card">
+                <span className="step-icon">01</span>
+                <h3>Pick a scraper</h3>
+                <p>Choose from the Amazon scrapers above — products, reviews, sellers, rankings, and more.</p>
+              </div>
+              <div className="step-card">
+                <span className="step-icon">02</span>
+                <h3>Call the API</h3>
+                <p>One REST call with your target URL. Works with Python, Node.js, cURL, or any HTTP client.</p>
+              </div>
+              <div className="step-card">
+                <span className="step-icon">03</span>
+                <h3>Get structured data</h3>
+                <p>Receive clean, parsed data in JSON, NDJSON, or CSV. Delivered via API, webhook, or cloud storage.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* API vs NO-CODE */}
-        <section className="section section-alt animate-rise hub-anchor" id="paths">
+        <section className="section animate-rise hub-anchor" id="paths">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Choose your path</span>
@@ -191,14 +220,15 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* 3. PRICING — buyers check cost early */}
-        <section className="section animate-rise hub-anchor" id="pricing">
+        {/* PRICING — buyers check cost early */}
+        <section className="section section-alt animate-rise hub-anchor" id="pricing">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Amazon Scraper API Pricing</span>
               <h2>Only pay for what&rsquo;s successfully delivered</h2>
               <p>No hidden fees. No charges for failed deliveries. Every plan includes full access to Amazon scrapers and infrastructure.</p>
             </div>
+            <PricingSlider className="mb-6" />
             <PricingCards unit="records" />
             <PricingAssurances />
 
@@ -250,15 +280,15 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* 4. AGENTS — modern developer workflow */}
-        <section className="section section-alt animate-rise hub-anchor" id="agents">
+        {/* AGENTS — modern developer workflow */}
+        <section className="section animate-rise hub-anchor" id="agents">
           <div className="container">
             <AgentGetStarted name="Amazon" domain="amazon.com" />
           </div>
         </section>
 
-        {/* 5. PRODUCT TYPES — Amazon-specific deep dive */}
-        <section className="section animate-rise hub-anchor" id="types">
+        {/* PRODUCT TYPES — Amazon-specific deep dive */}
+        <section className="section section-alt animate-rise hub-anchor" id="types">
           <div className="container">
             <div className="section-head">
               <span className="kicker">By data type</span>
@@ -291,8 +321,8 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* 6. CODE EXAMPLES */}
-        <section className="section section-alt animate-rise hub-anchor" id="code">
+        {/* CODE EXAMPLES */}
+        <section className="section animate-rise hub-anchor" id="code">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Code examples</span>
@@ -303,8 +333,8 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* 7. HOW IT WORKS */}
-        <section className="section animate-rise hub-anchor" id="how">
+        {/* HOW IT WORKS */}
+        <section className="section section-alt animate-rise hub-anchor" id="how">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Under the hood</span>
@@ -346,8 +376,8 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* 8. USE CASES */}
-        <section className="section section-alt animate-rise hub-anchor" id="use-cases">
+        {/* USE CASES */}
+        <section className="section animate-rise hub-anchor" id="use-cases">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Use cases</span>
@@ -392,43 +422,69 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* 9. WHY */}
-        <section className="section animate-rise hub-anchor" id="why">
+        {/* COMPARISON */}
+        <section className="section section-alt animate-rise hub-anchor" id="compare">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Why Bright Data</span>
-              <h2>Why 20,000+ customers choose Bright Data</h2>
+              <h2>Amazon Scraper API vs DIY and other providers</h2>
+              <p>
+                Compare Bright Data&rsquo;s managed Amazon scrapers with building your own or using other services.
+              </p>
             </div>
-            <div className="features-grid">
-              <div className="feature-card">
-                <h3>100% compliant</h3>
-                <p>Ethically obtained public data with GDPR &amp; CCPA-ready practices.</p>
+            <div className="compare-table-wrap">
+              <table className="compare-table">
+                <caption className="sr-only">
+                  Amazon scraper comparison: Bright Data vs other providers vs DIY
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Capability</th>
+                    <th scope="col" className="compare-highlight">Bright Data</th>
+                    <th scope="col">Other providers</th>
+                    <th scope="col">DIY (self-built)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Auto-scaling infrastructure</td><td className="compare-highlight">✓ Unlimited</td><td>Partial</td><td>Manual</td></tr>
+                  <tr><td>Anti-bot &amp; CAPTCHA bypass</td><td className="compare-highlight">✓ Built-in</td><td>Partial</td><td>Build yourself</td></tr>
+                  <tr><td>Residential proxy network</td><td className="compare-highlight">✓ 400M+ IPs</td><td>Limited pool</td><td>Buy separately</td></tr>
+                  <tr><td>Pre-built Amazon scrapers</td><td className="compare-highlight">✓ 14+ ready</td><td>1–3</td><td>Build each</td></tr>
+                  <tr><td>Auto-maintenance (site changes)</td><td className="compare-highlight">✓ 24/7</td><td>Varies</td><td>Your team</td></tr>
+                  <tr><td>Compliance (GDPR, CCPA, SOC 2)</td><td className="compare-highlight">✓ Full</td><td>Partial</td><td>Your responsibility</td></tr>
+                  <tr><td>Structured output (JSON/CSV)</td><td className="compare-highlight">✓ Automatic</td><td>✓</td><td>Build parsers</td></tr>
+                  <tr><td>Free tier</td><td className="compare-highlight">✓ 5K records/mo</td><td>Varies</td><td>Infra costs</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        {/* DX + COMPLIANCE */}
+        <section className="section animate-rise hub-anchor" id="why">
+          <div className="container">
+            <div className="twin-cols">
+              <div className="twin-col">
+                <span className="kicker">Developer experience</span>
+                <h2>Easy to start. Easier to scale.</h2>
+                <p>
+                  Get your API key and make your first call in minutes. Scale to millions of requests
+                  with unlimited concurrency &mdash; same API, same reliability, no infrastructure changes.
+                </p>
               </div>
-              <div className="feature-card">
-                <h3>24/7 Expert support</h3>
-                <p>A dedicated team of data professionals ready when you need them.</p>
-              </div>
-              <div className="feature-card">
-                <h3>Complete data coverage</h3>
-                <p>Access 400M+ global IPs to scrape Amazon from any geo.</p>
-              </div>
-              <div className="feature-card">
-                <h3>Unmatched data quality</h3>
-                <p>Advanced validation methods for reliable, analysis-ready Amazon data.</p>
-              </div>
-              <div className="feature-card">
-                <h3>Powerful infrastructure</h3>
-                <p>High-volume scraping without getting blocked or maintaining proxies.</p>
-              </div>
-              <div className="feature-card">
-                <h3>Custom solutions</h3>
-                <p>Tailored Amazon data programs for enterprise workflows and SLAs.</p>
+              <div className="twin-col">
+                <span className="kicker">Compliance</span>
+                <h2>Leading the way in ethical web data collection</h2>
+                <p>
+                  Only publicly available data. ISO&nbsp;27001 certified, SOC&nbsp;2 controls,
+                  GDPR &amp; CCPA compliant. Backed by an industry-first Compliance &amp; Ethics team.
+                </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 10. FAQ */}
+        {/* FAQ */}
         <section className="section section-alt animate-rise hub-anchor" id="faq">
           <div className="container">
             <div className="section-head">
