@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import AgentSetupCta from "@/components/AgentSetupCta";
 
 function CopyCmd({ text, label }: { text: string; label?: string }) {
   const [copied, setCopied] = useState(false);
@@ -54,6 +55,10 @@ export default function AgentGetStarted({
           scraper and returns clean JSON. Works in Claude Code, Cursor and Codex via
           MCP, CLI or REST API.
         </p>
+
+        <div className="agent-cta-row">
+          <AgentSetupCta variant="hub" prompt={agentPrompt} />
+        </div>
 
         <div className="steps-list">
           <div className="step-row">

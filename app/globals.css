@@ -1890,7 +1890,9 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 .agent-left h2 { margin-top: var(--s3); max-width: 18em; }
 .lib-page .agent-left p,
 .agent-left p { margin-top: var(--s4); font-size: 16px; max-width: 420px; line-height: 1.55; }
-.steps-list { margin-top: auto; padding-top: var(--s7); }
+.agent-cta-row { margin-top: var(--s5); }
+.agent-cta-row .btn { font-size: 14px; padding: 10px 20px; }
+.steps-list { margin-top: auto; padding-top: var(--s6); }
 .step-row { display: flex; gap: var(--s4); align-items: flex-start; padding: var(--s4) 0; border-top: 1px solid var(--border); font-size: 15px; color: var(--text-1); line-height: 1.45; }
 .step-row .n { font-family: ui-monospace, monospace; font-size: 13px; color: var(--accent-2); flex-shrink: 0; margin-top: 1px; }
 .term { background: #060a10; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,0.4); min-width: 0; }
