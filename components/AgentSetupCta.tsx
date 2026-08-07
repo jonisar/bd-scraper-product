@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const AGENT_SKILL_PROMPT =
+export const AGENT_SKILL_PROMPT =
   "Read https://brightdata.com/skills.md and scrape this Amazon product: https://www.amazon.com/dp/B09X7MPX8L";
 
 type AgentSetupCtaProps = {
