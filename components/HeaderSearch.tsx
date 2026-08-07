@@ -38,32 +38,21 @@ export default function HeaderSearch() {
 
   const open = focused && needle.length > 0;
 
-  const go = useCallback(
-    (idx?: number) => {
-      const target = matches[idx ?? activeIdx] ?? matches[0];
-      if (!target) {
-        const trimmed = q.trim();
-        if (trimmed) {
-          window.location.href = `/products/web-scraper/scraper-lib?q=${encodeURIComponent(trimmed)}`;
-        }
-        return;
-      }
-      const href = templateHref(target);
-      if (href.startsWith("/")) {
-        window.location.href = href;
-      } else {
-        window.open(href, "_blank", "noopener,noreferrer");
-      }
-      setQ("");
-      setFocused(false);
-    },
-    [matches, activeIdx, q]
-  );
+  const searchResultsUrl = useCallback((query: string) => {
+    return `/products/web-scraper/scraper-lib?q=${encodeURIComponent(query.trim())}`;
+  }, []);
+
+  /** Enter always opens search results (same as /web-scraper HeroSearch). */
+  const goToSearchResults = useCallback(() => {
+    const trimmed = q.trim();
+    if (!trimmed) return;
+    window.location.href = searchResultsUrl(trimmed);
+  }, [q, searchResultsUrl]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      go();
+      goToSearchResults();
       return;
     }
     if (!open) return;
@@ -161,19 +150,24 @@ export default function HeaderSearch() {
               </a>
               );
             })}
-            {matches.length > 5 && (
-              <a
-                href={`/products/web-scraper/scraper-lib?q=${encodeURIComponent(q.trim())}`}
-                className="hdr-search-more"
-                onMouseDown={(e) => e.preventDefault()}
-              >
-                View all {matches.length} results →
-              </a>
-            )}
+            <a
+              href={searchResultsUrl(q)}
+              className="hdr-search-more"
+              onMouseDown={(e) => e.preventDefault()}
+            >
+              View all results for &ldquo;{q.trim()}&rdquo; →
+            </a>
             </>
           ) : (
             <div className="hdr-search-empty">
               <p>No scraper for <b>{dom || q}</b></p>
+              <a
+                href={searchResultsUrl(q)}
+                className="hdr-search-empty-link"
+                onMouseDown={(e) => e.preventDefault()}
+              >
+                Search all scrapers →
+              </a>
               <a
                 href="/products/web-scraper/studio"
                 className="hdr-search-empty-link"

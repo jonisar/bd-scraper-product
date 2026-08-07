@@ -73,8 +73,8 @@ export default function ScraperLibrary() {
     needle
       ? `Results for "${search.trim()}"`
       : cat === "All"
-        ? "Popular domains"
-        : cat;
+        ? "Popular web scrapers"
+        : `${cat} scrapers`;
 
   return (
     <div className="lib">

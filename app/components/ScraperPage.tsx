@@ -7,6 +7,7 @@ import TrustedByStrip from "@/components/TrustedByStrip";
 import ScraperCard from "@/components/ScraperCard";
 import AiPromptCta from "@/components/AiPromptCta";
 import { PricingCards } from "@/components/PricingCards";
+import PricingSlider from "@/components/PricingSlider";
 import RestApiExample from "@/components/RestApiExample";
 import AgentSetupCta, { AGENT_SKILL_PROMPT } from "@/components/AgentSetupCta";
 
@@ -889,22 +890,7 @@ function getUrlStatus(url: string): UrlStatus {
   return "ok";
 }
 
-/* ── Pricing slider tiers ── */
-const PRICING_TIERS = [
-  { records: 5_000, label: "5K", monthly: 0, perK: 0, tag: "Free" },
-  { records: 10_000, label: "10K", monthly: 15, perK: 1.50, tag: "Pay As You Go" },
-  { records: 50_000, label: "50K", monthly: 75, perK: 1.50, tag: "" },
-  { records: 100_000, label: "100K", monthly: 150, perK: 1.50, tag: "" },
-  { records: 384_000, label: "384K", monthly: 499, perK: 1.30, tag: "Scale plan" },
-  { records: 500_000, label: "500K", monthly: 600, perK: 1.20, tag: "" },
-  { records: 1_000_000, label: "1M", monthly: 1_100, perK: 1.10, tag: "" },
-  { records: 5_000_000, label: "5M", monthly: 5_000, perK: 1.00, tag: "Enterprise" },
-];
-
 function PricingTab() {
-  const [tierIdx, setTierIdx] = useState(0);
-  const tier = PRICING_TIERS[tierIdx];
-
   return (
     <div className="space-y-8">
       {/* Hero */}
@@ -916,72 +902,7 @@ function PricingTab() {
         </p>
       </div>
 
-      {/* Interactive pricing calculator */}
-      <section className="rounded-xl border border-bd-line bg-bd-canvas p-5 sm:p-6">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-          <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold uppercase tracking-wider text-bd-muted">
-              Predict your cost
-            </p>
-            <p className="mt-3 text-sm font-medium text-bd-ink">
-              Records per month: <span className="text-lg font-extrabold text-bd-navy">{tier.label}</span>
-            </p>
-
-            <input
-              type="range"
-              min={0}
-              max={PRICING_TIERS.length - 1}
-              value={tierIdx}
-              onChange={(e) => setTierIdx(Number(e.target.value))}
-              className="pricing-slider mt-3 w-full cursor-pointer"
-            />
-            <div className="mt-1 flex justify-between text-[10px] text-bd-muted">
-              {PRICING_TIERS.map((t, i) => (
-                <span key={t.label} className={`${i === tierIdx ? "font-bold text-bd-blue" : ""} ${i % 2 !== 0 && i !== tierIdx ? "hidden sm:inline" : ""}`}>{t.label}</span>
-              ))}
-            </div>
-          </div>
-
-          <div className="shrink-0 rounded-xl border border-bd-line bg-bd-panel px-6 py-5 text-center sm:w-[220px]">
-            <p className="text-3xl font-extrabold text-bd-navy">
-              {tier.records === 5_000 ? "$0" : `$${tier.monthly.toLocaleString()}`}
-              {tier.records !== 5_000 && <span className="text-base font-semibold text-bd-muted">/mo</span>}
-            </p>
-            <p className="mt-0.5 text-xs text-bd-muted">
-              {tier.records === 5_000 ? "5,000 records/month" : `$${tier.perK.toFixed(2)} per 1,000 records`}
-            </p>
-            <p className="mt-1 h-5 text-xs font-semibold">
-              {tier.records === 5_000
-                ? <span className="text-bd-success">No credit card required</span>
-                : tier.tag
-                  ? <span className="inline-block rounded-full bg-bd-blue/10 px-2.5 py-0.5 text-[11px] font-bold text-bd-blue">{tier.tag}</span>
-                  : null}
-            </p>
-            <p className="mt-1.5 text-[11px] leading-4 text-bd-muted">
-              Your whole bill. Proxies, unblocking, parsing included.
-            </p>
-            <a
-              href="https://brightdata.com/cp/start"
-              className="mt-3 block w-full rounded-lg bg-bd-blue px-4 py-2.5 text-center text-sm font-bold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {tier.records === 5_000 ? "Start free" : "Get started"}
-            </a>
-          </div>
-        </div>
-
-        {/* Key points inside the card */}
-        <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-bd-line pt-4 text-xs text-bd-muted">
-          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> Pay only for success</span>
-          <span className="hidden sm:inline text-bd-line">·</span>
-          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> 5K records/mo free</span>
-          <span className="hidden sm:inline text-bd-line">·</span>
-          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> From $1.00/1K records</span>
-          <span className="hidden sm:inline text-bd-line">·</span>
-          <span className="flex items-center gap-1.5"><span className="text-bd-success">✓</span> No add-on fees</span>
-        </div>
-      </section>
+      <PricingSlider />
 
       {/* Plan cards */}
       <PricingCards unit="records" compact />
@@ -2368,8 +2289,8 @@ export default function ScraperPage() {
                           { title: "Anti-bot bypass", desc: "Proxy rotation, CAPTCHA solving, fingerprint management, and JS rendering." },
                           { title: "18 marketplaces", desc: "Scrape .com, .co.uk, .de, .co.jp, and 14 more. Localized pricing and rankings." },
                           { title: "Bulk & async", desc: "Up to 5,000 URLs per request. Async mode returns a snapshot ID for polling/webhook." },
-                          { title: "Spend caps", desc: "Set monthly budgets and per-run limits. Requests pause at the cap — no surprises." },
-                          { title: "Scheduling", desc: "Automate hourly/daily/weekly runs. Deliver to S3, Snowflake, webhook, or email." },
+                          { title: "Pay for success", desc: "Charged only for successfully delivered records — failed scrapes are free." },
+                          { title: "Unlimited concurrency", desc: "Run as many parallel requests as you need. Scale plans get priority throughput." },
                         ].map((f) => (
                           <div key={f.title} className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
                             <p className="font-bold text-bd-navy">{f.title}</p>
@@ -2430,6 +2351,7 @@ export default function ScraperPage() {
                       <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
                         {[
                           ["data-fields", "Data fields explorer"],
+                          ["controls", "Limits & alerts"],
                           ["tech-specs", "Specs & benchmarks"],
                           ["marketplaces", "18 marketplaces"],
                           ["available-scrapers", "Scraper family"],
@@ -2446,6 +2368,52 @@ export default function ScraperPage() {
                     {/* ── ACT 2: Product surface ── */}
 
                     <DataFieldsExplorer />
+
+                    <section id="info-controls">
+                      <h2 className="text-xl font-bold text-bd-navy">
+                        Limits, alerts &amp; job controls
+                      </h2>
+                      <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/85">
+                        Production knobs developers use to keep scrapes predictable — configure in the{" "}
+                        <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">
+                          Customize
+                        </button>{" "}
+                        tab or control panel.
+                      </p>
+                      <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+                        {[
+                          {
+                            title: "Hard spend & record limits",
+                            desc: "Set a monthly spend cap and per-run record limit. Requests pause when a cap is hit — no surprise bills.",
+                          },
+                          {
+                            title: "Alerts & notifications",
+                            desc: "Get notified on run completion, low success rate, or delivery failures via email or webhook.",
+                          },
+                          {
+                            title: "Scheduled & batch runs",
+                            desc: "Trigger hourly, daily, or weekly collections — or fire jobs via API for your own cron/orchestrator.",
+                          },
+                          {
+                            title: "Job management APIs",
+                            desc: "Poll snapshot status, download results when ready, or cancel in-flight async jobs programmatically.",
+                          },
+                          {
+                            title: "Streamed delivery",
+                            desc: "For large async jobs, push partial result batches as they become available (webhook or cloud storage).",
+                          },
+                          {
+                            title: "Errors you can act on",
+                            desc: "Use include_errors to return failed inputs with error codes alongside successful records — nothing silently dropped.",
+                          },
+                        ].map((f) => (
+                          <div key={f.title} className="rounded-xl border border-bd-line bg-bd-panel px-4 py-3">
+                            <p className="font-bold text-bd-navy">{f.title}</p>
+                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/85">{f.desc}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
 
                     <section id="info-tech-specs">
                       <h2 className="text-xl font-bold text-bd-navy">

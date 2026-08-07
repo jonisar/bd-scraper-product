@@ -7,6 +7,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 import { PricingCards } from "@/components/PricingCards";
+import PricingAssurances from "@/components/PricingAssurances";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -186,7 +187,27 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* HOW IT WORKS — UNDER THE HOOD */}
+      {/* PRICING — developers check cost early */}
+      <section className="section section-alt animate-rise" id="pricing">
+        <div className="container">
+          <div className="section-head">
+            <span className="kicker">Pricing</span>
+            <h2>Only pay for what&rsquo;s successfully delivered</h2>
+            <p>No hidden fees. No charges for failed requests. Every plan includes full access to all scrapers and infrastructure.</p>
+          </div>
+          <PricingCards unit="records" />
+          <PricingAssurances />
+        </div>
+      </section>
+
+      {/* AGENT SECTION — modern dev workflow */}
+      <section className="section animate-rise" id="agents">
+        <div className="container">
+          <AgentGetStarted />
+        </div>
+      </section>
+
+      {/* UNDER THE HOOD — what's included */}
       <section className="section section-alt animate-rise" id="how">
         <div className="container">
           <div className="section-head">
@@ -333,8 +354,8 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* COMPARISON TABLE — SEO */}
-      <section className="section animate-rise" id="compare">
+      {/* COMPARISON TABLE */}
+      <section className="section section-alt animate-rise" id="compare">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Why Bright Data</span>
@@ -372,7 +393,39 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* FAQ — promoted next to comparison for SEO */}
+      {/* DX + COMPLIANCE */}
+      <section className="section animate-rise" id="why">
+        <div className="container">
+          <div className="twin-cols">
+            <div className="twin-col">
+              <span className="kicker">Developer experience</span>
+              <h2>Easy to start. Easier to scale.</h2>
+              <p>
+                Get your API key and make your first call in minutes. Scale to millions with the same API &mdash; no infra changes.
+              </p>
+            </div>
+            <div className="twin-col">
+              <span className="kicker">Compliance</span>
+              <h2>Leading the way in ethical web data collection</h2>
+              <p>
+                Only publicly available data. ISO&nbsp;27001 certified, SOC&nbsp;2 controls,
+                GDPR &amp; CCPA compliant. Backed by an industry-first Compliance &amp; Ethics team.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* STAT BANNER */}
+      <section className="stat-banner animate-rise">
+        <div className="container">
+          <p className="stat-banner-text">
+            Every 15 minutes, our customers scrape enough data to train ChatGPT from scratch.
+          </p>
+        </div>
+      </section>
+
+      {/* FAQ — reference section at the bottom */}
       <section className="section section-alt animate-rise" id="faq">
         <div className="container">
           <div className="section-head">
@@ -391,61 +444,6 @@ export default function WebScraperHome() {
               </details>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* PRICING */}
-      <section className="section animate-rise" id="pricing">
-        <div className="container">
-          <div className="section-head">
-            <span className="kicker">Pricing</span>
-            <h2>Only pay for what&rsquo;s successfully delivered</h2>
-            <p>No hidden fees. No charges for failed requests. Every plan includes full access to all scrapers and infrastructure.</p>
-          </div>
-          <PricingCards unit="records" />
-          <p className="pricing-note">
-            Rated <strong>4.6/5</strong> on Trustpilot · <strong>4.6/5</strong> on G2 · <strong>4.8/5</strong> on Capterra
-          </p>
-        </div>
-      </section>
-
-      {/* STAT BANNER */}
-      <section className="stat-banner animate-rise">
-        <div className="container">
-          <p className="stat-banner-text">
-            Every 15 minutes, our customers scrape enough data to train ChatGPT from scratch.
-          </p>
-        </div>
-      </section>
-
-      {/* DX + COMPLIANCE */}
-      <section className="section animate-rise" id="why">
-        <div className="container">
-          <div className="twin-cols">
-            <div className="twin-col">
-              <span className="kicker">Developer experience</span>
-              <h2>Easy to start. Easier to scale.</h2>
-              <p>
-                Get your API key and make your first call in minutes. Scale to millions of requests
-                with unlimited concurrency &mdash; same API, same reliability, no infrastructure changes.
-              </p>
-            </div>
-            <div className="twin-col">
-              <span className="kicker">Compliance</span>
-              <h2>Leading the way in ethical web data collection</h2>
-              <p>
-                Only publicly available data. ISO&nbsp;27001 certified, SOC&nbsp;2 controls,
-                GDPR &amp; CCPA compliant. Backed by an industry-first Compliance &amp; Ethics team.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* AGENT SECTION */}
-      <section className="section section-alt animate-rise" id="agents">
-        <div className="container">
-          <AgentGetStarted />
         </div>
       </section>
 
