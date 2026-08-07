@@ -6,7 +6,7 @@ export default function ChooseYourPath({ name }: ChooseYourPathProps) {
   const label = name || "web";
   const heading = name
     ? `Effortlessly scrape ${name} data`
-    : "Three ways to scrape any website";
+    : "Start scraping in minutes — your way";
 
   return (
     <div className="hub-paths">
