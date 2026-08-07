@@ -94,7 +94,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             </div>
 
             <div className="lib-grid">
-              {hub.scrapers.map((s) => (
+              {hub.scrapers.slice(0, 9).map((s) => (
                 <ScraperCard
                   key={s.id}
                   name={s.name}
@@ -108,6 +108,13 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                 />
               ))}
             </div>
+            {hub.scrapers.length > 9 && (
+              <p className="hub-view-all">
+                <a href={`/products/web-scraper/scraper-lib?q=${encodeURIComponent(hub.domain)}`} className="hub-view-all-link">
+                  View all {hub.scrapers.length} {hub.name} scrapers →
+                </a>
+              </p>
+            )}
 
             <div className="hub-strip">
               <div className="hub-strip-item"><span className="hub-strip-icon">⚡</span><strong>5K free records/mo</strong><span>No credit card</span></div>

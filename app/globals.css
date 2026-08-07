@@ -1257,6 +1257,9 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   color: var(--text-3);
   letter-spacing: 0.01em;
 }
+.hub-view-all { text-align: center; margin-top: var(--s5); }
+.hub-view-all-link { font-size: 14px; font-weight: 600; color: var(--accent-2); text-decoration: none; transition: color .15s; }
+.hub-view-all-link:hover { color: var(--accent); }
 .hub-strip {
   display: flex;
   align-items: center;
