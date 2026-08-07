@@ -3500,10 +3500,6 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   align-items: center;
   gap: 8px;
 }
-.slib-curated-caticon {
-  font-size: 16px;
-  color: var(--accent-2);
-}
 .slib-curated-labels {
   display: flex;
   flex-wrap: wrap;
