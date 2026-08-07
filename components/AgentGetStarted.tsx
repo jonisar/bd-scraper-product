@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import AgentSetupCta from "@/components/AgentSetupCta";
 
 function CopyCmd({ text, label }: { text: string; label?: string }) {
   const [copied, setCopied] = useState(false);
@@ -55,6 +56,10 @@ export default function AgentGetStarted({
           MCP, CLI or REST API.
         </p>
 
+        <div className="agent-cta-row">
+          <AgentSetupCta variant="hub" prompt={agentPrompt} />
+        </div>
+
         <div className="steps-list">
           <div className="step-row">
             <span className="n">01</span>
@@ -106,6 +111,9 @@ export default function AgentGetStarted({
           <span className="agent-chip">▟ Cursor</span>
           <span className="agent-chip">⌘ Codex</span>
           <span className="agent-chip">◈ Any MCP client</span>
+          <span className="agent-chip">⚡ LangChain</span>
+          <span className="agent-chip">🔗 CrewAI</span>
+          <span className="agent-chip">◎ OpenAI SDK</span>
         </div>
       </div>
     </div>

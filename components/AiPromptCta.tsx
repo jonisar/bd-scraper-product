@@ -22,7 +22,7 @@ const TYPING_EXAMPLE = "Build a Discovery + PDP scraper for the running shoes ca
 export default function AiPromptCta({
   variant,
   headingPlain = "Describe it.",
-  headingAccent = "We'll build it.",
+  headingAccent = "We'll build it",
 }: {
   variant?: "hero";
   headingPlain?: string;

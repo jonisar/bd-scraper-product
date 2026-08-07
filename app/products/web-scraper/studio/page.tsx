@@ -4,6 +4,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 import { PricingCards } from "@/components/PricingCards";
+import FaqSection from "@/components/FaqSection";
 
 export const metadata: Metadata = {
   title: "AI Scraper Studio - Build Any Scraper With a Prompt",
@@ -441,11 +442,17 @@ export default function StudioPage() {
               </div>
               <div className="twin-col">
                 <span className="kicker">Compliance</span>
-                <h2>Leading the way in ethical web data collection</h2>
+                <h2>Leading ethical web data collection</h2>
                 <p>
                   Only publicly available data. ISO&nbsp;27001 certified, SOC&nbsp;2 controls,
                   GDPR &amp; CCPA compliant. Backed by an industry-first Compliance &amp; Ethics team.
                 </p>
+                <div className="compliance-badges">
+                  <span className="compliance-badge">GDPR</span>
+                  <span className="compliance-badge">CCPA</span>
+                  <span className="compliance-badge">ISO 27001</span>
+                  <span className="compliance-badge">SOC 2</span>
+                </div>
               </div>
             </div>
             <div className="studio-compliance-badges">
@@ -469,27 +476,12 @@ export default function StudioPage() {
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="section section-alt animate-rise" id="faq">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">FAQs</span>
-              <h2>AI Scraper Studio FAQs</h2>
-              <p>
-                Common questions about Scraper Studio — how it works, what you can scrape,
-                self-healing, pricing, and getting started.
-              </p>
-            </div>
-            <div className="faq-list">
-              {STUDIO_FAQS.map((item) => (
-                <details key={item.q} className="faq-item">
-                  <summary>{item.q}</summary>
-                  <p>{item.a}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FaqSection
+          title="AI Scraper Studio FAQs"
+          description="Common questions about Scraper Studio — how it works, what you can scrape, self-healing, pricing, and getting started."
+          items={STUDIO_FAQS}
+          altBg
+        />
 
         {/* FINAL CTA */}
         <section className="final-cta animate-rise">

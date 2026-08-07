@@ -8,6 +8,14 @@ import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 import { PricingCards } from "@/components/PricingCards";
 import PricingAssurances from "@/components/PricingAssurances";
+import HubCodeExample from "@/components/HubCodeExample";
+import StatBanner from "@/components/StatBanner";
+import ChooseYourPath from "@/components/ChooseYourPath";
+import HowItWorksSteps from "@/components/HowItWorksSteps";
+import CompareTable from "@/components/CompareTable";
+import DxComplianceSection from "@/components/DxComplianceSection";
+import FaqSection from "@/components/FaqSection";
+import HeroRatings from "@/components/HeroRatings";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -94,20 +102,7 @@ export default function WebScraperHome() {
       {/* HERO */}
       <section className="hero">
         <div className="container hero-inner">
-          <div className="hero-ratings">
-            <a className="hero-rating" href="https://www.trustpilot.com/review/brightdata.com" target="_blank" rel="noopener noreferrer">
-              <span className="stars">★★★★★</span>
-              <strong>4.6</strong> Trustpilot
-            </a>
-            <a className="hero-rating" href="https://www.g2.com/products/bright-data/reviews" target="_blank" rel="noopener noreferrer">
-              <span className="stars">★★★★★</span>
-              <strong>4.6</strong> G2
-            </a>
-            <a className="hero-rating" href="https://www.capterra.com/p/146810/Luminati/" target="_blank" rel="noopener noreferrer">
-              <span className="stars">★★★★★</span>
-              <strong>4.8</strong> Capterra
-            </a>
-          </div>
+          <HeroRatings />
 
           <h1>
             Get data from any website<br />
@@ -159,36 +154,25 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* HOW IT WORKS — 3 STEPS */}
-      <section className="section animate-rise" id="steps">
+      <HowItWorksSteps
+        heading="From zero to structured data in 3 steps"
+        step1="Browse 1,300+ pre-built scrapers or create your own with AI in minutes."
+      />
+
+      {/* CODE EXAMPLE */}
+      <section className="section section-alt animate-rise" id="code">
         <div className="container">
           <div className="section-head">
-            <span className="kicker">How it works</span>
-            <h2>From zero to structured data in 3 steps</h2>
-            <p>No proxies to configure, no infrastructure to manage. Just pick, call, and receive.</p>
+            <span className="kicker">Quick start</span>
+            <h2>One API call to get structured data</h2>
+            <p>Send a URL, get structured JSON back. Works with any HTTP client in any language.</p>
           </div>
-          <div className="steps-grid">
-            <div className="step-card">
-              <span className="step-icon">01</span>
-              <h3>Pick a scraper</h3>
-              <p>Browse 1,300+ pre-built scrapers or create your own with AI in minutes.</p>
-            </div>
-            <div className="step-card">
-              <span className="step-icon">02</span>
-              <h3>Call the API</h3>
-              <p>One REST call with your target URL. Works with Python, Node.js, cURL, or any HTTP client.</p>
-            </div>
-            <div className="step-card">
-              <span className="step-icon">03</span>
-              <h3>Get structured data</h3>
-              <p>Receive clean, parsed data in JSON, NDJSON, or CSV. Delivered via API, webhook, or cloud storage.</p>
-            </div>
-          </div>
+          <HubCodeExample sampleUrl="https://www.amazon.com/dp/B09X7MPX8L" />
         </div>
       </section>
 
       {/* PRICING — developers check cost early */}
-      <section className="section section-alt animate-rise" id="pricing">
+      <section className="section animate-rise" id="pricing">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Pricing</span>
@@ -197,13 +181,43 @@ export default function WebScraperHome() {
           </div>
           <PricingCards unit="records" />
           <PricingAssurances />
+
+          <details className="hidden-cost-details">
+            <summary className="hidden-cost-summary">
+              <span>Comparing scraping platforms? See what others charge extra for</span>
+              <svg className="hidden-cost-chevron" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+            </summary>
+            <div className="hidden-cost-body">
+              <p>Most platforms meter multiple line items on top of the per-record rate. With Bright Data, the record price is the whole bill:</p>
+              <ul className="hidden-cost-list">
+                <li><span className="hidden-cost-item">Compute / runtime units</span><span className="hidden-cost-note">commonly billed per actor-hour or CU</span><span className="hidden-cost-included">✓ Included</span></li>
+                <li><span className="hidden-cost-item">Residential proxy bandwidth</span><span className="hidden-cost-note">commonly billed per GB</span><span className="hidden-cost-included">✓ Included</span></li>
+                <li><span className="hidden-cost-item">Storage &amp; dataset retention</span><span className="hidden-cost-note">commonly billed per GB-month</span><span className="hidden-cost-included">✓ Included</span></li>
+                <li><span className="hidden-cost-item">Data transfer / egress</span><span className="hidden-cost-note">commonly billed per GB out</span><span className="hidden-cost-included">✓ Included</span></li>
+                <li><span className="hidden-cost-item">Unblocking &amp; CAPTCHA solving</span><span className="hidden-cost-note">commonly a paid add-on</span><span className="hidden-cost-included">✓ Included</span></li>
+                <li><span className="hidden-cost-item">Parsing to structured JSON</span><span className="hidden-cost-note">commonly your own code</span><span className="hidden-cost-included">✓ Included</span></li>
+              </ul>
+            </div>
+          </details>
         </div>
       </section>
 
       {/* AGENT SECTION — modern dev workflow */}
-      <section className="section animate-rise" id="agents">
+      <section className="section section-alt animate-rise" id="agents">
         <div className="container">
           <AgentGetStarted />
+        </div>
+      </section>
+
+      {/* CHOOSE YOUR PATH */}
+      <section className="section animate-rise" id="paths">
+        <div className="container">
+          <div className="section-head">
+            <span className="kicker">Choose your path</span>
+            <h2>Start scraping in minutes — your way</h2>
+            <p>Same scrapers, three ways to run them — pick the workflow that fits your team.</p>
+          </div>
+          <ChooseYourPath />
         </div>
       </section>
 
@@ -252,6 +266,8 @@ export default function WebScraperHome() {
           </div>
         </div>
       </section>
+
+      <StatBanner />
 
       {/* USE CASES */}
       <section className="section animate-rise" id="use-cases">
@@ -354,98 +370,23 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* COMPARISON TABLE */}
-      <section className="section section-alt animate-rise" id="compare">
-        <div className="container">
-          <div className="section-head">
-            <span className="kicker">Why Bright Data</span>
-            <h2>Web Scraper API vs DIY scrapers and other providers</h2>
-            <p>
-              Compare Bright Data&rsquo;s managed Web Scraper API with other scraping providers and
-              building your own scraper stack — infrastructure, anti-bot, proxies, maintenance, and compliance.
-            </p>
-          </div>
-          <div className="compare-table-wrap">
-            <table className="compare-table">
-              <caption className="sr-only">
-                Web Scraper API comparison: Bright Data vs other scraping providers vs DIY self-built scrapers
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col">Capability</th>
-                  <th scope="col" className="compare-highlight">Bright Data</th>
-                  <th scope="col">Other scraping providers</th>
-                  <th scope="col">DIY (self-built)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>Auto-scaling infrastructure</td><td className="compare-highlight">✓ Unlimited</td><td>Partial</td><td>Manual</td></tr>
-                <tr><td>Anti-bot &amp; CAPTCHA bypass</td><td className="compare-highlight">✓ Built-in</td><td>Partial</td><td>Build yourself</td></tr>
-                <tr><td>Residential proxy network</td><td className="compare-highlight">✓ 400M+ IPs</td><td>Limited pool</td><td>Buy separately</td></tr>
-                <tr><td>Pre-built scrapers</td><td className="compare-highlight">✓ 1,300+</td><td>50–200</td><td>0 (build each)</td></tr>
-                <tr><td>Auto-maintenance (site changes)</td><td className="compare-highlight">✓ 24/7</td><td>Varies</td><td>Your team</td></tr>
-                <tr><td>Compliance (GDPR, CCPA, SOC 2)</td><td className="compare-highlight">✓ Full</td><td>Partial</td><td>Your responsibility</td></tr>
-                <tr><td>Structured output (JSON/CSV)</td><td className="compare-highlight">✓ Automatic</td><td>✓</td><td>Build parsers</td></tr>
-                <tr><td>Free tier</td><td className="compare-highlight">✓ 5K records/mo</td><td>Varies</td><td>Infra costs</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+      <CompareTable
+        name="Web Scraper API"
+        title="Web Scraper API vs DIY scrapers and other providers"
+        description="Compare Bright Data&rsquo;s managed Web Scraper API with other scraping providers and building your own scraper stack — infrastructure, anti-bot, proxies, maintenance, and compliance."
+        scraperRow={{ label: "Pre-built scrapers", bd: "✓ 1,300+", others: "50–200", diy: "0 (build each)" }}
+        othersHeader="Other scraping providers"
+        altBg
+      />
 
-      {/* DX + COMPLIANCE */}
-      <section className="section animate-rise" id="why">
-        <div className="container">
-          <div className="twin-cols">
-            <div className="twin-col">
-              <span className="kicker">Developer experience</span>
-              <h2>Easy to start. Easier to scale.</h2>
-              <p>
-                Get your API key and make your first call in minutes. Scale to millions with the same API &mdash; no infra changes.
-              </p>
-            </div>
-            <div className="twin-col">
-              <span className="kicker">Compliance</span>
-              <h2>Leading the way in ethical web data collection</h2>
-              <p>
-                Only publicly available data. ISO&nbsp;27001 certified, SOC&nbsp;2 controls,
-                GDPR &amp; CCPA compliant. Backed by an industry-first Compliance &amp; Ethics team.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <DxComplianceSection />
 
-      {/* STAT BANNER */}
-      <section className="stat-banner animate-rise">
-        <div className="container">
-          <p className="stat-banner-text">
-            Every 15 minutes, our customers scrape enough data to train ChatGPT from scratch.
-          </p>
-        </div>
-      </section>
-
-      {/* FAQ — reference section at the bottom */}
-      <section className="section section-alt animate-rise" id="faq">
-        <div className="container">
-          <div className="section-head">
-            <span className="kicker">FAQs</span>
-            <h2>Web Scraper API FAQs</h2>
-            <p>
-              Common questions about Bright Data&rsquo;s Web Scraping API — how it works, what you can scrape,
-              compliance, pricing, and getting started.
-            </p>
-          </div>
-          <div className="faq-list">
-            {FAQ_ITEMS.map((item) => (
-              <details key={item.q} className="faq-item">
-                <summary>{item.q}</summary>
-                <p>{item.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FaqSection
+        title="Web Scraper API FAQs"
+        description="Common questions about Bright Data&rsquo;s Web Scraping API — how it works, what you can scrape, compliance, pricing, and getting started."
+        items={FAQ_ITEMS}
+        altBg
+      />
 
       {/* AI Prompt CTA */}
       <AiPromptCta />

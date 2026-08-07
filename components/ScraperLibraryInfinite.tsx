@@ -19,17 +19,6 @@ const SORT_OPTIONS: { value: SortKey; label: string; searchOnly?: boolean }[] = 
   { value: "az", label: "A → Z" },
 ];
 
-const CATEGORY_ICONS: Record<string, string> = {
-  "Social Media": "◎",
-  "E-commerce": "⛁",
-  "Business (B2B)": "⊞",
-  "Jobs": "⬡",
-  "Real Estate": "⌂",
-  "Travel": "✈",
-  "Search": "▲",
-  "News & Media": "◈",
-  "Finance": "∞",
-};
 
 const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string }> = {
   "Social Media":   { label: "View all Social Media scrapers",   href: "/products/web-scraper/social-media" },
@@ -575,10 +564,7 @@ export default function ScraperLibraryInfinite() {
             <div key={sec.category} className="slib-curated-section">
               <div className="slib-curated-head">
                 <div>
-                  <h3>
-                    <span className="slib-curated-caticon">{CATEGORY_ICONS[sec.category] || "◈"}</span>
-                    {sec.category}
-                  </h3>
+                  <h3>{sec.category}</h3>
                   {sec.labels.length > 0 && (
                     <div className="slib-curated-labels">
                       {sec.labels.map((l) => (
