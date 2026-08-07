@@ -543,7 +543,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 .section-alt { background: var(--surface-2); border: 0; }
 .section-head { text-align: center; max-width: 680px; margin: 0 auto var(--s7); }
 .lib-page .section-head h2,
-.section-head h2 { font-size: clamp(24px, 3.2vw, 32px); font-weight: 700; letter-spacing: -0.02em; }
+.section-head h2 { font-size: clamp(26px, 3.5vw, 36px); font-weight: 700; letter-spacing: -0.02em; }
 .lib-page .section-head p,
 .section-head p {
   margin-top: var(--s3);
@@ -1734,7 +1734,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 /* Twin columns */
 .twin-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s7); }
 @media (max-width: 700px) { .twin-cols { grid-template-columns: 1fr; gap: var(--s6); } }
-.twin-col h2 { font-size: 22px; margin-bottom: var(--s3); }
+.twin-col h2 { font-size: 24px; margin-bottom: var(--s3); }
 .twin-col p { font-size: 14px; color: var(--text-3); line-height: 1.6; }
 
 /* Agent get-started */
@@ -2189,8 +2189,8 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   .lib-page .hero-sub,
   .hero-sub { margin: var(--s3) 0 var(--s4); }
   .hero-ratings { margin-bottom: var(--s3); }
-  .section-head h2 { font-size: 24px; }
-  .twin-col h2 { font-size: 20px; }
+  .section-head h2 { font-size: 26px; }
+  .twin-col h2 { font-size: 22px; }
   .lib-page .stat-banner-text,
   .stat-banner-text { font-size: 19px; }
 }
@@ -2225,7 +2225,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   .cmd { padding: 10px 12px; }
   .cmd code { font-size: 12px; }
   .section { padding: var(--s6) 0; }
-  .section-head h2 { font-size: 22px; }
+  .section-head h2 { font-size: 24px; }
   .features-grid { gap: var(--s4); }
   .feature-card { padding: var(--s4); }
   .pricing-grid { gap: var(--s3); }
