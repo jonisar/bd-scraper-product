@@ -242,52 +242,6 @@ export default function AmazonHubPage() {
             <PricingSlider className="mb-6" />
             <PricingCards unit="records" />
             <PricingAssurances />
-
-            <div className="hub-plan-includes">
-              <div className="hub-plan-includes-head">
-                <span className="hub-plan-includes-kicker">Included in every plan</span>
-                <h3>Full platform access on every tier</h3>
-                <p>
-                  Pay less per record as you scale. Proxies, rendering, concurrency, and delivery
-                  stay included — no feature gates between plans.
-                </p>
-              </div>
-              <div className="hub-plan-cols">
-                <div className="hub-plan-col">
-                  <div className="hub-plan-col-title">
-                    <span className="hub-plan-col-icon" aria-hidden="true">◎</span>
-                    <h4>Data collection</h4>
-                  </div>
-                  <ul>
-                    <li><span>Automated proxy management</span></li>
-                    <li><span>Full browser rendering</span></li>
-                    <li><span>CAPTCHA solving</span></li>
-                  </ul>
-                </div>
-                <div className="hub-plan-col">
-                  <div className="hub-plan-col-title">
-                    <span className="hub-plan-col-icon" aria-hidden="true">∞</span>
-                    <h4>Performance at scale</h4>
-                  </div>
-                  <ul>
-                    <li><span>Unlimited concurrency</span></li>
-                    <li><span>Batch &amp; scheduled collection</span></li>
-                    <li><span>Job management APIs</span></li>
-                  </ul>
-                </div>
-                <div className="hub-plan-col">
-                  <div className="hub-plan-col-title">
-                    <span className="hub-plan-col-icon" aria-hidden="true">⇢</span>
-                    <h4>Data delivery</h4>
-                  </div>
-                  <ul>
-                    <li><span>Validation &amp; discovery</span></li>
-                    <li><span>JSON or CSV parsing</span></li>
-                    <li><span>Webhook or API delivery</span></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -298,8 +252,56 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
+        {/* INCLUDED — what every plan gets */}
+        <section className="section section-alt animate-rise hub-anchor" id="included">
+          <div className="container">
+            <div className="hub-plan-includes">
+              <div className="hub-plan-includes-head">
+                <span className="hub-plan-includes-kicker">Included in every plan</span>
+                <h3>No feature gates between tiers</h3>
+                <p>Every plan includes the full platform — pay less per record as you scale.</p>
+              </div>
+              <div className="hub-plan-cols">
+                <div className="hub-plan-col">
+                  <div className="hub-plan-col-title">
+                    <span className="hub-plan-col-icon" aria-hidden="true">◎</span>
+                    <h4>No extra cost</h4>
+                  </div>
+                  <ul>
+                    <li><span>Proxies &amp; IP rotation</span></li>
+                    <li><span>CAPTCHA solving</span></li>
+                    <li><span>JS rendering</span></li>
+                  </ul>
+                </div>
+                <div className="hub-plan-col">
+                  <div className="hub-plan-col-title">
+                    <span className="hub-plan-col-icon" aria-hidden="true">∞</span>
+                    <h4>No limits</h4>
+                  </div>
+                  <ul>
+                    <li><span>Unlimited concurrency</span></li>
+                    <li><span>5,000 URLs per batch</span></li>
+                    <li><span>Scheduling &amp; webhooks</span></li>
+                  </ul>
+                </div>
+                <div className="hub-plan-col">
+                  <div className="hub-plan-col-title">
+                    <span className="hub-plan-col-icon" aria-hidden="true">⇢</span>
+                    <h4>Full delivery</h4>
+                  </div>
+                  <ul>
+                    <li><span>JSON, NDJSON, or CSV</span></li>
+                    <li><span>Webhook &amp; cloud storage</span></li>
+                    <li><span>Data validation built in</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* PRODUCT TYPES — Amazon-specific deep dive */}
-        <section className="section section-alt animate-rise hub-anchor" id="types">
+        <section className="section animate-rise hub-anchor" id="types">
           <div className="container">
             <div className="section-head">
               <span className="kicker">By data type</span>
@@ -333,7 +335,7 @@ export default function AmazonHubPage() {
         </section>
 
         {/* CODE EXAMPLES */}
-        <section className="section animate-rise hub-anchor" id="code">
+        <section className="section section-alt animate-rise hub-anchor" id="code">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Code examples</span>
@@ -345,7 +347,7 @@ export default function AmazonHubPage() {
         </section>
 
         {/* HOW IT WORKS */}
-        <section className="section section-alt animate-rise hub-anchor" id="how">
+        <section className="section animate-rise hub-anchor" id="how">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Under the hood</span>
@@ -388,7 +390,7 @@ export default function AmazonHubPage() {
         </section>
 
         {/* USE CASES */}
-        <section className="section animate-rise hub-anchor" id="use-cases">
+        <section className="section section-alt animate-rise hub-anchor" id="use-cases">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Use cases</span>
@@ -434,7 +436,7 @@ export default function AmazonHubPage() {
         </section>
 
         {/* COMPARISON */}
-        <section className="section section-alt animate-rise hub-anchor" id="compare">
+        <section className="section animate-rise hub-anchor" id="compare">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Why Bright Data</span>
@@ -472,7 +474,7 @@ export default function AmazonHubPage() {
         </section>
 
         {/* DX + COMPLIANCE */}
-        <section className="section animate-rise hub-anchor" id="why">
+        <section className="section section-alt animate-rise hub-anchor" id="why">
           <div className="container">
             <div className="twin-cols">
               <div className="twin-col">
@@ -495,7 +497,7 @@ export default function AmazonHubPage() {
         </section>
 
         {/* FAQ */}
-        <section className="section section-alt animate-rise hub-anchor" id="faq">
+        <section className="section animate-rise hub-anchor" id="faq">
           <div className="container">
             <div className="section-head">
               <span className="kicker">FAQs</span>

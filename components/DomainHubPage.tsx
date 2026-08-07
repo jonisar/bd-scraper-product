@@ -215,8 +215,56 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* 6. UNDER THE HOOD — infrastructure value */}
-        <section className="section section-alt animate-rise hub-anchor" id="how">
+        {/* 6. INCLUDED — what every plan gets */}
+        <section className="section section-alt animate-rise hub-anchor" id="included">
+          <div className="container">
+            <div className="hub-plan-includes">
+              <div className="hub-plan-includes-head">
+                <span className="hub-plan-includes-kicker">Included in every plan</span>
+                <h3>No feature gates between tiers</h3>
+                <p>Every plan includes the full platform — pay less per record as you scale.</p>
+              </div>
+              <div className="hub-plan-cols">
+                <div className="hub-plan-col">
+                  <div className="hub-plan-col-title">
+                    <span className="hub-plan-col-icon" aria-hidden="true">◎</span>
+                    <h4>No extra cost</h4>
+                  </div>
+                  <ul>
+                    <li><span>Proxies &amp; IP rotation</span></li>
+                    <li><span>CAPTCHA solving</span></li>
+                    <li><span>JS rendering</span></li>
+                  </ul>
+                </div>
+                <div className="hub-plan-col">
+                  <div className="hub-plan-col-title">
+                    <span className="hub-plan-col-icon" aria-hidden="true">∞</span>
+                    <h4>No limits</h4>
+                  </div>
+                  <ul>
+                    <li><span>Unlimited concurrency</span></li>
+                    <li><span>5,000 URLs per batch</span></li>
+                    <li><span>Scheduling &amp; webhooks</span></li>
+                  </ul>
+                </div>
+                <div className="hub-plan-col">
+                  <div className="hub-plan-col-title">
+                    <span className="hub-plan-col-icon" aria-hidden="true">⇢</span>
+                    <h4>Full delivery</h4>
+                  </div>
+                  <ul>
+                    <li><span>JSON, NDJSON, or CSV</span></li>
+                    <li><span>Webhook &amp; cloud storage</span></li>
+                    <li><span>Data validation built in</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* UNDER THE HOOD — infrastructure value */}
+        <section className="section animate-rise hub-anchor" id="how">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Under the hood</span>
@@ -234,8 +282,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* 7. USE CASES — relevance */}
-        <section className="section animate-rise hub-anchor" id="use-cases">
+        {/* USE CASES — relevance */}
+        <section className="section section-alt animate-rise hub-anchor" id="use-cases">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Use cases</span>
@@ -254,8 +302,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* 8. COMPARISON — decision-making */}
-        <section className="section section-alt animate-rise hub-anchor" id="compare">
+        {/* COMPARISON — decision-making */}
+        <section className="section animate-rise hub-anchor" id="compare">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Why Bright Data</span>
@@ -292,8 +340,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* 9. DX + COMPLIANCE — trust layer */}
-        <section className="section animate-rise hub-anchor" id="why">
+        {/* DX + COMPLIANCE — trust layer */}
+        <section className="section section-alt animate-rise hub-anchor" id="why">
           <div className="container">
             <div className="twin-cols">
               <div className="twin-col">
@@ -315,8 +363,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* 10. FAQ — reference at the bottom */}
-        <section className="section section-alt animate-rise hub-anchor" id="faq">
+        {/* FAQ — reference at the bottom */}
+        <section className="section animate-rise hub-anchor" id="faq">
           <div className="container">
             <div className="section-head">
               <span className="kicker">FAQs</span>
