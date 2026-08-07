@@ -186,8 +186,23 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* HOW IT WORKS — UNDER THE HOOD */}
-      <section className="section section-alt animate-rise" id="how">
+      {/* PRICING — developers check cost early */}
+      <section className="section section-alt animate-rise" id="pricing">
+        <div className="container">
+          <div className="section-head">
+            <span className="kicker">Pricing</span>
+            <h2>Only pay for what&rsquo;s successfully delivered</h2>
+            <p>No hidden fees. No charges for failed requests. Every plan includes full access to all scrapers and infrastructure.</p>
+          </div>
+          <PricingCards unit="records" />
+          <p className="pricing-note">
+            Rated <strong>4.6/5</strong> on Trustpilot · <strong>4.6/5</strong> on G2 · <strong>4.8/5</strong> on Capterra
+          </p>
+        </div>
+      </section>
+
+      {/* UNDER THE HOOD — what's included */}
+      <section className="section animate-rise" id="how">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Under the hood</span>
@@ -233,7 +248,7 @@ export default function WebScraperHome() {
       </section>
 
       {/* USE CASES */}
-      <section className="section animate-rise" id="use-cases">
+      <section className="section section-alt animate-rise" id="use-cases">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Use cases</span>
@@ -333,8 +348,15 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* COMPARISON TABLE — SEO */}
-      <section className="section animate-rise" id="compare">
+      {/* AGENT SECTION — modern dev workflow */}
+      <section className="section animate-rise" id="agents">
+        <div className="container">
+          <AgentGetStarted />
+        </div>
+      </section>
+
+      {/* COMPARISON TABLE */}
+      <section className="section section-alt animate-rise" id="compare">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Why Bright Data</span>
@@ -372,52 +394,6 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* FAQ — promoted next to comparison for SEO */}
-      <section className="section section-alt animate-rise" id="faq">
-        <div className="container">
-          <div className="section-head">
-            <span className="kicker">FAQs</span>
-            <h2>Web Scraper API FAQs</h2>
-            <p>
-              Common questions about Bright Data&rsquo;s Web Scraping API — how it works, what you can scrape,
-              compliance, pricing, and getting started.
-            </p>
-          </div>
-          <div className="faq-list">
-            {FAQ_ITEMS.map((item) => (
-              <details key={item.q} className="faq-item">
-                <summary>{item.q}</summary>
-                <p>{item.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PRICING */}
-      <section className="section animate-rise" id="pricing">
-        <div className="container">
-          <div className="section-head">
-            <span className="kicker">Pricing</span>
-            <h2>Only pay for what&rsquo;s successfully delivered</h2>
-            <p>No hidden fees. No charges for failed requests. Every plan includes full access to all scrapers and infrastructure.</p>
-          </div>
-          <PricingCards unit="records" />
-          <p className="pricing-note">
-            Rated <strong>4.6/5</strong> on Trustpilot · <strong>4.6/5</strong> on G2 · <strong>4.8/5</strong> on Capterra
-          </p>
-        </div>
-      </section>
-
-      {/* STAT BANNER */}
-      <section className="stat-banner animate-rise">
-        <div className="container">
-          <p className="stat-banner-text">
-            Every 15 minutes, our customers scrape enough data to train ChatGPT from scratch.
-          </p>
-        </div>
-      </section>
-
       {/* DX + COMPLIANCE */}
       <section className="section animate-rise" id="why">
         <div className="container">
@@ -442,10 +418,34 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* AGENT SECTION */}
-      <section className="section section-alt animate-rise" id="agents">
+      {/* STAT BANNER */}
+      <section className="stat-banner animate-rise">
         <div className="container">
-          <AgentGetStarted />
+          <p className="stat-banner-text">
+            Every 15 minutes, our customers scrape enough data to train ChatGPT from scratch.
+          </p>
+        </div>
+      </section>
+
+      {/* FAQ — reference section at the bottom */}
+      <section className="section section-alt animate-rise" id="faq">
+        <div className="container">
+          <div className="section-head">
+            <span className="kicker">FAQs</span>
+            <h2>Web Scraper API FAQs</h2>
+            <p>
+              Common questions about Bright Data&rsquo;s Web Scraping API — how it works, what you can scrape,
+              compliance, pricing, and getting started.
+            </p>
+          </div>
+          <div className="faq-list">
+            {FAQ_ITEMS.map((item) => (
+              <details key={item.q} className="faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
