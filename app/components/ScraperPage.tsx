@@ -2368,8 +2368,8 @@ export default function ScraperPage() {
                           { title: "Anti-bot bypass", desc: "Proxy rotation, CAPTCHA solving, fingerprint management, and JS rendering." },
                           { title: "18 marketplaces", desc: "Scrape .com, .co.uk, .de, .co.jp, and 14 more. Localized pricing and rankings." },
                           { title: "Bulk & async", desc: "Up to 5,000 URLs per request. Async mode returns a snapshot ID for polling/webhook." },
-                          { title: "Spend caps", desc: "Set monthly budgets and per-run limits. Requests pause at the cap — no surprises." },
-                          { title: "Scheduling", desc: "Automate hourly/daily/weekly runs. Deliver to S3, Snowflake, webhook, or email." },
+                          { title: "Pay for success", desc: "Charged only for successfully delivered records — failed scrapes are free." },
+                          { title: "Unlimited concurrency", desc: "Run as many parallel requests as you need. Scale plans get priority throughput." },
                         ].map((f) => (
                           <div key={f.title} className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
                             <p className="font-bold text-bd-navy">{f.title}</p>
@@ -2430,6 +2430,7 @@ export default function ScraperPage() {
                       <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
                         {[
                           ["data-fields", "Data fields explorer"],
+                          ["controls", "Limits & alerts"],
                           ["tech-specs", "Specs & benchmarks"],
                           ["marketplaces", "18 marketplaces"],
                           ["available-scrapers", "Scraper family"],
@@ -2446,6 +2447,52 @@ export default function ScraperPage() {
                     {/* ── ACT 2: Product surface ── */}
 
                     <DataFieldsExplorer />
+
+                    <section id="info-controls">
+                      <h2 className="text-xl font-bold text-bd-navy">
+                        Limits, alerts &amp; job controls
+                      </h2>
+                      <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/85">
+                        Production knobs developers use to keep scrapes predictable — configure in the{" "}
+                        <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">
+                          Customize
+                        </button>{" "}
+                        tab or control panel.
+                      </p>
+                      <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+                        {[
+                          {
+                            title: "Hard spend & record limits",
+                            desc: "Set a monthly spend cap and per-run record limit. Requests pause when a cap is hit — no surprise bills.",
+                          },
+                          {
+                            title: "Alerts & notifications",
+                            desc: "Get notified on run completion, low success rate, or delivery failures via email or webhook.",
+                          },
+                          {
+                            title: "Scheduled & batch runs",
+                            desc: "Trigger hourly, daily, or weekly collections — or fire jobs via API for your own cron/orchestrator.",
+                          },
+                          {
+                            title: "Job management APIs",
+                            desc: "Poll snapshot status, download results when ready, or cancel in-flight async jobs programmatically.",
+                          },
+                          {
+                            title: "Streamed delivery",
+                            desc: "For large async jobs, push partial result batches as they become available (webhook or cloud storage).",
+                          },
+                          {
+                            title: "Errors you can act on",
+                            desc: "Use include_errors to return failed inputs with error codes alongside successful records — nothing silently dropped.",
+                          },
+                        ].map((f) => (
+                          <div key={f.title} className="rounded-xl border border-bd-line bg-bd-panel px-4 py-3">
+                            <p className="font-bold text-bd-navy">{f.title}</p>
+                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/85">{f.desc}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
 
                     <section id="info-tech-specs">
                       <h2 className="text-xl font-bold text-bd-navy">
