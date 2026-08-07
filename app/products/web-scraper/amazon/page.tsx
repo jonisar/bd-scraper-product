@@ -154,20 +154,8 @@ export default function AmazonHubPage() {
           hubAnchor
         />
 
-        {/* API vs NO-CODE */}
-        <section className="section animate-rise hub-anchor" id="paths">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">Choose your path</span>
-              <h2>Start scraping in minutes — your way</h2>
-              <p>Same scrapers, three ways to run them — pick the workflow that fits your team.</p>
-            </div>
-            <ChooseYourPath name="Amazon" />
-          </div>
-        </section>
-
         {/* PRICING — buyers check cost early */}
-        <section className="section section-alt animate-rise hub-anchor" id="pricing">
+        <section className="section animate-rise hub-anchor" id="pricing">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Amazon Scraper API Pricing</span>
@@ -181,9 +169,21 @@ export default function AmazonHubPage() {
         </section>
 
         {/* AGENTS — modern developer workflow */}
-        <section className="section animate-rise hub-anchor" id="agents">
+        <section className="section section-alt animate-rise hub-anchor" id="agents">
           <div className="container">
             <AgentGetStarted name="Amazon" domain="amazon.com" />
+          </div>
+        </section>
+
+        {/* CHOOSE YOUR PATH */}
+        <section className="section animate-rise hub-anchor" id="paths">
+          <div className="container">
+            <div className="section-head">
+              <span className="kicker">Choose your path</span>
+              <h2>Start scraping in minutes — your way</h2>
+              <p>Same scrapers, three ways to run them — pick the workflow that fits your team.</p>
+            </div>
+            <ChooseYourPath name="Amazon" />
           </div>
         </section>
 

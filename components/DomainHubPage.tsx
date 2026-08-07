@@ -157,20 +157,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* PATHS — orient developers & buyers */}
-        <section className="section section-alt animate-rise hub-anchor" id="paths">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">Choose your path</span>
-              <h2>Start scraping in minutes — your way</h2>
-              <p>Same scrapers, three ways to run them — pick the workflow that fits your team.</p>
-            </div>
-            <ChooseYourPath name={hub.name} />
-          </div>
-        </section>
-
         {/* PRICING — buyers check cost early */}
-        <section className="section animate-rise hub-anchor" id="pricing">
+        <section className="section section-alt animate-rise hub-anchor" id="pricing">
           <div className="container">
             <div className="section-head">
               <span className="kicker">{hub.name} Scraper API Pricing</span>
@@ -184,7 +172,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
         </section>
 
         {/* AGENTS — modern developer workflow */}
-        <section className="section section-alt animate-rise hub-anchor" id="agents">
+        <section className="section animate-rise hub-anchor" id="agents">
           <div className="container">
             <AgentGetStarted
               name={hub.name}
@@ -192,6 +180,18 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
               pipelineId={pipelineId}
               sampleUrl={sampleUrl}
             />
+          </div>
+        </section>
+
+        {/* PATHS — orient developers & buyers */}
+        <section className="section section-alt animate-rise hub-anchor" id="paths">
+          <div className="container">
+            <div className="section-head">
+              <span className="kicker">Choose your path</span>
+              <h2>Start scraping in minutes — your way</h2>
+              <p>Same scrapers, three ways to run them — pick the workflow that fits your team.</p>
+            </div>
+            <ChooseYourPath name={hub.name} />
           </div>
         </section>
 
