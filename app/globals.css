@@ -1520,7 +1520,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   gap: 6px;
   margin-bottom: 12px;
 }
-.hub-code-tabs button,
+.hub-code .hub-code-tabs button,
 .hub-code-langs button,
 .hub-code-views button {
   font-family: inherit;
@@ -1534,13 +1534,13 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   border-radius: var(--radius-pill);
   transition: color .15s, background .15s, border-color .15s;
 }
-.hub-code-tabs button:hover,
+.hub-code .hub-code-tabs button:hover,
 .hub-code-langs button:hover:not(:disabled),
 .hub-code-views button:hover {
   color: var(--text-1);
   border-color: var(--border-strong);
 }
-.hub-code-tabs button.is-active,
+.hub-code .hub-code-tabs button.is-active,
 .hub-code-langs button.is-active,
 .hub-code-views button.is-active {
   color: var(--text-1);
@@ -1606,7 +1606,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   white-space: pre;
 }
 @media (max-width: 640px) {
-  .hub-code-tabs button,
+  .hub-code .hub-code-tabs button,
   .hub-code-langs button,
   .hub-code-views button { padding: 9px 12px; font-size: 12px; }
   .hub-code-views { margin-left: 0; width: 100%; }
@@ -1802,12 +1802,14 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   border: 1px solid var(--border-strong);
   background: var(--code-bg, #0d1117);
 }
-.hub-code-tabs {
+.hub-code-example .hub-code-tabs {
   display: flex;
   align-items: center;
   gap: 0;
   border-bottom: 1px solid var(--border);
   padding: 0 var(--s3);
+  flex-wrap: nowrap;
+  margin-bottom: 0;
 }
 .hub-code-tab {
   padding: 10px 14px;
