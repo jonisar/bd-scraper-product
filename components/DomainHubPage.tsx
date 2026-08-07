@@ -11,6 +11,7 @@ import AgentSetupCta from "@/components/AgentSetupCta";
 import PricingAssurances from "@/components/PricingAssurances";
 import PricingSlider from "@/components/PricingSlider";
 import { PricingCards } from "@/components/PricingCards";
+import HubCodeExample from "@/components/HubCodeExample";
 import { sampleUrlForDomain, type DomainHubData } from "@/lib/domain-hubs";
 
 export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
@@ -143,8 +144,42 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* 3. PATHS — orient developers & buyers */}
-        <section className="section animate-rise hub-anchor" id="paths">
+        {/* CODE EXAMPLE + SAMPLE OUTPUT */}
+        <section className="section animate-rise hub-anchor" id="code">
+          <div className="container">
+            <div className="section-head">
+              <span className="kicker">Quick start</span>
+              <h2>One API call to get {hub.name} data</h2>
+              <p>Send a URL, get structured JSON back. Works with any HTTP client.</p>
+            </div>
+            <div className="hub-code-split">
+              <div className="hub-code-split-main">
+                <HubCodeExample sampleUrl={sampleUrl} />
+              </div>
+              <div className="hub-code-split-output">
+                <div className="hub-code-example">
+                  <div className="hub-code-tabs">
+                    <span className="hub-code-tab active" style={{ cursor: "default" }}>Sample response</span>
+                  </div>
+                  <pre className="hub-code-pre">
+                    <code>{`[{\n  "url": "${sampleUrl}",\n  ${topScraper?.fieldsPreview
+                      ? topScraper.fieldsPreview
+                          .replace(", and more.", "")
+                          .split(", ")
+                          .slice(0, 5)
+                          .map((f) => `"${f.trim()}": "..."`)
+                          .join(",\n  ")
+                      : `"title": "...",\n  "price": "..."`
+                    },\n  ...\n}]`}</code>
+                  </pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* PATHS — orient developers & buyers */}
+        <section className="section section-alt animate-rise hub-anchor" id="paths">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Choose your path</span>
@@ -189,8 +224,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* 4. PRICING — buyers check cost early */}
-        <section className="section section-alt animate-rise hub-anchor" id="pricing">
+        {/* PRICING — buyers check cost early */}
+        <section className="section animate-rise hub-anchor" id="pricing">
           <div className="container">
             <div className="section-head">
               <span className="kicker">{hub.name} Scraper API Pricing</span>
@@ -203,8 +238,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* 5. AGENTS — modern developer workflow */}
-        <section className="section animate-rise hub-anchor" id="agents">
+        {/* AGENTS — modern developer workflow */}
+        <section className="section section-alt animate-rise hub-anchor" id="agents">
           <div className="container">
             <AgentGetStarted
               name={hub.name}
@@ -216,7 +251,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
         </section>
 
         {/* INCLUDED — what every plan gets */}
-        <section className="section section-alt animate-rise hub-anchor" id="included">
+        <section className="section animate-rise hub-anchor" id="included">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Included in every plan</span>
@@ -235,7 +270,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
         </section>
 
         {/* UNDER THE HOOD — infrastructure value */}
-        <section className="section animate-rise hub-anchor" id="how">
+        <section className="section section-alt animate-rise hub-anchor" id="how">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Under the hood</span>
@@ -254,7 +289,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
         </section>
 
         {/* USE CASES — relevance */}
-        <section className="section section-alt animate-rise hub-anchor" id="use-cases">
+        <section className="section animate-rise hub-anchor" id="use-cases">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Use cases</span>
@@ -274,7 +309,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
         </section>
 
         {/* COMPARISON — decision-making */}
-        <section className="section animate-rise hub-anchor" id="compare">
+        <section className="section section-alt animate-rise hub-anchor" id="compare">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Why Bright Data</span>
@@ -312,7 +347,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
         </section>
 
         {/* DX + COMPLIANCE — trust layer */}
-        <section className="section section-alt animate-rise hub-anchor" id="why">
+        <section className="section animate-rise hub-anchor" id="why">
           <div className="container">
             <div className="twin-cols">
               <div className="twin-col">
@@ -341,7 +376,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
         </section>
 
         {/* FAQ — reference at the bottom */}
-        <section className="section animate-rise hub-anchor" id="faq">
+        <section className="section section-alt animate-rise hub-anchor" id="faq">
           <div className="container">
             <div className="section-head">
               <span className="kicker">FAQs</span>

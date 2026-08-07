@@ -106,6 +106,9 @@ export default function AgentGetStarted({
           <span className="agent-chip">▟ Cursor</span>
           <span className="agent-chip">⌘ Codex</span>
           <span className="agent-chip">◈ Any MCP client</span>
+          <span className="agent-chip">⚡ LangChain</span>
+          <span className="agent-chip">🔗 CrewAI</span>
+          <span className="agent-chip">◎ OpenAI SDK</span>
         </div>
       </div>
     </div>

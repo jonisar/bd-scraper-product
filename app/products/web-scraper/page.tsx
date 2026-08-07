@@ -8,6 +8,7 @@ import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 import { PricingCards } from "@/components/PricingCards";
 import PricingAssurances from "@/components/PricingAssurances";
+import HubCodeExample from "@/components/HubCodeExample";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -187,8 +188,20 @@ export default function WebScraperHome() {
         </div>
       </section>
 
+      {/* CODE EXAMPLE */}
+      <section className="section section-alt animate-rise" id="code">
+        <div className="container">
+          <div className="section-head">
+            <span className="kicker">Quick start</span>
+            <h2>One API call to get structured data</h2>
+            <p>Send a URL, get structured JSON back. Works with any HTTP client in any language.</p>
+          </div>
+          <HubCodeExample sampleUrl="https://www.amazon.com/dp/B09X7MPX8L" />
+        </div>
+      </section>
+
       {/* PRICING — developers check cost early */}
-      <section className="section section-alt animate-rise" id="pricing">
+      <section className="section animate-rise" id="pricing">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Pricing</span>
@@ -197,18 +210,36 @@ export default function WebScraperHome() {
           </div>
           <PricingCards unit="records" />
           <PricingAssurances />
+
+          <details className="hidden-cost-details">
+            <summary className="hidden-cost-summary">
+              <span>Comparing scraping platforms? See what others charge extra for</span>
+              <svg className="hidden-cost-chevron" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+            </summary>
+            <div className="hidden-cost-body">
+              <p>Most platforms meter multiple line items on top of the per-record rate. With Bright Data, the record price is the whole bill:</p>
+              <ul className="hidden-cost-list">
+                <li><span className="hidden-cost-item">Compute / runtime units</span><span className="hidden-cost-note">commonly billed per actor-hour or CU</span><span className="hidden-cost-included">✓ Included</span></li>
+                <li><span className="hidden-cost-item">Residential proxy bandwidth</span><span className="hidden-cost-note">commonly billed per GB</span><span className="hidden-cost-included">✓ Included</span></li>
+                <li><span className="hidden-cost-item">Storage &amp; dataset retention</span><span className="hidden-cost-note">commonly billed per GB-month</span><span className="hidden-cost-included">✓ Included</span></li>
+                <li><span className="hidden-cost-item">Data transfer / egress</span><span className="hidden-cost-note">commonly billed per GB out</span><span className="hidden-cost-included">✓ Included</span></li>
+                <li><span className="hidden-cost-item">Unblocking &amp; CAPTCHA solving</span><span className="hidden-cost-note">commonly a paid add-on</span><span className="hidden-cost-included">✓ Included</span></li>
+                <li><span className="hidden-cost-item">Parsing to structured JSON</span><span className="hidden-cost-note">commonly your own code</span><span className="hidden-cost-included">✓ Included</span></li>
+              </ul>
+            </div>
+          </details>
         </div>
       </section>
 
       {/* AGENT SECTION — modern dev workflow */}
-      <section className="section animate-rise" id="agents">
+      <section className="section section-alt animate-rise" id="agents">
         <div className="container">
           <AgentGetStarted />
         </div>
       </section>
 
       {/* UNDER THE HOOD — what's included */}
-      <section className="section section-alt animate-rise" id="how">
+      <section className="section animate-rise" id="how">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Under the hood</span>
@@ -254,7 +285,7 @@ export default function WebScraperHome() {
       </section>
 
       {/* USE CASES */}
-      <section className="section animate-rise" id="use-cases">
+      <section className="section section-alt animate-rise" id="use-cases">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Use cases</span>
@@ -355,7 +386,7 @@ export default function WebScraperHome() {
       </section>
 
       {/* COMPARISON TABLE */}
-      <section className="section section-alt animate-rise" id="compare">
+      <section className="section animate-rise" id="compare">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Why Bright Data</span>
@@ -394,7 +425,7 @@ export default function WebScraperHome() {
       </section>
 
       {/* DX + COMPLIANCE */}
-      <section className="section animate-rise" id="why">
+      <section className="section section-alt animate-rise" id="why">
         <div className="container">
           <div className="twin-cols">
             <div className="twin-col">
@@ -432,7 +463,7 @@ export default function WebScraperHome() {
       </section>
 
       {/* FAQ — reference section at the bottom */}
-      <section className="section section-alt animate-rise" id="faq">
+      <section className="section animate-rise" id="faq">
         <div className="container">
           <div className="section-head">
             <span className="kicker">FAQs</span>
