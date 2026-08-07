@@ -195,9 +195,24 @@ export default function WebScraperHome() {
             <p>No hidden fees. No charges for failed requests. Every plan includes full access to all scrapers and infrastructure.</p>
           </div>
           <PricingCards unit="records" />
-          <p className="pricing-note">
-            Rated <strong>4.6/5</strong> on Trustpilot · <strong>4.6/5</strong> on G2 · <strong>4.8/5</strong> on Capterra
-          </p>
+          <ul className="pricing-assurances" aria-label="Plan assurances">
+            <li>
+              <span className="pricing-assurance-check" aria-hidden="true">✓</span>
+              No credit card required
+            </li>
+            <li>
+              <span className="pricing-assurance-check" aria-hidden="true">✓</span>
+              24/7 Expert support
+            </li>
+            <li>
+              <span className="pricing-assurance-check" aria-hidden="true">✓</span>
+              99.9% uptime
+            </li>
+            <li>
+              <span className="pricing-assurance-check" aria-hidden="true">✓</span>
+              GDPR &amp; CCPA compliant
+            </li>
+          </ul>
         </div>
       </section>
 
