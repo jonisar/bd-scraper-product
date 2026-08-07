@@ -300,8 +300,20 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
+        {/* CODE EXAMPLES */}
+        <section className="section animate-rise hub-anchor" id="code">
+          <div className="container">
+            <div className="section-head">
+              <span className="kicker">Code examples</span>
+              <h2>Easily scrape Amazon without getting blocked</h2>
+              <p>Copy a working request for products, reviews, or sellers — cURL, Python, or Node.js.</p>
+            </div>
+            <AmazonCodeExamples />
+          </div>
+        </section>
+
         {/* PRODUCT TYPES — Amazon-specific deep dive */}
-        <section className="section animate-rise hub-anchor" id="types">
+        <section className="section section-alt animate-rise hub-anchor" id="types">
           <div className="container">
             <div className="section-head">
               <span className="kicker">By data type</span>
@@ -331,18 +343,6 @@ export default function AmazonHubPage() {
                 )
               )}
             </div>
-          </div>
-        </section>
-
-        {/* CODE EXAMPLES */}
-        <section className="section section-alt animate-rise hub-anchor" id="code">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">Code examples</span>
-              <h2>Easily scrape Amazon without getting blocked</h2>
-              <p>Copy a working request for products, reviews, or sellers — cURL, Python, or Node.js.</p>
-            </div>
-            <AmazonCodeExamples />
           </div>
         </section>
 
