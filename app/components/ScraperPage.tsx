@@ -7,6 +7,7 @@ import TrustedByStrip from "@/components/TrustedByStrip";
 import ScraperCard from "@/components/ScraperCard";
 import AiPromptCta from "@/components/AiPromptCta";
 import { PricingCards } from "@/components/PricingCards";
+import RestApiExample from "@/components/RestApiExample";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Playground" | "Connect Agent" | "Customize";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
@@ -967,7 +968,7 @@ function PricingTab() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold uppercase tracking-wider text-bd-muted">
-              Estimate your cost
+              Predict your cost
             </p>
             <p className="mt-3 text-sm font-medium text-bd-ink">
               Records per month: <span className="text-lg font-extrabold text-bd-navy">{tier.label}</span>
@@ -2225,6 +2226,11 @@ export default function ScraperPage() {
                         </div>
                       ) : null}
                     </div>
+
+                    <RestApiExample
+                      datasetId={DATASET_ID}
+                      className="mt-8 border-t border-bd-line pt-8"
+                    />
                   </div>
                 ) : null}
 
@@ -2255,41 +2261,7 @@ export default function ScraperPage() {
                     </header>
 
                     {/* ── REST API example ── */}
-                    <section>
-                      <h3 className="mb-3 text-lg font-bold text-bd-navy">REST API example</h3>
-                      <div className="grid gap-3 lg:grid-cols-2">
-                        <div>
-                          <p className="mb-1.5 text-[11px] font-bold uppercase tracking-wider text-bd-muted">Request</p>
-                          <CodeBlock
-                            code={`curl -X POST "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${DATASET_ID}&format=json" \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '[{"url":"https://www.amazon.com/dp/B09X7MPX8L"}]'`}
-                            label="bash"
-                          />
-                        </div>
-                        <div>
-                          <p className="mb-1.5 text-[11px] font-bold uppercase tracking-wider text-bd-muted">Response</p>
-                          <CodeBlock
-                            code={`[{
-  "title": "SanDisk 1TB Extreme microSDXC",
-  "asin": "B09X7MPX8L",
-  "price": 145.50,
-  "list_price": 299.99,
-  "currency": "USD",
-  "stars": 4.8,
-  "reviews_count": 36704,
-  "in_stock": true,
-  "brand": "SanDisk",
-  "seller": { "name": "Amazon.com" },
-  "categories": "Electronics > Memory Cards",
-  "image": "https://m.media-amazon.com/..."
-}]`}
-                            label="json"
-                          />
-                        </div>
-                      </div>
-                    </section>
+                    <RestApiExample datasetId={DATASET_ID} />
 
                     {/* ── Key capabilities ── */}
                     <section>
@@ -3290,7 +3262,7 @@ export default function ScraperPage() {
                       <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
                     </span>
                     <p className="text-sm font-semibold leading-5 text-bd-navy">
-                      Expert support
+                      24/7 Expert support
                     </p>
                   </div>
                 </div>
