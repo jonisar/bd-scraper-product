@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const SYNC_RESPONSE = `[{
   "title": "SanDisk 1TB Extreme microSDXC",
@@ -64,19 +64,35 @@ function MiniCodeBlock({ code, label }: { code: string; label: string }) {
   );
 }
 
+type ApiMode = "sync" | "async";
+
 type RestApiExampleProps = {
   datasetId: string;
-  mode?: "sync" | "async";
+  /** Controlled or initial mode. Defaults to sync. */
+  mode?: ApiMode;
+  onModeChange?: (mode: ApiMode) => void;
   sampleUrl?: string;
   className?: string;
 };
 
 export default function RestApiExample({
   datasetId,
-  mode = "sync",
+  mode: modeProp = "sync",
+  onModeChange,
   sampleUrl = "https://www.amazon.com/dp/B09X7MPX8L",
   className = "",
 }: RestApiExampleProps) {
+  const [mode, setMode] = useState<ApiMode>(modeProp);
+
+  useEffect(() => {
+    setMode(modeProp);
+  }, [modeProp]);
+
+  const selectMode = (next: ApiMode) => {
+    setMode(next);
+    onModeChange?.(next);
+  };
+
   const endpoint = mode === "sync" ? "scrape" : "trigger";
   const requestCode = `curl -X POST "https://api.brightdata.com/datasets/v3/${endpoint}?dataset_id=${datasetId}&format=json" \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
@@ -88,11 +104,42 @@ export default function RestApiExample({
 
   return (
     <section className={className}>
-      <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <h3 className="text-lg font-bold text-bd-navy">REST API example</h3>
-        <p className="text-[11px] font-semibold uppercase tracking-wider text-bd-muted">
-          {mode === "sync" ? "Sync · /scrape" : "Async · /trigger"}
-        </p>
+        <div
+          className="inline-flex shrink-0 rounded-lg border border-bd-line bg-bd-canvas p-0.5"
+          role="group"
+          aria-label="API mode"
+        >
+          {([
+            { id: "sync" as const, label: "Sync", hint: "/scrape" },
+            { id: "async" as const, label: "Async", hint: "/trigger" },
+          ]).map((opt) => {
+            const active = mode === opt.id;
+            return (
+              <button
+                key={opt.id}
+                type="button"
+                aria-pressed={active}
+                onClick={() => selectMode(opt.id)}
+                className={`flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-semibold transition sm:px-3 ${
+                  active
+                    ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/25"
+                    : "text-bd-muted hover:text-bd-ink"
+                }`}
+              >
+                <span>{opt.label}</span>
+                <span
+                  className={`hidden font-mono text-[10px] font-medium sm:inline ${
+                    active ? "text-white/75" : "text-bd-muted/80"
+                  }`}
+                >
+                  {opt.hint}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
       <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
         <div className="min-w-0">
@@ -107,7 +154,7 @@ export default function RestApiExample({
           </p>
           <MiniCodeBlock code={responseExample} label="json" />
           {mode === "async" ? (
-            <p className="mt-2 text-xs leading-5 text-bd-muted">
+            <p className="mt-2 text-xs leading-5 text-bd-ink/85">
               Poll{" "}
               <code className="font-mono text-[11px] text-bd-blue">
                 /datasets/v3/snapshots/&#123;snapshot_id&#125;

@@ -1500,7 +1500,7 @@ const FIELD_CATEGORIES = [
   },
 ];
 
-function DataFieldsExplorer() {
+function DataFieldsExplorer({ onOpenCustomize }: { onOpenCustomize?: () => void }) {
   const [activeTab, setActiveTab] = useState(0);
   const cat = FIELD_CATEGORIES[activeTab];
 
@@ -1508,7 +1508,7 @@ function DataFieldsExplorer() {
     <section id="info-data-fields">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h2 className="text-xl font-bold text-bd-navy">Output fields</h2>
-        <span className="rounded-full bg-bd-blue/10 px-2.5 py-0.5 text-xs font-bold text-bd-blue">40+ fields per record</span>
+        <span className="text-xs font-medium text-bd-muted">Browse by category</span>
       </div>
       <p className="mt-2 text-[15px] leading-7 text-bd-ink/80">
         Every request returns structured, typed JSON. Explore the response by category:
@@ -1547,7 +1547,14 @@ function DataFieldsExplorer() {
 
       <p className="mt-2.5 text-xs text-bd-muted">
         Use <code className="rounded bg-bd-blue-soft px-1 py-0.5 font-mono text-[11px] text-bd-blue">custom_output_fields</code> to return only the fields you need.
-        See the <strong>Customize</strong> tab to build your query interactively.
+        {" "}
+        {onOpenCustomize ? (
+          <button type="button" onClick={onOpenCustomize} className="font-semibold text-bd-blue hover:underline">
+            Open Customize →
+          </button>
+        ) : (
+          <>See the Customize tab to build your query interactively.</>
+        )}
       </p>
     </section>
   );
@@ -2096,6 +2103,7 @@ export default function ScraperPage() {
                     <RestApiExample
                       datasetId={DATASET_ID}
                       mode={apiMode}
+                      onModeChange={setApiMode}
                       className="border-t border-bd-line pt-8"
                     />
 
@@ -2248,7 +2256,19 @@ export default function ScraperPage() {
 
                     {/* ── 3. What you get — data at a glance ── */}
                     <section>
-                      <h3 className="mb-3 text-lg font-bold text-bd-navy">What data you get</h3>
+                      <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                        <h3 className="text-lg font-bold text-bd-navy">What data you get</h3>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setMainTab("Output");
+                            setTimeout(() => document.getElementById("scraper-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+                          }}
+                          className="text-[13px] font-semibold text-bd-blue hover:underline"
+                        >
+                          View output schema →
+                        </button>
+                      </div>
                       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
                         {[
                           "Title & brand",
@@ -2269,38 +2289,15 @@ export default function ScraperPage() {
                           </span>
                         ))}
                       </div>
-                      <p className="mt-2.5 text-sm text-bd-ink/85">
-                        40+ fields per product.{" "}
-                        <button type="button" onClick={() => setMainTab("Output")} className="font-semibold text-bd-blue hover:underline">
-                          See full schema →
-                        </button>
+                      <p className="mt-2.5 text-[13px] leading-5 text-bd-ink/70">
+                        Sample of the most-used fields — full types and samples are in the schema.
                       </p>
                     </section>
 
                     {/* ── 4. REST API example ── */}
                     <RestApiExample datasetId={DATASET_ID} />
 
-                    {/* ── 5. Key capabilities ── */}
-                    <section>
-                      <h3 className="mb-3 text-lg font-bold text-bd-navy">Key capabilities</h3>
-                      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                        {[
-                          { title: "40+ structured fields", desc: "Prices, reviews, BSR, seller info, stock status, images — parsed and typed." },
-                          { title: "Anti-bot bypass", desc: "Proxy rotation, CAPTCHA solving, fingerprint management, and JS rendering." },
-                          { title: "18 marketplaces", desc: "Scrape .com, .co.uk, .de, .co.jp, and 14 more. Localized pricing and rankings." },
-                          { title: "Bulk & async", desc: "Up to 5,000 URLs per request. Async mode returns a snapshot ID for polling/webhook." },
-                          { title: "Pay for success", desc: "Charged only for successfully delivered records — failed scrapes are free." },
-                          { title: "Unlimited concurrency", desc: "Run as many parallel requests as you need. Scale plans get priority throughput." },
-                        ].map((f) => (
-                          <div key={f.title} className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
-                            <p className="font-bold text-bd-navy">{f.title}</p>
-                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/85">{f.desc}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </section>
-
-                    {/* ── 6. How to integrate ── */}
+                    {/* ── 5. How to integrate ── */}
                     <section>
                       <h3 className="mb-3 text-lg font-bold text-bd-navy">How to integrate</h3>
                       <div className="space-y-2">
@@ -2319,6 +2316,26 @@ export default function ScraperPage() {
                             <span className="mt-0.5 shrink-0 rounded bg-bd-blue/10 px-2 py-0.5 font-mono text-[11px] font-bold text-bd-blue">{m.method}</span>
                             <span className="text-[13px] leading-5 text-bd-ink/85">{m.desc}</span>
                           </button>
+                        ))}
+                      </div>
+                    </section>
+
+                    {/* ── 6. Key capabilities ── */}
+                    <section>
+                      <h3 className="mb-3 text-lg font-bold text-bd-navy">Key capabilities</h3>
+                      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                        {[
+                          { title: "Rich product schema", desc: "Prices, reviews, BSR, seller info, stock status, images — parsed and typed." },
+                          { title: "Anti-bot bypass", desc: "Proxy rotation, CAPTCHA solving, fingerprint management, and JS rendering." },
+                          { title: "18 marketplaces", desc: "Scrape .com, .co.uk, .de, .co.jp, and 14 more. Localized pricing and rankings." },
+                          { title: "Bulk & async", desc: "Up to 5,000 URLs per request. Async mode returns a snapshot ID for polling/webhook." },
+                          { title: "Pay for success", desc: "Charged only for successfully delivered records — failed scrapes are free." },
+                          { title: "Unlimited concurrency", desc: "Run as many parallel requests as you need. Scale plans get priority throughput." },
+                        ].map((f) => (
+                          <div key={f.title} className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
+                            <p className="font-bold text-bd-navy">{f.title}</p>
+                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/85">{f.desc}</p>
+                          </div>
                         ))}
                       </div>
                     </section>
@@ -2367,7 +2384,12 @@ export default function ScraperPage() {
 
                     {/* ── ACT 2: Product surface ── */}
 
-                    <DataFieldsExplorer />
+                    <DataFieldsExplorer
+                      onOpenCustomize={() => {
+                        setMainTab("Customize");
+                        setTimeout(() => document.getElementById("scraper-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+                      }}
+                    />
 
                     <section id="info-controls">
                       <h2 className="text-xl font-bold text-bd-navy">
@@ -2931,7 +2953,7 @@ export default function ScraperPage() {
                     </p>
 
                     <div className="flex flex-wrap items-center gap-2 text-xs">
-                      <span className="rounded-full bg-bd-success/10 px-2.5 py-1 font-semibold text-bd-success">14 fields per record</span>
+                      <span className="rounded-full bg-bd-success/10 px-2.5 py-1 font-semibold text-bd-success">Structured JSON</span>
                       <span className="rounded-full bg-bd-blue/10 px-2.5 py-1 font-semibold text-bd-blue">MCP compatible</span>
                       <span className="rounded-full border border-bd-line px-2.5 py-1 text-bd-muted">OpenAPI ready</span>
                     </div>
