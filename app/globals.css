@@ -336,7 +336,7 @@ body {
 .lib-page .hdr-search-empty p,
 .hdr-search-empty p { font-size: 13px; color: var(--text-2); margin: 0 0 6px; }
 .hdr-search-empty b { color: var(--text-1); }
-.hdr-search-empty-link { font-size: 13px; color: var(--accent-2); font-weight: 500; text-decoration: none; }
+.hdr-search-empty-link { display: block; font-size: 13px; color: var(--accent-2); font-weight: 500; text-decoration: none; margin-top: 4px; }
 .hdr-search-empty-link:hover { color: var(--text-1); }
 @media (max-width: 700px) { .hdr-search { max-width: 160px; padding: 5px 10px; } .hdr-search input { font-size: 12px; } .hdr-search-panel { left: auto; right: 0; width: 300px; } }
 
