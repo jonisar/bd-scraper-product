@@ -5,6 +5,7 @@ import { catalog, CATALOG_CATEGORIES, type CatalogScraper } from "@/lib/catalog"
 import { CATEGORY_LABELS } from "@/lib/category-labels";
 import { scraperHref } from "@/lib/scraper-href";
 import ScraperCard from "@/components/ScraperCard";
+import DomainMark from "@/components/DomainMark";
 
 const POPULAR_LIMIT = 9;
 const BATCH_SIZE = 12;
@@ -45,9 +46,6 @@ const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string }> = {
 type DomainCardData = {
   domain: string;
   label: string;
-  icon: string;
-  logo: string;
-  color: string;
   desc: string;
   scraperCount: number;
   totalDelivered: string;
@@ -56,32 +54,32 @@ type DomainCardData = {
 };
 
 function buildTopDomains(): DomainCardData[] {
-  const DOMAIN_META: Record<string, { label: string; icon: string; logo: string; color: string; desc: string; href: string }> = {
-    "linkedin.com":       { label: "LinkedIn",       icon: "in", logo: "/logos/linkedin.png",       color: "#0A66C2", desc: "Profiles, companies, job listings, and post engagement data", href: "/products/web-scraper/linkedin" },
-    "instagram.com":      { label: "Instagram",      icon: "◎",  logo: "/logos/instagram.png",      color: "#E4405F", desc: "Profiles, posts, reels, comments, and engagement metrics", href: "/products/web-scraper/instagram" },
-    "tiktok.com":         { label: "TikTok",         icon: "♪",  logo: "/logos/tiktok.png",         color: "#00F2EA", desc: "Profiles, videos, shop products, and trending hashtags", href: "/products/web-scraper/tiktok" },
-    "facebook.com":       { label: "Facebook",       icon: "f",  logo: "/logos/facebook.png",       color: "#1877F2", desc: "Page posts, ads library, reactions, and audience data", href: "/products/web-scraper/facebook" },
-    "x.com":              { label: "X (Twitter)",    icon: "𝕏",  logo: "/logos/x.png",              color: "#14171A", desc: "Posts, profiles, engagement metrics, and trending topics", href: "/products/web-scraper/x" },
-    "openai.com":         { label: "ChatGPT",        icon: "◈",  logo: "/logos/chatgpt.png",        color: "#10A37F", desc: "AI conversations, responses, and model interaction data", href: "/products/web-scraper/chatgpt" },
-    "youtube.com":        { label: "YouTube",        icon: "▶",  logo: "/logos/youtube.png",        color: "#FF0000", desc: "Videos, channels, comments, subscribers, and view counts", href: "/products/web-scraper/youtube" },
-    "amazon.com":         { label: "Amazon",         icon: "A",  logo: "/logos/amazon.png",         color: "#FF9900", desc: "Products, reviews, pricing, sellers, and bestsellers data", href: "/products/web-scraper/amazon" },
-    "walmart.com":        { label: "Walmart",        icon: "W",  logo: "/logos/walmart.png",        color: "#0071CE", desc: "Products, prices, reviews, and inventory data", href: "/products/web-scraper/walmart" },
-    "booking.com":        { label: "Booking.com",    icon: "B",  logo: "/logos/booking.png",        color: "#003580", desc: "Hotels, prices, availability, and guest reviews", href: "/products/web-scraper/booking" },
-    "airbnb.com":         { label: "Airbnb",         icon: "A",  logo: "/logos/airbnb.png",         color: "#FF5A5F", desc: "Vacation rental listings, prices, and reviews", href: "/products/web-scraper/airbnb" },
-    "indeed.com":         { label: "Indeed",         icon: "I",  logo: "/logos/indeed.png",         color: "#003A9B", desc: "Job listings, salaries, company reviews, and labor market data", href: "/products/web-scraper/indeed" },
-    "crunchbase.com":     { label: "Crunchbase",     icon: "Cb", logo: "/logos/crunchbase.png",     color: "#0288D1", desc: "Companies, funding rounds, investors, and M&A data", href: "/products/web-scraper/crunchbase" },
-    "zillow.com":         { label: "Zillow",         icon: "Z",  logo: "/logos/zillow.png",         color: "#006AFF", desc: "Property listings, Zestimates, rentals, and neighborhood data", href: "/products/web-scraper/zillow" },
-    "google.com/maps":    { label: "Google Maps",    icon: "G",  logo: "/logos/google-maps.png",    color: "#34A853", desc: "Business listings, reviews, ratings, hours, and locations", href: "/products/web-scraper/google-maps" },
-    "glassdoor.com":      { label: "Glassdoor",      icon: "Gd", logo: "/logos/glassdoor.png",      color: "#0CAA41", desc: "Company reviews, salaries, interviews, and job listings", href: "/products/web-scraper/glassdoor" },
-    "yelp.com":           { label: "Yelp",           icon: "Y",  logo: "/logos/yelp.png",           color: "#D32323", desc: "Business listings, reviews, ratings, and local data", href: "/products/web-scraper/yelp" },
-    "play.google.com":    { label: "Google Play",    icon: "▷",  logo: "/logos/google-play.png",    color: "#01875F", desc: "Apps, reviews, rankings, and developer data", href: "/products/web-scraper/google-play" },
-    "homedepot.com":      { label: "Home Depot",     icon: "HD", logo: "/logos/homedepot.png",      color: "#F96302", desc: "Building materials, products, prices, and reviews", href: "/products/web-scraper/homedepot" },
-    "zoopla.co.uk":       { label: "Zoopla",         icon: "Zp", logo: "/logos/zoopla.png",         color: "#7B0099", desc: "UK property listings, prices, and market data", href: "/products/web-scraper/zoopla" },
-    "zonaprop.com.ar":    { label: "Zonaprop",       icon: "Zn", logo: "/logos/zonaprop.png",       color: "#FF6611", desc: "Argentina property listings and real estate data", href: "/products/web-scraper/zonaprop" },
-    "inmuebles24.com":    { label: "Inmuebles24",    icon: "I24",logo: "/logos/inmuebles24.png",    color: "#FF6611", desc: "Mexico property listings and real estate data", href: "/products/web-scraper/inmuebles24" },
-    "metrocuadrado.com":  { label: "Metrocuadrado",  icon: "Mc", logo: "/logos/metrocuadrado.png",  color: "#004CFF", desc: "Colombia property listings and real estate data", href: "/products/web-scraper/metrocuadrado" },
-    "agoda.com":          { label: "Agoda",          icon: "Ag", logo: "/logos/agoda.png",          color: "#5391D4", desc: "Hotels, prices, and reviews across Asia-Pacific", href: "/products/web-scraper/agoda" },
-    "trip.com":           { label: "Trip.com",       icon: "Tr", logo: "/logos/trip.png",           color: "#287DFA", desc: "Hotels, flights, and travel deals worldwide", href: "/products/web-scraper/trip" },
+  const DOMAIN_META: Record<string, { label: string; desc: string; href: string }> = {
+    "linkedin.com":       { label: "LinkedIn",       desc: "Profiles, companies, job listings, and post engagement data", href: "/products/web-scraper/linkedin" },
+    "instagram.com":      { label: "Instagram",      desc: "Profiles, posts, reels, comments, and engagement metrics", href: "/products/web-scraper/instagram" },
+    "tiktok.com":         { label: "TikTok",         desc: "Profiles, videos, shop products, and trending hashtags", href: "/products/web-scraper/tiktok" },
+    "facebook.com":       { label: "Facebook",       desc: "Page posts, ads library, reactions, and audience data", href: "/products/web-scraper/facebook" },
+    "x.com":              { label: "X (Twitter)",    desc: "Posts, profiles, engagement metrics, and trending topics", href: "/products/web-scraper/x" },
+    "openai.com":         { label: "ChatGPT",        desc: "AI conversations, responses, and model interaction data", href: "/products/web-scraper/chatgpt" },
+    "youtube.com":        { label: "YouTube",        desc: "Videos, channels, comments, subscribers, and view counts", href: "/products/web-scraper/youtube" },
+    "amazon.com":         { label: "Amazon",         desc: "Products, reviews, pricing, sellers, and bestsellers data", href: "/products/web-scraper/amazon" },
+    "walmart.com":        { label: "Walmart",        desc: "Products, prices, reviews, and inventory data", href: "/products/web-scraper/walmart" },
+    "booking.com":        { label: "Booking.com",    desc: "Hotels, prices, availability, and guest reviews", href: "/products/web-scraper/booking" },
+    "airbnb.com":         { label: "Airbnb",         desc: "Vacation rental listings, prices, and reviews", href: "/products/web-scraper/airbnb" },
+    "indeed.com":         { label: "Indeed",         desc: "Job listings, salaries, company reviews, and labor market data", href: "/products/web-scraper/indeed" },
+    "crunchbase.com":     { label: "Crunchbase",     desc: "Companies, funding rounds, investors, and M&A data", href: "/products/web-scraper/crunchbase" },
+    "zillow.com":         { label: "Zillow",         desc: "Property listings, Zestimates, rentals, and neighborhood data", href: "/products/web-scraper/zillow" },
+    "google.com/maps":    { label: "Google Maps",    desc: "Business listings, reviews, ratings, hours, and locations", href: "/products/web-scraper/google-maps" },
+    "glassdoor.com":      { label: "Glassdoor",      desc: "Company reviews, salaries, interviews, and job listings", href: "/products/web-scraper/glassdoor" },
+    "yelp.com":           { label: "Yelp",           desc: "Business listings, reviews, ratings, and local data", href: "/products/web-scraper/yelp" },
+    "play.google.com":    { label: "Google Play",    desc: "Apps, reviews, rankings, and developer data", href: "/products/web-scraper/google-play" },
+    "homedepot.com":      { label: "Home Depot",     desc: "Building materials, products, prices, and reviews", href: "/products/web-scraper/homedepot" },
+    "zoopla.co.uk":       { label: "Zoopla",         desc: "UK property listings, prices, and market data", href: "/products/web-scraper/zoopla" },
+    "zonaprop.com.ar":    { label: "Zonaprop",       desc: "Argentina property listings and real estate data", href: "/products/web-scraper/zonaprop" },
+    "inmuebles24.com":    { label: "Inmuebles24",    desc: "Mexico property listings and real estate data", href: "/products/web-scraper/inmuebles24" },
+    "metrocuadrado.com":  { label: "Metrocuadrado",  desc: "Colombia property listings and real estate data", href: "/products/web-scraper/metrocuadrado" },
+    "agoda.com":          { label: "Agoda",          desc: "Hotels, prices, and reviews across Asia-Pacific", href: "/products/web-scraper/agoda" },
+    "trip.com":           { label: "Trip.com",       desc: "Hotels, flights, and travel deals worldwide", href: "/products/web-scraper/trip" },
   };
 
   const domainOrder = Object.keys(DOMAIN_META);
@@ -93,9 +91,6 @@ function buildTopDomains(): DomainCardData[] {
     return {
       domain,
       label: meta.label,
-      icon: meta.icon,
-      logo: meta.logo,
-      color: meta.color,
       desc: meta.desc,
       scraperCount: scrapers.length,
       totalDelivered: deliveredStr,
@@ -106,28 +101,6 @@ function buildTopDomains(): DomainCardData[] {
 }
 
 const TOP_DOMAINS = buildTopDomains();
-
-function DomainLogo({ domain, logo, label, icon, color }: { domain: string; logo: string; label: string; icon: string; color: string }) {
-  const [failed, setFailed] = useState(false);
-  return (
-    <div className="cc-icon" style={{ background: `linear-gradient(135deg, ${color}22, ${color}0a)`, borderColor: `${color}33` }}>
-      {!failed ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={logo}
-          alt={label}
-          className={`cc-icon-logo${domain === "x.com" ? " cc-logo-invert" : ""}`}
-          width={24}
-          height={24}
-          loading="eager"
-          onError={() => setFailed(true)}
-        />
-      ) : (
-        <span className="cc-icon-letter" style={{ color }}>{icon}</span>
-      )}
-    </div>
-  );
-}
 
 function parseViews(v: string): number {
   const n = parseFloat(v.replace(/[^0-9.]/g, ""));
@@ -539,7 +512,7 @@ export default function ScraperLibraryInfinite() {
                 >
                   <div className="cc-glow" aria-hidden="true" />
                   <div className="cc-header">
-                    <DomainLogo domain={d.domain} logo={d.logo} label={d.label} icon={d.icon} color={d.color} />
+                    <DomainMark domain={d.domain} size="domain" />
                     <div className="cc-identity">
                       <span className="cc-name">{d.label}</span>
                       <span className="cc-count">{d.domain}</span>

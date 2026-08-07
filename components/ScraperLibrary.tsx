@@ -4,33 +4,21 @@ import { useMemo, useState } from "react";
 import { catalog, CATALOG_CATEGORIES } from "@/lib/catalog";
 import { scraperHref } from "@/lib/scraper-href";
 import ScraperCard from "@/components/ScraperCard";
+import DomainMark from "@/components/DomainMark";
 
 const CARD_LIMIT = 9;
 
-const TOP_9_DOMAINS: { domain: string; label: string; icon: string; logo: string; color: string; desc: string; href: string }[] = [
-  { domain: "linkedin.com",    label: "LinkedIn",    icon: "in", logo: "/logos/linkedin.png",    color: "#0A66C2", desc: "Profiles, companies, job listings, and post engagement data", href: "/products/web-scraper/linkedin" },
-  { domain: "instagram.com",   label: "Instagram",   icon: "◎",  logo: "/logos/instagram.png",   color: "#E4405F", desc: "Profiles, posts, reels, comments, and engagement metrics", href: "/products/web-scraper/instagram" },
-  { domain: "tiktok.com",      label: "TikTok",      icon: "♪",  logo: "/logos/tiktok.png",      color: "#00F2EA", desc: "Profiles, videos, shop products, and trending hashtags", href: "/products/web-scraper/tiktok" },
-  { domain: "facebook.com",    label: "Facebook",    icon: "f",  logo: "/logos/facebook.png",    color: "#1877F2", desc: "Page posts, ads library, reactions, and audience data", href: "/products/web-scraper/facebook" },
-  { domain: "amazon.com",      label: "Amazon",      icon: "A",  logo: "/logos/amazon.png",      color: "#FF9900", desc: "Products, reviews, pricing, sellers, and bestsellers data", href: "/products/web-scraper/amazon" },
-  { domain: "youtube.com",     label: "YouTube",     icon: "▶",  logo: "/logos/youtube.png",     color: "#FF0000", desc: "Videos, channels, comments, subscribers, and view counts", href: "/products/web-scraper/youtube" },
-  { domain: "zillow.com",      label: "Zillow",      icon: "Z",  logo: "/logos/zillow.png",      color: "#006AFF", desc: "Property listings, Zestimates, rentals, and neighborhood data", href: "/products/web-scraper/zillow" },
-  { domain: "google.com/maps", label: "Google Maps", icon: "G",  logo: "/logos/google-maps.png", color: "#34A853", desc: "Business listings, reviews, ratings, hours, and locations", href: "/products/web-scraper/google-maps" },
-  { domain: "indeed.com",      label: "Indeed",      icon: "I",  logo: "/logos/indeed.png",      color: "#003A9B", desc: "Job listings, salaries, company reviews, and labor market data", href: "/products/web-scraper/indeed" },
+const TOP_9_DOMAINS: { domain: string; label: string; desc: string; href: string }[] = [
+  { domain: "linkedin.com",    label: "LinkedIn",    desc: "Profiles, companies, job listings, and post engagement data", href: "/products/web-scraper/linkedin" },
+  { domain: "instagram.com",   label: "Instagram",   desc: "Profiles, posts, reels, comments, and engagement metrics", href: "/products/web-scraper/instagram" },
+  { domain: "tiktok.com",      label: "TikTok",      desc: "Profiles, videos, shop products, and trending hashtags", href: "/products/web-scraper/tiktok" },
+  { domain: "facebook.com",    label: "Facebook",    desc: "Page posts, ads library, reactions, and audience data", href: "/products/web-scraper/facebook" },
+  { domain: "amazon.com",      label: "Amazon",      desc: "Products, reviews, pricing, sellers, and bestsellers data", href: "/products/web-scraper/amazon" },
+  { domain: "youtube.com",     label: "YouTube",     desc: "Videos, channels, comments, subscribers, and view counts", href: "/products/web-scraper/youtube" },
+  { domain: "zillow.com",      label: "Zillow",      desc: "Property listings, Zestimates, rentals, and neighborhood data", href: "/products/web-scraper/zillow" },
+  { domain: "google.com/maps", label: "Google Maps", desc: "Business listings, reviews, ratings, hours, and locations", href: "/products/web-scraper/google-maps" },
+  { domain: "indeed.com",      label: "Indeed",      desc: "Job listings, salaries, company reviews, and labor market data", href: "/products/web-scraper/indeed" },
 ];
-
-function DomainLogo({ logo, label, icon, color }: { logo: string; label: string; icon: string; color: string }) {
-  const [failed, setFailed] = useState(false);
-  return (
-    <div className="cc-icon" style={{ background: `linear-gradient(135deg, ${color}22, ${color}0a)`, borderColor: `${color}33` }}>
-      {!failed ? (
-        <img src={logo} alt={label} className="cc-icon-logo" width={28} height={28} loading="lazy" onError={() => setFailed(true)} />
-      ) : (
-        <span className="cc-icon-letter" style={{ color }}>{icon}</span>
-      )}
-    </div>
-  );
-}
 
 function buildDomainCards() {
   return TOP_9_DOMAINS.map((meta) => {
@@ -134,7 +122,7 @@ export default function ScraperLibrary() {
               <a key={d.domain} href={d.href} className="cc">
                 <div className="cc-glow" aria-hidden="true" />
                 <div className="cc-header">
-                  <DomainLogo logo={d.logo} label={d.label} icon={d.icon} color={d.color} />
+                  <DomainMark domain={d.domain} size="domain" />
                   <div className="cc-identity">
                     <span className="cc-name">{d.label}</span>
                     <span className="cc-count">{d.domain}</span>

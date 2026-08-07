@@ -7,6 +7,8 @@ import TrustedByStrip from "@/components/TrustedByStrip";
 import ScraperCard from "@/components/ScraperCard";
 import AiPromptCta from "@/components/AiPromptCta";
 import { PricingCards } from "@/components/PricingCards";
+import RestApiExample from "@/components/RestApiExample";
+import AgentSetupCta, { AGENT_SKILL_PROMPT } from "@/components/AgentSetupCta";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Playground" | "Connect Agent" | "Customize";
 type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
@@ -460,54 +462,6 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
-const AGENT_SKILL_PROMPT =
-  "Read https://brightdata.com/skills.md and scrape this Amazon product: https://www.amazon.com/dp/B09X7MPX8L";
-
-function AgentSetupCta() {
-  const [copied, setCopied] = useState(false);
-
-  return (
-    <button
-      type="button"
-      onClick={async () => {
-        try {
-          await navigator.clipboard.writeText(AGENT_SKILL_PROMPT);
-        } catch {
-          const ta = document.createElement("textarea");
-          ta.value = AGENT_SKILL_PROMPT;
-          ta.style.position = "fixed";
-          ta.style.opacity = "0";
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand("copy");
-          ta.remove();
-        }
-        setCopied(true);
-        window.setTimeout(() => setCopied(false), 4000);
-      }}
-      title={AGENT_SKILL_PROMPT}
-      className="inline-flex items-center gap-2 rounded-lg border border-bd-line bg-bd-canvas px-4 py-2.5 text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
-    >
-      {copied ? (
-        <>
-          <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 fill-current" aria-hidden="true">
-            <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z" />
-          </svg>
-          Copied, paste into your agent
-        </>
-      ) : (
-        <>
-          Try in your agent
-          <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-            <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
-            <path d="M10.5 5.5v-2a1.5 1.5 0 00-1.5-1.5H4A1.5 1.5 0 002.5 3.5v5A1.5 1.5 0 004 10h1.5" />
-          </svg>
-        </>
-      )}
-    </button>
-  );
-}
-
 function QuickCmdRow({ step, display, copyText }: { step: string; display: string; copyText: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -573,7 +527,7 @@ function CodeBlock({ code, label }: { code: string; label: string }) {
   return (
     <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
       <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
-        <span className="font-mono text-xs text-white/55">{label}</span>
+        <span className="font-mono text-xs text-white/65">{label}</span>
         <CopyButton text={code} />
       </div>
       <pre className="code-scroll max-h-[520px] overflow-auto p-3 text-[12px] leading-5 text-[#d7e6ff] sm:p-4 sm:text-[13px] sm:leading-6">
@@ -719,7 +673,7 @@ function RelatedScrapersCarousel() {
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
           <h2 className="text-xl font-bold text-bd-navy">Related Scrapers</h2>
-          <p className="mt-1 text-sm text-bd-ink/70">
+          <p className="mt-1 text-sm text-bd-ink/85">
             <a
               href="/products/web-scraper/amazon"
               className="font-semibold text-bd-blue hover:underline"
@@ -967,7 +921,7 @@ function PricingTab() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold uppercase tracking-wider text-bd-muted">
-              Estimate your cost
+              Predict your cost
             </p>
             <p className="mt-3 text-sm font-medium text-bd-ink">
               Records per month: <span className="text-lg font-extrabold text-bd-navy">{tier.label}</span>
@@ -1068,7 +1022,7 @@ function PricingTab() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
             </svg>
           </summary>
-          <div className="mt-2 text-[13px] leading-6 text-bd-ink/70">
+          <div className="mt-2 text-[13px] leading-6 text-bd-ink/85">
             <p>
               Most scraping platforms meter several line items on top of the advertised rate. Here, the
               per-record price is the whole bill. Every one of these is included:
@@ -1117,7 +1071,7 @@ function PricingTab() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
               </summary>
-              <p className="mt-2 text-[13px] leading-6 text-bd-ink/70">{item.a}</p>
+              <p className="mt-2 text-[13px] leading-6 text-bd-ink/85">{item.a}</p>
             </details>
           ))}
         </div>
@@ -1436,7 +1390,7 @@ function PlaygroundPanel() {
       {result ? (
         <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
-            <span className="font-mono text-xs text-white/55">
+            <span className="font-mono text-xs text-white/65">
               {status === "done" ? `response · json · ${isUsingApiKey ? "live" : "sample"} data` : "error"}
             </span>
             <CopyButton text={result} />
@@ -1655,7 +1609,7 @@ function DataFieldsExplorer() {
             >
               {c.tab}
               <span className={`ml-1.5 inline-flex h-4 min-w-[1rem] items-center justify-center rounded-full px-1 text-[10px] font-bold ${
-                activeTab === i ? "bg-bd-blue/10 text-bd-blue" : "bg-bd-line/60 text-bd-muted"
+                activeTab === i ? "bg-bd-blue/10 text-bd-blue" : "bg-white/8 text-bd-muted"
               }`}>{c.count}</span>
             </button>
           ))}
@@ -1727,13 +1681,31 @@ function CustomizeTab({ datasetId, apiMode, onApiModeChange }: { datasetId: stri
     ? `[{\n${activeFields.map((f) => `  "${f.name}": ${f.sample}`).join(",\n")}\n}]`
     : "// Select at least one field above";
 
+  const cpHref = `https://brightdata.com/cp/datasets/configure?dataset_id=${datasetId}`;
+
   return (
     <div className="space-y-8">
-      <header>
-        <h2 className="text-xl font-bold text-bd-navy">Customize output</h2>
-        <p className="mt-1.5 text-sm text-bd-ink/70">
-          Toggle fields and settings — the API call and response update live.
-        </p>
+      <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0">
+          <h2 className="text-xl font-bold text-bd-navy">Customize output</h2>
+          <p className="mt-1.5 text-sm leading-6 text-bd-ink/85">
+            Toggle fields and settings below — then open the control panel to run this config for real.
+          </p>
+        </div>
+        <div className="flex w-full shrink-0 flex-col gap-2 sm:w-auto sm:items-end">
+          <a
+            href={cpHref}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-bd-blue px-5 py-3 text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105 sm:w-auto"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open in control panel
+            <span aria-hidden="true">→</span>
+          </a>
+          <p className="text-center text-[11px] text-bd-muted sm:text-right">
+            Free to try · No code · Apply in one click
+          </p>
+        </div>
       </header>
 
       {/* ── Interactive field picker ── */}
@@ -1919,23 +1891,17 @@ function CustomizeTab({ datasetId, apiMode, onApiModeChange }: { datasetId: stri
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <div className="rounded-xl border border-bd-blue/30 bg-gradient-to-r from-bd-blue-soft to-transparent px-5 py-4">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="font-bold text-bd-navy">Ready to customize?</p>
-            <p className="mt-0.5 text-sm text-bd-ink/70">Open this scraper in the control panel to apply your configuration.</p>
-          </div>
-          <a
-            href={`https://brightdata.com/cp/datasets/configure?dataset_id=${datasetId}`}
-            className="group shrink-0 text-sm font-bold text-bd-blue transition hover:brightness-110"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Customize scraper <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
-          </a>
-        </div>
-      </div>
+      <p className="text-center text-sm text-bd-ink/85">
+        Happy with this config?{" "}
+        <a
+          href={cpHref}
+          className="font-semibold text-bd-blue hover:underline"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open in control panel →
+        </a>
+      </p>
     </div>
   );
 }
@@ -2091,140 +2057,202 @@ export default function ScraperPage() {
               <div className="p-5 sm:p-7">
                 {/* ===== API TAB ===== */}
                 {mainTab === "API" ? (
-                  <div>
-                    <p className="text-[15px] leading-7 text-bd-ink">
-                      Run this scraper programmatically using Bright Data&apos;s REST API. Switch between sync and async modes in the{" "}
-                      <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">Customize</button> tab.
-                    </p>
+                  <div className="space-y-8">
+                    <header>
+                      <h2 className="text-xl font-bold text-bd-navy">API examples</h2>
+                      <p className="mt-1.5 text-[15px] leading-7 text-bd-ink/80">
+                        Call this scraper from your code — pick a language, copy the snippet, add your API key.
+                        Showing{" "}
+                        <strong className="font-semibold text-bd-ink">{apiMode === "sync" ? "sync" : "async"}</strong>
+                        {" "}examples
+                        {apiMode === "sync" ? " for real-time lookups" : " for bulk jobs"}
+                        . Select a mode below to update every example on this tab.
+                      </p>
+                    </header>
 
-                    {/* Sync vs async table */}
-                    <div className="mt-5 overflow-x-auto rounded-xl border border-bd-line">
-                      <table className="w-full text-sm">
-                        <thead>
-                          <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
-                            <th className="px-4 py-2.5">Mode</th>
-                            <th className="px-4 py-2.5">Endpoint</th>
-                            <th className="px-4 py-2.5">Behavior</th>
-                            <th className="px-4 py-2.5">Best for</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-bd-line text-bd-ink">
-                          <tr>
-                            <td className="px-4 py-2.5 font-semibold text-bd-navy">Sync</td>
-                            <td className="px-4 py-2.5"><code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">/datasets/v3/scrape</code></td>
-                            <td className="px-4 py-2.5">Returns data in real time (1-min timeout, auto-switches to async)</td>
-                            <td className="px-4 py-2.5">Quick lookups, up to 20 URLs</td>
-                          </tr>
-                          <tr>
-                            <td className="px-4 py-2.5 font-semibold text-bd-navy">Async</td>
-                            <td className="px-4 py-2.5"><code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">/datasets/v3/trigger</code></td>
-                            <td className="px-4 py-2.5">Returns snapshot_id instantly; poll or use webhook</td>
-                            <td className="px-4 py-2.5">Production & large jobs, any size</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                    {/* Language pills + code */}
+                    <section id="api-code-examples">
+                      <div className="flex flex-wrap gap-2">
+                        {apiLangs.map((lang) => (
+                          <button
+                            key={lang}
+                            type="button"
+                            onClick={() => setApiLang(lang)}
+                            className={`rounded-full px-3 py-1.5 text-[13px] font-semibold transition sm:px-3.5 sm:text-sm ${
+                              apiLang === lang
+                                ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/30"
+                                : "border border-bd-line bg-bd-canvas text-bd-ink/85 hover:border-bd-blue-light hover:text-bd-navy"
+                            }`}
+                          >
+                            {lang}
+                          </button>
+                        ))}
+                      </div>
 
-                    {/* Language pills */}
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      {apiLangs.map((lang) => (
-                        <button
-                          key={lang}
-                          type="button"
-                          onClick={() => setApiLang(lang)}
-                          className={`rounded-full px-3 py-1.5 text-[13px] font-semibold transition sm:px-3.5 sm:text-sm ${
-                            apiLang === lang
-                              ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/30"
-                              : "border border-bd-line bg-bd-canvas text-bd-ink/70 hover:border-bd-blue-light hover:text-bd-navy"
-                          }`}
-                        >
-                          {lang}
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className="mt-5">
-                      {(apiLang === "Python" || apiLang === "JavaScript" || apiLang === "cURL") ? (
-                        <div className="space-y-4">
-                          <h2 className="text-lg font-bold text-bd-navy">
-                            Amazon Scraper API — {apiLang} {apiMode === "async" ? "(Async)" : ""} Example
-                          </h2>
-                          <p className="mt-1 text-xs text-bd-muted">
-                            Showing <strong className="text-bd-ink">{apiMode === "sync" ? "synchronous" : "asynchronous"}</strong> mode.
-                            Switch in the <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">Customize</button> tab.
-                          </p>
-
-                          {apiLang === "Python" && apiMode === "sync" ? (
-                            <div className="space-y-3">
-                              <div>
-                                <p className="text-sm text-bd-ink/70">
-                                  Only dependency needed:
-                                </p>
-                              </div>
-                              <CodeBlock code="pip install requests" label="bash" />
+                      <div className="mt-5">
+                        {(apiLang === "Python" || apiLang === "JavaScript" || apiLang === "cURL") ? (
+                          <div className="space-y-4" key={`${apiLang}-${apiMode}`}>
+                            <div>
+                              <h3 className="text-lg font-bold text-bd-navy">
+                                {apiLang} · {apiMode === "sync" ? "Sync" : "Async"}
+                              </h3>
+                              <p className="mt-1 text-xs text-bd-muted">
+                                {apiMode === "sync"
+                                  ? "Real-time response via /datasets/v3/scrape"
+                                  : "Returns snapshot_id via /datasets/v3/trigger — poll or webhook"}
+                              </p>
                             </div>
-                          ) : null}
 
-                          <CodeBlock
-                            code={getCodeForLang()}
-                            label={apiLang === "cURL" ? "bash" : apiLang.toLowerCase()}
-                          />
+                            {apiLang === "Python" ? (
+                              <div className="space-y-2">
+                                <p className="text-sm text-bd-ink/85">Only dependency needed:</p>
+                                <CodeBlock code="pip install requests" label="bash" />
+                              </div>
+                            ) : null}
 
-                          <div className="flex items-start gap-2 rounded-lg border border-bd-blue/30 bg-bd-blue-soft px-4 py-3">
-                            <span className="mt-0.5 text-bd-blue">💡</span>
-                            <p className="text-sm leading-6 text-bd-ink">
-                              <strong>Authentication:</strong> Pass your API key as a Bearer token in the{" "}
-                              <code className="rounded bg-bd-canvas px-1 py-0.5 font-mono text-xs text-bd-blue">Authorization</code>{" "}
-                              header. Get your key at{" "}
+                            <CodeBlock
+                              code={getCodeForLang()}
+                              label={apiLang === "cURL" ? "bash" : apiLang.toLowerCase()}
+                            />
+
+                            <div className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
+                              <p className="text-sm leading-6 text-bd-ink">
+                                <span className="font-semibold text-bd-navy">Auth:</span>{" "}
+                                Bearer token in the{" "}
+                                <code className="rounded bg-bd-panel px-1 py-0.5 font-mono text-xs text-bd-blue">Authorization</code>{" "}
+                                header. Get a key at{" "}
+                                <a
+                                  href="https://brightdata.com/cp/setting/users"
+                                  className="font-semibold text-bd-blue hover:underline"
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  brightdata.com/cp/setting/users
+                                </a>
+                                .
+                              </p>
+                            </div>
+                          </div>
+                        ) : null}
+
+                        {apiLang === "MCP" ? (
+                          <div className="space-y-4">
+                            <div>
+                              <h3 className="text-lg font-bold text-bd-navy">MCP server config</h3>
+                              <p className="mt-1 text-sm leading-6 text-bd-ink/85">
+                                Connect this scraper to Claude Desktop, Cursor, or any MCP client.
+                                Mode selection below does not change MCP setup.
+                              </p>
+                            </div>
+                            <CodeBlock code={MCP_CODE} label="json" />
+                            <p className="text-sm text-bd-ink/85">
                               <a
-                                href="https://brightdata.com/cp/setting/users"
+                                href="https://docs.brightdata.com/integrations/mcp"
                                 className="font-semibold text-bd-blue hover:underline"
                                 target="_blank"
                                 rel="noreferrer"
                               >
-                                brightdata.com/cp/setting/users
+                                MCP integration docs →
                               </a>
                             </p>
                           </div>
-                        </div>
-                      ) : null}
+                        ) : null}
 
-                      {apiLang === "MCP" ? (
-                        <div className="space-y-4">
-                          <h2 className="text-lg font-bold text-bd-navy">
-                            Amazon Scraper MCP Server Configuration
-                          </h2>
-                          <p className="text-sm leading-6 text-bd-ink/70">
-                            Connect Bright Data scrapers to AI agents via Model Context Protocol.
-                            Works with Claude Desktop, Cursor, and any MCP-compatible client.
-                          </p>
-                          <CodeBlock code={MCP_CODE} label="json" />
-                          <p className="text-sm text-bd-ink/70">
-                            Learn more in the{" "}
-                            <a
-                              href="https://docs.brightdata.com/integrations/mcp"
-                              className="font-semibold text-bd-blue hover:underline"
-                              target="_blank"
-                              rel="noreferrer"
+                        {apiLang === "OpenAPI" ? (
+                          <div className="space-y-4">
+                            <div>
+                              <h3 className="text-lg font-bold text-bd-navy">OpenAPI specification</h3>
+                              <p className="mt-1 text-sm leading-6 text-bd-ink/85">
+                                Import into Postman, Swagger UI, or your code generator. Spec covers both sync and async paths.
+                              </p>
+                            </div>
+                            <CodeBlock code={OPENAPI_SNIPPET} label="json" />
+                          </div>
+                        ) : null}
+                      </div>
+                    </section>
+
+                    <RestApiExample
+                      datasetId={DATASET_ID}
+                      mode={apiMode}
+                      className="border-t border-bd-line pt-8"
+                    />
+
+                    {/* Sync and async — interactive mode control */}
+                    <section className="border-t border-bd-line pt-8">
+                      <div className="mb-4">
+                        <h3 className="text-lg font-bold text-bd-navy">Sync and async</h3>
+                        <p className="mt-1 text-sm text-bd-ink/85">
+                          Click a mode to update the language examples and REST sample above.
+                          Same setting is shared with{" "}
+                          <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">
+                            Customize
+                          </button>
+                          .
+                        </p>
+                      </div>
+
+                      <div className="grid gap-3 sm:grid-cols-2" role="radiogroup" aria-label="API mode">
+                        {([
+                          {
+                            id: "sync" as const,
+                            title: "Sync",
+                            endpoint: "/datasets/v3/scrape",
+                            body: "Returns product JSON in real time. 1‑min timeout, then auto-switches to async.",
+                            best: "Best for: quick lookups, up to 20 URLs",
+                          },
+                          {
+                            id: "async" as const,
+                            title: "Async",
+                            endpoint: "/datasets/v3/trigger",
+                            body: "Returns a snapshot_id instantly — poll the snapshot or deliver via webhook.",
+                            best: "Best for: production & large jobs, any size",
+                          },
+                        ]).map((mode) => {
+                          const active = apiMode === mode.id;
+                          return (
+                            <button
+                              key={mode.id}
+                              type="button"
+                              role="radio"
+                              aria-checked={active}
+                              onClick={() => {
+                                setApiMode(mode.id);
+                                if (apiLang === "Python" || apiLang === "JavaScript" || apiLang === "cURL") {
+                                  window.requestAnimationFrame(() => {
+                                    document.getElementById("api-code-examples")?.scrollIntoView({
+                                      behavior: "smooth",
+                                      block: "start",
+                                    });
+                                  });
+                                }
+                              }}
+                              className={`rounded-xl border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bd-blue/40 ${
+                                active
+                                  ? "border-bd-blue/50 bg-bd-blue-soft/50 shadow-sm shadow-bd-blue/10"
+                                  : "border-bd-line bg-bd-canvas hover:border-bd-blue/30 hover:bg-bd-blue-soft/20"
+                              }`}
                             >
-                              MCP integration docs
-                            </a>
-                          </p>
-                        </div>
-                      ) : null}
-
-                      {apiLang === "OpenAPI" ? (
-                        <div className="space-y-4">
-                          <h2 className="text-lg font-bold text-bd-navy">
-                            Amazon Scraper OpenAPI Specification
-                          </h2>
-                          <p className="text-sm leading-6 text-bd-ink/70">
-                            Import this spec into Postman, Swagger UI, or your code generator.
-                          </p>
-                          <CodeBlock code={OPENAPI_SNIPPET} label="json" />
-                        </div>
-                      ) : null}
-                    </div>
+                              <div className="flex items-center justify-between gap-2">
+                                <p className="text-sm font-bold text-bd-navy">{mode.title}</p>
+                                {active ? (
+                                  <span className="rounded-full bg-bd-blue px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+                                    Selected
+                                  </span>
+                                ) : (
+                                  <span className="text-[11px] font-semibold text-bd-blue">Select →</span>
+                                )}
+                              </div>
+                              <code className="mt-2 inline-block rounded bg-bd-panel px-1.5 py-0.5 font-mono text-[11px] text-bd-blue sm:text-xs">
+                                {mode.endpoint}
+                              </code>
+                              <p className="mt-2.5 text-sm leading-6 text-bd-ink/80">{mode.body}</p>
+                              <p className="mt-2 text-xs font-medium text-bd-muted">{mode.best}</p>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </section>
                   </div>
                 ) : null}
 
@@ -2233,100 +2261,160 @@ export default function ScraperPage() {
                   <PricingTab />
                 ) : null}
 
-                {/* ===== INFORMATION TAB ===== */}
+                {/* ===== OVERVIEW TAB ===== */}
                 {mainTab === "Overview" ? (
                   <article className="space-y-8 text-[15px] leading-7 text-bd-ink">
 
-                    {/* ── Hero intro ── */}
+                    {/* ── 1. TL;DR ── */}
                     <header>
-                      <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold tracking-wide text-bd-blue">
-                        <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-bd-blue/10">
-                          <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-                        </span>
-                        Verified · Maintained by Bright Data
-                      </p>
                       <h2 className="text-2xl font-bold text-bd-navy sm:text-[1.65rem]">
-                        Scrape Amazon product data via API
+                        Extract Amazon product data via API, CLI, or AI agent
                       </h2>
-                      <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/80">
-                        Extract prices, reviews, stock levels, seller data, and 40+ fields from any Amazon page.
-                        Send URLs or ASINs, get structured JSON back — no proxies, no CAPTCHAs, no browser rendering.
+                      <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/90">
+                        Send Amazon URLs or ASINs → get structured JSON with 40+ fields (prices, reviews, seller data, stock, images).
+                        Proxies, CAPTCHAs, and rendering are fully managed. Free tier: 5K records/month.
                       </p>
                     </header>
 
-                    {/* ── REST API example ── */}
+                    {/* ── 2. Quick start — 3 paths ── */}
                     <section>
-                      <h3 className="mb-3 text-lg font-bold text-bd-navy">REST API example</h3>
-                      <div className="grid gap-3 lg:grid-cols-2">
-                        <div>
-                          <p className="mb-1.5 text-[11px] font-bold uppercase tracking-wider text-bd-muted">Request</p>
-                          <CodeBlock
-                            code={`curl -X POST "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${DATASET_ID}&format=json" \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '[{"url":"https://www.amazon.com/dp/B09X7MPX8L"}]'`}
-                            label="bash"
-                          />
-                        </div>
-                        <div>
-                          <p className="mb-1.5 text-[11px] font-bold uppercase tracking-wider text-bd-muted">Response</p>
-                          <CodeBlock
-                            code={`[{
-  "title": "SanDisk 1TB Extreme microSDXC",
-  "asin": "B09X7MPX8L",
-  "price": 145.50,
-  "list_price": 299.99,
-  "currency": "USD",
-  "stars": 4.8,
-  "reviews_count": 36704,
-  "in_stock": true,
-  "brand": "SanDisk",
-  "seller": { "name": "Amazon.com" },
-  "categories": "Electronics > Memory Cards",
-  "image": "https://m.media-amazon.com/..."
-}]`}
-                            label="json"
-                          />
-                        </div>
+                      <h3 className="mb-3 text-lg font-bold text-bd-navy">Get started</h3>
+                      <div className="grid gap-3 sm:grid-cols-3">
+                        {[
+                          {
+                            icon: "▶",
+                            title: "Try it live",
+                            desc: "Paste an Amazon URL and see real results instantly.",
+                            action: "Open Playground",
+                            tab: "Playground" as MainTab,
+                          },
+                          {
+                            icon: "{ }",
+                            title: "Call the API",
+                            desc: "Copy a ready-to-run cURL, Python, or Node.js snippet.",
+                            action: "View API examples",
+                            tab: "API" as MainTab,
+                          },
+                          {
+                            icon: "⚡",
+                            title: "Connect your agent",
+                            desc: "One prompt for Claude Code, Cursor, or any MCP client.",
+                            action: "Agent setup",
+                            tab: "Connect Agent" as MainTab,
+                          },
+                        ].map((path) => (
+                          <button
+                            key={path.title}
+                            type="button"
+                            onClick={() => {
+                              setMainTab(path.tab);
+                              setTimeout(() => document.getElementById("scraper-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+                            }}
+                            className="group rounded-xl border border-bd-line bg-bd-canvas px-4 py-4 text-left transition hover:border-bd-blue/40 hover:bg-bd-blue-soft/30"
+                          >
+                            <span className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-bd-blue/10 text-sm font-bold text-bd-blue">
+                              {path.icon}
+                            </span>
+                            <p className="font-bold text-bd-navy">{path.title}</p>
+                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/85">{path.desc}</p>
+                            <span className="mt-3 inline-block text-[13px] font-semibold text-bd-blue group-hover:underline">
+                              {path.action} →
+                            </span>
+                          </button>
+                        ))}
                       </div>
                     </section>
 
-                    {/* ── Key capabilities ── */}
+                    {/* ── 3. What you get — data at a glance ── */}
+                    <section>
+                      <h3 className="mb-3 text-lg font-bold text-bd-navy">What data you get</h3>
+                      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+                        {[
+                          "Title & brand",
+                          "Final & list price",
+                          "Rating & reviews",
+                          "Stock status",
+                          "Seller name & ID",
+                          "BSR rank",
+                          "Images (all)",
+                          "Product features",
+                          "Variations",
+                          "Categories",
+                          "Dimensions",
+                          "Coupons & deals",
+                        ].map((field) => (
+                          <span key={field} className="rounded-lg border border-bd-line bg-bd-panel px-3 py-2 text-[12px] font-medium text-bd-navy">
+                            {field}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="mt-2.5 text-sm text-bd-ink/85">
+                        40+ fields per product.{" "}
+                        <button type="button" onClick={() => setMainTab("Output")} className="font-semibold text-bd-blue hover:underline">
+                          See full schema →
+                        </button>
+                      </p>
+                    </section>
+
+                    {/* ── 4. REST API example ── */}
+                    <RestApiExample datasetId={DATASET_ID} />
+
+                    {/* ── 5. Key capabilities ── */}
                     <section>
                       <h3 className="mb-3 text-lg font-bold text-bd-navy">Key capabilities</h3>
-                      <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                         {[
-                          { title: "40+ structured fields", desc: "Prices, reviews, BSR, seller info, stock status, images, and more — parsed and typed out of the box." },
-                          { title: "Anti-bot bypass", desc: "Proxy rotation, CAPTCHA solving, fingerprint management, and JS rendering handled automatically." },
-                          { title: "18 marketplaces", desc: "Scrape any Amazon domain — .com, .co.uk, .de, .co.jp, and 14 more. Localized pricing and rankings." },
-                          { title: "Bulk & async", desc: "Up to 5,000 URLs per request. Async mode returns a snapshot ID — poll or receive results via webhook." },
-                          { title: "Spend caps & limits", desc: "Set monthly budgets and per-run record limits. Requests pause when the cap is hit — no surprise bills." },
-                          { title: "Scheduling", desc: "Automate recurring runs — hourly, daily, weekly. Results delivered to S3, Snowflake, webhook, or email." },
+                          { title: "40+ structured fields", desc: "Prices, reviews, BSR, seller info, stock status, images — parsed and typed." },
+                          { title: "Anti-bot bypass", desc: "Proxy rotation, CAPTCHA solving, fingerprint management, and JS rendering." },
+                          { title: "18 marketplaces", desc: "Scrape .com, .co.uk, .de, .co.jp, and 14 more. Localized pricing and rankings." },
+                          { title: "Bulk & async", desc: "Up to 5,000 URLs per request. Async mode returns a snapshot ID for polling/webhook." },
+                          { title: "Spend caps", desc: "Set monthly budgets and per-run limits. Requests pause at the cap — no surprises." },
+                          { title: "Scheduling", desc: "Automate hourly/daily/weekly runs. Deliver to S3, Snowflake, webhook, or email." },
                         ].map((f) => (
                           <div key={f.title} className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
                             <p className="font-bold text-bd-navy">{f.title}</p>
-                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/70">{f.desc}</p>
+                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/85">{f.desc}</p>
                           </div>
                         ))}
                       </div>
                     </section>
 
-                    {/* ── What's included ── */}
-                    <section id="info-whats-included">
-                      <h3 className="text-lg font-bold text-bd-navy">
-                        Included in every request
-                      </h3>
-                      <p className="mt-2">
-                        Every API call is backed by Bright Data&apos;s full infrastructure — no extra setup or fees:
-                      </p>
-                      <div className="mt-3 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+                    {/* ── 6. How to integrate ── */}
+                    <section>
+                      <h3 className="mb-3 text-lg font-bold text-bd-navy">How to integrate</h3>
+                      <div className="space-y-2">
                         {[
-                          ["🔄", "Automatic IP rotation"],
+                          { method: "REST API", desc: "Bearer-token auth. POST URLs to /datasets/v3/scrape (sync) or /datasets/v3/trigger (async). Python, Node.js, cURL.", tab: "API" as MainTab },
+                          { method: "CLI", desc: "npx @brightdata/cli bdata login (browser OAuth) → bdata pipelines amazon_product \"URL\". No API key to paste.", tab: "Connect Agent" as MainTab },
+                          { method: "MCP", desc: "Hosted server URL — paste into Claude Desktop, Cursor, or VS Code. No install required.", tab: "Connect Agent" as MainTab },
+                          { method: "SDKs", desc: "LangChain, CrewAI, OpenAI SDK — wrap Amazon scraping as a callable tool in your agent.", tab: "Connect Agent" as MainTab },
+                        ].map((m) => (
+                          <button
+                            key={m.method}
+                            type="button"
+                            onClick={() => { setMainTab(m.tab); setTimeout(() => document.getElementById("scraper-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" }), 50); }}
+                            className="flex w-full items-start gap-3 rounded-xl border border-bd-line bg-bd-panel px-4 py-3 text-left transition hover:border-bd-blue/40 hover:bg-bd-blue-soft/20"
+                          >
+                            <span className="mt-0.5 shrink-0 rounded bg-bd-blue/10 px-2 py-0.5 font-mono text-[11px] font-bold text-bd-blue">{m.method}</span>
+                            <span className="text-[13px] leading-5 text-bd-ink/85">{m.desc}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </section>
+
+                    {/* ── 7. Infrastructure — what's handled ── */}
+                    <section>
+                      <h3 className="mb-3 text-lg font-bold text-bd-navy">
+                        Fully managed — included in every request
+                      </h3>
+                      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+                        {[
+                          ["🔄", "IP rotation"],
                           ["🧩", "CAPTCHA solving"],
-                          ["🌐", "JavaScript rendering"],
+                          ["🌐", "JS rendering"],
                           ["🏠", "Residential proxies"],
-                          ["🎭", "User-agent rotation"],
-                          ["📍", "Worldwide geotargeting"],
+                          ["🎭", "Fingerprint mgmt"],
+                          ["📍", "Geotargeting (18 regions)"],
                         ].map(([icon, label]) => (
                           <div key={label} className="flex items-center gap-2 rounded-lg border border-bd-line bg-bd-panel px-3 py-2.5">
                             <span className="text-sm">{icon}</span>
@@ -2336,42 +2424,22 @@ export default function ScraperPage() {
                       </div>
                     </section>
 
-                    {/* ── Table of Contents for deep content ── */}
+                    {/* ── 8. Deep dive TOC ── */}
                     <nav className="rounded-xl border border-bd-line bg-bd-canvas px-5 py-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">More on this page</p>
-                      <div className="mt-3 grid gap-x-8 gap-y-4 sm:grid-cols-3">
-                        <div>
-                          <p className="mb-1.5 text-[11px] font-bold uppercase tracking-wider text-bd-navy/50">Product</p>
-                          {[
-                            ["data-fields", "Data Fields"],
-                            ["tech-specs", "Specs & Benchmarks"],
-                            ["marketplaces", "Marketplaces"],
-                            ["available-scrapers", "Scraper Family"],
-                            ["delivery", "Delivery & Integrations"],
-                          ].map(([id, label]) => (
-                            <a key={id} href={`#info-${id}`} className="block truncate text-[13px] font-medium text-bd-blue hover:underline" onClick={(e) => { e.preventDefault(); document.getElementById(`info-${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}>{label}</a>
-                          ))}
-                        </div>
-                        <div>
-                          <p className="mb-1.5 text-[11px] font-bold uppercase tracking-wider text-bd-navy/50">Compare</p>
-                          {[
-                            ["vs-diy", "Scraper vs. DIY"],
-                            ["challenges", "Challenges & Solutions"],
-                            ["use-cases", "Use Cases"],
-                          ].map(([id, label]) => (
-                            <a key={id} href={`#info-${id}`} className="block truncate text-[13px] font-medium text-bd-blue hover:underline" onClick={(e) => { e.preventDefault(); document.getElementById(`info-${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}>{label}</a>
-                          ))}
-                        </div>
-                        <div>
-                          <p className="mb-1.5 text-[11px] font-bold uppercase tracking-wider text-bd-navy/50">Resources</p>
-                          {[
-                            ["faq", "FAQ"],
-                            ["legal", "Legal & Compliance"],
-                            ["more-tools", "More Tools"],
-                          ].map(([id, label]) => (
-                            <a key={id} href={`#info-${id}`} className="block truncate text-[13px] font-medium text-bd-blue hover:underline" onClick={(e) => { e.preventDefault(); document.getElementById(`info-${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}>{label}</a>
-                          ))}
-                        </div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">More details below</p>
+                      <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+                        {[
+                          ["data-fields", "Data fields explorer"],
+                          ["tech-specs", "Specs & benchmarks"],
+                          ["marketplaces", "18 marketplaces"],
+                          ["available-scrapers", "Scraper family"],
+                          ["delivery", "Delivery & integrations"],
+                          ["vs-diy", "Scraper vs. DIY"],
+                          ["challenges", "Anti-bot solutions"],
+                          ["faq", "FAQ"],
+                        ].map(([id, label]) => (
+                          <a key={id} href={`#info-${id}`} className="text-[13px] font-medium text-bd-blue hover:underline" onClick={(e) => { e.preventDefault(); document.getElementById(`info-${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}>{label}</a>
+                        ))}
                       </div>
                     </nav>
 
@@ -2441,7 +2509,7 @@ export default function ScraperPage() {
                       <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/80">
                         Specialized scrapers for every Amazon data type — pick the one that fits your use case.
                       </p>
-                      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                      <div className="mt-4 grid gap-4 sm:grid-cols-2">
                         {[
                           { name: "Amazon Product Scraper", domain: "amazon.com", category: "E-commerce", desc: "Prices, titles, images, specs, stock levels, and 40+ fields from any product page.", fieldsPreview: "title, price, rating, reviews, stock, images", views: "48.2K+", downloads: "12.6K+", href: "/products/web-scraper/amazon/amazon-product-scraper" },
                           { name: "Amazon Best Sellers", domain: "amazon.com", category: "Rankings", desc: "Bestseller rankings, category leaderboards, movers & shakers, and trending products.", fieldsPreview: "rank, title, price, rating, category, sales_volume", views: "34.6K+", downloads: "5.1K+", href: "/products/web-scraper/amazon" },
@@ -2505,11 +2573,11 @@ export default function ScraperPage() {
                               <span>{i.icon}</span>
                               <p className="font-bold text-bd-navy">{i.title}</p>
                             </div>
-                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/70">{i.tools}</p>
+                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/85">{i.tools}</p>
                           </div>
                         ))}
                       </div>
-                      <p className="mt-3 text-sm text-bd-ink/70">
+                      <p className="mt-3 text-sm text-bd-ink/85">
                         File formats: JSON, NDJSON, CSV, and .gz (compressed).
                       </p>
                     </section>
@@ -2570,7 +2638,7 @@ export default function ScraperPage() {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                               </svg>
                             </summary>
-                            <p className="mt-2 text-[13px] leading-6 text-bd-ink/70">{faq.a}</p>
+                            <p className="mt-2 text-[13px] leading-6 text-bd-ink/85">{faq.a}</p>
                           </details>
                         ))}
                       </div>
@@ -2658,7 +2726,7 @@ export default function ScraperPage() {
                         ].map((c) => (
                           <div key={c.challenge} className="rounded-xl border border-bd-line bg-bd-panel px-4 py-3.5">
                             <p className="font-bold text-bd-navy">{c.challenge}</p>
-                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/70">{c.solution}</p>
+                            <p className="mt-1 text-[13px] leading-5 text-bd-ink/85">{c.solution}</p>
                           </div>
                         ))}
                       </div>
@@ -2709,12 +2777,12 @@ export default function ScraperPage() {
                             <span className="mt-0.5 text-lg">{uc.icon}</span>
                             <div>
                               <p className="font-bold text-bd-navy">{uc.title}</p>
-                              <p className="mt-0.5 text-[13px] leading-5 text-bd-ink/70">{uc.desc}</p>
+                              <p className="mt-0.5 text-[13px] leading-5 text-bd-ink/85">{uc.desc}</p>
                             </div>
                           </div>
                         ))}
                       </div>
-                      <p className="mt-3 text-sm text-bd-ink/70">
+                      <p className="mt-3 text-sm text-bd-ink/85">
                         Used by e-commerce brands, hedge funds, AI teams, market research firms, agencies, and academic researchers.{" "}
                         <a
                           href="https://brightdata.com/use-cases/ecommerce"
@@ -2978,7 +3046,7 @@ export default function ScraperPage() {
                           className={`rounded-full px-3 py-1.5 text-[13px] font-semibold transition sm:px-3.5 sm:text-sm ${
                             agentPlatform === p
                               ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/30"
-                              : "border border-bd-line bg-bd-canvas text-bd-ink/70 hover:border-bd-blue-light hover:text-bd-navy"
+                              : "border border-bd-line bg-bd-canvas text-bd-ink/85 hover:border-bd-blue-light hover:text-bd-navy"
                           }`}
                         >
                           {p}
@@ -2993,7 +3061,7 @@ export default function ScraperPage() {
                           <h3 className="text-lg font-bold text-bd-navy">
                             One prompt. Your agent does the rest.
                           </h3>
-                          <p className="mt-1 text-sm leading-6 text-bd-ink/70">
+                          <p className="mt-1 text-sm leading-6 text-bd-ink/85">
                             Hand this to Claude Code, Cursor, Codex, or any coding agent. It reads
                             the{" "}
                             <a
@@ -3010,16 +3078,16 @@ export default function ScraperPage() {
                         </div>
 
                         <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
-                          <div className="border-b border-white/10 px-4 py-2.5 text-center font-mono text-xs text-white/55">
+                          <div className="border-b border-white/10 px-4 py-2.5 text-center font-mono text-xs text-white/65">
                             Get started
                           </div>
                           <div className="space-y-5 p-4 sm:p-5">
                             <div className="space-y-2">
-                              <p className="font-mono text-[13px] text-white/55">Quick prompt:</p>
+                              <p className="font-mono text-[13px] text-white/65">Quick prompt:</p>
                               <AgentCmd text={AGENT_SKILL_PROMPT} />
                             </div>
                             <details open className="group">
-                              <summary className="list-none flex cursor-pointer items-center gap-2 font-mono text-[13px] text-white/55 transition hover:text-white/80">
+                              <summary className="list-none flex cursor-pointer items-center gap-2 font-mono text-[13px] text-white/65 transition hover:text-white/80">
                                 <svg className="h-3.5 w-3.5 shrink-0 transition-transform group-open:rotate-90" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                 </svg>
@@ -3031,7 +3099,7 @@ export default function ScraperPage() {
                             </details>
                           </div>
                           <div className="flex flex-wrap items-center gap-2 border-t border-white/10 px-4 py-3 sm:px-5">
-                            <span className="font-mono text-xs text-white/45">Works with:</span>
+                            <span className="font-mono text-xs text-white/60">Works with:</span>
                             {["✳ Claude Code", "▟ Cursor", "⌘ Codex", "</> Custom agents"].map((c) => (
                               <span
                                 key={c}
@@ -3052,7 +3120,7 @@ export default function ScraperPage() {
                           <h3 className="text-lg font-bold text-bd-navy">
                             Amazon scraper from the CLI
                           </h3>
-                          <p className="mt-1 text-sm leading-6 text-bd-ink/70">
+                          <p className="mt-1 text-sm leading-6 text-bd-ink/85">
                             Two commands in any terminal. The first opens browser sign-in
                             (new users get a signup screen); the second returns product JSON.
                           </p>
@@ -3060,7 +3128,7 @@ export default function ScraperPage() {
 
                         <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
                           <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
-                            <span className="font-mono text-xs text-white/55">Terminal</span>
+                            <span className="font-mono text-xs text-white/65">Terminal</span>
                             <a
                               href="https://docs.brightdata.com/cli/overview"
                               className="text-xs font-medium text-bd-blue hover:underline"
@@ -3085,7 +3153,7 @@ export default function ScraperPage() {
                           <h3 className="text-lg font-bold text-bd-navy">
                             Amazon Scraper via MCP (Model Context Protocol)
                           </h3>
-                          <p className="mt-1 text-sm leading-6 text-bd-ink/70">
+                          <p className="mt-1 text-sm leading-6 text-bd-ink/85">
                             The fastest way to connect. Works with Claude Desktop, Cursor, VS Code,
                             OpenAI Agent Builder, n8n, and any MCP-compatible client. Bright Data&apos;s
                             MCP server exposes 60+ tools including web search, scraping, and browser automation.
@@ -3136,7 +3204,7 @@ export default function ScraperPage() {
                           <h3 className="text-lg font-bold text-bd-navy">
                             Amazon Scraper with OpenAI SDK
                           </h3>
-                          <p className="mt-1 text-sm leading-6 text-bd-ink/70">
+                          <p className="mt-1 text-sm leading-6 text-bd-ink/85">
                             Connect GPT-4o and o-series models to Bright Data via the built-in MCP
                             tool type. Your model gets real-time Amazon scraping in one API call.
                           </p>
@@ -3153,7 +3221,7 @@ export default function ScraperPage() {
                           <h3 className="text-lg font-bold text-bd-navy">
                             Amazon Scraper with LangChain / LangGraph
                           </h3>
-                          <p className="mt-1 text-sm leading-6 text-bd-ink/70">
+                          <p className="mt-1 text-sm leading-6 text-bd-ink/85">
                             Use the official <code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">langchain-brightdata</code> package
                             to add Amazon scraping as a tool to any LangChain agent.
                           </p>
@@ -3170,14 +3238,14 @@ export default function ScraperPage() {
                           <h3 className="text-lg font-bold text-bd-navy">
                             Amazon Scraper with CrewAI
                           </h3>
-                          <p className="mt-1 text-sm leading-6 text-bd-ink/70">
+                          <p className="mt-1 text-sm leading-6 text-bd-ink/85">
                             Build multi-agent workflows with <code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">BrightDataDatasetTool</code>.
                             Give your CrewAI agents the power to scrape Amazon products autonomously.
                           </p>
                         </div>
                         <CodeBlock code="pip install crewai[tools] aiohttp requests" label="bash" />
                         <div className="rounded-lg border border-bd-line bg-bd-canvas px-4 py-3">
-                          <p className="text-sm text-bd-ink/70">
+                          <p className="text-sm text-bd-ink/85">
                             Set your environment variables first:
                           </p>
                           <pre className="mt-2 font-mono text-xs text-bd-ink">
@@ -3196,7 +3264,7 @@ export default function ScraperPage() {
                           <h3 className="text-lg font-bold text-bd-navy">
                             Amazon Scraper REST API Integration
                           </h3>
-                          <p className="mt-1 text-sm leading-6 text-bd-ink/70">
+                          <p className="mt-1 text-sm leading-6 text-bd-ink/85">
                             Wrap this function as a tool in any agent framework: AutoGen, Semantic
                             Kernel, custom agents, or plain scripts. No SDK dependencies needed.
                           </p>
@@ -3290,7 +3358,7 @@ export default function ScraperPage() {
                       <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
                     </span>
                     <p className="text-sm font-semibold leading-5 text-bd-navy">
-                      Expert support
+                      24/7 Expert support
                     </p>
                   </div>
                 </div>
