@@ -8,6 +8,7 @@ import AiPromptCta from "@/components/AiPromptCta";
 import AgentGetStarted from "@/components/AgentGetStarted";
 import AgentSetupCta from "@/components/AgentSetupCta";
 import { PricingCards } from "@/components/PricingCards";
+import PricingAssurances from "@/components/PricingAssurances";
 import AmazonCodeExamples from "@/components/AmazonCodeExamples";
 import {
   AMAZON_SCRAPERS,
@@ -190,53 +191,7 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* PRODUCT TYPES */}
-        <section className="section animate-rise hub-anchor" id="types">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">By data type</span>
-              <h2>Simplified Amazon data extraction</h2>
-              <p>Jump straight to the scraper that matches your use case.</p>
-            </div>
-            <div className="hub-types">
-              {AMAZON_PRODUCT_TYPES.map((item) =>
-                item.local ? (
-                  <Link key={item.title} href={item.href} className="hub-type-card">
-                    <h3>{item.title}</h3>
-                    <p>{item.desc}</p>
-                    <span className="hub-type-cta">Open scraper →</span>
-                  </Link>
-                ) : (
-                  <a
-                    key={item.title}
-                    href={item.href}
-                    className="hub-type-card"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <h3>{item.title}</h3>
-                    <p>{item.desc}</p>
-                    <span className="hub-type-cta">Open scraper →</span>
-                  </a>
-                )
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* CODE EXAMPLES */}
-        <section className="section section-alt animate-rise hub-anchor" id="code">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">Code examples</span>
-              <h2>Easily scrape Amazon without getting blocked</h2>
-              <p>Copy a working request for products, reviews, or sellers — cURL, Python, or Node.js.</p>
-            </div>
-            <AmazonCodeExamples />
-          </div>
-        </section>
-
-        {/* PRICING */}
+        {/* 3. PRICING — buyers check cost early */}
         <section className="section animate-rise hub-anchor" id="pricing">
           <div className="container">
             <div className="section-head">
@@ -245,6 +200,7 @@ export default function AmazonHubPage() {
               <p>No hidden fees. No charges for failed deliveries. Every plan includes full access to Amazon scrapers and infrastructure.</p>
             </div>
             <PricingCards unit="records" />
+            <PricingAssurances />
 
             <div className="hub-plan-includes">
               <div className="hub-plan-includes-head">
@@ -294,11 +250,64 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* HOW IT WORKS */}
-        <section className="section section-alt animate-rise hub-anchor" id="how">
+        {/* 4. AGENTS — modern developer workflow */}
+        <section className="section section-alt animate-rise hub-anchor" id="agents">
+          <div className="container">
+            <AgentGetStarted name="Amazon" domain="amazon.com" />
+          </div>
+        </section>
+
+        {/* 5. PRODUCT TYPES — Amazon-specific deep dive */}
+        <section className="section animate-rise hub-anchor" id="types">
           <div className="container">
             <div className="section-head">
-              <span className="kicker">Deploy faster</span>
+              <span className="kicker">By data type</span>
+              <h2>Simplified Amazon data extraction</h2>
+              <p>Jump straight to the scraper that matches your use case.</p>
+            </div>
+            <div className="hub-types">
+              {AMAZON_PRODUCT_TYPES.map((item) =>
+                item.local ? (
+                  <Link key={item.title} href={item.href} className="hub-type-card">
+                    <h3>{item.title}</h3>
+                    <p>{item.desc}</p>
+                    <span className="hub-type-cta">Open scraper →</span>
+                  </Link>
+                ) : (
+                  <a
+                    key={item.title}
+                    href={item.href}
+                    className="hub-type-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <h3>{item.title}</h3>
+                    <p>{item.desc}</p>
+                    <span className="hub-type-cta">Open scraper →</span>
+                  </a>
+                )
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* 6. CODE EXAMPLES */}
+        <section className="section section-alt animate-rise hub-anchor" id="code">
+          <div className="container">
+            <div className="section-head">
+              <span className="kicker">Code examples</span>
+              <h2>Easily scrape Amazon without getting blocked</h2>
+              <p>Copy a working request for products, reviews, or sellers — cURL, Python, or Node.js.</p>
+            </div>
+            <AmazonCodeExamples />
+          </div>
+        </section>
+
+        {/* 7. HOW IT WORKS */}
+        <section className="section animate-rise hub-anchor" id="how">
+          <div className="container">
+            <div className="section-head">
+              <span className="kicker">Under the hood</span>
               <h2>Scrape Amazon with one API call</h2>
               <p>Discovery, bulk handling, parsing, and validation — built into every Amazon scraper.</p>
             </div>
@@ -337,8 +346,8 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* USE CASES */}
-        <section className="section animate-rise hub-anchor" id="use-cases">
+        {/* 8. USE CASES */}
+        <section className="section section-alt animate-rise hub-anchor" id="use-cases">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Use cases</span>
@@ -383,8 +392,8 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* WHY */}
-        <section className="section section-alt animate-rise hub-anchor" id="why">
+        {/* 9. WHY */}
+        <section className="section animate-rise hub-anchor" id="why">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Why Bright Data</span>
@@ -396,7 +405,7 @@ export default function AmazonHubPage() {
                 <p>Ethically obtained public data with GDPR &amp; CCPA-ready practices.</p>
               </div>
               <div className="feature-card">
-                <h3>24/7 global support</h3>
+                <h3>24/7 Expert support</h3>
                 <p>A dedicated team of data professionals ready when you need them.</p>
               </div>
               <div className="feature-card">
@@ -419,8 +428,8 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="section animate-rise hub-anchor" id="faq">
+        {/* 10. FAQ */}
+        <section className="section section-alt animate-rise hub-anchor" id="faq">
           <div className="container">
             <div className="section-head">
               <span className="kicker">FAQs</span>
@@ -438,14 +447,6 @@ export default function AmazonHubPage() {
           </div>
         </section>
 
-        {/* AGENT SECTION */}
-        <section className="section section-alt animate-rise hub-anchor" id="agents">
-          <div className="container">
-            <AgentGetStarted />
-          </div>
-        </section>
-
-        {/* AI Prompt CTA */}
         <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper." />
       </main>
 

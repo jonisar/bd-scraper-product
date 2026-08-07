@@ -7,6 +7,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 import { PricingCards } from "@/components/PricingCards";
+import PricingAssurances from "@/components/PricingAssurances";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -195,24 +196,7 @@ export default function WebScraperHome() {
             <p>No hidden fees. No charges for failed requests. Every plan includes full access to all scrapers and infrastructure.</p>
           </div>
           <PricingCards unit="records" />
-          <ul className="pricing-assurances" aria-label="Plan assurances">
-            <li>
-              <span className="pricing-assurance-check" aria-hidden="true">✓</span>
-              No credit card required
-            </li>
-            <li>
-              <span className="pricing-assurance-check" aria-hidden="true">✓</span>
-              24/7 Expert support
-            </li>
-            <li>
-              <span className="pricing-assurance-check" aria-hidden="true">✓</span>
-              99.9% uptime
-            </li>
-            <li>
-              <span className="pricing-assurance-check" aria-hidden="true">✓</span>
-              GDPR &amp; CCPA compliant
-            </li>
-          </ul>
+          <PricingAssurances />
         </div>
       </section>
 

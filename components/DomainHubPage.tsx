@@ -8,10 +8,21 @@ import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 import AgentGetStarted from "@/components/AgentGetStarted";
 import AgentSetupCta from "@/components/AgentSetupCta";
+import PricingAssurances from "@/components/PricingAssurances";
 import { PricingCards } from "@/components/PricingCards";
 import type { DomainHubData } from "@/lib/domain-hubs";
 
 export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
+  const topScraper = hub.scrapers[0];
+  // Domain hubs use hostnames (amazon.com); category hubs use labels — fall back to top scraper's domain
+  const exampleHost =
+    topScraper?.domain ||
+    (hub.domain.includes(".") ? hub.domain : "amazon.com");
+  const sampleUrl =
+    exampleHost === "amazon.com"
+      ? "https://www.amazon.com/dp/B09X7MPX8L"
+      : `https://www.${exampleHost}/`;
+
   return (
     <div className="lib-page">
       <Header />
@@ -69,7 +80,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
 
         <TrustedByStrip />
 
-        {/* AVAILABLE SCRAPERS */}
+        {/* 1. SCRAPER GALLERY */}
         <section className="section scrapers-first hub-anchor" id="scrapers">
           <div className="container">
             <div className="section-head">
@@ -105,7 +116,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* API vs NO-CODE */}
+        {/* 2. PATHS — orient developers & buyers */}
         <section className="section section-alt animate-rise hub-anchor" id="paths">
           <div className="container">
             <div className="section-head">
@@ -140,11 +151,36 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* HOW IT WORKS */}
+        {/* 3. PRICING — buyers check cost early */}
+        <section className="section animate-rise hub-anchor" id="pricing">
+          <div className="container">
+            <div className="section-head">
+              <span className="kicker">{hub.name} Scraper API Pricing</span>
+              <h2>Only pay for what&rsquo;s successfully delivered</h2>
+              <p>No hidden fees. No charges for failed deliveries. Every plan includes full access to {hub.name} scrapers and infrastructure.</p>
+            </div>
+            <PricingCards unit="records" />
+            <PricingAssurances />
+          </div>
+        </section>
+
+        {/* 4. AGENTS — modern developer workflow */}
+        <section className="section section-alt animate-rise hub-anchor" id="agents">
+          <div className="container">
+            <AgentGetStarted
+              name={hub.name}
+              domain={exampleHost}
+              pipelineId={topScraper?.id}
+              sampleUrl={sampleUrl}
+            />
+          </div>
+        </section>
+
+        {/* 5. HOW IT WORKS — infrastructure value */}
         <section className="section animate-rise hub-anchor" id="how">
           <div className="container">
             <div className="section-head">
-              <span className="kicker">Deploy faster</span>
+              <span className="kicker">Under the hood</span>
               <h2>Scrape {hub.name} with one API call</h2>
               <p>Discovery, bulk handling, parsing, and validation — built into every {hub.name} scraper.</p>
             </div>
@@ -159,7 +195,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* USE CASES */}
+        {/* 6. USE CASES — relevance */}
         <section className="section section-alt animate-rise hub-anchor" id="use-cases">
           <div className="container">
             <div className="section-head">
@@ -179,20 +215,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* PRICING */}
-        <section className="section animate-rise hub-anchor" id="pricing">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">{hub.name} Scraper API Pricing</span>
-              <h2>Only pay for what&rsquo;s successfully delivered</h2>
-              <p>No hidden fees. No charges for failed deliveries. Every plan includes full access to {hub.name} scrapers and infrastructure.</p>
-            </div>
-            <PricingCards unit="records" />
-          </div>
-        </section>
-
-        {/* WHY */}
-        <section className="section section-alt animate-rise hub-anchor" id="why">
+        {/* 7. WHY — trust for buyers */}
+        <section className="section animate-rise hub-anchor" id="why">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Why Bright Data</span>
@@ -200,7 +224,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             </div>
             <div className="features-grid">
               <div className="feature-card"><h3>100% compliant</h3><p>Ethically obtained public data with GDPR &amp; CCPA-ready practices.</p></div>
-              <div className="feature-card"><h3>24/7 global support</h3><p>A dedicated team of data professionals ready when you need them.</p></div>
+              <div className="feature-card"><h3>24/7 Expert support</h3><p>A dedicated team of data professionals ready when you need them.</p></div>
               <div className="feature-card"><h3>Complete data coverage</h3><p>Access 400M+ global IPs to scrape {hub.name} from any geo.</p></div>
               <div className="feature-card"><h3>Unmatched data quality</h3><p>Advanced validation methods for reliable, analysis-ready {hub.name} data.</p></div>
               <div className="feature-card"><h3>Powerful infrastructure</h3><p>High-volume scraping without getting blocked or maintaining proxies.</p></div>
@@ -209,8 +233,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="section animate-rise hub-anchor" id="faq">
+        {/* 8. FAQ — reference at the bottom */}
+        <section className="section section-alt animate-rise hub-anchor" id="faq">
           <div className="container">
             <div className="section-head">
               <span className="kicker">FAQs</span>
@@ -229,14 +253,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
         </section>
 
         {hub.slug === "ecommerce" ? (
-          <>
-            <section className="section section-alt animate-rise hub-anchor" id="agents">
-              <div className="container">
-                <AgentGetStarted />
-              </div>
-            </section>
-            <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper." />
-          </>
+          <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper." />
         ) : (
           <AiPromptCta />
         )}
