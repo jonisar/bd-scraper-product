@@ -1,5 +1,6 @@
 import { catalog, type CatalogScraper } from "./catalog";
 import { scraperHref } from "./scraper-href";
+import { templates } from "./templates";
 
 export type DomainHubScraper = {
   id: string;
@@ -11,6 +12,10 @@ export type DomainHubScraper = {
   views: string;
   downloads: string;
   href: string;
+  /** Bright Data CLI pipeline id (snake_case), e.g. amazon_product */
+  cliPipeline: string;
+  /** Example URL for agent / CLI snippets */
+  sampleUrl: string;
 };
 
 export type DomainHubData = {
@@ -26,6 +31,26 @@ export type DomainHubData = {
   scrapers: DomainHubScraper[];
 };
 
+/** Map catalog scraper → CLI pipeline id used by `bdata pipelines`. */
+function cliPipelineFor(s: CatalogScraper): string {
+  if (s.slug) {
+    const tmpl = templates.find((t) => t.slug === s.slug);
+    if (tmpl?.mcp?.tool) return tmpl.mcp.tool.replace(/^web_data_/, "");
+    return s.slug.replace(/-/g, "_");
+  }
+  return s.id.replace(/-/g, "_");
+}
+
+/** Build a safe example URL for agent/CLI snippets. */
+export function sampleUrlForDomain(domain: string): string {
+  if (domain === "amazon.com") return "https://www.amazon.com/dp/B09X7MPX8L";
+  // Path-style domains (e.g. google.com/maps)
+  if (domain.includes("/")) return `https://www.${domain}`;
+  // Service subdomains — do not prefix www (e.g. play.google.com)
+  if (/^(play|maps)\./i.test(domain)) return `https://${domain}/`;
+  return `https://www.${domain}/`;
+}
+
 function catalogToHub(s: CatalogScraper): DomainHubScraper {
   return {
     id: s.id,
@@ -37,6 +62,8 @@ function catalogToHub(s: CatalogScraper): DomainHubScraper {
     views: s.views,
     downloads: s.downloads,
     href: scraperHref(s),
+    cliPipeline: cliPipelineFor(s),
+    sampleUrl: sampleUrlForDomain(s.domain),
   };
 }
 

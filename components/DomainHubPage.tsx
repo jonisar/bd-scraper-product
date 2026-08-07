@@ -10,7 +10,7 @@ import AgentGetStarted from "@/components/AgentGetStarted";
 import AgentSetupCta from "@/components/AgentSetupCta";
 import PricingAssurances from "@/components/PricingAssurances";
 import { PricingCards } from "@/components/PricingCards";
-import type { DomainHubData } from "@/lib/domain-hubs";
+import { sampleUrlForDomain, type DomainHubData } from "@/lib/domain-hubs";
 
 export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
   const topScraper = hub.scrapers[0];
@@ -18,10 +18,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
   const exampleHost =
     topScraper?.domain ||
     (hub.domain.includes(".") ? hub.domain : "amazon.com");
-  const sampleUrl =
-    exampleHost === "amazon.com"
-      ? "https://www.amazon.com/dp/B09X7MPX8L"
-      : `https://www.${exampleHost}/`;
+  const sampleUrl = topScraper?.sampleUrl || sampleUrlForDomain(exampleHost);
+  const pipelineId = topScraper?.cliPipeline || "amazon_product";
 
   return (
     <div className="lib-page">
@@ -170,7 +168,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             <AgentGetStarted
               name={hub.name}
               domain={exampleHost}
-              pipelineId={topScraper?.id}
+              pipelineId={pipelineId}
               sampleUrl={sampleUrl}
             />
           </div>
