@@ -337,9 +337,9 @@ export default function WebScraperHome() {
               <div className="usecase-labels">
                 <a href="/products/web-scraper/amazon" className="usecase-label">Amazon</a>
                 <a href="/products/web-scraper/walmart" className="usecase-label">Walmart</a>
-                <a href="https://brightdata.com/products/web-scraper/shopee" className="usecase-label">Shopee</a>
-                <a href="https://brightdata.com/products/web-scraper/target" className="usecase-label">Target</a>
-                <a href="https://brightdata.com/products/web-scraper/ebay" className="usecase-label">eBay</a>
+                <a href="https://brightdata.com/products/web-scraper/shopee" className="usecase-label" target="_blank" rel="noopener noreferrer">Shopee</a>
+                <a href="https://brightdata.com/products/web-scraper/target" className="usecase-label" target="_blank" rel="noopener noreferrer">Target</a>
+                <a href="https://brightdata.com/products/web-scraper/ebay" className="usecase-label" target="_blank" rel="noopener noreferrer">eBay</a>
               </div>
               <p>
                 Track competitor pricing, monitor stock levels, collect product reviews, and
@@ -367,10 +367,10 @@ export default function WebScraperHome() {
               <h3><a href="/products/web-scraper/real-estate" className="usecase-title-link">Real estate scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/zillow" className="usecase-label">Zillow</a>
-                <a href="https://brightdata.com/products/web-scraper/realtor" className="usecase-label">Realtor</a>
-                <a href="https://brightdata.com/products/web-scraper/redfin" className="usecase-label">Redfin</a>
-                <a href="https://brightdata.com/products/web-scraper/airbnb" className="usecase-label">Airbnb</a>
-                <a href="https://brightdata.com/products/web-scraper/booking" className="usecase-label">Booking</a>
+                <a href="https://brightdata.com/products/web-scraper/realtor" className="usecase-label" target="_blank" rel="noopener noreferrer">Realtor</a>
+                <a href="https://brightdata.com/products/web-scraper/redfin" className="usecase-label" target="_blank" rel="noopener noreferrer">Redfin</a>
+                <a href="/products/web-scraper/airbnb" className="usecase-label">Airbnb</a>
+                <a href="/products/web-scraper/booking" className="usecase-label">Booking</a>
               </div>
               <p>
                 Collect property listings, pricing history, neighborhood data, and agent info from
@@ -382,9 +382,9 @@ export default function WebScraperHome() {
               <h3><a href="/products/web-scraper/b2b" className="usecase-title-link">Business &amp; B2B scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/linkedin" className="usecase-label">LinkedIn</a>
-                <a href="https://brightdata.com/products/web-scraper/crunchbase" className="usecase-label">Crunchbase</a>
-                <a href="https://brightdata.com/products/web-scraper/glassdoor" className="usecase-label">Glassdoor</a>
-                <a href="https://brightdata.com/products/web-scraper/indeed" className="usecase-label">Indeed</a>
+                <a href="/products/web-scraper/crunchbase" className="usecase-label">Crunchbase</a>
+                <a href="/products/web-scraper/glassdoor" className="usecase-label">Glassdoor</a>
+                <a href="/products/web-scraper/indeed" className="usecase-label">Indeed</a>
               </div>
               <p>
                 Enrich leads with company data, job listings, funding rounds, and employee info from
@@ -396,9 +396,9 @@ export default function WebScraperHome() {
               <h3><a href="/products/web-scraper/search" className="usecase-title-link">Search &amp; maps scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/google-maps" className="usecase-label">Google Maps</a>
-                <a href="https://brightdata.com/products/web-scraper/yelp" className="usecase-label">Yelp</a>
-                <a href="https://brightdata.com/products/web-scraper/tripadvisor" className="usecase-label">Tripadvisor</a>
-                <a href="https://brightdata.com/products/web-scraper/yellow-pages" className="usecase-label">Yellow Pages</a>
+                <a href="/products/web-scraper/yelp" className="usecase-label">Yelp</a>
+                <a href="https://brightdata.com/products/web-scraper/tripadvisor" className="usecase-label" target="_blank" rel="noopener noreferrer">Tripadvisor</a>
+                <a href="https://brightdata.com/products/web-scraper/yellow-pages" className="usecase-label" target="_blank" rel="noopener noreferrer">Yellow Pages</a>
               </div>
               <p>
                 Collect Google Maps business listings, reviews, ratings, and local SEO data.
@@ -409,10 +409,10 @@ export default function WebScraperHome() {
             <div className="usecase-card">
               <h3><a href="/products/web-scraper/finance" className="usecase-title-link">Financial data scraping API</a></h3>
               <div className="usecase-labels">
-                <a href="https://brightdata.com/products/web-scraper/yahoo-finance" className="usecase-label">Yahoo Finance</a>
-                <a href="https://brightdata.com/products/web-scraper/bloomberg" className="usecase-label">Bloomberg</a>
-                <a href="https://brightdata.com/products/web-scraper/sec" className="usecase-label">SEC</a>
-                <a href="https://brightdata.com/products/web-scraper/marketwatch" className="usecase-label">MarketWatch</a>
+                <a href="https://brightdata.com/products/web-scraper/yahoo-finance" className="usecase-label" target="_blank" rel="noopener noreferrer">Yahoo Finance</a>
+                <a href="https://brightdata.com/products/web-scraper/bloomberg" className="usecase-label" target="_blank" rel="noopener noreferrer">Bloomberg</a>
+                <a href="https://brightdata.com/products/web-scraper/sec" className="usecase-label" target="_blank" rel="noopener noreferrer">SEC</a>
+                <a href="https://brightdata.com/products/web-scraper/marketwatch" className="usecase-label" target="_blank" rel="noopener noreferrer">MarketWatch</a>
               </div>
               <p>
                 Extract stock prices, market cap, earnings data, analyst ratings, and news sentiment

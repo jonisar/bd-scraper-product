@@ -2343,7 +2343,7 @@ export default function ScraperPage() {
                           { title: "Rich product schema", desc: "Prices, reviews, BSR, seller info, stock status, images — parsed and typed." },
                           { title: "Anti-bot bypass", desc: "Proxy rotation, CAPTCHA solving, fingerprint management, and JS rendering." },
                           { title: "18 marketplaces", desc: "Scrape .com, .co.uk, .de, .co.jp, and 14 more. Localized pricing and rankings." },
-                          { title: "Bulk & async", desc: "Up to 5,000 URLs per request. Async mode returns a snapshot ID for polling/webhook." },
+                          { title: "Bulk & async", desc: "Unlimited URLs per request (up to 1 GB input). Async mode returns a snapshot ID for polling/webhook." },
                           { title: "Pay for success", desc: "Charged only for successfully delivered records — failed scrapes are free." },
                           { title: "Unlimited concurrency", desc: "Run as many parallel requests as you need. Scale plans get priority throughput." },
                         ].map((f) => (
@@ -2442,7 +2442,7 @@ export default function ScraperPage() {
                             {[
                               ["API endpoints", "Synchronous (/scrape) and Asynchronous (/trigger)"],
                               ["Authentication", "Bearer token (API key)"],
-                              ["Max URLs per request", "5,000 (async), 25 (sync)"],
+                              ["Max URLs per request", "Unlimited (async, up to 1 GB input), 20 (sync)"],
                               ["Median response time", "~3 seconds (sync, single URL)"],
                               ["Success rate", "98.4% (industry avg ~95%)"],
                               ["Output fields", "40+ structured fields per product (industry avg 15–25)"],
@@ -2581,7 +2581,7 @@ export default function ScraperPage() {
                           },
                           {
                             q: "How does the Amazon Scraper API work?",
-                            a: "POST Amazon URLs to the /scrape endpoint for real-time results (median ~3s) or /trigger for async bulk jobs up to 5,000 URLs. Bright Data handles proxies, CAPTCHAs, and JavaScript rendering automatically.",
+                            a: "POST Amazon URLs to the /scrape endpoint for real-time results (median ~3s) or /trigger for async bulk jobs with unlimited URLs (up to 1 GB input). Bright Data handles proxies, CAPTCHAs, and JavaScript rendering automatically.",
                           },
                           {
                             q: "Are free records included?",
@@ -2593,7 +2593,7 @@ export default function ScraperPage() {
                           },
                           {
                             q: "What are the usage limits?",
-                            a: "No hard limits. The API supports unlimited concurrency and bulk requests of up to 5,000 URLs per call. Scale plans include priority throughput.",
+                            a: "No hard limits. The API supports unlimited concurrency and unlimited URLs per async request (up to 1 GB input). Scale plans include priority throughput.",
                           },
                           {
                             q: "Is the API compliant with data protection regulations?",
@@ -3354,6 +3354,8 @@ export default function ScraperPage() {
                 <a
                   href="https://brightdata.com/cp/start"
                   className="mt-5 block w-full rounded-xl bg-bd-blue px-4 py-3 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   Start free
                 </a>
