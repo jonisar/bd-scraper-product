@@ -670,7 +670,7 @@ function RelatedScrapersCarousel() {
   );
 
   return (
-    <section className="mx-auto max-w-7xl px-4 pb-12 pt-4 sm:px-6 sm:pt-6">
+    <section className="pb-12 pt-4 sm:pt-6">
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
           <h2 className="text-xl font-bold text-bd-navy">Related Scrapers</h2>
@@ -1875,7 +1875,7 @@ export default function ScraperPage() {
   }
 
   return (
-    <div className="scraper-page flex min-h-screen flex-col overflow-x-clip">
+    <div className="scraper-page flex min-h-screen flex-col">
       <Header />
 
       <main className="mx-auto w-full min-w-0 max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-10 lg:py-12">
@@ -1890,9 +1890,9 @@ export default function ScraperPage() {
           <span className="font-medium text-bd-blue" aria-current="page">Amazon Product Scraper</span>
         </nav>
 
-        <section className="animate-rise grid gap-6 lg:gap-8 lg:grid-cols-[1fr_340px]">
+        <section className="animate-rise grid max-w-full gap-6 lg:gap-8 lg:grid-cols-[1fr_340px]">
           {/* Main content */}
-          <div className="min-w-0">
+          <div className="min-w-0 overflow-x-hidden">
             {/* Hero card */}
             <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_40px_rgba(0,0,0,0.3)] sm:p-7">
               <div className="max-w-3xl">
