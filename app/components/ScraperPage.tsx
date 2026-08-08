@@ -1842,6 +1842,7 @@ export default function ScraperPage() {
 
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [stickyTop, setStickyTop] = useState("4.5rem");
+  const [sidebarMaxH, setSidebarMaxH] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const el = sidebarRef.current;
@@ -1853,7 +1854,10 @@ export default function ScraperPage() {
       const gap = 16;
       const minTop = headerH + gap;
       const idealTop = vh - sidebarH - gap;
-      setStickyTop(`${Math.max(idealTop, minTop)}px`);
+      const top = Math.max(idealTop, minTop);
+      setStickyTop(`${top}px`);
+      const isLg = window.innerWidth >= 1024;
+      setSidebarMaxH(isLg ? `calc(100vh - ${top}px - 1rem)` : undefined);
     };
     update();
     const ro = new ResizeObserver(update);
@@ -3297,7 +3301,7 @@ export default function ScraperPage() {
 
           {/* ===== SIDEBAR ===== */}
           <aside className="animate-rise-delay">
-            <div ref={sidebarRef} className="lg:sticky space-y-4" style={{ top: stickyTop }}>
+            <div ref={sidebarRef} className="lg:sticky lg:overflow-y-auto lg:[scrollbar-width:thin] lg:[scrollbar-color:theme(colors.bd-line)_transparent] space-y-4" style={{ top: stickyTop, maxHeight: sidebarMaxH }}>
             <div className="overflow-hidden rounded-2xl border border-bd-blue/30 bg-gradient-to-br from-bd-blue-soft via-bd-panel to-bd-panel shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
               <div className="p-5">
                 <p className="flex items-baseline gap-x-1.5">
@@ -3415,8 +3419,8 @@ export default function ScraperPage() {
                   <p className="text-[11px] text-bd-muted">Per record</p>
                 </div>
                 <div className="rounded-lg bg-bd-canvas px-3 py-2.5">
-                  <p className="text-lg font-extrabold text-bd-navy">5K</p>
-                  <p className="text-[11px] text-bd-muted">URLs per request</p>
+                  <p className="text-lg font-extrabold text-bd-navy">98.4%</p>
+                  <p className="text-[11px] text-bd-muted">Avg. success rate</p>
                 </div>
                 <div className="rounded-lg bg-bd-canvas px-3 py-2.5">
                   <p className="text-lg font-extrabold text-bd-success">99.9%</p>
