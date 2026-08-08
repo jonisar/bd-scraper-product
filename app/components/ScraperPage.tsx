@@ -1892,7 +1892,7 @@ export default function ScraperPage() {
 
         <section className="animate-rise grid max-w-full gap-6 lg:gap-8 lg:grid-cols-[1fr_340px]">
           {/* Main content */}
-          <div className="min-w-0 overflow-x-hidden">
+          <div className="min-w-0 overflow-x-clip">
             {/* Hero card */}
             <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_40px_rgba(0,0,0,0.3)] sm:p-7">
               <div className="max-w-3xl">
