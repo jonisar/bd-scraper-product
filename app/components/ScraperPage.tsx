@@ -1962,7 +1962,8 @@ export default function ScraperPage() {
 
             {/* Tabs */}
             <div id="scraper-tabs" className="animate-rise-delay mt-6 min-w-0 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
-              <div className="sticky top-14 z-30 relative overflow-hidden rounded-t-2xl bg-bd-panel">
+              <div className="sticky top-14 z-30">
+                <div className="relative overflow-hidden rounded-t-2xl bg-bd-panel">
                 <div className="tab-scroll flex overflow-x-auto border-b border-bd-line px-4 sm:px-5">
                   {mainTabs.map((tab) => (
                     <button
@@ -1982,6 +1983,7 @@ export default function ScraperPage() {
                     </button>
                   ))}
                 </div>
+              </div>
               </div>
 
               <div className="min-w-0 overflow-x-auto p-5 sm:p-7">
