@@ -19,8 +19,8 @@ export function Header() {
               Web Scraper API
             </span>
           </Link>
-          <nav className="hidden items-center gap-4 text-sm font-semibold text-bd-ink xl:flex xl:gap-5">
-            <Link href="/products/web-scraper/scraper-lib" className="transition hover:text-bd-navy">
+          <nav className="hidden items-center gap-3 text-[13px] font-semibold text-bd-ink lg:flex xl:gap-5 xl:text-sm">
+            <Link href="/products/web-scraper/scraper-lib" className="whitespace-nowrap transition hover:text-bd-navy">
               All Scrapers
             </Link>
             <a href="https://brightdata.com/pricing/web-scraper" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
@@ -32,9 +32,10 @@ export function Header() {
             <a href="https://brightdata.com/contact" className="transition hover:text-bd-navy" target="_blank" rel="noreferrer">
               Support
             </a>
-            <Link href="/products/web-scraper/studio" className="transition hover:text-bd-navy">
+            <Link href="/products/web-scraper/studio" className="whitespace-nowrap transition hover:text-bd-navy">
               <span className="flex items-center gap-1">
-                AI Scraper Studio
+                <span className="hidden xl:inline">AI Scraper Studio</span>
+                <span className="xl:hidden">Studio</span>
                 <span className="rounded bg-bd-blue/15 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-bd-blue">
                   New
                 </span>
@@ -64,7 +65,7 @@ export function Header() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="grid h-9 w-9 place-items-center rounded-lg text-bd-ink transition hover:bg-bd-panel hover:text-bd-navy xl:hidden"
+            className="grid h-9 w-9 place-items-center rounded-lg text-bd-ink transition hover:bg-bd-panel hover:text-bd-navy lg:hidden"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
           >
@@ -82,7 +83,7 @@ export function Header() {
       </div>
 
       {mobileMenuOpen && (
-        <nav className="border-t border-bd-line bg-bd-panel px-4 pb-4 pt-3 xl:hidden">
+        <nav className="border-t border-bd-line bg-bd-panel px-4 pb-4 pt-3 lg:hidden">
           <div className="flex flex-col gap-3 text-sm font-medium text-bd-navy/85">
             <Link href="/products/web-scraper/scraper-lib" className="transition hover:text-bd-navy" onClick={() => setMobileMenuOpen(false)}>
               All Scrapers
