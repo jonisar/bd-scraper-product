@@ -1849,13 +1849,11 @@ export default function ScraperPage() {
     const update = () => {
       const sidebarH = el.scrollHeight;
       const vh = window.innerHeight;
-      const headerH = 72;
-      const pad = 24;
-      if (sidebarH > vh - headerH - pad) {
-        setStickyTop(`${vh - sidebarH - pad}px`);
-      } else {
-        setStickyTop("4.5rem");
-      }
+      const headerH = 56;
+      const gap = 16;
+      const minTop = headerH + gap;
+      const idealTop = vh - sidebarH - gap;
+      setStickyTop(`${Math.max(idealTop, minTop)}px`);
     };
     update();
     const ro = new ResizeObserver(update);
