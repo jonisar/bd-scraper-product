@@ -1892,9 +1892,9 @@ export default function ScraperPage() {
           <span className="font-medium text-bd-blue" aria-current="page">Amazon Product Scraper</span>
         </nav>
 
-        <section className="animate-rise grid max-w-full gap-6 lg:gap-8 lg:grid-cols-[1fr_340px]">
+        <section className="animate-rise grid max-w-full gap-6 lg:gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
           {/* Main content */}
-          <div className="min-w-0 overflow-x-clip">
+          <div className="min-w-0">
             {/* Hero card */}
             <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_40px_rgba(0,0,0,0.3)] sm:p-7">
               <div className="max-w-3xl">
@@ -1961,7 +1961,7 @@ export default function ScraperPage() {
             <TrustedByStrip compact />
 
             {/* Tabs */}
-            <div id="scraper-tabs" className="animate-rise-delay mt-6 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
+            <div id="scraper-tabs" className="animate-rise-delay mt-6 min-w-0 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
               <div className="sticky top-14 z-30 relative overflow-hidden rounded-t-2xl bg-bd-panel">
                 <div className="tab-scroll flex overflow-x-auto border-b border-bd-line px-4 sm:px-5">
                   {mainTabs.map((tab) => (
@@ -1984,7 +1984,7 @@ export default function ScraperPage() {
                 </div>
               </div>
 
-              <div className="p-5 sm:p-7">
+              <div className="min-w-0 overflow-x-auto p-5 sm:p-7">
                 {/* ===== API TAB ===== */}
                 {mainTab === "API" ? (
                   <div className="space-y-8">
