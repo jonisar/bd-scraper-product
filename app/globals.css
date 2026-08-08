@@ -1383,9 +1383,9 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 .hub-anchor { scroll-margin-top: 96px; }
 #scraper-tabs { scroll-margin-top: 60px; }
 
-/* Prevent horizontal overflow on mobile — use clip (doesn't break sticky) */
+/* Prevent horizontal overflow on mobile — use clip (doesn't break sticky).
+   Do NOT set max-width here — it overrides Tailwind's max-w-7xl due to higher specificity. */
 .scraper-page > main {
-  max-width: 100%;
   overflow-x: clip;
 }
 

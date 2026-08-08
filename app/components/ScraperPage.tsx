@@ -1842,6 +1842,7 @@ export default function ScraperPage() {
 
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [stickyTop, setStickyTop] = useState("4.5rem");
+  const [sidebarMaxH, setSidebarMaxH] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const el = sidebarRef.current;
@@ -1849,13 +1850,14 @@ export default function ScraperPage() {
     const update = () => {
       const sidebarH = el.scrollHeight;
       const vh = window.innerHeight;
-      const headerH = 72;
-      const pad = 24;
-      if (sidebarH > vh - headerH - pad) {
-        setStickyTop(`${vh - sidebarH - pad}px`);
-      } else {
-        setStickyTop("4.5rem");
-      }
+      const headerH = 56;
+      const gap = 16;
+      const minTop = headerH + gap;
+      const idealTop = vh - sidebarH - gap;
+      const top = Math.max(idealTop, minTop);
+      setStickyTop(`${top}px`);
+      const isLg = window.innerWidth >= 1024;
+      setSidebarMaxH(isLg ? `calc(100vh - ${top}px - 1rem)` : undefined);
     };
     update();
     const ro = new ResizeObserver(update);
@@ -2197,7 +2199,7 @@ export default function ScraperPage() {
                     {/* ── 1. TL;DR ── */}
                     <header>
                       <h2 className="text-2xl font-bold text-bd-navy sm:text-[1.65rem]">
-                        Extract Amazon product data via API, CLI, or AI agent
+                        Easily scrape Amazon product data
                       </h2>
                       <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/90">
                         Send Amazon URLs or ASINs → get structured JSON with 40+ fields (prices, reviews, seller data, stock, images).
@@ -3299,7 +3301,7 @@ export default function ScraperPage() {
 
           {/* ===== SIDEBAR ===== */}
           <aside className="animate-rise-delay">
-            <div ref={sidebarRef} className="lg:sticky space-y-4" style={{ top: stickyTop }}>
+            <div ref={sidebarRef} className="lg:sticky lg:overflow-y-auto lg:[scrollbar-width:thin] lg:[scrollbar-color:theme(colors.bd-line)_transparent] space-y-4" style={{ top: stickyTop, maxHeight: sidebarMaxH }}>
             <div className="overflow-hidden rounded-2xl border border-bd-blue/30 bg-gradient-to-br from-bd-blue-soft via-bd-panel to-bd-panel shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
               <div className="p-5">
                 <p className="flex items-baseline gap-x-1.5">
@@ -3335,6 +3337,14 @@ export default function ScraperPage() {
                     </span>
                     <p className="text-sm font-semibold leading-5 text-bd-navy">
                       24/7 Expert support
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
+                      <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                    </span>
+                    <p className="text-sm font-semibold leading-5 text-bd-navy">
+                      World&apos;s #1 scraper platform
                     </p>
                   </div>
                 </div>
@@ -3409,8 +3419,8 @@ export default function ScraperPage() {
                   <p className="text-[11px] text-bd-muted">Per record</p>
                 </div>
                 <div className="rounded-lg bg-bd-canvas px-3 py-2.5">
-                  <p className="text-lg font-extrabold text-bd-navy">5K</p>
-                  <p className="text-[11px] text-bd-muted">URLs per request</p>
+                  <p className="text-lg font-extrabold text-bd-navy">98.4%</p>
+                  <p className="text-[11px] text-bd-muted">Avg. success rate</p>
                 </div>
                 <div className="rounded-lg bg-bd-canvas px-3 py-2.5">
                   <p className="text-lg font-extrabold text-bd-success">99.9%</p>
