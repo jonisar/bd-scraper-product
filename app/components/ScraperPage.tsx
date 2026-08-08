@@ -2362,26 +2362,6 @@ export default function ScraperPage() {
                       </div>
                     </section>
 
-                    {/* ── 8. Deep dive TOC ── */}
-                    <nav className="rounded-xl border border-bd-line bg-bd-canvas px-5 py-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">More details below</p>
-                      <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
-                        {[
-                          ["data-fields", "Data fields explorer"],
-                          ["controls", "Limits & alerts"],
-                          ["tech-specs", "Specs & benchmarks"],
-                          ["marketplaces", "18 marketplaces"],
-                          ["available-scrapers", "Scraper family"],
-                          ["delivery", "Delivery & integrations"],
-                          ["vs-diy", "Scraper vs. DIY"],
-                          ["challenges", "Anti-bot solutions"],
-                          ["faq", "FAQ"],
-                        ].map(([id, label]) => (
-                          <a key={id} href={`#info-${id}`} className="text-[13px] font-medium text-bd-blue hover:underline" onClick={(e) => { e.preventDefault(); document.getElementById(`info-${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}>{label}</a>
-                        ))}
-                      </div>
-                    </nav>
-
                     {/* ── ACT 2: Product surface ── */}
 
                     <DataFieldsExplorer
