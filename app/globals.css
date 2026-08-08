@@ -1379,6 +1379,18 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 .hub-anchor { scroll-margin-top: 96px; }
 #scraper-tabs { scroll-margin-top: 60px; }
 
+/* Prevent horizontal overflow on mobile (iOS Safari needs explicit containment) */
+.scraper-page {
+  max-width: 100vw;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+.scraper-page > main {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
 /* API vs no-code paths */
 .hub-paths {
   display: grid;
