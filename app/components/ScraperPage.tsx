@@ -2256,19 +2256,30 @@ export default function ScraperPage() {
 
                     {/* ── 3. What you get — data at a glance ── */}
                     <section>
-                      <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                        <h3 className="text-lg font-bold text-bd-navy">What data you get</h3>
+                      <h3 className="mb-3 text-lg font-bold text-bd-navy">What data you get</h3>
+
+                      {/* Count + CTA — separate, stacked on mobile */}
+                      <div className="mb-3 flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                        <div className="inline-flex w-fit items-center gap-2.5 rounded-xl border border-bd-line bg-bd-canvas px-3 py-2">
+                          <span className="rounded-lg bg-bd-blue/15 px-2.5 py-1 text-[15px] font-extrabold tabular-nums leading-none text-bd-blue">
+                            40+
+                          </span>
+                          <span className="text-[13px] font-semibold text-bd-navy">
+                            fields per product
+                          </span>
+                        </div>
                         <button
                           type="button"
                           onClick={() => {
                             setMainTab("Output");
                             setTimeout(() => document.getElementById("scraper-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
                           }}
-                          className="text-[13px] font-semibold text-bd-blue hover:underline"
+                          className="self-start text-[13px] font-semibold text-bd-blue transition hover:underline sm:self-center"
                         >
-                          View output schema →
+                          View full schema →
                         </button>
                       </div>
+
                       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
                         {[
                           "Title & brand",
@@ -2289,7 +2300,7 @@ export default function ScraperPage() {
                           </span>
                         ))}
                       </div>
-                      <p className="mt-2.5 text-[13px] leading-5 text-bd-ink/70">
+                      <p className="mt-2.5 text-[13px] leading-5 text-bd-ink/85">
                         Sample of the most-used fields — full types and samples are in the schema.
                       </p>
                     </section>
