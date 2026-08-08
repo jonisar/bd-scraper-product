@@ -15,6 +15,12 @@ export const metadata: Metadata = {
     url: "https://brightdata.com/products/web-scraper/scraper-lib/categories",
     siteName: "Bright Data",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Scraper Categories - Browse by Industry & Platform",
+    description:
+      "Browse 1,300+ web scrapers organized by industry: e-commerce, social media, B2B, jobs, real estate, and more.",
+  },
   alternates: { canonical: "https://brightdata.com/products/web-scraper/scraper-lib/categories" },
 };
 

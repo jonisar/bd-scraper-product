@@ -29,6 +29,20 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://brightdata.com/products/web-scraper",
     siteName: "Bright Data",
+    images: [
+      {
+        url: "/images/og-web-scraper.png",
+        width: 1200,
+        height: 630,
+        alt: "Bright Data Web Scraping API",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Web Scraping API - 5K Records/Month for Free",
+    description:
+      "1,300+ production-ready scrapers with auto proxy rotation, anti-bot bypass, and JS rendering. Start free.",
   },
   alternates: { canonical: "https://brightdata.com/products/web-scraper" },
 };
@@ -89,12 +103,52 @@ const faqJsonLd = {
   })),
 };
 
+const softwareJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Bright Data Web Scraper API",
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Any",
+  url: "https://brightdata.com/products/web-scraper",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+    description: "Free tier: 5,000 records/month",
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.7",
+    ratingCount: "680",
+    bestRating: "5",
+  },
+  provider: { "@id": "https://brightdata.com#organization" },
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Bright Data", item: "https://brightdata.com" },
+    { "@type": "ListItem", position: 2, name: "Products", item: "https://brightdata.com/products" },
+    { "@type": "ListItem", position: 3, name: "Web Scraper API", item: "https://brightdata.com/products/web-scraper" },
+  ],
+};
+
 export default function WebScraperHome() {
   return (
     <div className="lib-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <Header />
 

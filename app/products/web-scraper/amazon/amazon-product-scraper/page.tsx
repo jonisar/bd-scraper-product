@@ -12,6 +12,20 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://brightdata.com/products/web-scraper/amazon/amazon-product-scraper",
     siteName: "Bright Data",
+    images: [
+      {
+        url: "/images/og-amazon-scraper.png",
+        width: 1200,
+        height: 630,
+        alt: "Bright Data Amazon Product Scraper API",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Amazon Product Scraper API - 5K Records/Month for Free",
+    description:
+      "Extract prices, reviews, stock levels & seller data from any Amazon product page. 40+ structured fields. Start free.",
   },
   alternates: {
     canonical: "https://brightdata.com/products/web-scraper/amazon/amazon-product-scraper",
@@ -72,12 +86,27 @@ const faqJsonLd = {
   })),
 };
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Bright Data", item: "https://brightdata.com" },
+    { "@type": "ListItem", position: 2, name: "Web Scraper", item: "https://brightdata.com/products/web-scraper" },
+    { "@type": "ListItem", position: 3, name: "Amazon", item: "https://brightdata.com/products/web-scraper/amazon" },
+    { "@type": "ListItem", position: 4, name: "Product Scraper", item: "https://brightdata.com/products/web-scraper/amazon/amazon-product-scraper" },
+  ],
+};
+
 export default function AmazonProductScraperPage() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <ScraperPage />
     </>
