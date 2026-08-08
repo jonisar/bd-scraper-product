@@ -2197,7 +2197,7 @@ export default function ScraperPage() {
                     {/* ── 1. TL;DR ── */}
                     <header>
                       <h2 className="text-2xl font-bold text-bd-navy sm:text-[1.65rem]">
-                        Extract Amazon product data via API, CLI, or AI agent
+                        Easily scrape Amazon product data
                       </h2>
                       <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/90">
                         Send Amazon URLs or ASINs → get structured JSON with 40+ fields (prices, reviews, seller data, stock, images).
@@ -3335,6 +3335,14 @@ export default function ScraperPage() {
                     </span>
                     <p className="text-sm font-semibold leading-5 text-bd-navy">
                       24/7 Expert support
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
+                      <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                    </span>
+                    <p className="text-sm font-semibold leading-5 text-bd-navy">
+                      World&apos;s #1 scraper platform
                     </p>
                   </div>
                 </div>
