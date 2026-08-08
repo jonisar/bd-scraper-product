@@ -1892,7 +1892,7 @@ export default function ScraperPage() {
           <span className="font-medium text-bd-blue" aria-current="page">Amazon Product Scraper</span>
         </nav>
 
-        <section className="animate-rise grid max-w-full gap-6 lg:gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
+        <section className="animate-rise grid max-w-full gap-6 overflow-x-clip lg:gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
           {/* Main content */}
           <div className="min-w-0">
             {/* Hero card */}
@@ -3300,8 +3300,8 @@ export default function ScraperPage() {
           </div>
 
           {/* ===== SIDEBAR ===== */}
-          <aside className="animate-rise-delay">
-            <div ref={sidebarRef} className="lg:sticky lg:overflow-y-auto lg:[scrollbar-width:thin] lg:[scrollbar-color:theme(colors.bd-line)_transparent] space-y-4" style={{ top: stickyTop, maxHeight: sidebarMaxH }}>
+          <aside className="min-w-0 animate-rise-delay">
+            <div ref={sidebarRef} className="lg:sticky lg:overflow-y-auto lg:[scrollbar-width:thin] lg:[scrollbar-color:theme(colors.bd-line)_transparent] space-y-4 overflow-hidden" style={{ top: stickyTop, maxHeight: sidebarMaxH }}>
             <div className="overflow-hidden rounded-2xl border border-bd-blue/30 bg-gradient-to-br from-bd-blue-soft via-bd-panel to-bd-panel shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
               <div className="p-5">
                 <p className="flex items-baseline gap-x-1.5">
