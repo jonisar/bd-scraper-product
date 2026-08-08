@@ -3295,9 +3295,19 @@ export default function ScraperPage() {
                   <span className="text-2xl font-extrabold tracking-tight text-bd-navy">Free 5,000 records</span>
                   <span className="text-sm font-semibold text-bd-muted">/mo</span>
                 </p>
-                <p className="mt-1 text-[13px] leading-5 text-bd-ink/80">
-                  No credit card required · then from <strong className="font-bold text-bd-navy">$1</strong>/1K records
-                </p>
+                <div className="mt-3 flex items-center gap-2">
+                  <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-emerald-600">
+                    No credit card required
+                  </span>
+                </div>
+
+                <div className="mt-4 rounded-xl bg-bd-canvas/60 px-4 py-3">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-bd-muted">Pay as you go</p>
+                  <p className="mt-1 flex items-baseline gap-x-1.5">
+                    <span className="text-xl font-extrabold tracking-tight text-bd-navy">$1.00–1.50</span>
+                    <span className="text-xs font-semibold text-bd-muted">/ 1K records</span>
+                  </p>
+                </div>
 
                 <div className="mt-4 space-y-2.5">
                   <div className="flex items-start gap-2.5">
