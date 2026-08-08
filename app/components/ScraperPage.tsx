@@ -979,7 +979,7 @@ function PricingTab() {
           {[
             { q: "What counts as a record?", a: "One successfully scraped product = one record. Each record is a single JSON object with all data fields (title, price, reviews, seller, etc.). Failed or errored requests are never charged." },
             { q: "Are there setup fees or hidden costs?", a: "No. Zero setup fees, no minimum commitment, no per-request charges, no bandwidth fees. You pay only for successfully delivered records at the rate shown above." },
-            { q: "How does the free tier work?", a: "Every Bright Data account includes 5,000 free records per month, no credit card required. Use them with any scraper in the library. Credits renew on the 1st of each month." },
+            { q: "How do the free records work?", a: "Every Bright Data account includes 5,000 free records per month — no credit card required. Use them with any scraper in the library. Credits renew on the 1st of each month." },
             { q: "What happens when free credits run out?", a: "If you have pre-deposited funds, usage continues seamlessly at pay-as-you-go rates. Otherwise, API requests return a clear error until you add funds or credits renew next month." },
             { q: "Can I set a spending limit?", a: "Yes. Set a monthly spend cap in your dashboard. When the limit is reached, requests pause automatically, so there are no surprise bills." },
             { q: "How do volume discounts work?", a: "Rates drop as volume increases, from $1.50/1K at pay-as-you-go down to $1.00/1K at higher volumes. The Scale plan ($499/mo) includes 384K records. Enterprise customers can negotiate further. No long-term commitment required." },
@@ -1892,7 +1892,7 @@ export default function ScraperPage() {
 
         <section className="animate-rise grid max-w-full gap-6 lg:gap-8 lg:grid-cols-[1fr_340px]">
           {/* Main content */}
-          <div className="min-w-0 overflow-x-hidden">
+          <div className="min-w-0 overflow-x-clip">
             {/* Hero card */}
             <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_40px_rgba(0,0,0,0.3)] sm:p-7">
               <div className="max-w-3xl">
@@ -2201,7 +2201,7 @@ export default function ScraperPage() {
                       </h2>
                       <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/90">
                         Send Amazon URLs or ASINs → get structured JSON with 40+ fields (prices, reviews, seller data, stock, images).
-                        Proxies, CAPTCHAs, and rendering are fully managed. Free tier: 5K records/month.
+                        Proxies, CAPTCHAs, and rendering are fully managed. Free 5K records/month included.
                       </p>
                     </header>
 
@@ -2361,26 +2361,6 @@ export default function ScraperPage() {
                         ))}
                       </div>
                     </section>
-
-                    {/* ── 8. Deep dive TOC ── */}
-                    <nav className="rounded-xl border border-bd-line bg-bd-canvas px-5 py-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">More details below</p>
-                      <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
-                        {[
-                          ["data-fields", "Data fields explorer"],
-                          ["controls", "Limits & alerts"],
-                          ["tech-specs", "Specs & benchmarks"],
-                          ["marketplaces", "18 marketplaces"],
-                          ["available-scrapers", "Scraper family"],
-                          ["delivery", "Delivery & integrations"],
-                          ["vs-diy", "Scraper vs. DIY"],
-                          ["challenges", "Anti-bot solutions"],
-                          ["faq", "FAQ"],
-                        ].map(([id, label]) => (
-                          <a key={id} href={`#info-${id}`} className="text-[13px] font-medium text-bd-blue hover:underline" onClick={(e) => { e.preventDefault(); document.getElementById(`info-${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}>{label}</a>
-                        ))}
-                      </div>
-                    </nav>
 
                     {/* ── ACT 2: Product surface ── */}
 
@@ -2589,7 +2569,7 @@ export default function ScraperPage() {
                             a: "POST Amazon URLs to the /scrape endpoint for real-time results (median ~3s) or /trigger for async bulk jobs up to 5,000 URLs. Bright Data handles proxies, CAPTCHAs, and JavaScript rendering automatically.",
                           },
                           {
-                            q: "Is there a free tier?",
+                            q: "Are free records included?",
                             a: "Yes. Every account includes 5,000 free records per month — no credit card required. Credits renew on the 1st of each month.",
                           },
                           {
@@ -3310,31 +3290,26 @@ export default function ScraperPage() {
           <aside className="animate-rise-delay">
             <div ref={sidebarRef} className="lg:sticky space-y-4" style={{ top: stickyTop }}>
             <div className="overflow-hidden rounded-2xl border border-bd-blue/30 bg-gradient-to-br from-bd-blue-soft via-bd-panel to-bd-panel shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
-              {/* Free tier banner */}
-              <div className="bg-gradient-to-r from-bd-blue to-[#5a9aff] px-4 py-4 sm:px-5">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-white/70">
-                  Free tier
+              <div className="p-5">
+                <p className="flex items-baseline gap-x-1.5">
+                  <span className="text-2xl font-extrabold tracking-tight text-bd-navy">Free 5,000 records</span>
+                  <span className="text-sm font-semibold text-bd-muted">/mo</span>
                 </p>
-                <div className="mt-1 flex flex-wrap items-center justify-between gap-2">
-                  <p className="whitespace-nowrap text-xl font-extrabold text-white">
-                    5,000 records<span className="text-sm font-semibold text-white/70">/mo</span>
-                  </p>
-                  <span className="shrink-0 rounded-full bg-white/15 px-3 py-1.5 text-[11px] font-bold text-white">
-                    No card required
+                <div className="mt-3 flex items-center gap-2">
+                  <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-emerald-600">
+                    No credit card required
                   </span>
                 </div>
-              </div>
 
-              <div className="p-5">
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">
-                  Pay as you go
-                </p>
-                <p className="mt-1.5 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
-                  <span className="whitespace-nowrap text-[1.35rem] font-extrabold tracking-tight text-bd-navy sm:text-2xl">$1.00–1.50</span>
-                  <span className="whitespace-nowrap text-xs font-semibold text-bd-muted sm:text-sm">/ 1K records</span>
-                </p>
+                <div className="mt-4 rounded-xl bg-bd-canvas/60 px-4 py-3">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-bd-muted">Pay as you go</p>
+                  <p className="mt-1 flex items-baseline gap-x-1.5">
+                    <span className="text-xl font-extrabold tracking-tight text-bd-navy">$1.00–1.50</span>
+                    <span className="text-xs font-semibold text-bd-muted">/ 1K records</span>
+                  </p>
+                </div>
 
-                <div className="mt-3 space-y-2.5">
+                <div className="mt-4 space-y-2.5">
                   <div className="flex items-start gap-2.5">
                     <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/10 text-bd-blue">
                       <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
