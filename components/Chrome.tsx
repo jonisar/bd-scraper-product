@@ -10,7 +10,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-bd-line/60 bg-[#000000e6] backdrop-blur-lg">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-2 px-4 sm:px-6">
-        <div className="flex min-w-0 items-center gap-4 lg:gap-6">
+        <div className="flex min-w-0 items-center gap-4 xl:gap-6">
           <Link href="/products/web-scraper" className="flex shrink-0 items-center gap-2.5">
             <span className="brand-mark grid h-8 w-8 place-items-center rounded-lg text-sm font-extrabold text-white shadow-sm shadow-bd-blue/40">
               BD
@@ -44,11 +44,11 @@ export function Header() {
           </nav>
         </div>
 
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <HeaderSearch />
           <a
             href="https://brightdata.com/cp"
-            className="hidden rounded-lg px-3 py-1.5 text-sm font-semibold text-bd-ink transition hover:bg-bd-blue-soft hover:text-bd-navy sm:inline-flex"
+            className="hidden shrink-0 rounded-lg px-3 py-1.5 text-sm font-semibold text-bd-ink transition hover:bg-bd-blue-soft hover:text-bd-navy sm:inline-flex"
             target="_blank"
             rel="noreferrer"
           >
@@ -56,7 +56,7 @@ export function Header() {
           </a>
           <a
             href="https://brightdata.com/cp/start"
-            className="rounded-lg bg-bd-blue px-2.5 py-1.5 text-[13px] font-semibold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110 sm:px-3.5 sm:text-sm"
+            className="shrink-0 rounded-lg bg-bd-blue px-2.5 py-1.5 text-[13px] font-semibold text-white shadow-sm shadow-bd-blue/30 transition hover:brightness-110 sm:px-3.5 sm:text-sm"
             target="_blank"
             rel="noreferrer"
           >
