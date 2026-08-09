@@ -81,8 +81,6 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
 
         <TrustedByStrip />
 
-        <ValueBanner />
-
         {/* 1. SCRAPER GALLERY */}
         <section className="section scrapers-first hub-anchor" id="scrapers">
           <div className="container">
@@ -133,6 +131,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             )}
           </div>
         </section>
+
+        <ValueBanner />
 
         <HowItWorksSteps
           heading={`From zero to ${hub.name} data in 3 steps`}
