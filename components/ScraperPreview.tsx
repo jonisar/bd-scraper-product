@@ -1,26 +1,22 @@
 "use client";
 
-import Link from "next/link";
 import { AmazonScraperMain } from "@/components/AmazonScraperMain";
-
-const FULL_PAGE_HREF = "/products/web-scraper/amazon/amazon-product-scraper";
 
 export default function ScraperPreview() {
   return (
-    <section className="sp-preview animate-rise">
+    <section className="sp-preview animate-rise" aria-labelledby="sp-preview-kicker">
       <div className="container">
+        <div className="sp-section-head">
+          <span className="kicker" id="sp-preview-kicker">
+            Live example
+          </span>
+        </div>
         <div className="sp-frame">
-          {/* Slim toolbar — playground chrome */}
-          <div className="sp-toolbar">
-            <div className="sp-toolbar-left">
-              <span className="sp-dot sp-dot-red" />
-              <span className="sp-dot sp-dot-yellow" />
-              <span className="sp-dot sp-dot-green" />
-              <span className="sp-toolbar-label">Live scraper example</span>
-            </div>
-            <Link href={FULL_PAGE_HREF} className="sp-toolbar-link">
-              Open full page →
-            </Link>
+          {/* Window chrome — traffic-light dots */}
+          <div className="sp-toolbar" aria-hidden="true">
+            <span className="sp-dot sp-dot-red" />
+            <span className="sp-dot sp-dot-yellow" />
+            <span className="sp-dot sp-dot-green" />
           </div>
 
           {/* Scrollable body */}

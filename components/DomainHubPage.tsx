@@ -24,6 +24,7 @@ import DxComplianceSection from "@/components/DxComplianceSection";
 import FaqSection from "@/components/FaqSection";
 import HeroRatings from "@/components/HeroRatings";
 import ScraperPreview from "@/components/ScraperPreview";
+import ValueBanner from "@/components/ValueBanner";
 import { sampleUrlForDomain, type DomainHubData } from "@/lib/domain-hubs";
 import { cpHref } from "@/lib/cp-href";
 
@@ -79,6 +80,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
         </section>
 
         <TrustedByStrip />
+
+        <ValueBanner />
 
         {/* 1. SCRAPER GALLERY */}
         <section className="section scrapers-first hub-anchor" id="scrapers">

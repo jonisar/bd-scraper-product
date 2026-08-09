@@ -17,6 +17,7 @@ import DxComplianceSection from "@/components/DxComplianceSection";
 import FaqSection from "@/components/FaqSection";
 import HeroRatings from "@/components/HeroRatings";
 import ScraperPreview from "@/components/ScraperPreview";
+import ValueBanner from "@/components/ValueBanner";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -183,31 +184,7 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* VALUE BANNER */}
-      <section className="value-banner">
-        <div className="container value-banner-inner">
-          <div className="vb-item">
-            <strong>#1</strong>
-            <span>in benchmarks</span>
-          </div>
-          <div className="vb-item">
-            <strong>98.4%</strong>
-            <span>success rate</span>
-          </div>
-          <div className="vb-item">
-            <strong>400M+</strong>
-            <span>proxy IPs built in</span>
-          </div>
-          <div className="vb-item">
-            <strong>195</strong>
-            <span>countries covered</span>
-          </div>
-          <div className="vb-item">
-            <strong>MCP</strong>
-            <span>AI agent ready</span>
-          </div>
-        </div>
-      </section>
+      <ValueBanner />
 
       <HowItWorksSteps
         heading="From zero to structured data in 3 steps"

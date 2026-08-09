@@ -1706,7 +1706,7 @@ export function AmazonScraperMain({
             <div className="border-b border-bd-line px-5 py-4 sm:px-6">
               <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3">
                 <div className="min-w-0">
-                  <TitleTag className="text-lg font-bold tracking-tight text-bd-navy">
+                  <TitleTag className="text-2xl font-bold tracking-tight text-bd-navy">
                     Amazon Product Scraper
                   </TitleTag>
                   <p className="mt-1 text-[13px] leading-snug text-bd-muted">
