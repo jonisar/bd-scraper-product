@@ -1703,13 +1703,13 @@ export function AmazonScraperMain({
         <div className={compact ? "sp-sticky-header" : ""}>
           {/* Compact hero strip — only in compact/preview mode */}
           {compact && (
-            <div className="border-b border-bd-line px-5 py-4 sm:px-6">
-              <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3">
+            <div className="border-b border-bd-line px-4 py-2.5 sm:px-5">
+              <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
                 <div className="min-w-0">
-                  <TitleTag className="text-[15px] font-bold text-bd-navy sm:text-base">
+                  <TitleTag className="text-[13px] font-semibold text-bd-navy/90">
                     Amazon Product Scraper
                   </TitleTag>
-                  <p className="mt-0.5 text-[12px] leading-snug text-bd-ink/70">
+                  <p className="mt-px text-[11px] leading-tight text-bd-muted">
                     Prices, reviews, stock &amp; seller data via API
                   </p>
                 </div>
@@ -1735,12 +1735,12 @@ export function AmazonScraperMain({
                   </div>
                 </div>
               </div>
-              <div className="mt-3 flex flex-wrap items-center gap-2.5">
+              <div className="mt-2 flex flex-wrap items-center gap-2">
                 <a
                   href="https://brightdata.com/cp/start"
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-lg bg-bd-blue px-4 py-2 text-xs font-bold text-white shadow-sm shadow-bd-blue/25 transition hover:brightness-110"
+                  className="rounded-md bg-bd-blue px-3 py-1.5 text-[11px] font-bold text-white shadow-sm shadow-bd-blue/25 transition hover:brightness-110"
                 >
                   Start free
                 </a>
