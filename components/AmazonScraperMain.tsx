@@ -1706,17 +1706,17 @@ export function AmazonScraperMain({
             <div className="border-b border-bd-line px-4 py-2.5 sm:px-5">
               <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
                 <div className="min-w-0">
-                  <TitleTag className="text-[13px] font-semibold text-bd-navy/90">
+                  <TitleTag className="text-[15px] font-bold text-bd-navy">
                     Amazon Product Scraper
                   </TitleTag>
-                  <p className="mt-px text-[11px] leading-tight text-bd-muted">
-                    Prices, reviews, stock &amp; seller data via API
+                  <p className="mt-0.5 text-[12px] leading-tight text-bd-muted">
+                    Real-time prices, reviews, stock &amp; seller data — one API call
                   </p>
                 </div>
                 <div className="flex shrink-0 items-center gap-4">
                   <div className="text-center">
-                    <p className="text-xs font-extrabold text-bd-navy">5.7K+</p>
-                    <p className="mt-0.5 text-[10px] text-bd-muted">Users</p>
+                    <p className="text-xs font-extrabold text-bd-navy">1.2B+</p>
+                    <p className="mt-0.5 text-[10px] text-bd-muted">Deliveries</p>
                   </div>
                   <div className="text-center">
                     <p className="text-xs font-extrabold text-bd-navy">99.99%</p>
