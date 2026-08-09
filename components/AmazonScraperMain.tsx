@@ -2055,11 +2055,13 @@ export function AmazonScraperMain({
                       }}
                       className="group rounded-xl border border-bd-line bg-bd-canvas px-4 py-4 text-left transition hover:border-bd-blue/40 hover:bg-bd-blue-soft/30"
                     >
-                      <span className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-bd-blue/10 text-sm font-bold text-bd-blue">
-                        {path.icon}
-                      </span>
-                      <p className="font-bold text-bd-navy">{path.title}</p>
-                      <p className="mt-1 text-[13px] leading-5 text-bd-ink/85">{path.desc}</p>
+                      <div className="flex items-center gap-2.5">
+                        <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-bd-blue/10 text-xs font-bold text-bd-blue">
+                          {path.icon}
+                        </span>
+                        <p className="font-bold text-bd-navy">{path.title}</p>
+                      </div>
+                      <p className="mt-1.5 text-[13px] leading-5 text-bd-ink/85">{path.desc}</p>
                       <span className="mt-3 inline-block text-[13px] font-semibold text-bd-blue group-hover:underline">
                         {path.action} →
                       </span>
