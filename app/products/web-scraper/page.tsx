@@ -7,6 +7,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 import { PricingCards } from "@/components/PricingCards";
+import PricingSlider from "@/components/PricingSlider";
 import PricingAssurances from "@/components/PricingAssurances";
 import HubCodeExample from "@/components/HubCodeExample";
 import StatBanner from "@/components/StatBanner";
@@ -211,6 +212,7 @@ export default function WebScraperHome() {
             <h2>Only pay for what&rsquo;s successfully delivered</h2>
             <p>No hidden fees. No charges for failed requests. Every plan includes full access to all scrapers and infrastructure.</p>
           </div>
+          <PricingSlider className="mb-6" />
           <PricingCards unit="records" />
           <PricingAssurances />
 
