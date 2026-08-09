@@ -3876,7 +3876,6 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 /* Body — fixed height with scroll, overscroll-behavior ensures no scroll trap */
 .sp-scroll-body {
-  padding: var(--s3);
   max-height: 75vh;
   overflow-y: auto;
   overscroll-behavior-y: contain;
@@ -3889,6 +3888,15 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 .sp-scroll-body::-webkit-scrollbar-thumb:hover { background: rgba(125, 133, 144, 0.5); }
 
 .sp-inner { min-width: 0; }
+
+/* Sticky header inside the scroll body — fully opaque, no bleed-through */
+.sp-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--bd-panel, #0d1117);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
 
 /*
  * .lib-page a { color: inherit } wins over Tailwind color utilities.
@@ -3916,5 +3924,5 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 @media (max-width: 640px) {
   .sp-toolbar-label { display: none; }
-  .sp-scroll-body { padding: var(--s3); max-height: 65vh; }
+  .sp-scroll-body { max-height: 65vh; }
 }
