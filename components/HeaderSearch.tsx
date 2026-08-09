@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState, useRef, useCallback, useEffect } from "react";
-import { templates, templateHref } from "@/lib/templates";
+import { templates } from "@/lib/templates";
+import { cpHrefForTemplate } from "@/lib/cp-href";
 
 function domainOf(input: string) {
   const s = input.trim().toLowerCase();
@@ -126,7 +127,7 @@ export default function HeaderSearch() {
           {matches.length > 0 ? (
             <>
             {matches.slice(0, 5).map((t, i) => {
-              const href = templateHref(t);
+              const href = cpHrefForTemplate(t);
               const external = href.startsWith("http");
               return (
               <a

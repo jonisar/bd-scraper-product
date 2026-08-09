@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Header, Footer } from "@/components/Chrome";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScraperCard from "@/components/ScraperCard";
+import { cpHref } from "@/lib/cp-href";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 import AgentGetStarted from "@/components/AgentGetStarted";
@@ -148,7 +149,7 @@ export default function AmazonHubPage() {
                   fieldsPreview={s.fieldsPreview}
                   views={s.views}
                   downloads={s.downloads}
-                  href={s.href}
+                  href={cpHref(s)}
                 />
               ))}
             </div>

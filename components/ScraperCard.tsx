@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import DomainMark from "@/components/DomainMark";
 
 export type ScraperCardProps = {
@@ -28,10 +27,6 @@ export default function ScraperCard({
   successRate = "99.2%",
   lastVerified = "3h ago",
 }: ScraperCardProps) {
-  // TEMP: all scraper cards → Amazon product scraper page (domain cards unaffected)
-  const cardHref = "/products/web-scraper/amazon/amazon-product-scraper";
-  void href;
-
   const cardContent = (
     <>
       <div className="fc-header">
@@ -65,9 +60,9 @@ export default function ScraperCard({
     <div className="fc">
       <div className="fc-glow" aria-hidden="true" />
 
-      <Link href={cardHref} className="fc-link" aria-label={`${name} — ${domain}`}>
+      <a href={href} target="_blank" rel="noreferrer" className="fc-link" aria-label={`${name} — ${domain}`}>
         {cardContent}
-      </Link>
+      </a>
 
       <div className="fc-metrics">
         <div className="fc-metric">

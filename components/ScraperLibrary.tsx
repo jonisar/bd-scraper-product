@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { catalog, CATALOG_CATEGORIES } from "@/lib/catalog";
-import { scraperHref } from "@/lib/scraper-href";
+import { cpHref } from "@/lib/cp-href";
 import ScraperCard from "@/components/ScraperCard";
 import DomainMark from "@/components/DomainMark";
 
@@ -170,7 +170,7 @@ export default function ScraperLibrary() {
                 desc={s.desc}
                 views={s.views}
                 downloads={s.downloads}
-                href={scraperHref(s)}
+                href={cpHref(s)}
               />
             ))}
           </div>

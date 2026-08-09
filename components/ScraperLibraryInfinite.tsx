@@ -3,7 +3,7 @@
 import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import { catalog, CATALOG_CATEGORIES, type CatalogScraper } from "@/lib/catalog";
 import { CATEGORY_LABELS } from "@/lib/category-labels";
-import { scraperHref } from "@/lib/scraper-href";
+import { cpHref } from "@/lib/cp-href";
 import ScraperCard from "@/components/ScraperCard";
 import DomainMark from "@/components/DomainMark";
 
@@ -225,7 +225,7 @@ function LazyCardGrid({
                 desc={s.desc}
                 views={s.views}
                 downloads={s.downloads}
-                href={scraperHref(s)}
+                href={cpHref(s)}
               />
             </div>
           ))}
@@ -367,7 +367,7 @@ export default function ScraperLibraryInfinite() {
         desc={s.desc}
         views={s.views}
         downloads={s.downloads}
-        href={scraperHref(s)}
+        href={cpHref(s)}
       />
     </div>
   );

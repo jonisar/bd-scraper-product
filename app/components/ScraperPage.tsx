@@ -548,7 +548,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "review_text, rating, author, verified_purchase, helpful_votes, date",
     views: "7.2K+",
     downloads: "1.8K+",
-    href: "https://brightdata.com/products/web-scraper/amazon/reviews",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_le8e811kzy4ggddlq",
   },
   {
     name: "Amazon Best Sellers",
@@ -558,7 +558,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "rank, title, price, rating, category, sales_volume",
     views: "34.6K+",
     downloads: "5.1K+",
-    href: "/products/web-scraper/amazon",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije",
   },
   {
     name: "Amazon Sellers Info",
@@ -568,7 +568,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "seller_name, rating, feedback_count, return_policy, address",
     views: "2.4K+",
     downloads: "820+",
-    href: "https://brightdata.com/products/web-scraper/amazon/seller",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_lhotzucw1etoe5iw1k",
   },
   {
     name: "Amazon Price Tracker",
@@ -578,7 +578,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "price, list_price, discount, buy_box, stock_status",
     views: "1.6K+",
     downloads: "540+",
-    href: "https://brightdata.com/products/web-scraper/amazon/price",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije",
   },
   {
     name: "Walmart Products",
@@ -588,7 +588,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "sku, price, specs, availability, reviews, seller",
     views: "5.5K+",
     downloads: "1.4K+",
-    href: "https://brightdata.com/products/web-scraper/walmart",
+    href: "https://brightdata.com/cp/datasets",
   },
   {
     name: "Google Maps Scraper",
@@ -598,7 +598,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "name, address, phone, rating, reviews, hours, website",
     views: "12.8K+",
     downloads: "3.9K+",
-    href: "/products/web-scraper/google-maps",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_m8ebnr0q2qlklc02fz",
   },
   {
     name: "LinkedIn Profiles",
@@ -608,7 +608,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "name, headline, company, experience, skills, education",
     views: "118.1K+",
     downloads: "28.4K+",
-    href: "/products/web-scraper/linkedin",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1viktl72bvl7bjuj0",
   },
   {
     name: "Instagram Profiles",
@@ -618,7 +618,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "followers, posts, bio, engagement_rate, media, hashtags",
     views: "21.8K+",
     downloads: "6.2K+",
-    href: "/products/web-scraper/instagram",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vikfch901nx3by4",
   },
 ];
 
@@ -2496,12 +2496,12 @@ export default function ScraperPage() {
                       </p>
                       <div className="mt-4 grid gap-4 sm:grid-cols-2">
                         {[
-                          { name: "Amazon Product Scraper", domain: "amazon.com", category: "E-commerce", desc: "Prices, titles, images, specs, stock levels, and 40+ fields from any product page.", fieldsPreview: "title, price, rating, reviews, stock, images", views: "48.2K+", downloads: "12.6K+", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Amazon Best Sellers", domain: "amazon.com", category: "Rankings", desc: "Bestseller rankings, category leaderboards, movers & shakers, and trending products.", fieldsPreview: "rank, title, price, rating, category, sales_volume", views: "34.6K+", downloads: "5.1K+", href: "/products/web-scraper/amazon" },
-                          { name: "Amazon Reviews Scraper", domain: "amazon.com", category: "Reviews", desc: "Review text, star ratings, author info, verified purchase status, and helpful votes.", fieldsPreview: "review_text, rating, author, verified, helpful_votes", views: "7.2K+", downloads: "1.8K+", href: "/products/web-scraper/amazon" },
-                          { name: "Amazon Sellers Info", domain: "amazon.com", category: "Sellers", desc: "Seller name, store rating, feedback count, return policy, and business address.", fieldsPreview: "seller_name, rating, feedback_count, return_policy", views: "2.4K+", downloads: "820+", href: "/products/web-scraper/amazon" },
-                          { name: "Amazon Price Tracker", domain: "amazon.com", category: "Pricing", desc: "Real-time pricing, discounts, deal badges, Buy Box winner, and stock availability.", fieldsPreview: "price, list_price, discount, buy_box, stock_status", views: "1.6K+", downloads: "540+", href: "/products/web-scraper/amazon" },
-                          { name: "Amazon Keyword Search", domain: "amazon.com", category: "Search", desc: "Search results by keyword — product listings, sponsored placements, and organic rankings.", fieldsPreview: "title, price, position, sponsored, rating, url", views: "3.8K+", downloads: "1.1K+", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Product Scraper", domain: "amazon.com", category: "E-commerce", desc: "Prices, titles, images, specs, stock levels, and 40+ fields from any product page.", fieldsPreview: "title, price, rating, reviews, stock, images", views: "48.2K+", downloads: "12.6K+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije" },
+                          { name: "Amazon Best Sellers", domain: "amazon.com", category: "Rankings", desc: "Bestseller rankings, category leaderboards, movers & shakers, and trending products.", fieldsPreview: "rank, title, price, rating, category, sales_volume", views: "34.6K+", downloads: "5.1K+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije" },
+                          { name: "Amazon Reviews Scraper", domain: "amazon.com", category: "Reviews", desc: "Review text, star ratings, author info, verified purchase status, and helpful votes.", fieldsPreview: "review_text, rating, author, verified, helpful_votes", views: "7.2K+", downloads: "1.8K+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_le8e811kzy4ggddlq" },
+                          { name: "Amazon Sellers Info", domain: "amazon.com", category: "Sellers", desc: "Seller name, store rating, feedback count, return policy, and business address.", fieldsPreview: "seller_name, rating, feedback_count, return_policy", views: "2.4K+", downloads: "820+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_lhotzucw1etoe5iw1k" },
+                          { name: "Amazon Price Tracker", domain: "amazon.com", category: "Pricing", desc: "Real-time pricing, discounts, deal badges, Buy Box winner, and stock availability.", fieldsPreview: "price, list_price, discount, buy_box, stock_status", views: "1.6K+", downloads: "540+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije" },
+                          { name: "Amazon Keyword Search", domain: "amazon.com", category: "Search", desc: "Search results by keyword — product listings, sponsored placements, and organic rankings.", fieldsPreview: "title, price, position, sponsored, rating, url", views: "3.8K+", downloads: "1.1K+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_lwdb4vjm1ehb499uxs" },
                         ].map((s) => (
                           <ScraperCard key={s.name} {...s} />
                         ))}

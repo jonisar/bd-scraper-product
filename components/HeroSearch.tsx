@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import type { Template } from "@/lib/templates";
-import { templateHref } from "@/lib/templates";
+import { cpHrefForTemplate } from "@/lib/cp-href";
 
 const SEARCH_RESULTS_PATH = "/products/web-scraper/scraper-lib";
 
@@ -36,7 +36,7 @@ function domainOf(input: string) {
 }
 
 function resultHref(t: Template): string {
-  return templateHref(t);
+  return cpHrefForTemplate(t);
 }
 
 function scoreMatch(t: Template, needle: string, dom: string): number {
