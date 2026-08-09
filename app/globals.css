@@ -275,7 +275,7 @@ body {
    ===================================================================== */
 
 .lib-page { font-size: 16px; line-height: 1.6; max-width: 100vw; overflow-x: clip; }
-.lib-page a { color: inherit; text-decoration: none; }
+.lib-page a:not(.sp-frame *) { color: inherit; text-decoration: none; }
 /* Primary CTAs must stay pure white — .lib-page a { color: inherit } otherwise wins */
 .lib-page a.btn-primary,
 .lib-page .btn-primary,
@@ -307,12 +307,12 @@ body {
 .lib-page .btn-ghost { color: var(--text-2); }
 .lib-page a.btn-ghost:hover,
 .lib-page .btn-ghost:hover { color: var(--text-1); }
-.lib-page h1, .lib-page h2, .lib-page h3 { color: var(--text-1); font-weight: 700; line-height: 1.15; margin: 0; }
-.lib-page h1 { font-size: clamp(36px, 5.5vw, 56px); letter-spacing: -0.025em; }
-.lib-page h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 600; letter-spacing: -0.015em; }
-.lib-page h3 { font-size: 20px; font-weight: 600; }
+.lib-page h1:not(.sp-frame *), .lib-page h2:not(.sp-frame *), .lib-page h3:not(.sp-frame *) { color: var(--text-1); font-weight: 700; line-height: 1.15; margin: 0; }
+.lib-page h1:not(.sp-frame *) { font-size: clamp(36px, 5.5vw, 56px); letter-spacing: -0.025em; }
+.lib-page h2:not(.sp-frame *) { font-size: clamp(28px, 4vw, 40px); font-weight: 600; letter-spacing: -0.015em; }
+.lib-page h3:not(.sp-frame *) { font-size: 20px; font-weight: 600; }
 /* Reset p margins — any p spacing must use .lib-page .classname to win specificity */
-.lib-page p { margin: 0; color: var(--text-2); }
+.lib-page p:not(.sp-frame *) { margin: 0; color: var(--text-2); }
 
 .container { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--s5); }
 @media (max-width: 640px) {
@@ -3909,41 +3909,6 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
 }
 
-/*
- * .lib-page a { color: inherit } wins over Tailwind color utilities.
- * Restore scraper-page link colors inside the embed.
- */
-.lib-page .sp-frame h1,
-.lib-page .sp-frame h2,
-.lib-page .sp-frame h3,
-.lib-page .sp-frame p {
-  font-size: unset;
-  font-weight: unset;
-  line-height: unset;
-  letter-spacing: unset;
-  color: unset;
-  margin: unset;
-}
-
-.lib-page .sp-frame a.text-white,
-.lib-page .sp-frame a.bg-bd-blue,
-.lib-page .sp-frame a.bg-bd-blue:hover {
-  color: #ffffff;
-}
-.lib-page .sp-frame a.text-bd-blue,
-.lib-page .sp-frame a.text-bd-blue:hover {
-  color: var(--bd-blue);
-}
-.lib-page .sp-frame a.text-bd-navy {
-  color: var(--bd-navy);
-}
-.lib-page .sp-frame a.text-bd-ink,
-.lib-page .sp-frame a.text-bd-ink\/85 {
-  color: var(--bd-ink);
-}
-.lib-page .sp-frame a.text-bd-muted {
-  color: var(--bd-muted);
-}
 
 @media (max-width: 640px) {
   .sp-scroll-body { height: 65vh; }
