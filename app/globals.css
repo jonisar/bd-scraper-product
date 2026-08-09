@@ -3876,7 +3876,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 /* Body — fixed height with scroll, overscroll-behavior ensures no scroll trap */
 .sp-scroll-body {
-  max-height: 75vh;
+  height: 75vh;
   overflow-y: auto;
   overscroll-behavior-y: contain;
   scrollbar-width: thin;
@@ -3924,5 +3924,5 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 @media (max-width: 640px) {
   .sp-toolbar-label { display: none; }
-  .sp-scroll-body { max-height: 65vh; }
+  .sp-scroll-body { height: 65vh; }
 }
