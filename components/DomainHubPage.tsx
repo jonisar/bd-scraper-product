@@ -131,9 +131,6 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* SCRAPER PREVIEW — same shared Amazon experience as the full scraper page */}
-        <ScraperPreview />
-
         <HowItWorksSteps
           heading={`From zero to ${hub.name} data in 3 steps`}
           step1={`Choose from the ${hub.name} scrapers above or create your own with AI in minutes.`}
@@ -200,6 +197,9 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             />
           </div>
         </section>
+
+        {/* SCRAPER PREVIEW — interactive example after agent context */}
+        <ScraperPreview />
 
         {/* PATHS — orient developers & buyers */}
         <section className="section section-alt animate-rise hub-anchor" id="paths">

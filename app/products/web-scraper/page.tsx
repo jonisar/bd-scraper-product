@@ -183,9 +183,6 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* SCRAPER PREVIEW — same shared Amazon experience as the full scraper page */}
-      <ScraperPreview />
-
       {/* VALUE BANNER */}
       <section className="value-banner">
         <div className="container value-banner-inner">
@@ -266,6 +263,9 @@ export default function WebScraperHome() {
           <AgentGetStarted />
         </div>
       </section>
+
+      {/* SCRAPER PREVIEW — interactive example after agent context */}
+      <ScraperPreview />
 
       {/* CHOOSE YOUR PATH */}
       <section className="section animate-rise" id="paths">
