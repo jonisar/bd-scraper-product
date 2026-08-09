@@ -1699,46 +1699,48 @@ export function AmazonScraperMain({
       {/* Unified panel: compact hero header + tabs in one card */}
       <div id={tabsId} className={`${compact ? "" : "animate-rise-delay mt-6 "}min-w-0 overflow-x-clip rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]`}>
 
-        {/* Compact hero strip — only in compact/preview mode */}
-        {compact && (
-          <div className="border-b border-bd-line px-5 py-4 sm:px-6">
-            <div className="flex flex-wrap items-start justify-between gap-4">
-              <div className="min-w-0">
-                <TitleTag className="text-xl font-extrabold tracking-tight text-bd-navy sm:text-2xl">
-                  Amazon Product Scraper
-                </TitleTag>
-                <p className="mt-1 text-[13px] leading-relaxed text-bd-ink/80 max-w-xl">
-                  Extract prices, reviews, stock levels, and seller data from any Amazon product page via API.
-                </p>
-              </div>
-              <div className="flex shrink-0 items-center gap-3 text-[11px]">
-                <div className="text-center">
-                  <p className="font-extrabold text-bd-navy text-xs">5.7K+</p>
-                  <p className="text-bd-muted">Users</p>
-                </div>
-                <div className="text-center">
-                  <p className="font-extrabold text-bd-navy text-xs">99.99%</p>
-                  <p className="text-bd-muted">Uptime</p>
-                </div>
-                <div className="text-center">
-                  <p className="flex items-center gap-1 font-extrabold text-bd-success text-xs">
-                    <span className="h-1.5 w-1.5 rounded-full bg-bd-success animate-pulse" />
-                    3h ago
+        {/* Sticky header: compact hero + tab bar pinned inside scroll container */}
+        <div className={compact ? "sticky top-0 z-20 bg-bd-panel rounded-t-2xl" : ""}>
+          {/* Compact hero strip — only in compact/preview mode */}
+          {compact && (
+            <div className="border-b border-bd-line px-5 py-3 sm:px-6">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <TitleTag className="text-lg font-extrabold tracking-tight text-bd-navy sm:text-xl">
+                    Amazon Product Scraper
+                  </TitleTag>
+                  <p className="mt-0.5 text-[12px] leading-relaxed text-bd-ink/80 max-w-xl">
+                    Extract prices, reviews, stock levels, and seller data via API.
                   </p>
-                  <p className="text-bd-muted">Verified</p>
                 </div>
-                <div className="text-center hidden sm:block">
-                  <p className="font-extrabold text-bd-navy text-xs">GDPR</p>
-                  <p className="text-bd-muted">Compliant</p>
+                <div className="flex shrink-0 items-center gap-3 text-[11px]">
+                  <div className="text-center">
+                    <p className="font-extrabold text-bd-navy text-xs">5.7K+</p>
+                    <p className="text-bd-muted">Users</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="font-extrabold text-bd-navy text-xs">99.99%</p>
+                    <p className="text-bd-muted">Uptime</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="flex items-center gap-1 font-extrabold text-bd-success text-xs">
+                      <span className="h-1.5 w-1.5 rounded-full bg-bd-success animate-pulse" />
+                      3h ago
+                    </p>
+                    <p className="text-bd-muted">Verified</p>
+                  </div>
+                  <div className="text-center hidden sm:block">
+                    <p className="font-extrabold text-bd-navy text-xs">GDPR</p>
+                    <p className="text-bd-muted">Compliant</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        <div className={stickyTabs ? "sticky top-14 z-30" : ""}>
-          <div className="relative rounded-t-2xl bg-bd-panel">
-          <div className="tab-scroll flex overflow-x-auto border-b border-bd-line px-4 sm:px-5">
+          <div className={stickyTabs && !compact ? "sticky top-14 z-30" : ""}>
+            <div className="relative bg-bd-panel">
+            <div className="tab-scroll flex overflow-x-auto border-b border-bd-line px-4 sm:px-5">
             {mainTabs.map((tab) => (
               <button
                 key={tab}
@@ -1757,6 +1759,7 @@ export function AmazonScraperMain({
               </button>
             ))}
           </div>
+        </div>
         </div>
         </div>
 
