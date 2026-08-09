@@ -645,17 +645,18 @@ function getUrlStatus(url: string): UrlStatus {
   return "ok";
 }
 
-function PricingTab() {
+function PricingTab({ compact = false }: { compact?: boolean }) {
   return (
     <div className="space-y-8">
-      {/* Hero */}
-      <div>
-        <h2 className="text-xl font-bold text-bd-navy">Simple, transparent pricing</h2>
-        <p className="mt-2 text-[15px] leading-7 text-bd-ink">
-          Pay only for successfully delivered records. No setup fees, no hidden costs, no
-          surprises. Start free, scale predictably.
-        </p>
-      </div>
+      {!compact && (
+        <div>
+          <h2 className="text-xl font-bold text-bd-navy">Simple, transparent pricing</h2>
+          <p className="mt-2 text-[15px] leading-7 text-bd-ink">
+            Pay only for successfully delivered records. No setup fees, no hidden costs, no
+            surprises. Start free, scale predictably.
+          </p>
+        </div>
+      )}
 
       <PricingSlider />
 
@@ -1340,7 +1341,7 @@ const DELIVERY_OPTIONS = ["API response", "Amazon S3", "Google Cloud", "Webhook"
 const GEO_OPTIONS = ["United States", "United Kingdom", "Germany", "Japan", "France", "India", "Canada", "Australia"] as const;
 const SCHEDULE_OPTIONS = ["Manual", "Hourly", "Daily", "Weekly"] as const;
 
-function CustomizeTab({ datasetId, apiMode, onApiModeChange }: { datasetId: string; apiMode: "sync" | "async"; onApiModeChange: (m: "sync" | "async") => void }) {
+function CustomizeTab({ datasetId, apiMode, onApiModeChange, compact = false }: { datasetId: string; apiMode: "sync" | "async"; onApiModeChange: (m: "sync" | "async") => void; compact?: boolean }) {
   const [fields, setFields] = useState<Set<string>>(() => new Set(DEFAULT_ON));
   const [format, setFormat] = useState<string>("JSON");
   const [delivery, setDelivery] = useState<string>("API response");
@@ -1368,28 +1369,30 @@ function CustomizeTab({ datasetId, apiMode, onApiModeChange }: { datasetId: stri
 
   return (
     <div className="space-y-8">
-      <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div className="min-w-0">
-          <h2 className="text-xl font-bold text-bd-navy">Customize output</h2>
-          <p className="mt-1.5 text-sm leading-6 text-bd-ink/85">
-            Toggle fields and settings below — then open the control panel to run this config for real.
-          </p>
-        </div>
-        <div className="flex w-full shrink-0 flex-col gap-2 sm:w-auto sm:items-end">
-          <a
-            href={cpHref}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-bd-blue px-5 py-3 text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105 sm:w-auto"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Open in control panel
-            <span aria-hidden="true">→</span>
-          </a>
-          <p className="text-center text-[11px] text-bd-muted sm:text-right">
-            Free to try · No code · Apply in one click
-          </p>
-        </div>
-      </header>
+      {!compact && (
+        <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="min-w-0">
+            <h2 className="text-xl font-bold text-bd-navy">Customize output</h2>
+            <p className="mt-1.5 text-sm leading-6 text-bd-ink/85">
+              Toggle fields and settings below — then open the control panel to run this config for real.
+            </p>
+          </div>
+          <div className="flex w-full shrink-0 flex-col gap-2 sm:w-auto sm:items-end">
+            <a
+              href={cpHref}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-bd-blue px-5 py-3 text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105 sm:w-auto"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open in control panel
+              <span aria-hidden="true">→</span>
+            </a>
+            <p className="text-center text-[11px] text-bd-muted sm:text-right">
+              Free to try · No code · Apply in one click
+            </p>
+          </div>
+        </header>
+      )}
 
       {/* ── Interactive field picker ── */}
       <section>
@@ -1709,16 +1712,25 @@ export function AmazonScraperMain({
                 </p>
               </div>
               <div className="flex shrink-0 items-center gap-3 text-[11px]">
-                {[
-                  { value: "34.7K+", label: "Deliveries" },
-                  { value: "99.99%", label: "Uptime" },
-                  { value: "98.4%", label: "Success" },
-                ].map((s) => (
-                  <div key={s.label} className="text-center">
-                    <p className="font-extrabold text-bd-navy text-xs">{s.value}</p>
-                    <p className="text-bd-muted">{s.label}</p>
-                  </div>
-                ))}
+                <div className="text-center">
+                  <p className="font-extrabold text-bd-navy text-xs">5.7K+</p>
+                  <p className="text-bd-muted">Users</p>
+                </div>
+                <div className="text-center">
+                  <p className="font-extrabold text-bd-navy text-xs">99.99%</p>
+                  <p className="text-bd-muted">Uptime</p>
+                </div>
+                <div className="text-center">
+                  <p className="flex items-center gap-1 font-extrabold text-bd-success text-xs">
+                    <span className="h-1.5 w-1.5 rounded-full bg-bd-success animate-pulse" />
+                    3h ago
+                  </p>
+                  <p className="text-bd-muted">Verified</p>
+                </div>
+                <div className="text-center hidden sm:block">
+                  <p className="font-extrabold text-bd-navy text-xs">GDPR</p>
+                  <p className="text-bd-muted">Compliant</p>
+                </div>
               </div>
             </div>
           </div>
@@ -1752,17 +1764,19 @@ export function AmazonScraperMain({
           {/* ===== API TAB ===== */}
           {mainTab === "API" ? (
             <div className="space-y-8">
-              <header>
-                <h2 className="text-xl font-bold text-bd-navy">API examples</h2>
-                <p className="mt-1.5 text-[15px] leading-7 text-bd-ink/80">
-                  Call this scraper from your code — pick a language, copy the snippet, add your API key.
-                  Showing{" "}
-                  <strong className="font-semibold text-bd-ink">{apiMode === "sync" ? "sync" : "async"}</strong>
-                  {" "}examples
-                  {apiMode === "sync" ? " for real-time lookups" : " for bulk jobs"}
-                  . Select a mode below to update every example on this tab.
-                </p>
-              </header>
+              {!compact && (
+                <header>
+                  <h2 className="text-xl font-bold text-bd-navy">API examples</h2>
+                  <p className="mt-1.5 text-[15px] leading-7 text-bd-ink/80">
+                    Call this scraper from your code — pick a language, copy the snippet, add your API key.
+                    Showing{" "}
+                    <strong className="font-semibold text-bd-ink">{apiMode === "sync" ? "sync" : "async"}</strong>
+                    {" "}examples
+                    {apiMode === "sync" ? " for real-time lookups" : " for bulk jobs"}
+                    . Select a mode below to update every example on this tab.
+                  </p>
+                </header>
+              )}
 
               {/* Language pills + code */}
               <section id="api-code-examples">
@@ -1953,7 +1967,7 @@ export function AmazonScraperMain({
 
           {/* ===== PRICING TAB ===== */}
           {mainTab === "Pricing" ? (
-            <PricingTab />
+            <PricingTab compact={compact} />
           ) : null}
 
           {/* ===== OVERVIEW TAB ===== */}
@@ -1961,15 +1975,17 @@ export function AmazonScraperMain({
             <article className="space-y-8 text-[15px] leading-7 text-bd-ink">
 
               {/* ── 1. TL;DR ── */}
-              <header>
-                <h2 className="text-2xl font-bold text-bd-navy sm:text-[1.65rem]">
-                  Easily scrape Amazon product data
-                </h2>
-                <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/90">
-                  Send Amazon URLs or ASINs → get structured JSON with 40+ fields (prices, reviews, seller data, stock, images).
-                  Proxies, CAPTCHAs, and rendering are fully managed. Free 5K records/month included.
-                </p>
-              </header>
+              {!compact && (
+                <header>
+                  <h2 className="text-2xl font-bold text-bd-navy sm:text-[1.65rem]">
+                    Easily scrape Amazon product data
+                  </h2>
+                  <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/90">
+                    Send Amazon URLs or ASINs → get structured JSON with 40+ fields (prices, reviews, seller data, stock, images).
+                    Proxies, CAPTCHAs, and rendering are fully managed. Free 5K records/month included.
+                  </p>
+                </header>
+              )}
 
               {/* ── 2. Quick start — 3 paths ── */}
               <section>
@@ -2609,11 +2625,15 @@ export function AmazonScraperMain({
           {/* ===== INPUT TAB ===== */}
           {mainTab === "Input" ? (
             <div className="space-y-5">
-              <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Input Configuration</h2>
-              <p className="text-[15px] leading-7 text-bd-ink">
-                The request body is a JSON array of input objects. Each object must contain at
-                minimum a <code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">url</code> field.
-              </p>
+              {!compact && (
+                <>
+                  <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Input Configuration</h2>
+                  <p className="text-[15px] leading-7 text-bd-ink">
+                    The request body is a JSON array of input objects. Each object must contain at
+                    minimum a <code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">url</code> field.
+                  </p>
+                </>
+              )}
 
               <div className="overflow-x-auto rounded-xl border border-bd-line">
                 <table className="w-full text-sm">
@@ -2703,11 +2723,15 @@ export function AmazonScraperMain({
           {/* ===== OUTPUT TAB ===== */}
           {mainTab === "Output" ? (
             <div className="space-y-5">
-              <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Output Schema</h2>
-              <p className="text-[15px] leading-7 text-bd-ink">
-                Each successfully scraped product returns a structured JSON object. All data
-                can be delivered as JSON, NDJSON, or CSV via API, webhook, S3, or GCS.
-              </p>
+              {!compact && (
+                <>
+                  <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Output Schema</h2>
+                  <p className="text-[15px] leading-7 text-bd-ink">
+                    Each successfully scraped product returns a structured JSON object. All data
+                    can be delivered as JSON, NDJSON, or CSV via API, webhook, S3, or GCS.
+                  </p>
+                </>
+              )}
 
               <div className="flex flex-wrap items-center gap-2 text-xs">
                 <span className="rounded-full bg-bd-success/10 px-2.5 py-1 font-semibold text-bd-success">Structured JSON</span>
@@ -2773,15 +2797,17 @@ export function AmazonScraperMain({
           {/* ===== CONNECT AGENT TAB ===== */}
           {mainTab === "Connect Agent" ? (
             <div className="space-y-6">
-              <div>
-                <h2 className="text-xl font-bold text-bd-navy">
-                  Connect Your AI Agent to the Amazon Scraper
-                </h2>
-                <p className="mt-2 text-[15px] leading-7 text-bd-ink">
-                  Give any AI agent, from GPT and Claude to Gemini or your own, the ability
-                  to scrape Amazon product data in real time.
-                </p>
-              </div>
+              {!compact && (
+                <div>
+                  <h2 className="text-xl font-bold text-bd-navy">
+                    Connect Your AI Agent to the Amazon Scraper
+                  </h2>
+                  <p className="mt-2 text-[15px] leading-7 text-bd-ink">
+                    Give any AI agent, from GPT and Claude to Gemini or your own, the ability
+                    to scrape Amazon product data in real time.
+                  </p>
+                </div>
+              )}
 
               {/* Platform pills */}
               <div className="flex flex-wrap gap-2">
@@ -3057,7 +3083,7 @@ export function AmazonScraperMain({
 
           {/* ===== CUSTOMIZE TAB ===== */}
           {mainTab === "Customize" ? (
-            <CustomizeTab datasetId={DATASET_ID} apiMode={apiMode} onApiModeChange={setApiMode} />
+            <CustomizeTab datasetId={DATASET_ID} apiMode={apiMode} onApiModeChange={setApiMode} compact={compact} />
           ) : null}
         </div>
       </div>
