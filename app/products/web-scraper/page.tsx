@@ -7,6 +7,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 import { PricingCards } from "@/components/PricingCards";
+import PricingSlider from "@/components/PricingSlider";
 import PricingAssurances from "@/components/PricingAssurances";
 import HubCodeExample from "@/components/HubCodeExample";
 import StatBanner from "@/components/StatBanner";
@@ -16,6 +17,8 @@ import CompareTable from "@/components/CompareTable";
 import DxComplianceSection from "@/components/DxComplianceSection";
 import FaqSection from "@/components/FaqSection";
 import HeroRatings from "@/components/HeroRatings";
+import ScraperPreview from "@/components/ScraperPreview";
+import ValueBanner from "@/components/ValueBanner";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -182,31 +185,7 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* VALUE BANNER */}
-      <section className="value-banner">
-        <div className="container value-banner-inner">
-          <div className="vb-item">
-            <strong>#1</strong>
-            <span>in benchmarks</span>
-          </div>
-          <div className="vb-item">
-            <strong>98.4%</strong>
-            <span>success rate</span>
-          </div>
-          <div className="vb-item">
-            <strong>400M+</strong>
-            <span>proxy IPs built in</span>
-          </div>
-          <div className="vb-item">
-            <strong>195</strong>
-            <span>countries covered</span>
-          </div>
-          <div className="vb-item">
-            <strong>MCP</strong>
-            <span>AI agent ready</span>
-          </div>
-        </div>
-      </section>
+      <ValueBanner />
 
       <HowItWorksSteps
         heading="From zero to structured data in 3 steps"
@@ -233,6 +212,7 @@ export default function WebScraperHome() {
             <h2>Only pay for what&rsquo;s successfully delivered</h2>
             <p>No hidden fees. No charges for failed requests. Every plan includes full access to all scrapers and infrastructure.</p>
           </div>
+          <PricingSlider className="mb-6" />
           <PricingCards unit="records" />
           <PricingAssurances />
 
@@ -262,6 +242,9 @@ export default function WebScraperHome() {
           <AgentGetStarted />
         </div>
       </section>
+
+      {/* SCRAPER PREVIEW — interactive example after agent context */}
+      <ScraperPreview />
 
       {/* CHOOSE YOUR PATH */}
       <section className="section animate-rise" id="paths">

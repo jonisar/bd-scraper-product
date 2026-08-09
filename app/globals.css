@@ -275,7 +275,21 @@ body {
    ===================================================================== */
 
 .lib-page { font-size: 16px; line-height: 1.6; max-width: 100vw; overflow-x: clip; }
-.lib-page a { color: inherit; text-decoration: none; }
+
+/*
+ * Base element rules for .lib-page — placed in @layer components so that
+ * Tailwind utility classes (@layer utilities) naturally override them.
+ * This fully decouples the ScraperPreview demo from page-level styles.
+ */
+@layer components {
+  .lib-page a { color: inherit; text-decoration: none; }
+  .lib-page h1, .lib-page h2, .lib-page h3 { color: var(--text-1); font-weight: 700; line-height: 1.15; margin: 0; }
+  .lib-page h1 { font-size: clamp(36px, 5.5vw, 56px); letter-spacing: -0.025em; }
+  .lib-page h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 600; letter-spacing: -0.015em; }
+  .lib-page h3 { font-size: 20px; font-weight: 600; }
+  .lib-page p { margin: 0; color: var(--text-2); }
+}
+
 /* Primary CTAs must stay pure white — .lib-page a { color: inherit } otherwise wins */
 .lib-page a.btn-primary,
 .lib-page .btn-primary,
@@ -307,13 +321,6 @@ body {
 .lib-page .btn-ghost { color: var(--text-2); }
 .lib-page a.btn-ghost:hover,
 .lib-page .btn-ghost:hover { color: var(--text-1); }
-.lib-page h1, .lib-page h2, .lib-page h3 { color: var(--text-1); font-weight: 700; line-height: 1.15; margin: 0; }
-.lib-page h1 { font-size: clamp(36px, 5.5vw, 56px); letter-spacing: -0.025em; }
-.lib-page h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 600; letter-spacing: -0.015em; }
-.lib-page h3 { font-size: 20px; font-weight: 600; }
-/* Reset p margins — any p spacing must use .lib-page .classname to win specificity */
-.lib-page p { margin: 0; color: var(--text-2); }
-
 .container { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--s5); }
 @media (max-width: 640px) {
   .container { padding: 0 var(--s4); }
@@ -567,12 +574,35 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 /* Value Banner */
 .value-banner { border: 0; padding: var(--s6) 0; background: var(--surface); }
-.value-banner-inner { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s5); text-align: center; }
-@media (max-width: 900px) { .value-banner-inner { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 500px) { .value-banner-inner { grid-template-columns: repeat(2, 1fr); } }
-.vb-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.vb-item strong { font-size: 22px; font-weight: 700; background: var(--grad-webdata); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.vb-item span { font-size: 12px; color: var(--text-3); }
+.value-banner-inner { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s5); text-align: center; align-items: start; }
+@media (max-width: 900px) { .value-banner-inner { grid-template-columns: repeat(3, 1fr); gap: var(--s4); } }
+@media (max-width: 500px) { .value-banner-inner { grid-template-columns: repeat(2, 1fr); gap: var(--s4) var(--s3); } }
+.vb-item { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; }
+.vb-item strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.28em;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.15;
+  background: var(--grad-webdata);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+/* Keep emoji fully opaque — parent gradient clip would wash them out */
+.vb-item .vb-emoji {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: initial;
+  color: initial;
+  font-size: 0.88em;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.vb-item > span { font-size: 12px; color: var(--text-3); line-height: 1.3; }
 
 /* Library Section */
 .library-section { padding: var(--s4) 0 var(--s7); }
@@ -3807,3 +3837,101 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
 .scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(125,133,144,0.3); border-radius: 4px; }
 .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: rgba(125,133,144,0.5); }
+
+/* =====================================================================
+   ScraperPreview — Playground-style frame
+   ===================================================================== */
+
+.sp-preview {
+  padding: var(--s8) 0;
+}
+
+/* Section label above the demo frame — matches .kicker / .section-head rhythm */
+.sp-section-head {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto var(--s5);
+}
+.sp-section-head .kicker {
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .sp-section-head {
+    margin-bottom: var(--s4);
+  }
+}
+
+.sp-frame {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+/* Toolbar — minimal window chrome (traffic lights only) */
+.sp-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.sp-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.sp-dot-red { background: #ff5f56; }
+.sp-dot-yellow { background: #ffbd2e; }
+.sp-dot-green { background: #27c93f; }
+
+/* Body — fixed height with scroll, overscroll-behavior ensures no scroll trap */
+.sp-scroll-body {
+  height: 75vh;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(125, 133, 144, 0.3) transparent;
+}
+.sp-scroll-body::-webkit-scrollbar { width: 6px; }
+.sp-scroll-body::-webkit-scrollbar-track { background: transparent; }
+.sp-scroll-body::-webkit-scrollbar-thumb { background: rgba(125, 133, 144, 0.3); border-radius: 3px; }
+.sp-scroll-body::-webkit-scrollbar-thumb:hover { background: rgba(125, 133, 144, 0.5); }
+
+.sp-inner { min-width: 0; }
+
+/* Compact content — tighter spacing and smaller headings inside demo */
+.sp-compact-content .space-y-8 > * + * { margin-top: 1.25rem; }
+.sp-compact-content .space-y-6 > * + * { margin-top: 1rem; }
+.sp-compact-content .space-y-5 > * + * { margin-top: 0.75rem; }
+.sp-compact-content .space-y-4 > * + * { margin-top: 0.625rem; }
+.sp-compact-content h2,
+.sp-compact-content h3 { font-size: 0.9375rem; margin-bottom: 0.5rem; }
+.sp-compact-content .text-lg { font-size: 0.9375rem; }
+.sp-compact-content .text-xl { font-size: 1rem; }
+.sp-compact-content .text-2xl { font-size: 1.125rem; }
+
+/* Sticky header inside the scroll body — fully opaque, no bleed-through */
+.sp-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--bd-panel, #0d1117);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Content scrolls below the sticky header — isolate stacking context */
+.sp-compact-content {
+  position: relative;
+  z-index: 1;
+}
+
+
+@media (max-width: 640px) {
+  .sp-scroll-body { height: 65vh; }
+}
