@@ -1706,11 +1706,11 @@ export function AmazonScraperMain({
             <div className="border-b border-bd-line px-5 py-4 sm:px-6">
               <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3">
                 <div className="min-w-0">
-                  <TitleTag className="text-lg font-extrabold tracking-tight text-bd-navy">
+                  <TitleTag className="text-[15px] font-bold text-bd-navy sm:text-base">
                     Amazon Product Scraper
                   </TitleTag>
-                  <p className="mt-1 text-[13px] leading-relaxed text-bd-ink/80">
-                    Extract prices, reviews, stock levels, and seller data via API.
+                  <p className="mt-0.5 text-[12px] leading-snug text-bd-ink/70">
+                    Prices, reviews, stock &amp; seller data via API
                   </p>
                 </div>
                 <div className="flex shrink-0 items-center gap-4">

@@ -3852,9 +3852,9 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 .sp-toolbar-label {
   margin-left: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-3);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-1);
   letter-spacing: 0.01em;
 }
 
@@ -3934,6 +3934,5 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 }
 
 @media (max-width: 640px) {
-  .sp-toolbar-label { display: none; }
   .sp-scroll-body { height: 65vh; }
 }
