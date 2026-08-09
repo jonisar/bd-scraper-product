@@ -18,6 +18,13 @@ export type DomainHubScraper = {
   sampleUrl: string;
 };
 
+export type DomainHubProductType = {
+  title: string;
+  desc: string;
+  href: string;
+  local?: boolean;
+};
+
 export type DomainHubData = {
   slug: string;
   name: string;
@@ -29,6 +36,10 @@ export type DomainHubData = {
   useCases: { title: string; body: string; tags: string }[];
   faqs: { q: string; a: string }[];
   scrapers: DomainHubScraper[];
+  /** Optional product-type deep-link cards (e.g. Amazon Reviews, Amazon Sellers) */
+  productTypes?: DomainHubProductType[];
+  /** Optional dataset CTA for domains that have pre-collected datasets */
+  datasetCta?: { kicker: string; title: string; body: string; href: string; label: string };
 };
 
 /** Map catalog scraper → CLI pipeline id used by `bdata pipelines`. */
@@ -82,6 +93,83 @@ function parseViews(v: string): number {
 }
 
 export const DOMAIN_HUBS: Record<string, DomainHubData> = {
+  amazon: {
+    slug: "amazon",
+    name: "Amazon",
+    domain: "amazon.com",
+    category: "E-commerce",
+    title: "Amazon Scraper API - 5K Records/Month for Free",
+    headline: "Amazon Scraper API",
+    description:
+      "Extract Amazon product data — prices, reviews, ratings, availability, seller info, and more — via API or no-code scraper. Auto-maintained and always unblocked.",
+    productTypes: [
+      {
+        title: "Amazon Reviews Scraper",
+        desc: "Review text, ratings, verified purchase, dates, and reviewer details.",
+        href: "https://brightdata.com/products/web-scraper/amazon/reviews",
+      },
+      {
+        title: "Amazon ASIN Scraper",
+        desc: "Product pages by ASIN — title, brand, price, images, availability, and more.",
+        href: "/products/web-scraper/amazon/amazon-product-scraper",
+        local: true,
+      },
+      {
+        title: "Amazon Seller Scraper",
+        desc: "Seller name, ID, ratings, feedback, shipping, and business details.",
+        href: "https://brightdata.com/products/web-scraper/amazon/seller",
+      },
+      {
+        title: "Amazon Price Scraper",
+        desc: "Current vs original price, discounts, deals, currency, and stock status.",
+        href: "https://brightdata.com/products/web-scraper/amazon/price",
+      },
+    ],
+    datasetCta: {
+      kicker: "Amazon Datasets",
+      title: "Just want Amazon data? Skip scraping.",
+      body: "Get pre-collected, ready-to-use Amazon datasets — updated daily, delivered instantly.",
+      href: "https://brightdata.com/products/datasets/amazon",
+      label: "Browse Amazon datasets →",
+    },
+    useCases: [
+      {
+        title: "Product inventory and pricing strategy",
+        body: "Scrape Amazon listings in real time to identify best sellers, track price changes, and monitor availability. Collect titles, prices, ASINs, brands, and stock status to optimize inventory and dynamic pricing.",
+        tags: "Products · Prices · ASINs · Availability",
+      },
+      {
+        title: "Stay ahead of the competition",
+        body: "Monitor bestseller rankings, seller profiles, and listings to benchmark against category leaders. Collect seller ratings, feedback, and promotional signals to uncover product opportunities.",
+        tags: "Best sellers · Sellers · Rankings",
+      },
+      {
+        title: "Consumer sentiment and brand reputation",
+        body: "Scrape Amazon reviews and ratings across categories and countries. Collect review text, star ratings, verified purchase status, and dates to spot demand shifts before they peak.",
+        tags: "Reviews · Ratings · Sentiment",
+      },
+      {
+        title: "Catalog & marketplace intelligence",
+        body: "Build rich Amazon catalogs with images, variants, features, and category trees — ready for analytics, enrichment, and machine learning pipelines.",
+        tags: "Catalog · Variants · Categories",
+      },
+    ],
+    faqs: [
+      { q: "What is the Amazon Scraper API?", a: "The Amazon Scraper API automates data extraction from Amazon, so you can gather product, review, seller, and pricing data at scale without building or maintaining scrapers." },
+      { q: "How does the Amazon Scraper API work?", a: "Send a request with product URLs, ASINs, keywords, or category links. Bright Data handles proxies, CAPTCHAs, and rendering, then returns structured JSON, NDJSON, or CSV." },
+      { q: "Is the Amazon Scraper API compliant with data protection regulations?", a: "Yes. Bright Data collects only publicly available data and is designed to comply with GDPR, CCPA, and related privacy frameworks, backed by SOC 2 and ISO 27001 controls." },
+      { q: "Can I use the Amazon Scraper API for competitive analysis?", a: "Yes. Teams use it for pricing intelligence, bestseller tracking, review sentiment, seller benchmarking, and catalog monitoring across Amazon marketplaces." },
+      { q: "How can I integrate the Amazon Scraper API with my existing systems?", a: "Use the REST API with any HTTP client (Python, Node.js, cURL), deliver results via webhook, or push to Amazon S3, GCS, Azure, Snowflake, or SFTP." },
+      { q: "Is there a free tier available for the Amazon Scraper API?", a: "Yes. New Bright Data accounts include 5,000 free records per month (~$7.50 value) — no credit card, promo code, or commitment. Credits apply to Scrapers, Unlocker API, and SERP API, and renew on the 1st of each month." },
+      { q: "What happens when my free credits run out while using the Amazon Scraper API?", a: "If you have deposited funds, usage continues at pay-as-you-go rates. Without funds, requests error until you add balance or credits renew. Unused free credits do not roll over. Enable auto-recharge in billing settings to avoid interruptions." },
+      { q: "What are the usage limits for the Amazon Scraper API?", a: "There are no hard concurrency caps for typical use — scale from small tests to millions of records on the same API. Pay only for successfully delivered results." },
+      { q: "Do you provide support for the Amazon Scraper API?", a: "Yes. Bright Data offers 24/7 support for the Amazon Scraper API, with dedicated help for enterprise plans." },
+      { q: "What delivery methods are available?", a: "API download, webhook, Amazon S3, Google Cloud Storage, Google Pub/Sub, Microsoft Azure Storage, Snowflake, and SFTP." },
+      { q: "What file formats are available?", a: "JSON, NDJSON, JSON lines, CSV, and .gz (compressed)." },
+    ],
+    scrapers: scrapersForDomain("amazon.com"),
+  },
+
   linkedin: {
     slug: "linkedin",
     name: "LinkedIn",
