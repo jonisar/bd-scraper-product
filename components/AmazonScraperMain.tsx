@@ -1792,23 +1792,41 @@ export function AmazonScraperMain({
                 </header>
               )}
 
-              {/* Language pills + code */}
+              {/* Language pills + sync/async toggle + code */}
               <section id="api-code-examples">
-                <div className="flex flex-wrap gap-2">
-                  {apiLangs.map((lang) => (
-                    <button
-                      key={lang}
-                      type="button"
-                      onClick={() => setApiLang(lang)}
-                      className={`rounded-full px-3 py-1.5 text-[13px] font-semibold transition sm:px-3.5 sm:text-sm ${
-                        apiLang === lang
-                          ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/30"
-                          : "border border-bd-line bg-bd-canvas text-bd-ink/85 hover:border-bd-blue-light hover:text-bd-navy"
-                      }`}
-                    >
-                      {lang}
-                    </button>
-                  ))}
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex flex-wrap gap-2">
+                    {apiLangs.map((lang) => (
+                      <button
+                        key={lang}
+                        type="button"
+                        onClick={() => setApiLang(lang)}
+                        className={`rounded-full px-3 py-1.5 text-[13px] font-semibold transition sm:px-3.5 sm:text-sm ${
+                          apiLang === lang
+                            ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/30"
+                            : "border border-bd-line bg-bd-canvas text-bd-ink/85 hover:border-bd-blue-light hover:text-bd-navy"
+                        }`}
+                      >
+                        {lang}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex shrink-0 items-center rounded-lg border border-bd-line bg-bd-canvas p-0.5">
+                    {(["sync", "async"] as const).map((m) => (
+                      <button
+                        key={m}
+                        type="button"
+                        onClick={() => setApiMode(m)}
+                        className={`rounded-md px-3 py-1.5 text-xs font-semibold transition ${
+                          apiMode === m
+                            ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/20"
+                            : "text-bd-muted hover:text-bd-ink"
+                        }`}
+                      >
+                        {m === "sync" ? "Sync" : "Async"}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="mt-5">
