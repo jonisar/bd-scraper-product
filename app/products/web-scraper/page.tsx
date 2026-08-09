@@ -16,6 +16,7 @@ import CompareTable from "@/components/CompareTable";
 import DxComplianceSection from "@/components/DxComplianceSection";
 import FaqSection from "@/components/FaqSection";
 import HeroRatings from "@/components/HeroRatings";
+import ScraperPreview from "@/components/ScraperPreview";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -181,6 +182,9 @@ export default function WebScraperHome() {
           <ScraperLibrary />
         </div>
       </section>
+
+      {/* SCRAPER PREVIEW — interactive experience */}
+      <ScraperPreview template={templates.find((t) => t.slug === "amazon-product")!} />
 
       {/* VALUE BANNER */}
       <section className="value-banner">

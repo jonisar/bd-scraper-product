@@ -23,8 +23,10 @@ import CompareTable from "@/components/CompareTable";
 import DxComplianceSection from "@/components/DxComplianceSection";
 import FaqSection from "@/components/FaqSection";
 import HeroRatings from "@/components/HeroRatings";
+import ScraperPreview from "@/components/ScraperPreview";
 import { sampleUrlForDomain, type DomainHubData } from "@/lib/domain-hubs";
 import { cpHref } from "@/lib/cp-href";
+import { templates } from "@/lib/templates";
 
 export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
   const topScraper = hub.scrapers[0];
@@ -116,6 +118,16 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             <HubStrip />
           </div>
         </section>
+
+        {/* SCRAPER PREVIEW — interactive experience (resolves to top domain scraper) */}
+        {(() => {
+          const previewTemplate =
+            templates.find((t) => t.domain === hub.domain && t.popular) ||
+            templates.find((t) => t.domain === hub.domain) ||
+            templates.find((t) => t.category === hub.category && t.popular) ||
+            templates.find((t) => t.category === hub.category);
+          return previewTemplate ? <ScraperPreview template={previewTemplate} /> : null;
+        })()}
 
         <HowItWorksSteps
           heading={`From zero to ${hub.name} data in 3 steps`}
