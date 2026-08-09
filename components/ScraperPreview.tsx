@@ -16,7 +16,7 @@ export default function ScraperPreview() {
               <span className="sp-dot sp-dot-red" />
               <span className="sp-dot sp-dot-yellow" />
               <span className="sp-dot sp-dot-green" />
-              <span className="sp-toolbar-label">Live preview</span>
+              <span className="sp-toolbar-label">Live example preview</span>
             </div>
             <Link href={FULL_PAGE_HREF} className="sp-toolbar-link">
               Open full page →
