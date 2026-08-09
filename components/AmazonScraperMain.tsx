@@ -1774,7 +1774,7 @@ export function AmazonScraperMain({
         </div>
         </div>
 
-        <div className="min-w-0 p-5 sm:p-7">
+        <div className={compact ? "min-w-0 p-4 sm:p-5 sp-compact-content" : "min-w-0 p-5 sm:p-7"}>
           {/* ===== API TAB ===== */}
           {mainTab === "API" ? (
             <div className="space-y-8">

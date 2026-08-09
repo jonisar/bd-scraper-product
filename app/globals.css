@@ -3889,6 +3889,17 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 .sp-inner { min-width: 0; }
 
+/* Compact content — tighter spacing and smaller headings inside demo */
+.sp-compact-content .space-y-8 > * + * { margin-top: 1.25rem; }
+.sp-compact-content .space-y-6 > * + * { margin-top: 1rem; }
+.sp-compact-content .space-y-5 > * + * { margin-top: 0.75rem; }
+.sp-compact-content .space-y-4 > * + * { margin-top: 0.625rem; }
+.sp-compact-content h2,
+.sp-compact-content h3 { font-size: 0.9375rem; margin-bottom: 0.5rem; }
+.sp-compact-content .text-lg { font-size: 0.9375rem; }
+.sp-compact-content .text-xl { font-size: 1rem; }
+.sp-compact-content .text-2xl { font-size: 1.125rem; }
+
 /* Sticky header inside the scroll body — fully opaque, no bleed-through */
 .sp-sticky-header {
   position: sticky;
