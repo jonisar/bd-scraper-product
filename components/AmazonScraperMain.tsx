@@ -2674,7 +2674,7 @@ export function AmazonScraperMain({
                 </table>
               </div>
 
-              <h3 className="text-base font-bold text-bd-navy">Amazon Scraper API Query Parameters</h3>
+              <h3 className="text-lg font-bold text-bd-navy">API query parameters</h3>
               <div className="overflow-x-auto rounded-xl border border-bd-line">
                 <table className="w-full text-sm">
                   <thead>
@@ -2708,7 +2708,7 @@ export function AmazonScraperMain({
                 </table>
               </div>
 
-              <h3 className="text-base font-bold text-bd-navy">Amazon Scraper Example Request Body</h3>
+              <h3 className="text-lg font-bold text-bd-navy">Example request body</h3>
               <CodeBlock
                 code={`[
   {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
@@ -2739,7 +2739,7 @@ export function AmazonScraperMain({
                 <span className="rounded-full border border-bd-line px-2.5 py-1 text-bd-muted">OpenAPI ready</span>
               </div>
 
-              <h3 className="text-base font-bold text-bd-navy">Field Reference</h3>
+              <h3 className="text-lg font-bold text-bd-navy">Field reference</h3>
               <div className="overflow-x-auto rounded-xl border border-bd-line">
                 <table className="w-full text-sm">
                   <thead>
@@ -2784,7 +2784,7 @@ export function AmazonScraperMain({
                 </table>
               </div>
 
-              <h3 className="text-base font-bold text-bd-navy">Sample Response</h3>
+              <h3 className="text-lg font-bold text-bd-navy">Sample response</h3>
               <CodeBlock code={SAMPLE_OUTPUT} label="json" />
             </div>
           ) : null}

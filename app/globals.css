@@ -3874,10 +3874,19 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   filter: brightness(1.05);
 }
 
-/* Body — no overflow trap; content flows with the page */
+/* Body — fixed height with scroll, overscroll-behavior ensures no scroll trap */
 .sp-scroll-body {
-  padding: var(--s5);
+  padding: var(--s3);
+  max-height: 70vh;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(125, 133, 144, 0.3) transparent;
 }
+.sp-scroll-body::-webkit-scrollbar { width: 6px; }
+.sp-scroll-body::-webkit-scrollbar-track { background: transparent; }
+.sp-scroll-body::-webkit-scrollbar-thumb { background: rgba(125, 133, 144, 0.3); border-radius: 3px; }
+.sp-scroll-body::-webkit-scrollbar-thumb:hover { background: rgba(125, 133, 144, 0.5); }
 
 .sp-inner { min-width: 0; }
 
@@ -3907,5 +3916,5 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 @media (max-width: 640px) {
   .sp-toolbar-label { display: none; }
-  .sp-scroll-body { padding: var(--s3); }
+  .sp-scroll-body { padding: var(--s3); max-height: 60vh; }
 }
