@@ -1703,44 +1703,44 @@ export function AmazonScraperMain({
         <div className={compact ? "sp-sticky-header" : ""}>
           {/* Compact hero strip — only in compact/preview mode */}
           {compact && (
-            <div className="border-b border-bd-line px-4 py-2.5 sm:px-5">
-              <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+            <div className="border-b border-bd-line px-5 py-4 sm:px-6">
+              <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3">
                 <div className="min-w-0">
-                  <TitleTag className="text-[15px] font-bold text-bd-navy">
+                  <TitleTag className="text-lg font-bold tracking-tight text-bd-navy">
                     Amazon Product Scraper
                   </TitleTag>
-                  <p className="mt-0.5 text-[12px] leading-tight text-bd-muted">
+                  <p className="mt-1 text-[13px] leading-snug text-bd-muted">
                     Real-time prices, reviews, stock &amp; seller data — one API call
                   </p>
                 </div>
-                <div className="flex shrink-0 items-center gap-4">
+                <div className="flex shrink-0 items-center gap-5">
                   <div className="text-center">
-                    <p className="text-xs font-extrabold text-bd-navy">1.2B+</p>
-                    <p className="mt-0.5 text-[10px] text-bd-muted">Deliveries</p>
+                    <p className="text-sm font-extrabold text-bd-navy">1.2B+</p>
+                    <p className="mt-0.5 text-[11px] text-bd-muted">Deliveries</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-xs font-extrabold text-bd-navy">99.99%</p>
-                    <p className="mt-0.5 text-[10px] text-bd-muted">Uptime</p>
+                    <p className="text-sm font-extrabold text-bd-navy">99.99%</p>
+                    <p className="mt-0.5 text-[11px] text-bd-muted">Uptime</p>
                   </div>
                   <div className="text-center">
-                    <p className="flex items-center justify-center gap-1 text-xs font-extrabold text-bd-success">
+                    <p className="flex items-center justify-center gap-1 text-sm font-extrabold text-bd-success">
                       <span className="h-1.5 w-1.5 rounded-full bg-bd-success animate-pulse" />
                       3h ago
                     </p>
-                    <p className="mt-0.5 text-[10px] text-bd-success/80">Verified</p>
+                    <p className="mt-0.5 text-[11px] text-bd-success/80">Verified</p>
                   </div>
                   <div className="hidden text-center sm:block">
-                    <p className="text-xs font-extrabold text-bd-success">GDPR &amp; CCPA</p>
-                    <p className="mt-0.5 text-[10px] text-bd-success/80">Compliant</p>
+                    <p className="text-sm font-extrabold text-bd-success">GDPR &amp; CCPA</p>
+                    <p className="mt-0.5 text-[11px] text-bd-success/80">Compliant</p>
                   </div>
                 </div>
               </div>
-              <div className="mt-2 flex flex-wrap items-center gap-2">
+              <div className="mt-3 flex flex-wrap items-center gap-2.5">
                 <a
                   href="https://brightdata.com/cp/start"
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-md bg-bd-blue px-3 py-1.5 text-[11px] font-bold text-white shadow-sm shadow-bd-blue/25 transition hover:brightness-110"
+                  className="rounded-md bg-bd-blue px-3.5 py-1.5 text-xs font-bold text-white shadow-sm shadow-bd-blue/25 transition hover:brightness-110"
                 >
                   Start free
                 </a>
