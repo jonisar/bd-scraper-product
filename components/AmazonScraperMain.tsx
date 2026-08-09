@@ -650,7 +650,7 @@ function PricingTab({ compact = false }: { compact?: boolean }) {
     <div className="space-y-8">
       {!compact && (
         <div>
-          <h2 className="text-xl font-bold text-bd-navy">Simple, transparent pricing</h2>
+          <h2 className="mb-3 text-lg font-bold text-bd-navy">Simple, transparent pricing</h2>
           <p className="mt-2 text-[15px] leading-7 text-bd-ink">
             Pay only for successfully delivered records. No setup fees, no hidden costs, no
             surprises. Start free, scale predictably.
@@ -665,7 +665,7 @@ function PricingTab({ compact = false }: { compact?: boolean }) {
 
       {/* What's included grid */}
       <section>
-        <h3 className="text-lg font-bold text-bd-navy">Everything included</h3>
+        <h3 className="mb-3 text-lg font-bold text-bd-navy">Everything included</h3>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {[
             { title: "Full browser rendering", desc: "JavaScript pages, SPAs, and infinite scroll, all handled" },
@@ -730,7 +730,7 @@ function PricingTab({ compact = false }: { compact?: boolean }) {
 
       {/* FAQs */}
       <section>
-        <h3 className="text-lg font-bold text-bd-navy">Pricing FAQ</h3>
+        <h3 className="mb-3 text-lg font-bold text-bd-navy">Pricing FAQ</h3>
         <div className="mt-3 space-y-2">
           {[
             { q: "What counts as a record?", a: "One successfully scraped product = one record. Each record is a single JSON object with all data fields (title, price, reviews, seller, etc.). Failed or errored requests are never charged." },
@@ -1263,7 +1263,7 @@ function DataFieldsExplorer({ onOpenCustomize }: { onOpenCustomize?: () => void 
   return (
     <section id="info-data-fields">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="text-xl font-bold text-bd-navy">Output fields</h2>
+        <h2 className="text-lg font-bold text-bd-navy">Output fields</h2>
         <span className="text-xs font-medium text-bd-muted">Browse by category</span>
       </div>
       <p className="mt-2 text-[15px] leading-7 text-bd-ink/80">
@@ -1372,7 +1372,7 @@ function CustomizeTab({ datasetId, apiMode, onApiModeChange, compact = false }: 
       {!compact && (
         <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="min-w-0">
-            <h2 className="text-xl font-bold text-bd-navy">Customize output</h2>
+            <h2 className="mb-3 text-lg font-bold text-bd-navy">Customize output</h2>
             <p className="mt-1.5 text-sm leading-6 text-bd-ink/85">
               Toggle fields and settings below — then open the control panel to run this config for real.
             </p>
@@ -1396,8 +1396,8 @@ function CustomizeTab({ datasetId, apiMode, onApiModeChange, compact = false }: 
 
       {/* ── Interactive field picker ── */}
       <section>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mb-4">
-          <p className="text-sm font-bold text-bd-navy">Output fields</p>
+        <div className="mb-4 flex flex-wrap items-baseline gap-x-3 gap-y-1.5">
+          <h3 className="text-lg font-bold text-bd-navy">Output fields</h3>
           <button type="button" onClick={() => setFields(new Set(ALL_OUTPUT_FIELDS.map((f) => f.name)))} className="text-[11px] font-medium text-bd-blue hover:underline">Select all</button>
           <button type="button" onClick={() => setFields(new Set())} className="text-[11px] font-medium text-bd-muted hover:text-bd-ink hover:underline">Clear</button>
           <span className="text-[11px] text-bd-muted">{fields.size} of {ALL_OUTPUT_FIELDS.length} selected</span>
@@ -1769,7 +1769,7 @@ export function AmazonScraperMain({
             <div className="space-y-8">
               {!compact && (
                 <header>
-                  <h2 className="text-xl font-bold text-bd-navy">API examples</h2>
+                  <h2 className="mb-3 text-lg font-bold text-bd-navy">API examples</h2>
                   <p className="mt-1.5 text-[15px] leading-7 text-bd-ink/80">
                     Call this scraper from your code — pick a language, copy the snippet, add your API key.
                     Showing{" "}
@@ -1893,7 +1893,7 @@ export function AmazonScraperMain({
               {/* Sync and async — interactive mode control */}
               <section className="border-t border-bd-line pt-8">
                 <div className="mb-4">
-                  <h3 className="text-lg font-bold text-bd-navy">Sync and async</h3>
+                  <h3 className="mb-3 text-lg font-bold text-bd-navy">Sync and async</h3>
                   <p className="mt-1 text-sm text-bd-ink/85">
                     Click a mode to update the language examples and REST sample above.
                     Same setting is shared with{" "}
@@ -2168,7 +2168,7 @@ export function AmazonScraperMain({
               />
 
               <section id="info-controls">
-                <h2 className="text-xl font-bold text-bd-navy">
+                <h2 className="mb-3 text-lg font-bold text-bd-navy">
                   Limits, alerts &amp; job controls
                 </h2>
                 <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/85">
@@ -2214,7 +2214,7 @@ export function AmazonScraperMain({
               </section>
 
               <section id="info-tech-specs">
-                <h2 className="text-xl font-bold text-bd-navy">
+                <h2 className="mb-3 text-lg font-bold text-bd-navy">
                   Technical Specifications & Benchmarks
                 </h2>
                 <div className="mt-3 overflow-x-auto rounded-xl border border-bd-line">
@@ -2247,7 +2247,7 @@ export function AmazonScraperMain({
               </section>
 
               <section id="info-marketplaces">
-                <h2 className="text-xl font-bold text-bd-navy">
+                <h2 className="mb-3 text-lg font-bold text-bd-navy">
                   Supported Amazon Marketplaces
                 </h2>
                 <p className="mt-2">
@@ -2269,7 +2269,7 @@ export function AmazonScraperMain({
               </section>
 
               <section id="info-available-scrapers">
-                <h2 className="text-xl font-bold text-bd-navy">
+                <h2 className="mb-3 text-lg font-bold text-bd-navy">
                   Popular Amazon Scrapers
                 </h2>
                 <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/80">
@@ -2295,7 +2295,7 @@ export function AmazonScraperMain({
               </section>
 
               <section id="info-delivery">
-                <h2 className="text-xl font-bold text-bd-navy">
+                <h2 className="mb-3 text-lg font-bold text-bd-navy">
                   Delivery Methods & Integrations
                 </h2>
                 <p className="mt-2">
@@ -2351,7 +2351,7 @@ export function AmazonScraperMain({
               {/* ── ACT 3: Learn more ── */}
 
               <section id="info-faq">
-                <h2 className="text-xl font-bold text-bd-navy">
+                <h2 className="mb-3 text-lg font-bold text-bd-navy">
                   Frequently Asked Questions About the Amazon Scraper
                 </h2>
                 <div className="mt-3 divide-y divide-bd-line rounded-xl border border-bd-line">
@@ -2411,7 +2411,7 @@ export function AmazonScraperMain({
               </section>
 
               <section id="info-vs-diy">
-                <h2 className="text-xl font-bold text-bd-navy">
+                <h2 className="mb-3 text-lg font-bold text-bd-navy">
                   Amazon Scraper vs. Building Your Own
                 </h2>
                 <p className="mt-2">
@@ -2451,7 +2451,7 @@ export function AmazonScraperMain({
               </section>
 
               <section id="info-challenges">
-                <h2 className="text-xl font-bold text-bd-navy">
+                <h2 className="mb-3 text-lg font-bold text-bd-navy">
                   Amazon Scraping Challenges & How Bright Data Solves Them
                 </h2>
                 <p className="mt-2">
@@ -2499,7 +2499,7 @@ export function AmazonScraperMain({
               </section>
 
               <section id="info-use-cases">
-                <h2 className="text-xl font-bold text-bd-navy">
+                <h2 className="mb-3 text-lg font-bold text-bd-navy">
                   Amazon Scraper Use Cases
                 </h2>
                 <p className="mt-2">
@@ -2564,7 +2564,7 @@ export function AmazonScraperMain({
               {/* ── ACT 4: Trust & exit ── */}
 
               <section id="info-legal">
-                <h2 className="text-xl font-bold text-bd-navy">
+                <h2 className="mb-3 text-lg font-bold text-bd-navy">
                   Is It Legal to Scrape Amazon?
                 </h2>
                 <p className="mt-2">
@@ -2587,7 +2587,7 @@ export function AmazonScraperMain({
               </section>
 
               <section id="info-more-tools">
-                <h2 className="text-xl font-bold text-bd-navy">
+                <h2 className="mb-3 text-lg font-bold text-bd-navy">
                   More Amazon Scraper Tools
                 </h2>
                 <p className="mt-2">
@@ -2630,7 +2630,7 @@ export function AmazonScraperMain({
             <div className="space-y-5">
               {!compact && (
                 <>
-                  <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Input Configuration</h2>
+                  <h2 className="mb-3 text-lg font-bold text-bd-navy">Amazon Scraper Input Configuration</h2>
                   <p className="text-[15px] leading-7 text-bd-ink">
                     The request body is a JSON array of input objects. Each object must contain at
                     minimum a <code className="rounded bg-bd-blue-soft px-1.5 py-0.5 font-mono text-xs text-bd-blue">url</code> field.
@@ -2638,88 +2638,95 @@ export function AmazonScraperMain({
                 </>
               )}
 
-              <div className="overflow-x-auto rounded-xl border border-bd-line">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
-                      <th className="px-4 py-2.5">Parameter</th>
-                      <th className="px-4 py-2.5">Type</th>
-                      <th className="px-4 py-2.5">Required</th>
-                      <th className="px-4 py-2.5">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-bd-line text-bd-ink">
-                    <tr>
-                      <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">url</td>
-                      <td className="px-4 py-2.5">string</td>
-                      <td className="px-4 py-2.5">Yes</td>
-                      <td className="px-4 py-2.5">Amazon product URL, category URL, or search URL</td>
-                    </tr>
-                    <tr>
-                      <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">asin</td>
-                      <td className="px-4 py-2.5">string</td>
-                      <td className="px-4 py-2.5">No</td>
-                      <td className="px-4 py-2.5">Amazon Standard Identification Number (alternative to URL)</td>
-                    </tr>
-                    <tr>
-                      <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">zipcode</td>
-                      <td className="px-4 py-2.5">string</td>
-                      <td className="px-4 py-2.5">No</td>
-                      <td className="px-4 py-2.5">Target ZIP code for location-specific pricing and availability</td>
-                    </tr>
-                    <tr>
-                      <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">language</td>
-                      <td className="px-4 py-2.5">string</td>
-                      <td className="px-4 py-2.5">No</td>
-                      <td className="px-4 py-2.5">Language code for localized results (e.g. &quot;en&quot;, &quot;de&quot;, &quot;ja&quot;)</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div>
+                <h3 className="mb-3 text-lg font-bold text-bd-navy">Request parameters</h3>
+                <div className="overflow-x-auto rounded-xl border border-bd-line">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
+                        <th className="px-4 py-2.5">Parameter</th>
+                        <th className="px-4 py-2.5">Type</th>
+                        <th className="px-4 py-2.5">Required</th>
+                        <th className="px-4 py-2.5">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-bd-line text-bd-ink">
+                      <tr>
+                        <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">url</td>
+                        <td className="px-4 py-2.5">string</td>
+                        <td className="px-4 py-2.5">Yes</td>
+                        <td className="px-4 py-2.5">Amazon product URL, category URL, or search URL</td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">asin</td>
+                        <td className="px-4 py-2.5">string</td>
+                        <td className="px-4 py-2.5">No</td>
+                        <td className="px-4 py-2.5">Amazon Standard Identification Number (alternative to URL)</td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">zipcode</td>
+                        <td className="px-4 py-2.5">string</td>
+                        <td className="px-4 py-2.5">No</td>
+                        <td className="px-4 py-2.5">Target ZIP code for location-specific pricing and availability</td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">language</td>
+                        <td className="px-4 py-2.5">string</td>
+                        <td className="px-4 py-2.5">No</td>
+                        <td className="px-4 py-2.5">Language code for localized results (e.g. &quot;en&quot;, &quot;de&quot;, &quot;ja&quot;)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
-              <h3 className="text-lg font-bold text-bd-navy">API query parameters</h3>
-              <div className="overflow-x-auto rounded-xl border border-bd-line">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
-                      <th className="px-4 py-2.5">Parameter</th>
-                      <th className="px-4 py-2.5">Type</th>
-                      <th className="px-4 py-2.5">Required</th>
-                      <th className="px-4 py-2.5">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-bd-line text-bd-ink">
-                    <tr>
-                      <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">dataset_id</td>
-                      <td className="px-4 py-2.5">string</td>
-                      <td className="px-4 py-2.5">Yes</td>
-                      <td className="px-4 py-2.5">Identifies this scraper: <code className="rounded bg-bd-blue-soft px-1 py-0.5 font-mono text-xs">{DATASET_ID}</code></td>
-                    </tr>
-                    <tr>
-                      <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">format</td>
-                      <td className="px-4 py-2.5">string</td>
-                      <td className="px-4 py-2.5">No</td>
-                      <td className="px-4 py-2.5">Output format: <code className="rounded bg-bd-blue-soft px-1 py-0.5 font-mono text-xs">json</code> (default), <code className="rounded bg-bd-blue-soft px-1 py-0.5 font-mono text-xs">ndjson</code>, <code className="rounded bg-bd-blue-soft px-1 py-0.5 font-mono text-xs">csv</code></td>
-                    </tr>
-                    <tr>
-                      <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">include_errors</td>
-                      <td className="px-4 py-2.5">boolean</td>
-                      <td className="px-4 py-2.5">No</td>
-                      <td className="px-4 py-2.5">Include error items in results</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div>
+                <h3 className="mb-3 text-lg font-bold text-bd-navy">API query parameters</h3>
+                <div className="overflow-x-auto rounded-xl border border-bd-line">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
+                        <th className="px-4 py-2.5">Parameter</th>
+                        <th className="px-4 py-2.5">Type</th>
+                        <th className="px-4 py-2.5">Required</th>
+                        <th className="px-4 py-2.5">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-bd-line text-bd-ink">
+                      <tr>
+                        <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">dataset_id</td>
+                        <td className="px-4 py-2.5">string</td>
+                        <td className="px-4 py-2.5">Yes</td>
+                        <td className="px-4 py-2.5">Identifies this scraper: <code className="rounded bg-bd-blue-soft px-1 py-0.5 font-mono text-xs">{DATASET_ID}</code></td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">format</td>
+                        <td className="px-4 py-2.5">string</td>
+                        <td className="px-4 py-2.5">No</td>
+                        <td className="px-4 py-2.5">Output format: <code className="rounded bg-bd-blue-soft px-1 py-0.5 font-mono text-xs">json</code> (default), <code className="rounded bg-bd-blue-soft px-1 py-0.5 font-mono text-xs">ndjson</code>, <code className="rounded bg-bd-blue-soft px-1 py-0.5 font-mono text-xs">csv</code></td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">include_errors</td>
+                        <td className="px-4 py-2.5">boolean</td>
+                        <td className="px-4 py-2.5">No</td>
+                        <td className="px-4 py-2.5">Include error items in results</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
-              <h3 className="text-lg font-bold text-bd-navy">Example request body</h3>
-              <CodeBlock
-                code={`[
+              <div>
+                <h3 className="mb-3 text-lg font-bold text-bd-navy">Example request body</h3>
+                <CodeBlock
+                  code={`[
   {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
   {"url": "https://www.amazon.com/dp/B0D5CQPGFQ"},
   {"url": "https://www.amazon.com/s?k=wireless+keyboard"}
 ]`}
-                label="json"
-              />
+                  label="json"
+                />
+              </div>
             </div>
           ) : null}
 
@@ -2728,7 +2735,7 @@ export function AmazonScraperMain({
             <div className="space-y-5">
               {!compact && (
                 <>
-                  <h2 className="text-xl font-bold text-bd-navy">Amazon Scraper Output Schema</h2>
+                  <h2 className="mb-3 text-lg font-bold text-bd-navy">Amazon Scraper Output Schema</h2>
                   <p className="text-[15px] leading-7 text-bd-ink">
                     Each successfully scraped product returns a structured JSON object. All data
                     can be delivered as JSON, NDJSON, or CSV via API, webhook, S3, or GCS.
@@ -2742,53 +2749,57 @@ export function AmazonScraperMain({
                 <span className="rounded-full border border-bd-line px-2.5 py-1 text-bd-muted">OpenAPI ready</span>
               </div>
 
-              <h3 className="text-lg font-bold text-bd-navy">Field reference</h3>
-              <div className="overflow-x-auto rounded-xl border border-bd-line">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
-                      <th className="px-4 py-2.5">Field</th>
-                      <th className="px-4 py-2.5">Type</th>
-                      <th className="px-4 py-2.5">Nullable</th>
-                      <th className="px-4 py-2.5">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-bd-line text-bd-ink">
-                    {[
-                      ["title", "string", "No", "Product title"],
-                      ["url", "string", "No", "Canonical Amazon product URL"],
-                      ["asin", "string", "No", "Amazon Standard Identification Number"],
-                      ["price", "number", "Yes", "Current selling price (null if unavailable)"],
-                      ["list_price", "number", "Yes", "Original list / strike-through price"],
-                      ["currency", "string", "No", "ISO currency code (USD, EUR, GBP, JPY…)"],
-                      ["stars", "number", "Yes", "Average rating (0–5 scale, 1 decimal)"],
-                      ["reviews_count", "number", "Yes", "Total number of customer reviews"],
-                      ["in_stock", "boolean", "No", "Whether the product is currently in stock"],
-                      ["brand", "string", "Yes", "Brand name"],
-                      ["seller", "object", "Yes", "Seller name, ID, and marketplace URL"],
-                      ["features", "array", "Yes", "Bullet-point product features (strings)"],
-                      ["categories", "string", "Yes", "Breadcrumb category path"],
-                      ["image", "string", "Yes", "Main product image URL (high-res)"],
-                    ].map(([field, type, nullable, desc]) => (
-                      <tr key={field}>
-                        <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">{field}</td>
-                        <td className="px-4 py-2.5">
-                          <span className="rounded bg-bd-canvas px-1.5 py-0.5 text-xs">{type}</span>
-                        </td>
-                        <td className="px-4 py-2.5">
-                          {nullable === "No"
-                            ? <span className="text-bd-success font-medium">Required</span>
-                            : <span className="text-bd-muted">Optional</span>}
-                        </td>
-                        <td className="px-4 py-2.5 text-bd-ink/80">{desc}</td>
+              <div>
+                <h3 className="mb-3 text-lg font-bold text-bd-navy">Field reference</h3>
+                <div className="overflow-x-auto rounded-xl border border-bd-line">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
+                        <th className="px-4 py-2.5">Field</th>
+                        <th className="px-4 py-2.5">Type</th>
+                        <th className="px-4 py-2.5">Nullable</th>
+                        <th className="px-4 py-2.5">Description</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-bd-line text-bd-ink">
+                      {[
+                        ["title", "string", "No", "Product title"],
+                        ["url", "string", "No", "Canonical Amazon product URL"],
+                        ["asin", "string", "No", "Amazon Standard Identification Number"],
+                        ["price", "number", "Yes", "Current selling price (null if unavailable)"],
+                        ["list_price", "number", "Yes", "Original list / strike-through price"],
+                        ["currency", "string", "No", "ISO currency code (USD, EUR, GBP, JPY…)"],
+                        ["stars", "number", "Yes", "Average rating (0–5 scale, 1 decimal)"],
+                        ["reviews_count", "number", "Yes", "Total number of customer reviews"],
+                        ["in_stock", "boolean", "No", "Whether the product is currently in stock"],
+                        ["brand", "string", "Yes", "Brand name"],
+                        ["seller", "object", "Yes", "Seller name, ID, and marketplace URL"],
+                        ["features", "array", "Yes", "Bullet-point product features (strings)"],
+                        ["categories", "string", "Yes", "Breadcrumb category path"],
+                        ["image", "string", "Yes", "Main product image URL (high-res)"],
+                      ].map(([field, type, nullable, desc]) => (
+                        <tr key={field}>
+                          <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">{field}</td>
+                          <td className="px-4 py-2.5">
+                            <span className="rounded bg-bd-canvas px-1.5 py-0.5 text-xs">{type}</span>
+                          </td>
+                          <td className="px-4 py-2.5">
+                            {nullable === "No"
+                              ? <span className="text-bd-success font-medium">Required</span>
+                              : <span className="text-bd-muted">Optional</span>}
+                          </td>
+                          <td className="px-4 py-2.5 text-bd-ink/80">{desc}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
-              <h3 className="text-lg font-bold text-bd-navy">Sample response</h3>
-              <CodeBlock code={SAMPLE_OUTPUT} label="json" />
+              <div>
+                <h3 className="mb-3 text-lg font-bold text-bd-navy">Sample response</h3>
+                <CodeBlock code={SAMPLE_OUTPUT} label="json" />
+              </div>
             </div>
           ) : null}
 
@@ -2802,7 +2813,7 @@ export function AmazonScraperMain({
             <div className="space-y-6">
               {!compact && (
                 <div>
-                  <h2 className="text-xl font-bold text-bd-navy">
+                  <h2 className="mb-3 text-lg font-bold text-bd-navy">
                     Connect Your AI Agent to the Amazon Scraper
                   </h2>
                   <p className="mt-2 text-[15px] leading-7 text-bd-ink">
