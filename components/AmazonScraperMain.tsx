@@ -1727,11 +1727,11 @@ export function AmazonScraperMain({
                       <span className="h-1.5 w-1.5 rounded-full bg-bd-success animate-pulse" />
                       3h ago
                     </p>
-                    <p className="text-bd-muted">Verified</p>
+                    <p className="text-bd-success/80">Verified</p>
                   </div>
                   <div className="text-center hidden sm:block">
-                    <p className="font-extrabold text-bd-navy text-xs">GDPR</p>
-                    <p className="text-bd-muted">Compliant</p>
+                    <p className="font-extrabold text-bd-success text-xs">GDPR + CCPA</p>
+                    <p className="text-bd-success/80">Compliant</p>
                   </div>
                 </div>
               </div>
