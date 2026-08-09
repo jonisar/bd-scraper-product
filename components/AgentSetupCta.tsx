@@ -59,7 +59,7 @@ export default function AgentSetupCta({
       title={prompt}
       className={
         sm
-          ? "inline-flex items-center gap-1.5 rounded-md border border-bd-line bg-bd-canvas px-3 py-1.5 text-xs font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
+          ? "inline-flex items-center gap-1.5 rounded-md border border-bd-line bg-bd-canvas px-4 py-2 text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
           : "inline-flex items-center gap-2 rounded-lg border border-bd-line bg-bd-canvas px-4 py-2.5 text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
       }
     >

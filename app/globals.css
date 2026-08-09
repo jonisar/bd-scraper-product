@@ -3925,6 +3925,12 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
 }
 
+/* Content scrolls below the sticky header — isolate stacking context */
+.sp-compact-content {
+  position: relative;
+  z-index: 1;
+}
+
 
 @media (max-width: 640px) {
   .sp-scroll-body { height: 65vh; }
