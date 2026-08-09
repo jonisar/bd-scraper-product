@@ -3913,6 +3913,18 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
  * .lib-page a { color: inherit } wins over Tailwind color utilities.
  * Restore scraper-page link colors inside the embed.
  */
+.lib-page .sp-frame h1,
+.lib-page .sp-frame h2,
+.lib-page .sp-frame h3,
+.lib-page .sp-frame p {
+  font-size: unset;
+  font-weight: unset;
+  line-height: unset;
+  letter-spacing: unset;
+  color: unset;
+  margin: unset;
+}
+
 .lib-page .sp-frame a.text-white,
 .lib-page .sp-frame a.bg-bd-blue,
 .lib-page .sp-frame a.bg-bd-blue:hover {
