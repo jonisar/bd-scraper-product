@@ -1657,24 +1657,24 @@ export function AmazonScraperMain({
           {/* Stats grid */}
           <div className="mt-5 grid grid-cols-3 gap-2 border-t border-bd-line pt-4 sm:grid-cols-5">
             {[
-              { value: "34.7K+", label: "Deliveries" },
-              { value: "5.7K+", label: "Users" },
-              { value: "99.99%", label: "Uptime SLA" },
-              { value: "GDPR & CCPA", label: "Compliant" },
+              { value: "34.7K+", label: "Deliveries", green: false },
+              { value: "5.7K+", label: "Users", green: false },
+              { value: "99.99%", label: "Uptime SLA", green: false },
+              { value: "GDPR & CCPA", label: "Compliant", green: true },
             ].map((s) => (
               <div key={s.label} className="rounded-lg bg-bd-canvas px-3 py-2">
-                <p className="text-sm font-extrabold text-bd-navy">{s.value}</p>
-                <p className="text-[11px] text-bd-muted">{s.label}</p>
+                <p className={`text-sm font-extrabold ${s.green ? "text-bd-success" : "text-bd-navy"}`}>{s.value}</p>
+                <p className={`text-[11px] ${s.green ? "text-bd-success/80" : "text-bd-muted"}`}>{s.label}</p>
               </div>
             ))}
             <div className="rounded-lg bg-bd-canvas px-3 py-2">
               <p className="flex items-center gap-1.5 text-sm font-extrabold text-bd-success">
                 <span className="h-1.5 w-1.5 rounded-full bg-bd-success animate-pulse" />
-                Verified
-              </p>
-              <p className="flex items-center gap-1 text-[11px] text-bd-muted">
-                <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-bd-success" aria-hidden="true"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
                 3h ago
+              </p>
+              <p className="flex items-center gap-1 text-[11px] text-bd-success/80">
+                <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 fill-bd-success" aria-hidden="true"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                Verified
               </p>
             </div>
           </div>
