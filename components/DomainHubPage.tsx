@@ -26,51 +26,6 @@ import HeroRatings from "@/components/HeroRatings";
 import ScraperPreview from "@/components/ScraperPreview";
 import { sampleUrlForDomain, type DomainHubData } from "@/lib/domain-hubs";
 import { cpHref } from "@/lib/cp-href";
-import { templates, type Template } from "@/lib/templates";
-
-function buildMockTemplate(hub: DomainHubData): Template {
-  const domain = hub.domain;
-  const name = hub.name + " Data";
-  return {
-    slug: hub.slug + "-data",
-    name,
-    domain,
-    category: hub.category,
-    icon: domain.charAt(0).toUpperCase(),
-    color: "#3D7FFC",
-    tagline: `Structured ${hub.name} data via API — ready in seconds.`,
-    description: `Extract structured data from ${hub.name} pages via API. No proxy management, no anti-bot headaches — just send URLs and get structured JSON back. Free 5K records/month included.`,
-    datasetId: "gd_example_mock",
-    endpoints: [
-      { name: "Collect by URL", desc: `Pass ${hub.name} URLs directly.` },
-      { name: "Discover by keyword", desc: `Search and collect matching results.` },
-    ],
-    responseTime: "~12s per input",
-    mcp: { tool: `web_data_${hub.slug}`, group: hub.category.toLowerCase() },
-    inputs: [
-      { name: "url", type: "string", required: true, example: sampleUrlForDomain(domain), description: `${hub.name} page URL.` },
-      { name: "limit", type: "number", required: false, example: "20", description: "Max records to return." },
-    ],
-    dictionary: [
-      { name: "title", description: "Page title", type: "Text" },
-      { name: "url", description: "Source URL", type: "Url" },
-      { name: "description", description: "Content description", type: "Text" },
-      { name: "date", description: "Publication or listing date", type: "Date" },
-      { name: "category", description: "Content category", type: "Text" },
-      { name: "rating", description: "Rating or score", type: "Number" },
-      { name: "image", description: "Primary image URL", type: "Url" },
-      { name: "author", description: "Author or publisher", type: "Text" },
-    ],
-    totalFields: 35,
-    sampleOutput: {
-      title: `Sample ${hub.name} Record`,
-      url: sampleUrlForDomain(domain),
-      description: "Structured data extracted automatically...",
-      category: hub.category,
-      rating: 4.5,
-    },
-  };
-}
 
 export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
   const topScraper = hub.scrapers[0];
@@ -176,16 +131,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        {/* SCRAPER PREVIEW — interactive experience (resolves to top domain scraper or mock) */}
-        {(() => {
-          const previewTemplate: Template =
-            templates.find((t) => t.domain === hub.domain && t.popular) ||
-            templates.find((t) => t.domain === hub.domain) ||
-            templates.find((t) => t.category === hub.category && t.popular) ||
-            templates.find((t) => t.category === hub.category) ||
-            buildMockTemplate(hub);
-          return <ScraperPreview template={previewTemplate} />;
-        })()}
+        {/* SCRAPER PREVIEW — same shared Amazon experience as the full scraper page */}
+        <ScraperPreview />
 
         <HowItWorksSteps
           heading={`From zero to ${hub.name} data in 3 steps`}

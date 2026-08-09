@@ -183,8 +183,8 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* SCRAPER PREVIEW — interactive experience */}
-      <ScraperPreview template={templates.find((t) => t.slug === "amazon-product")!} />
+      {/* SCRAPER PREVIEW — same shared Amazon experience as the full scraper page */}
+      <ScraperPreview />
 
       {/* VALUE BANNER */}
       <section className="value-banner">
