@@ -45,9 +45,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/products/web-scraper/trip",
   ];
 
+  const lastModified = new Date("2026-08-01");
+
   return routes.map((path) => ({
     url: `${BASE}${path}`,
-    lastModified: new Date(),
+    lastModified,
     changeFrequency: path.includes("scraper-lib") ? "daily" : "weekly",
     priority: path === "/products/web-scraper" ? 1 : path.includes("amazon-product") ? 0.9 : 0.8,
   }));

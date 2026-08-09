@@ -17,6 +17,20 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://brightdata.com/products/web-scraper/studio",
     siteName: "Bright Data",
+    images: [
+      {
+        url: "/images/og-scraper-studio.png",
+        width: 1200,
+        height: 630,
+        alt: "Bright Data AI Scraper Studio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Scraper Studio - Build Any Scraper With a Prompt",
+    description:
+      "Describe the data you need. AI builds, tests, and deploys a production scraper in minutes — no code required.",
   },
   alternates: { canonical: "https://brightdata.com/products/web-scraper/studio" },
 };
@@ -84,6 +98,14 @@ const jsonLd = {
         name: item.q,
         acceptedAnswer: { "@type": "Answer", text: item.a },
       })),
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Bright Data", item: "https://brightdata.com" },
+        { "@type": "ListItem", position: 2, name: "Web Scraper", item: "https://brightdata.com/products/web-scraper" },
+        { "@type": "ListItem", position: 3, name: "Scraper Studio", item: "https://brightdata.com/products/web-scraper/studio" },
+      ],
     },
   ],
 };

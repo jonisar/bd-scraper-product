@@ -24,6 +24,7 @@ import DxComplianceSection from "@/components/DxComplianceSection";
 import FaqSection from "@/components/FaqSection";
 import HeroRatings from "@/components/HeroRatings";
 import { sampleUrlForDomain, type DomainHubData } from "@/lib/domain-hubs";
+import { cpHref } from "@/lib/cp-href";
 
 export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
   const topScraper = hub.scrapers[0];
@@ -100,7 +101,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                   fieldsPreview={s.fieldsPreview}
                   views={s.views}
                   downloads={s.downloads}
-                  href={s.href}
+                  href={cpHref(s)}
                 />
               ))}
             </div>

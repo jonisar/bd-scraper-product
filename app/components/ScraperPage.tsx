@@ -548,7 +548,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "review_text, rating, author, verified_purchase, helpful_votes, date",
     views: "7.2K+",
     downloads: "1.8K+",
-    href: "https://brightdata.com/products/web-scraper/amazon/reviews",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_le8e811kzy4ggddlq",
   },
   {
     name: "Amazon Best Sellers",
@@ -558,7 +558,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "rank, title, price, rating, category, sales_volume",
     views: "34.6K+",
     downloads: "5.1K+",
-    href: "/products/web-scraper/amazon",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije",
   },
   {
     name: "Amazon Sellers Info",
@@ -568,7 +568,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "seller_name, rating, feedback_count, return_policy, address",
     views: "2.4K+",
     downloads: "820+",
-    href: "https://brightdata.com/products/web-scraper/amazon/seller",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_lhotzucw1etoe5iw1k",
   },
   {
     name: "Amazon Price Tracker",
@@ -578,7 +578,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "price, list_price, discount, buy_box, stock_status",
     views: "1.6K+",
     downloads: "540+",
-    href: "https://brightdata.com/products/web-scraper/amazon/price",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije",
   },
   {
     name: "Walmart Products",
@@ -588,7 +588,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "sku, price, specs, availability, reviews, seller",
     views: "5.5K+",
     downloads: "1.4K+",
-    href: "https://brightdata.com/products/web-scraper/walmart",
+    href: "https://brightdata.com/cp/datasets",
   },
   {
     name: "Google Maps Scraper",
@@ -598,7 +598,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "name, address, phone, rating, reviews, hours, website",
     views: "12.8K+",
     downloads: "3.9K+",
-    href: "/products/web-scraper/google-maps",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_m8ebnr0q2qlklc02fz",
   },
   {
     name: "LinkedIn Profiles",
@@ -608,7 +608,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "name, headline, company, experience, skills, education",
     views: "118.1K+",
     downloads: "28.4K+",
-    href: "/products/web-scraper/linkedin",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1viktl72bvl7bjuj0",
   },
   {
     name: "Instagram Profiles",
@@ -618,7 +618,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "followers, posts, bio, engagement_rate, media, hashtags",
     views: "21.8K+",
     downloads: "6.2K+",
-    href: "/products/web-scraper/instagram",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vikfch901nx3by4",
   },
 ];
 
@@ -1892,9 +1892,9 @@ export default function ScraperPage() {
           <span className="font-medium text-bd-blue" aria-current="page">Amazon Product Scraper</span>
         </nav>
 
-        <section className="animate-rise grid max-w-full gap-6 lg:gap-8 lg:grid-cols-[1fr_340px]">
+        <section className="animate-rise grid max-w-full gap-6 overflow-x-clip lg:gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
           {/* Main content */}
-          <div className="min-w-0 overflow-x-clip">
+          <div className="min-w-0">
             {/* Hero card */}
             <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_40px_rgba(0,0,0,0.3)] sm:p-7">
               <div className="max-w-3xl">
@@ -1961,8 +1961,9 @@ export default function ScraperPage() {
             <TrustedByStrip compact />
 
             {/* Tabs */}
-            <div id="scraper-tabs" className="animate-rise-delay mt-6 rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
-              <div className="sticky top-14 z-30 relative overflow-hidden rounded-t-2xl bg-bd-panel">
+            <div id="scraper-tabs" className="animate-rise-delay mt-6 min-w-0 overflow-x-clip rounded-2xl border border-bd-line bg-bd-panel shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
+              <div className="sticky top-14 z-30">
+                <div className="relative rounded-t-2xl bg-bd-panel">
                 <div className="tab-scroll flex overflow-x-auto border-b border-bd-line px-4 sm:px-5">
                   {mainTabs.map((tab) => (
                     <button
@@ -1983,8 +1984,9 @@ export default function ScraperPage() {
                   ))}
                 </div>
               </div>
+              </div>
 
-              <div className="p-5 sm:p-7">
+              <div className="min-w-0 p-5 sm:p-7">
                 {/* ===== API TAB ===== */}
                 {mainTab === "API" ? (
                   <div className="space-y-8">
@@ -2341,7 +2343,7 @@ export default function ScraperPage() {
                           { title: "Rich product schema", desc: "Prices, reviews, BSR, seller info, stock status, images — parsed and typed." },
                           { title: "Anti-bot bypass", desc: "Proxy rotation, CAPTCHA solving, fingerprint management, and JS rendering." },
                           { title: "18 marketplaces", desc: "Scrape .com, .co.uk, .de, .co.jp, and 14 more. Localized pricing and rankings." },
-                          { title: "Bulk & async", desc: "Up to 5,000 URLs per request. Async mode returns a snapshot ID for polling/webhook." },
+                          { title: "Bulk & async", desc: "Unlimited URLs per request (up to 1 GB input). Async mode returns a snapshot ID for polling/webhook." },
                           { title: "Pay for success", desc: "Charged only for successfully delivered records — failed scrapes are free." },
                           { title: "Unlimited concurrency", desc: "Run as many parallel requests as you need. Scale plans get priority throughput." },
                         ].map((f) => (
@@ -2440,7 +2442,7 @@ export default function ScraperPage() {
                             {[
                               ["API endpoints", "Synchronous (/scrape) and Asynchronous (/trigger)"],
                               ["Authentication", "Bearer token (API key)"],
-                              ["Max URLs per request", "5,000 (async), 25 (sync)"],
+                              ["Max URLs per request", "Unlimited (async, up to 1 GB input), 20 (sync)"],
                               ["Median response time", "~3 seconds (sync, single URL)"],
                               ["Success rate", "98.4% (industry avg ~95%)"],
                               ["Output fields", "40+ structured fields per product (industry avg 15–25)"],
@@ -2494,12 +2496,12 @@ export default function ScraperPage() {
                       </p>
                       <div className="mt-4 grid gap-4 sm:grid-cols-2">
                         {[
-                          { name: "Amazon Product Scraper", domain: "amazon.com", category: "E-commerce", desc: "Prices, titles, images, specs, stock levels, and 40+ fields from any product page.", fieldsPreview: "title, price, rating, reviews, stock, images", views: "48.2K+", downloads: "12.6K+", href: "/products/web-scraper/amazon/amazon-product-scraper" },
-                          { name: "Amazon Best Sellers", domain: "amazon.com", category: "Rankings", desc: "Bestseller rankings, category leaderboards, movers & shakers, and trending products.", fieldsPreview: "rank, title, price, rating, category, sales_volume", views: "34.6K+", downloads: "5.1K+", href: "/products/web-scraper/amazon" },
-                          { name: "Amazon Reviews Scraper", domain: "amazon.com", category: "Reviews", desc: "Review text, star ratings, author info, verified purchase status, and helpful votes.", fieldsPreview: "review_text, rating, author, verified, helpful_votes", views: "7.2K+", downloads: "1.8K+", href: "/products/web-scraper/amazon" },
-                          { name: "Amazon Sellers Info", domain: "amazon.com", category: "Sellers", desc: "Seller name, store rating, feedback count, return policy, and business address.", fieldsPreview: "seller_name, rating, feedback_count, return_policy", views: "2.4K+", downloads: "820+", href: "/products/web-scraper/amazon" },
-                          { name: "Amazon Price Tracker", domain: "amazon.com", category: "Pricing", desc: "Real-time pricing, discounts, deal badges, Buy Box winner, and stock availability.", fieldsPreview: "price, list_price, discount, buy_box, stock_status", views: "1.6K+", downloads: "540+", href: "/products/web-scraper/amazon" },
-                          { name: "Amazon Keyword Search", domain: "amazon.com", category: "Search", desc: "Search results by keyword — product listings, sponsored placements, and organic rankings.", fieldsPreview: "title, price, position, sponsored, rating, url", views: "3.8K+", downloads: "1.1K+", href: "/products/web-scraper/amazon" },
+                          { name: "Amazon Product Scraper", domain: "amazon.com", category: "E-commerce", desc: "Prices, titles, images, specs, stock levels, and 40+ fields from any product page.", fieldsPreview: "title, price, rating, reviews, stock, images", views: "48.2K+", downloads: "12.6K+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije" },
+                          { name: "Amazon Best Sellers", domain: "amazon.com", category: "Rankings", desc: "Bestseller rankings, category leaderboards, movers & shakers, and trending products.", fieldsPreview: "rank, title, price, rating, category, sales_volume", views: "34.6K+", downloads: "5.1K+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije" },
+                          { name: "Amazon Reviews Scraper", domain: "amazon.com", category: "Reviews", desc: "Review text, star ratings, author info, verified purchase status, and helpful votes.", fieldsPreview: "review_text, rating, author, verified, helpful_votes", views: "7.2K+", downloads: "1.8K+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_le8e811kzy4ggddlq" },
+                          { name: "Amazon Sellers Info", domain: "amazon.com", category: "Sellers", desc: "Seller name, store rating, feedback count, return policy, and business address.", fieldsPreview: "seller_name, rating, feedback_count, return_policy", views: "2.4K+", downloads: "820+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_lhotzucw1etoe5iw1k" },
+                          { name: "Amazon Price Tracker", domain: "amazon.com", category: "Pricing", desc: "Real-time pricing, discounts, deal badges, Buy Box winner, and stock availability.", fieldsPreview: "price, list_price, discount, buy_box, stock_status", views: "1.6K+", downloads: "540+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije" },
+                          { name: "Amazon Keyword Search", domain: "amazon.com", category: "Search", desc: "Search results by keyword — product listings, sponsored placements, and organic rankings.", fieldsPreview: "title, price, position, sponsored, rating, url", views: "3.8K+", downloads: "1.1K+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_lwdb4vjm1ehb499uxs" },
                         ].map((s) => (
                           <ScraperCard key={s.name} {...s} />
                         ))}
@@ -2579,7 +2581,7 @@ export default function ScraperPage() {
                           },
                           {
                             q: "How does the Amazon Scraper API work?",
-                            a: "POST Amazon URLs to the /scrape endpoint for real-time results (median ~3s) or /trigger for async bulk jobs up to 5,000 URLs. Bright Data handles proxies, CAPTCHAs, and JavaScript rendering automatically.",
+                            a: "POST Amazon URLs to the /scrape endpoint for real-time results (median ~3s) or /trigger for async bulk jobs with unlimited URLs (up to 1 GB input). Bright Data handles proxies, CAPTCHAs, and JavaScript rendering automatically.",
                           },
                           {
                             q: "Are free records included?",
@@ -2591,7 +2593,7 @@ export default function ScraperPage() {
                           },
                           {
                             q: "What are the usage limits?",
-                            a: "No hard limits. The API supports unlimited concurrency and bulk requests of up to 5,000 URLs per call. Scale plans include priority throughput.",
+                            a: "No hard limits. The API supports unlimited concurrency and unlimited URLs per async request (up to 1 GB input). Scale plans include priority throughput.",
                           },
                           {
                             q: "Is the API compliant with data protection regulations?",
@@ -3300,8 +3302,8 @@ export default function ScraperPage() {
           </div>
 
           {/* ===== SIDEBAR ===== */}
-          <aside className="animate-rise-delay">
-            <div ref={sidebarRef} className="lg:sticky lg:overflow-y-auto lg:[scrollbar-width:thin] lg:[scrollbar-color:theme(colors.bd-line)_transparent] space-y-4" style={{ top: stickyTop, maxHeight: sidebarMaxH }}>
+          <aside className="min-w-0 animate-rise-delay">
+            <div ref={sidebarRef} className="lg:sticky lg:overflow-y-auto lg:[scrollbar-width:thin] lg:[scrollbar-color:theme(colors.bd-line)_transparent] space-y-4 overflow-hidden" style={{ top: stickyTop, maxHeight: sidebarMaxH }}>
             <div className="overflow-hidden rounded-2xl border border-bd-blue/30 bg-gradient-to-br from-bd-blue-soft via-bd-panel to-bd-panel shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
               <div className="p-5">
                 <p className="flex items-baseline gap-x-1.5">
@@ -3352,6 +3354,8 @@ export default function ScraperPage() {
                 <a
                   href="https://brightdata.com/cp/start"
                   className="mt-5 block w-full rounded-xl bg-bd-blue px-4 py-3 text-center text-sm font-bold text-white shadow-md shadow-bd-blue/30 transition hover:brightness-105"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   Start free
                 </a>

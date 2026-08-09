@@ -17,6 +17,20 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://brightdata.com/products/web-scraper/scraper-lib",
     siteName: "Bright Data",
+    images: [
+      {
+        url: "/images/og-scraper-lib.png",
+        width: 1200,
+        height: 630,
+        alt: "Bright Data Scraper Library",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Scraper Library - 1,300+ Production-Ready Web Scrapers",
+    description:
+      "Browse 1,300+ pre-built web scrapers. Built-in proxies, anti-bot bypass, and structured data. Start free.",
   },
   alternates: { canonical: "https://brightdata.com/products/web-scraper/scraper-lib" },
 };
@@ -33,12 +47,26 @@ const jsonLd = {
   inLanguage: "en-US",
 };
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Bright Data", item: "https://brightdata.com" },
+    { "@type": "ListItem", position: 2, name: "Web Scraper", item: "https://brightdata.com/products/web-scraper" },
+    { "@type": "ListItem", position: 3, name: "Scraper Library", item: "https://brightdata.com/products/web-scraper/scraper-lib" },
+  ],
+};
+
 export default function ScraperLibPage() {
   return (
     <div className="lib-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <Header />
 
