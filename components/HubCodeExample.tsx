@@ -8,8 +8,8 @@ type TokKind = "bash" | "python" | "js" | "json";
 
 const TOKEN_RES: Record<TokKind, RegExp> = {
   bash: /(#[^\n]*)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(\bcurl\b|\bPOST\b|\s-{1,2}[A-Za-z][\w-]*)|(\b\d+(?:\.\d+)?\b)/g,
-  python: /(#[^\n]*)|("(?:[^"\\]|\\.)*")|(\bimport\b|\bprint\b|\brequests\b)|(\b\d+(?:\.\d+)?\b)/g,
-  js: /(\/\/[^\n]*)|("(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*`)|(\bconst\b|\bawait\b|\bfetch\b|\bconsole\b|\bJSON\b|\bmethod\b)|(\b\d+(?:\.\d+)?\b)/g,
+  python: /(#[^\n]*)|("(?:[^"\\]|\\.)*")|(\bimport\b|\bfrom\b|\bwith\b|\bas\b|\bprint\b|\brequests\b)|(\b\d+(?:\.\d+)?\b)/g,
+  js: /(\/\/[^\n]*)|("(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*`)|(\bconst\b|\bimport\b|\bnew\b|\bawait\b|\bfetch\b|\bconsole\b|\bJSON\b|\bmethod\b)|(\b\d+(?:\.\d+)?\b)/g,
   json: /("(?:[^"\\]|\\.)*")(\s*:)|("(?:[^"\\]|\\.)*")|(\b\d+(?:\.\d+)?\b)|(\btrue\b|\bfalse\b|\bnull\b)/g,
 };
 
@@ -46,6 +46,7 @@ const TARGETS = [
     datasetId: "gd_l1vijqt9jfj7olije",
     url: "https://www.amazon.com/Quencher-FlowState-Stainless-Insulated-Smoothie/dp/B0CRMZHDG8",
     printFields: ["title", "final_price"],
+    sdkCall: "amazon.products",
     domain: "amazon.com",
     response: `[
   {
@@ -140,6 +141,7 @@ const TARGETS = [
     datasetId: "gd_l1viktl72bvl7bjuj0",
     url: "https://www.linkedin.com/in/satyanadella",
     printFields: ["name", "position"],
+    sdkCall: "linkedin.profiles",
     domain: "linkedin.com",
     response: `[
   {
@@ -183,6 +185,7 @@ const TARGETS = [
     datasetId: "gd_l1vikfch901nx3by4",
     url: "https://www.instagram.com/instagram/",
     printFields: ["followers", "biography"],
+    sdkCall: "instagram.profiles",
     domain: "instagram.com",
     response: `[
   {
@@ -246,7 +249,7 @@ export default function HubCodeExample({ sampleUrl, className = "" }: HubCodeExa
   const multiTarget = !sampleUrl;
   const target = multiTarget
     ? TARGETS.find((t) => t.name === targetName) ?? TARGETS[0]
-    : { name: "custom", datasetId: "DATASET_ID", url: sampleUrl, printFields: ["title", "price"] as const, domain: "", response: "" };
+    : { name: "custom", datasetId: "DATASET_ID", url: sampleUrl, printFields: ["title", "price"] as const, sdkCall: "", domain: "", response: "" };
   const [f1, f2] = target.printFields;
 
   const curlCode = `# Synchronous request: results returned in real time\ncurl -X POST "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${target.datasetId}&format=json" \\
@@ -254,7 +257,15 @@ export default function HubCodeExample({ sampleUrl, className = "" }: HubCodeExa
   -H "Content-Type: application/json" \\
   -d '[{"url": "${target.url}"}]'`;
 
-  const pythonCode = `# Synchronous request: results returned in real time\nimport requests
+  const pythonCode = multiTarget
+    ? `# pip install brightdata-sdk
+from brightdata import SyncBrightDataClient
+
+# The SDK triggers the scrape, polls, and returns parsed data
+with SyncBrightDataClient(token="YOUR_API_KEY") as client:
+    result = client.scrape.${target.sdkCall}(url="${target.url}")
+    print(result.data["${f1}"], result.data["${f2}"])`
+    : `# Synchronous request: results returned in real time\nimport requests
 
 response = requests.post(
     "https://api.brightdata.com/datasets/v3/scrape",
@@ -272,7 +283,15 @@ if isinstance(data, dict):  # long scrape: snapshot envelope
 else:
     print(data[0]["${f1}"], data[0]["${f2}"])`;
 
-  const nodeCode = `// Synchronous request: results returned in real time\nconst response = await fetch(
+  const nodeCode = multiTarget
+    ? `// npm install @brightdata/sdk
+import { bdclient } from '@brightdata/sdk';
+
+// The SDK triggers the scrape, polls, and returns parsed data
+const client = new bdclient({ apiKey: "YOUR_API_KEY" });
+const result = await client.scrape.${target.sdkCall}(["${target.url}"]);
+console.log(result.data[0].${f1}, result.data[0].${f2});`
+    : `// Synchronous request: results returned in real time\nconst response = await fetch(
   "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${target.datasetId}&format=json",
   {
     method: "POST",
