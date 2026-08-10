@@ -1510,6 +1510,9 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   transition: color 0.15s;
 }
 .site-header-product:hover { color: var(--accent); }
+@media (max-width: 380px) {
+  .site-header-product { font-size: 13px; }
+}
 
 .site-header-nav {
   display: none;
@@ -1702,6 +1705,9 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   white-space: nowrap;
 }
 .site-header-cta:hover { filter: brightness(1.1); }
+/* When mobile drawer is open, hide CTA to keep burger/X fully visible */
+.site-header.mobile-open .site-header-cta { display: none; }
+.site-header.mobile-open .site-header-login { display: none; }
 .site-header-burger {
   display: grid;
   place-items: center;
@@ -1795,36 +1801,39 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   }
 }
 
+/* Hide subnav when mobile drawer is open */
+.site-header.mobile-open .site-header-sub { display: none; }
+.site-header.mobile-open { border-bottom-color: transparent; }
+
 /* Mobile drawer */
 .site-mobile-panel {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
-  top: 100%;
-  max-height: min(78vh, 720px);
+  top: 57px;
+  bottom: 0;
   overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  background: #000;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55);
+  background: #0a0a0a;
+  z-index: 49;
 }
 @media (min-width: 1100px) {
   .site-mobile-panel { display: none; }
 }
 .site-mobile-scroll {
-  max-height: min(78vh, 720px);
+  height: 100%;
   overflow-y: auto;
-  padding: 8px 16px 20px;
+  padding: 4px 20px 40px;
   -webkit-overflow-scrolling: touch;
 }
 .site-mobile-section {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 .site-mobile-section-btn {
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 0;
+  padding: 16px 0;
   border: 0;
   background: transparent;
   font-size: 15px;
@@ -1833,7 +1842,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   cursor: pointer;
 }
 .site-mobile-section-body {
-  padding: 0 0 14px;
+  padding: 0 0 16px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -1853,15 +1862,23 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 }
 .site-mobile-top-link {
   display: block;
-  padding: 13px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   font-size: 15px;
   font-weight: 650;
   color: var(--text-1);
 }
 .site-mobile-sub {
-  margin-top: 8px;
-  padding-top: 8px;
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+.site-mobile-sub .site-mega-col-title {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 4px;
 }
 
 /* Scroll offset for taller sticky double header */

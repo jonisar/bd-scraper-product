@@ -242,7 +242,7 @@ export default function SiteHeader({ subnav = null }: SiteHeaderProps) {
   return (
     <header
       ref={headerRef}
-      className={`site-header${hasSubnav ? " has-subnav" : ""}${openMenu ? " mega-open" : ""}`}
+      className={`site-header${hasSubnav ? " has-subnav" : ""}${openMenu ? " mega-open" : ""}${mobileOpen ? " mobile-open" : ""}`}
     >
       <div className="site-header-top">
         <div className="site-header-inner">
