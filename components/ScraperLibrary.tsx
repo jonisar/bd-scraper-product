@@ -8,10 +8,8 @@ import DomainMark from "@/components/DomainMark";
 
 const CARD_LIMIT = 9;
 
-const CP_DATASETS = "https://brightdata.com/cp/datasets";
-
 const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string; external?: boolean }> = {
-  All: { label: "Browse all scrapers", href: CP_DATASETS, external: true },
+  All: { label: "Browse all scrapers", href: "/products/web-scraper/scraper-lib" },
   "Social Media": { label: "View all Social Media scrapers", href: "/products/web-scraper/social-media" },
   "E-commerce": { label: "View all E-commerce scrapers", href: "/products/web-scraper/ecommerce" },
   "Business (B2B)": { label: "View all B2B scrapers", href: "/products/web-scraper/b2b" },
@@ -209,12 +207,7 @@ export default function ScraperLibrary() {
           <strong>Explore 1,400+ production-ready scrapers</strong>
           <span>Proxy rotation, CAPTCHA solving, and anti-bot bypass, built in. Pay only for successful results.</span>
         </div>
-        <a
-          href={CP_DATASETS}
-          className="btn btn-primary btn-pill"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="/products/web-scraper/scraper-lib" className="btn btn-primary btn-pill">
           Browse all scrapers →
         </a>
       </div>

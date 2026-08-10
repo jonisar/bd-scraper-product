@@ -219,20 +219,20 @@ export default function HeaderSearch() {
               </div>
             )}
             <a
-              href="https://brightdata.com/cp/datasets"
+              href="/products/web-scraper/scraper-lib"
               className="hdr-search-more"
               target="_blank"
               rel="noopener noreferrer"
               onMouseDown={(e) => e.preventDefault()}
             >
-              Browse all scrapers on Bright Data →
+              Browse all scrapers →
             </a>
             </>
           ) : (
             <div className="hdr-search-empty">
               <p>No scraper for <b>{dom || q}</b></p>
               <a
-                href="https://brightdata.com/cp/datasets"
+                href="/products/web-scraper/scraper-lib"
                 className="hdr-search-empty-link"
                 target="_blank"
                 rel="noopener noreferrer"

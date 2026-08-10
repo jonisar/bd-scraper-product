@@ -299,13 +299,13 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
                   </div>
                 )}
                 <a
-                  href="https://brightdata.com/cp/datasets"
+                  href="/products/web-scraper/scraper-lib"
                   className="hsearch-more"
                   target="_blank"
                   rel="noopener noreferrer"
                   onMouseDown={(e) => e.preventDefault()}
                 >
-                  Browse all scrapers on Bright Data →
+                  Browse all scrapers →
                 </a>
               </>
             ) : (
