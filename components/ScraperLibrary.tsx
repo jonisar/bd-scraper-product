@@ -134,7 +134,7 @@ export default function ScraperLibrary() {
 
         {isAll ? (
           <div className="slib-quicknav">
-            {TOP_DOMAINS.map((d) => (
+            {TOP_DOMAINS.slice(0, CARD_LIMIT).map((d) => (
               <a key={d.domain} href={d.href} className="cc">
                 <div className="cc-glow" aria-hidden="true" />
                 <div className="cc-header">
