@@ -411,27 +411,27 @@ export const TOP_LINKS: NavLink[] = [
  */
 export const HUB_SUBNAV: SubnavItem[] = [
   { label: "Scraper APIs", href: "#scrapers" },
-  { label: "Scraper Marketplace", href: "/products/web-scraper/scraper-lib" },
-  { label: "Live Demo", href: "#demo" },
   { label: "Pricing", href: "#pricing" },
+  { label: "How it Works", href: "#steps" },
   { label: "Code Examples", href: "#code" },
   { label: "AI Agents", href: "#agents" },
-  { label: "How it Works", href: "#steps" },
+  { label: "Live Demo", href: "#demo" },
   { label: "Compliance", href: "#why" },
   { label: "FAQs", href: "#faq" },
+  { label: "Scraper Marketplace", href: "/products/web-scraper/scraper-lib" },
 ];
 
 /** Main /products/web-scraper — BD anchors + Use Cases (strong conversion on hub home). */
 export const HOME_SUBNAV: SubnavItem[] = [
   { label: "Scraper APIs", href: "#library" },
-  { label: "Scraper Marketplace", href: "/products/web-scraper/scraper-lib" },
-  { label: "Live Demo", href: "#demo" },
   { label: "Pricing", href: "#pricing" },
+  { label: "How it Works", href: "#steps" },
   { label: "Code Examples", href: "#code" },
   { label: "AI Agents", href: "#agents" },
-  { label: "How it Works", href: "#steps" },
-  { label: "Use Cases", href: "#use-cases" },
+  { label: "Live Demo", href: "#demo" },
+  { label: "Compliance", href: "#why" },
   { label: "FAQs", href: "#faq" },
+  { label: "Scraper Marketplace", href: "/products/web-scraper/scraper-lib" },
 ];
 
 /** Scraper library / categories — contextual nav with conversion paths. */

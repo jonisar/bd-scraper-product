@@ -291,7 +291,7 @@ export default function ScraperLibraryInfinite() {
 
   const needle = search.trim().toLowerCase();
   const isSearching = needle.length > 0;
-  const isCurated = cat === "All" && !isSearching;
+  const isCurated = false;
 
   const filtered = useMemo(() => {
     let list = [...catalog];
@@ -397,26 +397,6 @@ export default function ScraperLibraryInfinite() {
         </div>
 
         <div className="slib-controls">
-          <div className="slib-search-wrap">
-            <input
-              className="lib-search"
-              placeholder="Find scrapers for Amazon, Instagram, TikTok..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              aria-label="Filter scrapers"
-            />
-            {search && (
-              <button
-                type="button"
-                className="slib-search-clear"
-                onClick={() => setSearch("")}
-                aria-label="Clear search"
-              >
-                ✕
-              </button>
-            )}
-          </div>
-
           <div className="slib-sort" ref={sortRef}>
             <button
               type="button"
@@ -553,8 +533,8 @@ export default function ScraperLibraryInfinite() {
               {popular.map((s, i) => renderCard(s, i))}
             </div>
             <p className="slib-view-all">
-              <a href="/products/web-scraper/scraper-lib?sort=popular" className="slib-view-all-link">
-                View all scrapers →
+              <a href="https://brightdata.com/cp/datasets" className="slib-view-all-link" target="_blank" rel="noopener noreferrer">
+                Browse all scrapers on Bright Data →
               </a>
             </p>
           </div>

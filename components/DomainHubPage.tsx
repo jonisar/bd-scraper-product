@@ -8,7 +8,7 @@ import ScraperCard from "@/components/ScraperCard";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
 import AgentGetStarted from "@/components/AgentGetStarted";
-import AgentSetupCta from "@/components/AgentSetupCta";
+
 import PricingAssurances from "@/components/PricingAssurances";
 import PricingSlider from "@/components/PricingSlider";
 import { PricingCards } from "@/components/PricingCards";
@@ -44,20 +44,6 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
       <Header subnav={HUB_SUBNAV} />
 
       <main>
-        <div className="container">
-          <nav className="site-breadcrumb" aria-label="Breadcrumb">
-            <a href="https://brightdata.com/products" target="_blank" rel="noopener noreferrer">
-              Products
-            </a>
-            <span aria-hidden="true">/</span>
-            <Link href="/products/web-scraper">Web Scraper API</Link>
-            <span aria-hidden="true">/</span>
-            <Link href="/products/web-scraper/scraper-lib">Scraper Library</Link>
-            <span aria-hidden="true">/</span>
-            <span aria-current="page">{hub.name}</span>
-          </nav>
-        </div>
-
         {/* HERO */}
         <section className="hero site-hub-hero">
           <div className="container hero-inner">
@@ -72,10 +58,9 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
               <a href="https://brightdata.com/cp/start" className="btn btn-primary btn-pill" target="_blank" rel="noopener noreferrer">
                 Start free
               </a>
-              <AgentSetupCta
-                variant="hub"
-                prompt={`Read https://brightdata.com/skills.md and scrape data from ${hub.domain}`}
-              />
+              <a href="https://brightdata.com/contact" className="btn btn-ghost btn-pill" target="_blank" rel="noopener noreferrer">
+                Contact sales
+              </a>
             </div>
             <p className="hub-hero-note">No credit card required · 5K free records/month</p>
           </div>
@@ -111,7 +96,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             </div>
             {hub.scrapers.length > 9 && (
               <p className="hub-view-all">
-                <a href={`/products/web-scraper/scraper-lib?q=${encodeURIComponent(hub.domain)}`} className="hub-view-all-link">
+                <a href="https://brightdata.com/cp/datasets" className="hub-view-all-link" target="_blank" rel="noopener noreferrer">
                   View all {hub.scrapers.length} {hub.name} scrapers →
                 </a>
               </p>
@@ -128,15 +113,28 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
 
         <ValueBanner />
 
+        {/* PRICING — high up for quick buyer conversion */}
+        <section className="section section-alt animate-rise hub-anchor" id="pricing">
+          <div className="container">
+            <div className="section-head">
+              <span className="kicker">{hub.name} Scraper API Pricing</span>
+              <h2>Only pay for what&rsquo;s successfully delivered</h2>
+              <p>No hidden fees. No charges for failed deliveries. Every plan includes full access to {hub.name} scrapers and infrastructure.</p>
+            </div>
+            <PricingSlider className="mb-6" />
+            <PricingCards unit="records" />
+            <PricingAssurances />
+          </div>
+        </section>
+
         <HowItWorksSteps
           heading={`From zero to ${hub.name} data in 3 steps`}
           step1={`Choose from the ${hub.name} scrapers above or create your own with AI in minutes.`}
-          altBg
           hubAnchor
         />
 
         {/* CODE EXAMPLE + SAMPLE OUTPUT */}
-        <section className="section animate-rise hub-anchor" id="code">
+        <section className="section section-alt animate-rise hub-anchor" id="code">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Quick start</span>
@@ -166,20 +164,6 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* PRICING — buyers check cost early */}
-        <section className="section section-alt animate-rise hub-anchor" id="pricing">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">{hub.name} Scraper API Pricing</span>
-              <h2>Only pay for what&rsquo;s successfully delivered</h2>
-              <p>No hidden fees. No charges for failed deliveries. Every plan includes full access to {hub.name} scrapers and infrastructure.</p>
-            </div>
-            <PricingSlider className="mb-6" />
-            <PricingCards unit="records" />
-            <PricingAssurances />
           </div>
         </section>
 

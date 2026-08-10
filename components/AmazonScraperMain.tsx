@@ -766,7 +766,7 @@ function PricingTab({ compact = false }: { compact?: boolean }) {
         </a>
         <a
           href="https://brightdata.com/contact"
-          className="rounded-lg border border-bd-line px-5 py-2.5 text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
+          className="rounded-lg border border-bd-blue/40 px-5 py-2.5 text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
           target="_blank"
           rel="noreferrer"
         >
@@ -2647,9 +2647,9 @@ export function AmazonScraperMain({
                   </li>
                 </ul>
                 <p className="mt-3">
-                  Browse all 1,000+ scrapers in the{" "}
-                  <a href="/products/web-scraper/scraper-lib" className="font-semibold text-bd-blue hover:underline">
-                    Scraper Library
+                  Browse all 1,000+ scrapers on{" "}
+                  <a href="https://brightdata.com/cp/datasets" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noopener noreferrer">
+                    Bright Data
                   </a>.
                 </p>
               </section>

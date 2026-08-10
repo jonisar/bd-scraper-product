@@ -8,29 +8,10 @@ import DomainMark from "@/components/DomainMark";
 
 const CARD_LIMIT = 9;
 
-const TOP_9_DOMAINS: { domain: string; label: string; desc: string; href: string }[] = [
-  { domain: "linkedin.com",    label: "LinkedIn",    desc: "Profiles, companies, job listings, and post engagement data", href: "/products/web-scraper/linkedin" },
-  { domain: "instagram.com",   label: "Instagram",   desc: "Profiles, posts, reels, comments, and engagement metrics", href: "/products/web-scraper/instagram" },
-  { domain: "tiktok.com",      label: "TikTok",      desc: "Profiles, videos, shop products, and trending hashtags", href: "/products/web-scraper/tiktok" },
-  { domain: "facebook.com",    label: "Facebook",    desc: "Page posts, ads library, reactions, and audience data", href: "/products/web-scraper/facebook" },
-  { domain: "amazon.com",      label: "Amazon",      desc: "Products, reviews, pricing, sellers, and bestsellers data", href: "/products/web-scraper/amazon" },
-  { domain: "youtube.com",     label: "YouTube",     desc: "Videos, channels, comments, subscribers, and view counts", href: "/products/web-scraper/youtube" },
-  { domain: "zillow.com",      label: "Zillow",      desc: "Property listings, Zestimates, rentals, and neighborhood data", href: "/products/web-scraper/zillow" },
-  { domain: "google.com/maps", label: "Google Maps", desc: "Business listings, reviews, ratings, hours, and locations", href: "/products/web-scraper/google-maps" },
-  { domain: "indeed.com",      label: "Indeed",      desc: "Job listings, salaries, company reviews, and labor market data", href: "/products/web-scraper/indeed" },
-];
+const CP_DATASETS = "https://brightdata.com/cp/datasets";
 
-function buildDomainCards() {
-  return TOP_9_DOMAINS.map((meta) => {
-    const scrapers = catalog.filter((s) => s.domain === meta.domain);
-    const totalViews = scrapers.reduce((sum, s) => sum + parseInt(s.views.replace(/[^0-9]/g, ""), 10) * (s.views.includes("K") ? 1000 : 1), 0);
-    const deliveredStr = totalViews >= 1000 ? `${(totalViews / 1000).toFixed(0)}K+` : `${totalViews}+`;
-    return { ...meta, scraperCount: scrapers.length, totalDelivered: deliveredStr, successRate: "99.2%" };
-  });
-}
-
-const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string }> = {
-  All: { label: "View all scrapers", href: "/products/web-scraper/scraper-lib" },
+const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string; external?: boolean }> = {
+  All: { label: "Browse all scrapers", href: CP_DATASETS, external: true },
   "Social Media": { label: "View all Social Media scrapers", href: "/products/web-scraper/social-media" },
   "E-commerce": { label: "View all E-commerce scrapers", href: "/products/web-scraper/ecommerce" },
   "Business (B2B)": { label: "View all B2B scrapers", href: "/products/web-scraper/b2b" },
@@ -42,39 +23,77 @@ const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string }> = {
   Finance: { label: "View all Finance scrapers", href: "/products/web-scraper/finance" },
 };
 
+type DomainCardData = {
+  domain: string;
+  label: string;
+  desc: string;
+  scraperCount: number;
+  totalDelivered: string;
+  successRate: string;
+  href: string;
+};
+
+function parseViews(v: string): number {
+  const n = parseFloat(v.replace(/[^0-9.]/g, ""));
+  if (v.includes("K")) return n * 1000;
+  if (v.includes("M")) return n * 1_000_000;
+  return n || 0;
+}
+
+function buildTopDomains(): DomainCardData[] {
+  const DOMAIN_META: Record<string, { label: string; desc: string; href: string }> = {
+    "linkedin.com":       { label: "LinkedIn",       desc: "Profiles, companies, job listings, and post engagement data", href: "/products/web-scraper/linkedin" },
+    "instagram.com":      { label: "Instagram",      desc: "Profiles, posts, reels, comments, and engagement metrics", href: "/products/web-scraper/instagram" },
+    "tiktok.com":         { label: "TikTok",         desc: "Profiles, videos, shop products, and trending hashtags", href: "/products/web-scraper/tiktok" },
+    "facebook.com":       { label: "Facebook",       desc: "Page posts, ads library, reactions, and audience data", href: "/products/web-scraper/facebook" },
+    "x.com":              { label: "X (Twitter)",    desc: "Posts, profiles, engagement metrics, and trending topics", href: "/products/web-scraper/x" },
+    "openai.com":         { label: "ChatGPT",        desc: "AI conversations, responses, and model interaction data", href: "/products/web-scraper/chatgpt" },
+    "youtube.com":        { label: "YouTube",        desc: "Videos, channels, comments, subscribers, and view counts", href: "/products/web-scraper/youtube" },
+    "amazon.com":         { label: "Amazon",         desc: "Products, reviews, pricing, sellers, and bestsellers data", href: "/products/web-scraper/amazon" },
+    "walmart.com":        { label: "Walmart",        desc: "Products, prices, reviews, and inventory data", href: "/products/web-scraper/walmart" },
+    "booking.com":        { label: "Booking.com",    desc: "Hotels, prices, availability, and guest reviews", href: "/products/web-scraper/booking" },
+    "airbnb.com":         { label: "Airbnb",         desc: "Vacation rental listings, prices, and reviews", href: "/products/web-scraper/airbnb" },
+    "indeed.com":         { label: "Indeed",         desc: "Job listings, salaries, company reviews, and labor market data", href: "/products/web-scraper/indeed" },
+    "crunchbase.com":     { label: "Crunchbase",     desc: "Companies, funding rounds, investors, and M&A data", href: "/products/web-scraper/crunchbase" },
+    "zillow.com":         { label: "Zillow",         desc: "Property listings, Zestimates, rentals, and neighborhood data", href: "/products/web-scraper/zillow" },
+    "google.com/maps":    { label: "Google Maps",    desc: "Business listings, reviews, ratings, hours, and locations", href: "/products/web-scraper/google-maps" },
+    "glassdoor.com":      { label: "Glassdoor",      desc: "Company reviews, salaries, interviews, and job listings", href: "/products/web-scraper/glassdoor" },
+    "yelp.com":           { label: "Yelp",           desc: "Business listings, reviews, ratings, and local data", href: "/products/web-scraper/yelp" },
+    "play.google.com":    { label: "Google Play",    desc: "Apps, reviews, rankings, and developer data", href: "/products/web-scraper/google-play" },
+  };
+
+  return Object.keys(DOMAIN_META).map((domain) => {
+    const meta = DOMAIN_META[domain];
+    const scrapers = catalog.filter((s) => s.domain === domain);
+    const totalViews = scrapers.reduce((sum, s) => sum + parseViews(s.views), 0);
+    const deliveredStr = totalViews >= 1000 ? `${(totalViews / 1000).toFixed(0)}K+` : `${totalViews}+`;
+    return {
+      domain,
+      label: meta.label,
+      desc: meta.desc,
+      scraperCount: scrapers.length,
+      totalDelivered: deliveredStr,
+      successRate: "99.2%",
+      href: meta.href,
+    };
+  });
+}
+
+const TOP_DOMAINS = buildTopDomains();
+
 export default function ScraperLibrary() {
   const [cat, setCat] = useState<string>("All");
-  const [search, setSearch] = useState("");
 
-  const needle = search.trim().toLowerCase();
-  const showDomains = cat === "All" && !needle;
-
-  const domainCards = useMemo(() => buildDomainCards(), []);
+  const isAll = cat === "All";
 
   const cards = useMemo(() => {
-    if (showDomains) return [];
-    if (needle) {
-      return catalog
-        .filter(
-          (s) =>
-            (cat === "All" || s.category === cat) &&
-            (s.name.toLowerCase().includes(needle) ||
-              s.domain.includes(needle) ||
-              s.fields.some((f) => f.toLowerCase().includes(needle)))
-        )
-        .slice(0, CARD_LIMIT);
-    }
+    if (isAll) return [];
     return catalog.filter((s) => s.category === cat).slice(0, CARD_LIMIT);
-  }, [cat, needle, showDomains]);
+  }, [cat, isAll]);
 
   const viewAll = CATEGORY_VIEW_ALL[cat] || CATEGORY_VIEW_ALL.All;
 
-  const sectionTitle =
-    needle
-      ? `Results for "${search.trim()}"`
-      : cat === "All"
-        ? "Popular web scrapers"
-        : `${cat} scrapers`;
+  const sectionTitle = isAll ? "Popular domains" : `${cat} scrapers`;
 
   return (
     <div className="lib">
@@ -99,26 +118,23 @@ export default function ScraperLibrary() {
             ))}
           </div>
         </div>
-        <input
-          className="lib-search"
-          placeholder="Filter..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          aria-label="Filter scrapers"
-        />
       </div>
 
       <div className="lib-section">
         <div className="lib-section-head">
           <h2>{sectionTitle}</h2>
-          <a href={viewAll.href} className="lib-section-more">
+          <a
+            href={viewAll.href}
+            className="lib-section-more"
+            {...(viewAll.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
             {viewAll.label} →
           </a>
         </div>
 
-        {showDomains ? (
-          <div className="lib-grid">
-            {domainCards.map((d) => (
+        {isAll ? (
+          <div className="slib-quicknav">
+            {TOP_DOMAINS.slice(0, CARD_LIMIT).map((d) => (
               <a key={d.domain} href={d.href} className="cc">
                 <div className="cc-glow" aria-hidden="true" />
                 <div className="cc-header">
@@ -176,7 +192,7 @@ export default function ScraperLibrary() {
           </div>
         ) : (
           <div className="lib-empty">
-            <p>No scraper found for &ldquo;{search || cat}&rdquo;</p>
+            <p>No scrapers found for &ldquo;{cat}&rdquo;</p>
             <p className="lib-empty-sub">
               Can&apos;t find what you need?{" "}
               <a href="/products/web-scraper/studio" className="lib-empty-link">
@@ -194,8 +210,10 @@ export default function ScraperLibrary() {
           <span>Proxy rotation, CAPTCHA solving, and anti-bot bypass — built in. Pay only for successful results.</span>
         </div>
         <a
-          href="/products/web-scraper/scraper-lib"
+          href={CP_DATASETS}
           className="btn btn-primary btn-pill"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Browse all scrapers →
         </a>
