@@ -24,7 +24,7 @@ export const AMAZON_SITE = {
   title: "Amazon Scraper API",
   headline: "Amazon Scraper API",
   description:
-    "Extract Amazon product data — prices, reviews, ratings, availability, seller info, and more — via API or no-code scraper. Auto-maintained and always unblocked.",
+    "Extract Amazon product data via API: prices, reviews, ratings, availability, seller info, and more. Maintained by Bright Data and always unblocked.",
   scraperCount: 14,
 } as const;
 
