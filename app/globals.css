@@ -2377,9 +2377,16 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
   overflow-x: auto;
   font-family: var(--font-jetbrains, 'JetBrains Mono'), ui-monospace, monospace;
   font-size: 13px;
-  line-height: 1.6;
-  color: #d7e6ff;
+  line-height: 1.7;
+  color: #9fb1c9;
 }
+/* Muted code syntax palette */
+.cx-com { color: #5b6b81; font-style: italic; }
+.cx-str { color: #86c58f; }
+.cx-kw { color: #82a7e8; }
+.cx-num { color: #d0a869; }
+.cx-key { color: #6fb3c9; }
+.cx-bool { color: #b492cf; }
 .hub-code-pre code { white-space: pre; }
 @media (max-width: 640px) {
   .hub-code-tab { padding: 8px 10px; font-size: 12px; }

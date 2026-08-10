@@ -1,8 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 type Lang = "cURL" | "Python" | "Node.js";
+
+type TokKind = "bash" | "python" | "js" | "json";
+
+const TOKEN_RES: Record<TokKind, RegExp> = {
+  bash: /(#[^\n]*)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(\bcurl\b|\bPOST\b|\s-{1,2}[A-Za-z][\w-]*)|(\b\d+(?:\.\d+)?\b)/g,
+  python: /(#[^\n]*)|("(?:[^"\\]|\\.)*")|(\bimport\b|\bprint\b|\brequests\b)|(\b\d+(?:\.\d+)?\b)/g,
+  js: /(\/\/[^\n]*)|("(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*`)|(\bconst\b|\bawait\b|\bfetch\b|\bconsole\b|\bJSON\b|\bmethod\b)|(\b\d+(?:\.\d+)?\b)/g,
+  json: /("(?:[^"\\]|\\.)*")(\s*:)|("(?:[^"\\]|\\.)*")|(\b\d+(?:\.\d+)?\b)|(\btrue\b|\bfalse\b|\bnull\b)/g,
+};
+
+const GROUP_CLASSES: Record<TokKind, (string | null)[]> = {
+  bash: ["cx-com", "cx-str", "cx-kw", "cx-num"],
+  python: ["cx-com", "cx-str", "cx-kw", "cx-num"],
+  js: ["cx-com", "cx-str", "cx-kw", "cx-num"],
+  json: ["cx-key", null, "cx-str", "cx-num", "cx-bool"],
+};
+
+function Highlighted({ code, kind }: { code: string; kind: TokKind }) {
+  const re = new RegExp(TOKEN_RES[kind].source, "g");
+  const classes = GROUP_CLASSES[kind];
+  const out: ReactNode[] = [];
+  let last = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(code)) !== null) {
+    if (m.index > last) out.push(code.slice(last, m.index));
+    for (let g = 1; g < m.length; g++) {
+      if (m[g] === undefined) continue;
+      const cls = classes[g - 1];
+      out.push(cls ? <span key={out.length} className={cls}>{m[g]}</span> : m[g]);
+    }
+    last = m.index + m[0].length;
+  }
+  if (last < code.length) out.push(code.slice(last));
+  return <>{out}</>;
+}
 
 /** Real dataset IDs from lib/templates.ts; sample URLs are public canonical examples. */
 const TARGETS = [
@@ -98,12 +133,12 @@ export default function HubCodeExample({ sampleUrl, className = "" }: HubCodeExa
     : { name: "custom", datasetId: "DATASET_ID", url: sampleUrl, printFields: ["title", "price"] as const, domain: "", response: "" };
   const [f1, f2] = target.printFields;
 
-  const curlCode = `curl -X POST "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${target.datasetId}&format=json" \\
+  const curlCode = `# Synchronous request: results returned in real time\ncurl -X POST "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${target.datasetId}&format=json" \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '[{"url": "${target.url}"}]'`;
 
-  const pythonCode = `import requests
+  const pythonCode = `# Synchronous request: results returned in real time\nimport requests
 
 response = requests.post(
     "https://api.brightdata.com/datasets/v3/scrape",
@@ -118,7 +153,7 @@ response = requests.post(
 data = response.json()
 print(data[0]["${f1}"], data[0]["${f2}"])`;
 
-  const nodeCode = `const response = await fetch(
+  const nodeCode = `// Synchronous request: results returned in real time\nconst response = await fetch(
   "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${target.datasetId}&format=json",
   {
     method: "POST",
@@ -154,7 +189,12 @@ console.log(data[0].${f1}, data[0].${f2});`;
         </div>
       </div>
       <pre className="hub-code-pre">
-        <code>{codeMap[lang]}</code>
+        <code>
+          <Highlighted
+            code={codeMap[lang]}
+            kind={lang === "cURL" ? "bash" : lang === "Python" ? "python" : "js"}
+          />
+        </code>
       </pre>
     </div>
   );
@@ -192,7 +232,9 @@ console.log(data[0].${f1}, data[0].${f2});`;
               200 OK · {target.domain}
             </div>
             <pre className="hub-code-pre">
-              <code>{target.response}</code>
+              <code>
+                <Highlighted code={target.response} kind="json" />
+              </code>
             </pre>
           </div>
         </div>
