@@ -14,18 +14,20 @@ export default function DatasetCtaBanner({
     : "a";
 
   return (
-    <div className="dataset-cta-banner">
-      <p>
-        {name
-          ? `Just want ${name} data? Skip scraping.`
-          : "Just want the data? Skip scraping."}
-      </p>
-      <p>
-        Purchase {article}{" "}
-        <a href={href} target="_blank" rel="noopener noreferrer">
-          {name ? `${name} dataset` : "ready-made dataset"}
-        </a>
-      </p>
+    <div className="container dataset-cta-wrap">
+      <div className="dataset-cta-banner">
+        <p>
+          {name
+            ? `Just want ${name} data? Skip scraping.`
+            : "Just want the data? Skip scraping."}
+        </p>
+        <p>
+          Purchase {article}{" "}
+          <a href={href} target="_blank" rel="noopener noreferrer">
+            {name ? `${name} dataset` : "ready-made dataset"}
+          </a>
+        </p>
+      </div>
     </div>
   );
 }

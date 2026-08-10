@@ -1411,10 +1411,11 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 }
 
 /* Gradient dataset CTA banner (purple → pink) */
+.dataset-cta-wrap {
+  margin-top: var(--s6);
+}
 .dataset-cta-banner {
-  max-width: var(--container);
-  margin: var(--s6) auto 0;
-  padding: var(--s6) var(--s5);
+  padding: var(--s7) var(--s6);
   border-radius: var(--radius-lg);
   background: linear-gradient(135deg, #7c5ce0 0%, #a855c8 40%, #e04da0 75%, #e86ca0 100%);
   text-align: center;
@@ -1422,14 +1423,15 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 .dataset-cta-banner p {
   margin: 0;
   color: #fff;
-  font-size: 1.15rem;
+  font-size: 1.35rem;
   font-weight: 600;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 .dataset-cta-banner a {
   color: #fff;
   text-decoration: underline;
-  text-underline-offset: 3px;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
   font-weight: 700;
   transition: opacity 0.15s;
 }
@@ -1437,12 +1439,14 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   opacity: 0.85;
 }
 @media (max-width: 640px) {
+  .dataset-cta-wrap {
+    margin-top: var(--s5);
+  }
   .dataset-cta-banner {
-    margin: var(--s5) var(--s3) 0;
-    padding: var(--s5) var(--s4);
+    padding: var(--s6) var(--s5);
   }
   .dataset-cta-banner p {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }
 
