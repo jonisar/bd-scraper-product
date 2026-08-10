@@ -86,7 +86,7 @@ export default function ScraperLibPage() {
           </div>
         </section>
 
-        <TrustedByStrip compact />
+        <TrustedByStrip />
 
         {/* INFINITE SCROLL LIBRARY */}
         <section className="slib-section" id="library">
