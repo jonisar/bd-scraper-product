@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export const AGENT_SKILL_PROMPT =
-  "Read https://brightdata.com/skills.md and scrape this Amazon product: https://www.amazon.com/dp/B09X7MPX8L";
+  "Read https://brightdata.com/SKILL.md and scrape this Amazon product: https://www.amazon.com/dp/B09X7MPX8L";
 
 type AgentSetupCtaProps = {
   /** scraper = Tailwind on ScraperPage; hub = lib-page .btn styles */
