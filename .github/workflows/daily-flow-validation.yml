@@ -1,0 +1,34 @@
+name: Daily flow validation
+
+# Validates the live product pages daily: every route renders, every CLI
+# command and prompt on the pages actually works, SKILL.md and API/MCP
+# endpoints are alive, docs links resolve. Fails loudly so we know a flow
+# broke before a user does.
+
+on:
+  schedule:
+    - cron: "0 5 * * *" # daily 05:00 UTC (08:00 Israel)
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run flow validation against production
+        env:
+          BASE_URL: ${{ vars.VALIDATION_BASE_URL || 'https://bd-scraper-product.vercel.app' }}
+          BRIGHTDATA_API_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
+        run: node scripts/validate-flows.mjs
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-report
+          path: validation-report.md
