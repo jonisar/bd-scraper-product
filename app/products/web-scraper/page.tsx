@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "@/components/Chrome";
+import { HOME_SUBNAV } from "@/lib/site-nav";
 import HeroSearch from "@/components/HeroSearch";
 import ScraperLibrary from "@/components/ScraperLibrary";
 import AgentGetStarted from "@/components/AgentGetStarted";
@@ -154,7 +155,7 @@ export default function WebScraperHome() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <Header />
+      <Header subnav={HOME_SUBNAV} />
 
       <main>
       {/* HERO */}

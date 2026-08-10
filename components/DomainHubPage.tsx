@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Header, Footer } from "@/components/Chrome";
+import { HUB_SUBNAV } from "@/lib/site-nav";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScraperCard from "@/components/ScraperCard";
 import TrustedByStrip from "@/components/TrustedByStrip";
@@ -40,7 +41,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
 
   return (
     <div className="lib-page">
-      <Header />
+      <Header subnav={HUB_SUBNAV} />
 
       <main>
         <div className="container">

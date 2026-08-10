@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "@/components/Chrome";
+import { STUDIO_SUBNAV } from "@/lib/site-nav";
 import ScrollReveal from "@/components/ScrollReveal";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import AiPromptCta from "@/components/AiPromptCta";
@@ -121,7 +122,7 @@ export default function StudioPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Header />
+      <Header subnav={STUDIO_SUBNAV} />
 
       <main>
         {/* HERO — unified section with ratings flowing into prompt */}

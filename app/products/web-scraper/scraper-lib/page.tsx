@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "@/components/Chrome";
+import { LIBRARY_SUBNAV } from "@/lib/site-nav";
 import HeroSearch from "@/components/HeroSearch";
 import ScraperLibraryInfinite from "@/components/ScraperLibraryInfinite";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -68,7 +69,7 @@ export default function ScraperLibPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <Header />
+      <Header subnav={LIBRARY_SUBNAV} />
 
       <main>
         {/* HERO — search-first like Apify Store */}
