@@ -60,7 +60,7 @@ export default function ScraperCard({
     <div className="fc">
       <div className="fc-glow" aria-hidden="true" />
 
-      <a href={href} target="_blank" rel="noreferrer" className="fc-link" aria-label={`${name} — ${domain}`}>
+      <a href={href} target="_blank" rel="noreferrer" className="fc-link" aria-label={`${name}, ${domain}`}>
         {cardContent}
       </a>
 

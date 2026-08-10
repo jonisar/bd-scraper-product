@@ -167,7 +167,7 @@ export default function CategoriesPage() {
           <div className="container" style={{ textAlign: "center" }}>
             <h2>Can&rsquo;t find what you need?</h2>
             <p style={{ maxWidth: 520, margin: "0 auto 1.5rem", opacity: 0.8 }}>
-              Build a custom scraper for any website in minutes with AI Scraper Studio — no code required.
+              Build a custom scraper for any website in minutes with AI Scraper Studio, no code required.
             </p>
             <a
               href="/products/web-scraper/studio"

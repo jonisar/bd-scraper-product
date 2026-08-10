@@ -207,7 +207,7 @@ export default function ScraperLibrary() {
         <div className="lib-cta-body">
           <span className="lib-cta-kicker">Full library</span>
           <strong>Explore 1,300+ production-ready scrapers</strong>
-          <span>Proxy rotation, CAPTCHA solving, and anti-bot bypass — built in. Pay only for successful results.</span>
+          <span>Proxy rotation, CAPTCHA solving, and anti-bot bypass, built in. Pay only for successful results.</span>
         </div>
         <a
           href={CP_DATASETS}

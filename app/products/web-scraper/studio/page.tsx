@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI Scraper Studio - Build Any Scraper With a Prompt",
     description:
-      "Describe the data you need. Our AI builds, tests, and deploys a production scraper in minutes — no code required.",
+      "Describe the data you need. Our AI builds, tests, and deploys a production scraper in minutes, no code required.",
     type: "website",
     url: "https://brightdata.com/products/web-scraper/studio",
     siteName: "Bright Data",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "AI Scraper Studio - Build Any Scraper With a Prompt",
     description:
-      "Describe the data you need. AI builds, tests, and deploys a production scraper in minutes — no code required.",
+      "Describe the data you need. AI builds, tests, and deploys a production scraper in minutes, no code required.",
   },
   alternates: { canonical: "https://brightdata.com/products/web-scraper/studio" },
 };
@@ -43,15 +43,15 @@ const STUDIO_FAQS = [
   },
   {
     q: "Do I need my own servers or proxies?",
-    a: "No. When you launch a job, the scraper executes on Bright Data's infrastructure — complete with built-in proxy rotation, geo-targeting, CAPTCHA/unblocking logic, and auto-scaling. You don't maintain any servers or proxy pools.",
+    a: "No. When you launch a job, the scraper executes on Bright Data's infrastructure, complete with built-in proxy rotation, geo-targeting, CAPTCHA/unblocking logic, and auto-scaling. You don't maintain any servers or proxy pools.",
   },
   {
     q: "Is any coding required?",
-    a: "No coding is required to generate a scraper — the AI builds it from your prompt. You can optionally refine the auto-generated code in the built-in IDE if you want fine-grained control.",
+    a: "No coding is required to generate a scraper, the AI builds it from your prompt. You can optionally refine the auto-generated code in the built-in IDE if you want fine-grained control.",
   },
   {
     q: "How does self-healing work?",
-    a: "When a target website changes its layout or structure, the AI automatically detects the break and regenerates the affected selectors and code paths. One click to fix — no manual debugging required.",
+    a: "When a target website changes its layout or structure, the AI automatically detects the break and regenerates the affected selectors and code paths. One click to fix, no manual debugging required.",
   },
   {
     q: "Can I schedule my scraper to run automatically?",
@@ -75,7 +75,7 @@ const STUDIO_FAQS = [
   },
   {
     q: "How much does it cost?",
-    a: "Start free with 5,000 page loads/month — no credit card required. Pay-as-you-go pricing is $1.50 per 1,000 page loads. Scale plans start at $499/month with volume discounts.",
+    a: "Start free with 5,000 page loads/month, no credit card required. Pay-as-you-go pricing is $1.50 per 1,000 page loads. Scale plans start at $499/month with volume discounts.",
   },
 ] as const;
 
@@ -160,7 +160,7 @@ export default function StudioPage() {
                 <strong>4.8</strong> Capterra
               </a>
             </div>
-            <h1 className="sr-only">AI Scraper Studio — Build Any Web Scraper With a Prompt</h1>
+            <h1 className="sr-only">AI Scraper Studio, Build Any Web Scraper With a Prompt</h1>
           </div>
         </section>
 
@@ -234,7 +234,7 @@ export default function StudioPage() {
               <div className="step-card">
                 <span className="step-icon">01</span>
                 <h3>Describe your data</h3>
-                <p>Tell the AI what website to scrape and which fields you need — product names, prices, reviews, anything publicly available.</p>
+                <p>Tell the AI what website to scrape and which fields you need, product names, prices, reviews, anything publicly available.</p>
               </div>
               <div className="step-card">
                 <span className="step-icon">02</span>
@@ -258,7 +258,7 @@ export default function StudioPage() {
               <h2>Scrapers that fix themselves</h2>
               <p>
                 When target websites change their layout, traditional scrapers break.
-                Scraper Studio&rsquo;s AI detects changes and auto-repairs your scraper — one click, zero debugging.
+                Scraper Studio&rsquo;s AI detects changes and auto-repairs your scraper, one click, zero debugging.
               </p>
             </div>
             <div className="features-grid">
@@ -287,7 +287,7 @@ export default function StudioPage() {
             <div className="section-head">
               <span className="kicker">Features</span>
               <h2>Everything you need to scrape at scale</h2>
-              <p>AI code generation, cloud infrastructure, built-in proxies, and a full IDE — all included.</p>
+              <p>AI code generation, cloud infrastructure, built-in proxies, and a full IDE, all included.</p>
             </div>
             <div className="features-grid">
               <div className="feature-card">
@@ -298,12 +298,12 @@ export default function StudioPage() {
               <div className="feature-card">
                 <span className="feature-icon">☁</span>
                 <h3>Cloud infrastructure</h3>
-                <p>Run all compute on Bright Data&rsquo;s managed cloud. No hardware costs, no DevOps — scale instantly.</p>
+                <p>Run all compute on Bright Data&rsquo;s managed cloud. No hardware costs, no DevOps, scale instantly.</p>
               </div>
               <div className="feature-card">
                 <span className="feature-icon">⊞</span>
                 <h3>Built-in proxies &amp; unblocking</h3>
-                <p>400M+ residential IPs, geo-targeting, CAPTCHA solving, browser fingerprinting, and automated retries — all built in.</p>
+                <p>400M+ residential IPs, geo-targeting, CAPTCHA solving, browser fingerprinting, and automated retries, all built in.</p>
               </div>
               <div className="feature-card">
                 <span className="feature-icon">⬡</span>
@@ -318,7 +318,7 @@ export default function StudioPage() {
               <div className="feature-card">
                 <span className="feature-icon">⟳</span>
                 <h3>AI editing &amp; self-healing</h3>
-                <p>Edit scrapers with natural language commands. Auto-repair when sites change — no manual maintenance.</p>
+                <p>Edit scrapers with natural language commands. Auto-repair when sites change, no manual maintenance.</p>
               </div>
             </div>
           </div>
@@ -350,7 +350,7 @@ export default function StudioPage() {
               <div className="hub-path-card">
                 <span className="hub-path-kicker">Managed service</span>
                 <h3>We build it for you</h3>
-                <p>Tell us what you need and we handle everything — building, maintaining, and monitoring.</p>
+                <p>Tell us what you need and we handle everything, building, maintaining, and monitoring.</p>
                 <ul className="hub-path-list">
                   <li>We build and maintain the scraper</li>
                   <li>Ongoing monitoring included</li>
@@ -382,7 +382,7 @@ export default function StudioPage() {
             <div className="hub-plan-includes">
               <div className="hub-plan-includes-head">
                 <span className="hub-plan-includes-kicker">What&rsquo;s included</span>
-                <h3>Every plan gives you full access &mdash; pay less per page load as you scale</h3>
+                <h3>Every plan gives you full access, pay less per page load as you scale</h3>
               </div>
               <div className="hub-plan-cols">
                 <div className="hub-plan-col">
@@ -501,7 +501,7 @@ export default function StudioPage() {
 
         <FaqSection
           title="AI Scraper Studio FAQs"
-          description="Common questions about Scraper Studio — how it works, what you can scrape, self-healing, pricing, and getting started."
+          description="Common questions about Scraper Studio, how it works, what you can scrape, self-healing, pricing, and getting started."
           items={STUDIO_FAQS}
           altBg
         />
@@ -511,7 +511,7 @@ export default function StudioPage() {
           <div className="container" style={{ textAlign: "center" }}>
             <h2>Ready to build your scraper?</h2>
             <p style={{ maxWidth: 520, margin: "0 auto 1.5rem", opacity: 0.8 }}>
-              Start free with 5,000 page loads — no credit card, no code required. Describe what you need and let AI do the rest.
+              Start free with 5,000 page loads, no credit card, no code required. Describe what you need and let AI do the rest.
             </p>
             <a
               href={SIGNUP}
