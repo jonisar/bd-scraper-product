@@ -90,7 +90,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                   fieldsPreview={s.fieldsPreview}
                   views={s.views}
                   downloads={s.downloads}
-                  href={cpHref(s)}
+                  href={s.href || cpHref(s)}
                 />
               ))}
             </div>
