@@ -44,7 +44,7 @@ function getPlans(unit: string): Plan[] {
       tier: "Enterprise",
       price: "Custom",
       unit: "",
-      features: ["Volume discounts", "Account manager", "Premium SLA & SSO"],
+      features: ["Volume discounts", "Account manager", "Premium SLA", "Priority support", "SSO"],
       cta: "Talk to sales",
       href: CONTACT,
     },
