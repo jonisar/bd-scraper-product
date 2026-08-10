@@ -26,7 +26,7 @@ import { templates } from "@/lib/templates";
 export const metadata: Metadata = {
   title: "Web Scraping API - 5K Records/Month for Free",
   description:
-    "The most reliable Web Scraping API. 1,300+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free — no credit card required.",
+    "The most reliable Web Scraping API. 1,300+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free, no credit card required.",
   openGraph: {
     title: "Web Scraping API - 5K Records/Month for Free",
     description:
@@ -55,11 +55,11 @@ export const metadata: Metadata = {
 const FAQ_ITEMS = [
   {
     q: "What is a Web Scraper API?",
-    a: "A cloud-based service that automates web data extraction. It handles IP rotation, CAPTCHA solving, JavaScript rendering, and data parsing into structured formats (JSON, CSV) — so you get clean data without building or maintaining scraping infrastructure.",
+    a: "A cloud-based service that automates web data extraction. It handles IP rotation, CAPTCHA solving, JavaScript rendering, and data parsing into structured formats (JSON, CSV), so you get clean data without building or maintaining scraping infrastructure.",
   },
   {
     q: "How is this different from building my own scraper?",
-    a: "DIY scrapers require managing proxies, solving CAPTCHAs, handling blocks, and constant maintenance when sites change. Bright Data's scrapers are auto-maintained 24/7, run on 400M+ residential IPs, and include unblocking — you just call the API and get structured data back.",
+    a: "DIY scrapers require managing proxies, solving CAPTCHAs, handling blocks, and constant maintenance when sites change. Bright Data's scrapers are maintained 24/7, run on 400M+ residential IPs, and include unblocking. You just call the API and get structured data back.",
   },
   {
     q: "What websites can I scrape?",
@@ -87,11 +87,11 @@ const FAQ_ITEMS = [
   },
   {
     q: "How much does web scraping cost?",
-    a: "Bright Data's Web Scraper API starts free with 5,000 records/month. Pay-as-you-go pricing is $1.50 per 1,000 records, with volume discounts available. You only pay for successfully delivered data — failed requests are free.",
+    a: "Bright Data's Web Scraper API starts free with 5,000 records/month. Pay-as-you-go pricing is $1.50 per 1,000 records, with volume discounts available. You only pay for successfully delivered data, failed requests are free.",
   },
   {
     q: "Can I use this Web Scraper API with Python or Node.js?",
-    a: "Yes. The API works with any HTTP client — Python (requests, aiohttp), Node.js (axios, fetch), cURL, Go, Java, or any language with HTTP support. We provide ready-made code snippets for each scraper in Python and JavaScript (sync and async).",
+    a: "Yes. The API works with any HTTP client, Python (requests, aiohttp), Node.js (axios, fetch), cURL, Go, Java, or any language with HTTP support. We provide ready-made code snippets for each scraper in Python and JavaScript (sync and async).",
   },
 ] as const;
 
@@ -169,7 +169,7 @@ export default function WebScraperHome() {
           </h1>
 
           <p className="hero-sub">
-            The most reliable web scraping API —{" "}
+            The most reliable web scraping API, {" "}
             <span className="hero-stat-accent">1,300+ scrapers</span>, automatic
             proxy rotation, anti-bot bypass, and JS rendering.
           </p>
@@ -255,8 +255,8 @@ export default function WebScraperHome() {
         <div className="container">
           <div className="section-head">
             <span className="kicker">Choose your path</span>
-            <h2>Start scraping in minutes — your way</h2>
-            <p>Same scrapers, three ways to run them — pick the workflow that fits your team.</p>
+            <h2>Start scraping in minutes, your way</h2>
+            <p>Same scrapers, three ways to run them, pick the workflow that fits your team.</p>
           </div>
           <ChooseYourPath />
         </div>
@@ -269,8 +269,8 @@ export default function WebScraperHome() {
             <span className="kicker">Under the hood</span>
             <h2>Never get blocked again</h2>
             <p>
-              Every scraper runs on Bright Data&rsquo;s infrastructure. One API call &mdash;
-              we handle IP rotation, CAPTCHA solving, rendering, and retries automatically.
+              Every scraper runs on Bright Data&rsquo;s infrastructure. One API call,
+              and we handle IP rotation, CAPTCHA solving, rendering, and retries automatically.
             </p>
           </div>
           <div className="features-grid">
@@ -414,7 +414,7 @@ export default function WebScraperHome() {
       <CompareTable
         name="Web Scraper API"
         title="Web Scraper API vs DIY scrapers and other providers"
-        description="Compare Bright Data&rsquo;s managed Web Scraper API with other scraping providers and building your own scraper stack — infrastructure, anti-bot, proxies, maintenance, and compliance."
+        description="Compare Bright Data&rsquo;s managed Web Scraper API with other scraping providers and building your own scraper stack, infrastructure, anti-bot, proxies, maintenance, and compliance."
         scraperRow={{ label: "Pre-built scrapers", bd: "✓ 1,300+", others: "50–200", diy: "0 (build each)" }}
         othersHeader="Other scraping providers"
         altBg
@@ -424,7 +424,7 @@ export default function WebScraperHome() {
 
       <FaqSection
         title="Web Scraper API FAQs"
-        description="Common questions about Bright Data&rsquo;s Web Scraping API — how it works, what you can scrape, compliance, pricing, and getting started."
+        description="Common questions about Bright Data&rsquo;s Web Scraping API, how it works, what you can scrape, compliance, pricing, and getting started."
         items={FAQ_ITEMS}
         altBg
       />

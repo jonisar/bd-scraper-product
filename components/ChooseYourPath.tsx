@@ -6,7 +6,7 @@ export default function ChooseYourPath({ name }: ChooseYourPathProps) {
   const label = name || "web";
   const heading = name
     ? `Effortlessly scrape ${name} data`
-    : "Start scraping in minutes — your way";
+    : "Start scraping in minutes, your way";
 
   return (
     <div className="hub-paths">
@@ -38,7 +38,7 @@ export default function ChooseYourPath({ name }: ChooseYourPathProps) {
         <span className="hub-path-kicker">Control panel scraper</span>
         <h3>{label === "web" ? "No-code scraper" : `${name} no-code scraper`}</h3>
         <p>
-          Plug-and-play in the control panel — add inputs, run the scraper,
+          Plug-and-play in the control panel, add inputs, run the scraper,
           download results.
         </p>
         <ul className="hub-path-list">
@@ -52,7 +52,7 @@ export default function ChooseYourPath({ name }: ChooseYourPathProps) {
         <span className="hub-path-kicker">AI agent integration</span>
         <h3>{label === "web" ? "Agent scraper" : `${name} agent scraper`}</h3>
         <p>
-          Connect via MCP or CLI — your AI agent reads a skill file and scrapes
+          Connect via MCP or CLI, your AI agent reads a skill file and scrapes
           autonomously.
         </p>
         <ul className="hub-path-list">

@@ -577,7 +577,7 @@ export default function ScraperLibraryInfinite() {
           <div className="slib-bottom-cta">
             <div className="slib-bottom-cta-body">
               <strong>Can&rsquo;t find what you need?</strong>
-              <p>Build a custom scraper for any website in minutes with AI — no code required.</p>
+              <p>Build a custom scraper for any website in minutes with AI, no code required.</p>
             </div>
             <a href="/products/web-scraper/studio" className="btn btn-primary btn-pill">
               Open Scraper Studio →

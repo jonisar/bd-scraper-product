@@ -310,7 +310,7 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
             ) : (
               <div className="hsearch-empty">
                 <div className="hsearch-empty-top">
-                  No scraper for <b>{dom || q}</b> yet — build one with AI in minutes.
+                  No scraper for <b>{dom || q}</b> yet, build one with AI in minutes.
                 </div>
                 <div className="hsearch-empty-actions">
                   <a

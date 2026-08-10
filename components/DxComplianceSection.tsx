@@ -13,7 +13,7 @@ export default function DxComplianceSection({
             <span className="kicker">Developer experience</span>
             <h2>Easy to start. Easier to scale.</h2>
             <p>
-              Get your API key and make your first call in minutes. Scale to millions with the same API &mdash; no infra changes.
+              Get your API key and make your first call in minutes. Scale to millions with the same API, no infra changes.
             </p>
           </div>
           <div className="twin-col">
