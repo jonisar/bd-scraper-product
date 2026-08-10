@@ -288,8 +288,8 @@ const AGENT_PROMPT = `Read https://brightdata.com/SKILL.md and set up Bright Dat
 Then complete these tasks with the Amazon pipelines
 (amazon_product, amazon_product_reviews, amazon_product_search):
 
-1. Scrape https://www.amazon.com/dp/B09X7MPX8L and report
-   title, price, stars, and in_stock.
+1. Get structured JSON for https://www.amazon.com/dp/B09X7MPX8L
+   via amazon_product and report title, price, stars, and in_stock.
 
 2. Pull reviews for the same product and summarize the top
    complaints in 3 bullets.

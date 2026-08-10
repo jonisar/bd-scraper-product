@@ -38,8 +38,8 @@ export default function AgentGetStarted({
   sampleUrl = "https://www.amazon.com/dp/B09X7MPX8L",
 }: AgentGetStartedProps) {
   const agentPrompt = name
-    ? `Read https://brightdata.com/SKILL.md and scrape data from ${domain}: ${sampleUrl}`
-    : `Read https://brightdata.com/SKILL.md and scrape this Amazon product: ${sampleUrl}`;
+    ? `Read https://brightdata.com/SKILL.md and get structured JSON from ${domain} via the ${pipelineId} pipeline: ${sampleUrl}`
+    : `Read https://brightdata.com/SKILL.md and get structured JSON for this Amazon product via the amazon_product pipeline: ${sampleUrl}`;
 
   const headline = name
     ? `Plug ${name} scrapers into your agent`
