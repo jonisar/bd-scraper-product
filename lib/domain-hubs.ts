@@ -101,7 +101,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Amazon Scraper API - 5K Records/Month for Free",
     headline: "Amazon Scraper API",
     description:
-      "Extract Amazon product data — prices, reviews, ratings, availability, seller info, and more — via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Amazon product data via API: prices, reviews, ratings, availability, seller info, and more. Maintained by Bright Data and always unblocked.",
     productTypes: [
       {
         title: "Amazon Reviews Scraper",
@@ -178,7 +178,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "LinkedIn Scraper API - Extract Profiles, Companies & Jobs",
     headline: "LinkedIn Scraper API",
     description:
-      "Extract LinkedIn profiles, company pages, job listings, and post engagement data via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract LinkedIn profiles, company pages, job listings, and post engagement data via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "B2B lead generation",
@@ -219,7 +219,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Instagram Scraper API - Profiles, Posts, Reels & Comments",
     headline: "Instagram Scraper API",
     description:
-      "Extract Instagram profiles, posts, reels, comments, and engagement metrics via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Instagram profiles, posts, reels, comments, and engagement metrics via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Influencer marketing research",
@@ -260,7 +260,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "TikTok Scraper API - Videos, Profiles & Hashtags",
     headline: "TikTok Scraper API",
     description:
-      "Extract TikTok profiles, videos, shop products, and trending hashtags via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract TikTok profiles, videos, shop products, and trending hashtags via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Trend discovery & analysis",
@@ -301,7 +301,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Google Maps Scraper API - Business Listings & Reviews",
     headline: "Google Maps Scraper API",
     description:
-      "Extract Google Maps business listings, reviews, ratings, hours, and location data via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Google Maps business listings, reviews, ratings, hours, and location data via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Local business lead generation",
@@ -342,7 +342,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Zillow Scraper API - Listings, Zestimates & Rentals",
     headline: "Zillow Scraper API",
     description:
-      "Extract Zillow property listings, Zestimates, rental data, and neighborhood insights via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Zillow property listings, Zestimates, rental data, and neighborhood insights via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Real estate market analysis",
@@ -383,7 +383,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "X (Twitter) Scraper API - Posts, Profiles & Trends",
     headline: "X (Twitter) Scraper API",
     description:
-      "Extract X (Twitter) posts, profiles, engagement metrics, and trending topics via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract X (Twitter) posts, profiles, engagement metrics, and trending topics via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Brand & sentiment monitoring",
@@ -424,7 +424,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Facebook Scraper API - Pages, Posts & Ads Library",
     headline: "Facebook Scraper API",
     description:
-      "Extract Facebook page posts, ads library data, reactions, and audience insights via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Facebook page posts, ads library data, reactions, and audience insights via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Ad intelligence & creative research",
@@ -465,7 +465,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "YouTube Scraper API - Videos, Channels & Comments",
     headline: "YouTube Scraper API",
     description:
-      "Extract YouTube videos, channels, comments, subscribers, and view counts via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract YouTube videos, channels, comments, subscribers, and view counts via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Content & creator analysis",
@@ -506,7 +506,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "ChatGPT Scraper API - Extract AI Conversations & Responses",
     headline: "ChatGPT Scraper API",
     description:
-      "Extract ChatGPT conversations, AI-generated responses, shared chats, and prompt-response patterns via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract ChatGPT conversations, AI-generated responses, shared chats, and prompt-response patterns via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "AI data collection & training insights",
@@ -547,7 +547,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Crunchbase Scraper API - Companies, Funding & Investors",
     headline: "Crunchbase Scraper API",
     description:
-      "Extract Crunchbase company profiles, funding rounds, investor data, and acquisition history via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Crunchbase company profiles, funding rounds, investor data, and acquisition history via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Startup & VC research",
@@ -588,7 +588,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Glassdoor Scraper API - Reviews, Salaries & Job Listings",
     headline: "Glassdoor Scraper API",
     description:
-      "Extract Glassdoor company reviews, salary data, interview questions, and job listings via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Glassdoor company reviews, salary data, interview questions, and job listings via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Employer brand monitoring",
@@ -629,7 +629,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Indeed Scraper API - Job Listings, Salaries & Company Reviews",
     headline: "Indeed Scraper API",
     description:
-      "Extract Indeed job listings, salary estimates, company reviews, and labor market data via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Indeed job listings, salary estimates, company reviews, and labor market data via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Job market analysis",
@@ -670,7 +670,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Yelp Scraper API - Business Listings, Reviews & Ratings",
     headline: "Yelp Scraper API",
     description:
-      "Extract Yelp business listings, reviews, ratings, photos, and local search results via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Yelp business listings, reviews, ratings, photos, and local search results via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Local business intelligence",
@@ -711,7 +711,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Walmart Scraper API - Products, Prices & Reviews",
     headline: "Walmart Scraper API",
     description:
-      "Extract Walmart product listings, pricing, reviews, seller data, and inventory status via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Walmart product listings, pricing, reviews, seller data, and inventory status via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Price monitoring & repricing",
@@ -752,7 +752,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Google Play Scraper API - Apps, Reviews & Rankings",
     headline: "Google Play Scraper API",
     description:
-      "Extract Google Play app listings, reviews, rankings, and download metrics via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Google Play app listings, reviews, rankings, and download metrics via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "App intelligence & market sizing",
@@ -793,7 +793,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Home Depot Scraper API - Products, Prices & Reviews",
     headline: "Home Depot Scraper API",
     description:
-      "Extract Home Depot product listings, pricing, reviews, specifications, and inventory data via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Home Depot product listings, pricing, reviews, specifications, and inventory data via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Building materials pricing",
@@ -834,7 +834,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Zoopla Scraper API - UK Property Listings & Prices",
     headline: "Zoopla Scraper API",
     description:
-      "Extract Zoopla property listings, price estimates, sold prices, and rental data across the UK via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Zoopla property listings, price estimates, sold prices, and rental data across the UK via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "UK property market analysis",
@@ -875,7 +875,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Zonaprop Scraper API - Argentina Property Listings",
     headline: "Zonaprop Scraper API",
     description:
-      "Extract Zonaprop property listings, prices, and real estate data across Argentina via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Zonaprop property listings, prices, and real estate data across Argentina via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Argentina real estate analysis",
@@ -916,7 +916,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Inmuebles24 Scraper API - Mexico Property Listings",
     headline: "Inmuebles24 Scraper API",
     description:
-      "Extract Inmuebles24 property listings, prices, and real estate data across Mexico via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Inmuebles24 property listings, prices, and real estate data across Mexico via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Mexico real estate market intelligence",
@@ -957,7 +957,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Metrocuadrado Scraper API - Colombia Property Listings",
     headline: "Metrocuadrado Scraper API",
     description:
-      "Extract Metrocuadrado property listings, prices, and real estate data across Colombia via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Metrocuadrado property listings, prices, and real estate data across Colombia via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Colombia real estate market analysis",
@@ -998,7 +998,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Booking.com Scraper API - Hotels, Prices & Reviews",
     headline: "Booking.com Scraper API",
     description:
-      "Extract Booking.com hotel listings, room rates, reviews, and availability data via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Booking.com hotel listings, room rates, reviews, and availability data via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Hotel price monitoring & rate parity",
@@ -1039,7 +1039,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Airbnb Scraper API - Listings, Prices & Reviews",
     headline: "Airbnb Scraper API",
     description:
-      "Extract Airbnb property listings, nightly rates, host data, reviews, and availability calendars via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Airbnb property listings, nightly rates, host data, reviews, and availability calendars via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Vacation rental intelligence",
@@ -1080,7 +1080,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Agoda Scraper API - Hotels, Prices & Reviews",
     headline: "Agoda Scraper API",
     description:
-      "Extract Agoda hotel listings, room rates, reviews, and deals across Asia-Pacific and global markets via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Agoda hotel listings, room rates, reviews, and deals across Asia-Pacific and global markets via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Asia-Pacific hotel pricing",
@@ -1121,7 +1121,7 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
     title: "Trip.com Scraper API - Hotels, Flights & Travel Deals",
     headline: "Trip.com Scraper API",
     description:
-      "Extract Trip.com hotel rates, flight prices, travel packages, and reviews via API or no-code scraper. Auto-maintained and always unblocked.",
+      "Extract Trip.com hotel rates, flight prices, travel packages, and reviews via API. Maintained by Bright Data and always unblocked.",
     useCases: [
       {
         title: "Travel pricing intelligence",
