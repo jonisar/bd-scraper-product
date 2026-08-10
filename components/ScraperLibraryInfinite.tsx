@@ -397,26 +397,6 @@ export default function ScraperLibraryInfinite() {
         </div>
 
         <div className="slib-controls">
-          <div className="slib-search-wrap">
-            <input
-              className="lib-search"
-              placeholder="Find scrapers for Amazon, Instagram, TikTok..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              aria-label="Filter scrapers"
-            />
-            {search && (
-              <button
-                type="button"
-                className="slib-search-clear"
-                onClick={() => setSearch("")}
-                aria-label="Clear search"
-              >
-                ✕
-              </button>
-            )}
-          </div>
-
           <div className="slib-sort" ref={sortRef}>
             <button
               type="button"

@@ -191,25 +191,8 @@ export default function WebScraperHome() {
 
       <ValueBanner />
 
-      <HowItWorksSteps
-        heading="From zero to structured data in 3 steps"
-        step1="Browse 1,300+ pre-built scrapers or create your own with AI in minutes."
-      />
-
-      {/* CODE EXAMPLE */}
-      <section className="section section-alt animate-rise" id="code">
-        <div className="container">
-          <div className="section-head">
-            <span className="kicker">Quick start</span>
-            <h2>One API call to get structured data</h2>
-            <p>Send a URL, get structured JSON back. Works with any HTTP client in any language.</p>
-          </div>
-          <HubCodeExample sampleUrl="https://www.amazon.com/dp/B09X7MPX8L" />
-        </div>
-      </section>
-
-      {/* PRICING — developers check cost early */}
-      <section className="section animate-rise" id="pricing">
+      {/* PRICING — high up for quick buyer conversion */}
+      <section className="section section-alt animate-rise" id="pricing">
         <div className="container">
           <div className="section-head">
             <span className="kicker">Pricing</span>
@@ -240,8 +223,25 @@ export default function WebScraperHome() {
         </div>
       </section>
 
+      <HowItWorksSteps
+        heading="From zero to structured data in 3 steps"
+        step1="Browse 1,300+ pre-built scrapers or create your own with AI in minutes."
+      />
+
+      {/* CODE EXAMPLE */}
+      <section className="section section-alt animate-rise" id="code">
+        <div className="container">
+          <div className="section-head">
+            <span className="kicker">Quick start</span>
+            <h2>One API call to get structured data</h2>
+            <p>Send a URL, get structured JSON back. Works with any HTTP client in any language.</p>
+          </div>
+          <HubCodeExample sampleUrl="https://www.amazon.com/dp/B09X7MPX8L" />
+        </div>
+      </section>
+
       {/* AGENT SECTION — modern dev workflow */}
-      <section className="section section-alt animate-rise" id="agents">
+      <section className="section animate-rise" id="agents">
         <div className="container">
           <AgentGetStarted />
         </div>

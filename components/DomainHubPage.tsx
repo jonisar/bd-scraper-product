@@ -128,15 +128,28 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
 
         <ValueBanner />
 
+        {/* PRICING — high up for quick buyer conversion */}
+        <section className="section section-alt animate-rise hub-anchor" id="pricing">
+          <div className="container">
+            <div className="section-head">
+              <span className="kicker">{hub.name} Scraper API Pricing</span>
+              <h2>Only pay for what&rsquo;s successfully delivered</h2>
+              <p>No hidden fees. No charges for failed deliveries. Every plan includes full access to {hub.name} scrapers and infrastructure.</p>
+            </div>
+            <PricingSlider className="mb-6" />
+            <PricingCards unit="records" />
+            <PricingAssurances />
+          </div>
+        </section>
+
         <HowItWorksSteps
           heading={`From zero to ${hub.name} data in 3 steps`}
           step1={`Choose from the ${hub.name} scrapers above or create your own with AI in minutes.`}
-          altBg
           hubAnchor
         />
 
         {/* CODE EXAMPLE + SAMPLE OUTPUT */}
-        <section className="section animate-rise hub-anchor" id="code">
+        <section className="section section-alt animate-rise hub-anchor" id="code">
           <div className="container">
             <div className="section-head">
               <span className="kicker">Quick start</span>
@@ -166,20 +179,6 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* PRICING — buyers check cost early */}
-        <section className="section section-alt animate-rise hub-anchor" id="pricing">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">{hub.name} Scraper API Pricing</span>
-              <h2>Only pay for what&rsquo;s successfully delivered</h2>
-              <p>No hidden fees. No charges for failed deliveries. Every plan includes full access to {hub.name} scrapers and infrastructure.</p>
-            </div>
-            <PricingSlider className="mb-6" />
-            <PricingCards unit="records" />
-            <PricingAssurances />
           </div>
         </section>
 

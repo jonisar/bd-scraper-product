@@ -4,30 +4,8 @@ import { useMemo, useState } from "react";
 import { catalog, CATALOG_CATEGORIES } from "@/lib/catalog";
 import { cpHref } from "@/lib/cp-href";
 import ScraperCard from "@/components/ScraperCard";
-import DomainMark from "@/components/DomainMark";
 
 const CARD_LIMIT = 9;
-
-const TOP_9_DOMAINS: { domain: string; label: string; desc: string; href: string }[] = [
-  { domain: "linkedin.com",    label: "LinkedIn",    desc: "Profiles, companies, job listings, and post engagement data", href: "/products/web-scraper/linkedin" },
-  { domain: "instagram.com",   label: "Instagram",   desc: "Profiles, posts, reels, comments, and engagement metrics", href: "/products/web-scraper/instagram" },
-  { domain: "tiktok.com",      label: "TikTok",      desc: "Profiles, videos, shop products, and trending hashtags", href: "/products/web-scraper/tiktok" },
-  { domain: "facebook.com",    label: "Facebook",    desc: "Page posts, ads library, reactions, and audience data", href: "/products/web-scraper/facebook" },
-  { domain: "amazon.com",      label: "Amazon",      desc: "Products, reviews, pricing, sellers, and bestsellers data", href: "/products/web-scraper/amazon" },
-  { domain: "youtube.com",     label: "YouTube",     desc: "Videos, channels, comments, subscribers, and view counts", href: "/products/web-scraper/youtube" },
-  { domain: "zillow.com",      label: "Zillow",      desc: "Property listings, Zestimates, rentals, and neighborhood data", href: "/products/web-scraper/zillow" },
-  { domain: "google.com/maps", label: "Google Maps", desc: "Business listings, reviews, ratings, hours, and locations", href: "/products/web-scraper/google-maps" },
-  { domain: "indeed.com",      label: "Indeed",      desc: "Job listings, salaries, company reviews, and labor market data", href: "/products/web-scraper/indeed" },
-];
-
-function buildDomainCards() {
-  return TOP_9_DOMAINS.map((meta) => {
-    const scrapers = catalog.filter((s) => s.domain === meta.domain);
-    const totalViews = scrapers.reduce((sum, s) => sum + parseInt(s.views.replace(/[^0-9]/g, ""), 10) * (s.views.includes("K") ? 1000 : 1), 0);
-    const deliveredStr = totalViews >= 1000 ? `${(totalViews / 1000).toFixed(0)}K+` : `${totalViews}+`;
-    return { ...meta, scraperCount: scrapers.length, totalDelivered: deliveredStr, successRate: "99.2%" };
-  });
-}
 
 const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string }> = {
   All: { label: "View all scrapers", href: "/products/web-scraper/scraper-lib" },
@@ -44,37 +22,18 @@ const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string }> = {
 
 export default function ScraperLibrary() {
   const [cat, setCat] = useState<string>("All");
-  const [search, setSearch] = useState("");
-
-  const needle = search.trim().toLowerCase();
-  const showDomains = cat === "All" && !needle;
-
-  const domainCards = useMemo(() => buildDomainCards(), []);
 
   const cards = useMemo(() => {
-    if (showDomains) return [];
-    if (needle) {
-      return catalog
-        .filter(
-          (s) =>
-            (cat === "All" || s.category === cat) &&
-            (s.name.toLowerCase().includes(needle) ||
-              s.domain.includes(needle) ||
-              s.fields.some((f) => f.toLowerCase().includes(needle)))
-        )
-        .slice(0, CARD_LIMIT);
+    if (cat === "All") {
+      return catalog.filter((s) => s.popular).slice(0, CARD_LIMIT);
     }
     return catalog.filter((s) => s.category === cat).slice(0, CARD_LIMIT);
-  }, [cat, needle, showDomains]);
+  }, [cat]);
 
   const viewAll = CATEGORY_VIEW_ALL[cat] || CATEGORY_VIEW_ALL.All;
 
   const sectionTitle =
-    needle
-      ? `Results for "${search.trim()}"`
-      : cat === "All"
-        ? "Popular web scrapers"
-        : `${cat} scrapers`;
+    cat === "All" ? "Popular web scrapers" : `${cat} scrapers`;
 
   return (
     <div className="lib">
@@ -99,13 +58,6 @@ export default function ScraperLibrary() {
             ))}
           </div>
         </div>
-        <input
-          className="lib-search"
-          placeholder="Filter..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          aria-label="Filter scrapers"
-        />
       </div>
 
       <div className="lib-section">
@@ -116,50 +68,7 @@ export default function ScraperLibrary() {
           </a>
         </div>
 
-        {showDomains ? (
-          <div className="lib-grid">
-            {domainCards.map((d) => (
-              <a key={d.domain} href={d.href} className="cc">
-                <div className="cc-glow" aria-hidden="true" />
-                <div className="cc-header">
-                  <DomainMark domain={d.domain} size="domain" />
-                  <div className="cc-identity">
-                    <span className="cc-name">{d.label}</span>
-                    <span className="cc-count">{d.domain}</span>
-                  </div>
-                  <span className="fc-cat">{d.scraperCount} scrapers</span>
-                </div>
-                <p className="cc-desc">{d.desc}</p>
-                <div className="cc-metrics">
-                  <div className="fc-metric">
-                    <span className="fc-metric-val">{d.totalDelivered}</span>
-                    <span className="fc-metric-label">Delivered</span>
-                  </div>
-                  <div className="fc-metric-divider" />
-                  <div className="fc-metric">
-                    <span className="fc-metric-val">{d.scraperCount}</span>
-                    <span className="fc-metric-label">Scrapers</span>
-                  </div>
-                  <div className="fc-metric-divider" />
-                  <div className="fc-metric">
-                    <span className="fc-metric-val fc-metric-success">{d.successRate}</span>
-                    <span className="fc-metric-label">Success</span>
-                  </div>
-                </div>
-                <div className="cc-foot">
-                  <div className="fc-signals">
-                    <span className="fc-signal fc-signal-mcp">⚡ MCP</span>
-                    <span className="fc-signal fc-signal-live">
-                      <span className="fc-pulse" aria-hidden="true" />
-                      Verified 3h ago
-                    </span>
-                  </div>
-                  <span className="cc-cta">Browse scrapers →</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        ) : cards.length > 0 ? (
+        {cards.length > 0 ? (
           <div className="lib-grid">
             {cards.map((s) => (
               <ScraperCard
@@ -176,7 +85,7 @@ export default function ScraperLibrary() {
           </div>
         ) : (
           <div className="lib-empty">
-            <p>No scraper found for &ldquo;{search || cat}&rdquo;</p>
+            <p>No scrapers found for &ldquo;{cat}&rdquo;</p>
             <p className="lib-empty-sub">
               Can&apos;t find what you need?{" "}
               <a href="/products/web-scraper/studio" className="lib-empty-link">

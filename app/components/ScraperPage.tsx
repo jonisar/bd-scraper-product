@@ -358,7 +358,7 @@ export default function ScraperPage() {
                 </a>
                 <a
                   href="https://brightdata.com/contact"
-                  className="mt-2 block w-full rounded-xl border border-bd-line bg-bd-canvas px-4 py-3 text-center text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
+                  className="mt-2 block w-full rounded-xl border border-bd-blue/40 bg-bd-canvas px-4 py-3 text-center text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
                   target="_blank"
                   rel="noreferrer"
                 >

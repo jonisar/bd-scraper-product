@@ -766,7 +766,7 @@ function PricingTab({ compact = false }: { compact?: boolean }) {
         </a>
         <a
           href="https://brightdata.com/contact"
-          className="rounded-lg border border-bd-line px-5 py-2.5 text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
+          className="rounded-lg border border-bd-blue/40 px-5 py-2.5 text-sm font-bold text-bd-ink transition hover:border-bd-blue-light hover:bg-bd-blue-soft"
           target="_blank"
           rel="noreferrer"
         >

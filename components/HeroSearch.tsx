@@ -286,9 +286,8 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
           <a href="https://brightdata.com/cp/start" className="hero-cta-start" target="_blank" rel="noopener noreferrer">
             Start free →
           </a>
-          <span className="hero-cta-sep" />
           <a href="https://brightdata.com/contact" className="hero-cta-sales" target="_blank" rel="noopener noreferrer">
-            Contact sales
+            Contact sales →
           </a>
         </div>
       )}
