@@ -10,6 +10,7 @@ import AiPromptCta from "@/components/AiPromptCta";
 import { PricingCards } from "@/components/PricingCards";
 import PricingSlider from "@/components/PricingSlider";
 import PricingAssurances from "@/components/PricingAssurances";
+import DiscountBanner from "@/components/DiscountBanner";
 import HubCodeExample from "@/components/HubCodeExample";
 import StatBanner from "@/components/StatBanner";
 import ChooseYourPath from "@/components/ChooseYourPath";
@@ -198,6 +199,7 @@ export default function WebScraperHome() {
             <h2>Only pay for what&rsquo;s successfully delivered</h2>
             <p>No hidden fees. No charges for failed requests. Every plan includes full access to all scrapers and infrastructure.</p>
           </div>
+          <DiscountBanner />
           <PricingSlider className="mb-6" />
           <PricingCards unit="records" />
           <PricingAssurances />
