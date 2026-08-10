@@ -546,6 +546,8 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   .value-banner-inner .vb-item:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
 .vb-item { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; }
+a.vb-item-link { text-decoration: none; }
+a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; text-underline-offset: 3px; }
 .vb-item strong {
   display: inline-flex;
   align-items: center;

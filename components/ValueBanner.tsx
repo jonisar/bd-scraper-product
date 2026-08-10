@@ -2,15 +2,20 @@ export default function ValueBanner() {
   return (
     <section className="value-banner">
       <div className="container value-banner-inner">
-        <div className="vb-item">
+        <a
+          className="vb-item vb-item-link"
+          href="https://aimultiple.com/web-scraping-apis"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <strong>
             <span className="vb-emoji" aria-hidden="true">
               🏆
             </span>
             #1
           </strong>
-          <span>World ranking</span>
-        </div>
+          <span>AIMultiple world ranking ↗</span>
+        </a>
         <div className="vb-item">
           <strong>1,400+</strong>
           <span>Verified scrapers</span>
