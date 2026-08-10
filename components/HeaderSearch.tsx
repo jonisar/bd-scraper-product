@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import { templates } from "@/lib/templates";
-import { cpHrefForTemplate } from "@/lib/cp-href";
+import { templateHref } from "@/lib/templates";
 import { DOMAIN_HUBS, CATEGORY_HUBS, type DomainHubData } from "@/lib/domain-hubs";
 
 const ALL_HUBS = Object.values(DOMAIN_HUBS).concat(Object.values(CATEGORY_HUBS));
@@ -192,7 +192,7 @@ export default function HeaderSearch() {
                 )}
                 {matches.slice(0, 5).map((t, i) => {
                   const idx = hubMatches.length + i;
-                  const href = cpHrefForTemplate(t);
+                  const href = templateHref(t);
                   const external = href.startsWith("http");
                   return (
                   <a
