@@ -19,7 +19,7 @@ function getPlans(unit: string): Plan[] {
       tier: "Free",
       price: "5K",
       unit: `${unit}/mo`,
-      features: ["No credit card required", `All ${unit === "page loads" ? "AI generation" : "scrapers"} included`, "Full API access", "24/7 Expert support"],
+      features: ["No credit card required", `All ${unit === "page loads" ? "AI generation" : "scrapers"} included`, "24/7 Expert support"],
       cta: "Start free",
       href: SIGNUP,
     },
