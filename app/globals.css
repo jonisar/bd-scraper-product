@@ -1241,30 +1241,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 }
 
 /* Site hub (e.g. /amazon) */
-.site-breadcrumb {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px 0;
-  padding: var(--s4) 0 0;
-  font-size: 13px;
-  color: var(--text-3);
-}
-.site-breadcrumb a { color: var(--text-3); transition: color .15s; }
-.site-breadcrumb a:hover { color: var(--text-1); }
-.site-breadcrumb span[aria-hidden="true"] {
-  margin: 0 8px;
-  color: rgba(125, 133, 144, 0.55);
-}
-.site-breadcrumb [aria-current="page"] {
-  color: var(--accent-2);
-  font-weight: 600;
-}
-@media (max-width: 640px) {
-  .site-breadcrumb { font-size: 12px; padding-top: var(--s3); }
-  .site-breadcrumb span[aria-hidden="true"] { margin: 0 6px; }
-}
-.site-hub-hero { padding-top: var(--s4); padding-bottom: var(--s5); }
+.site-hub-hero { padding-top: var(--s5); padding-bottom: var(--s5); }
 .lib-page .site-hub-hero .hero-sub,
 .site-hub-hero .hero-sub {
   margin: var(--s4) auto 0;
@@ -1504,7 +1481,8 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 16px;
-  overflow: hidden;
+  /* Do NOT add overflow:hidden — it clips the search autocomplete dropdown.
+     Nav item overflow is contained by .site-header-nav instead. */
 }
 @media (min-width: 640px) {
   .site-header-inner { padding: 0 24px; }
@@ -1536,6 +1514,7 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   flex: 1;
   min-width: 0;
   margin-left: 20px;
+  overflow: hidden;
 }
 @media (min-width: 1100px) {
   .site-header-nav { display: flex; }
@@ -1747,6 +1726,8 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
 
 /* Secondary in-page nav — prominent, well-spaced, easy to scan */
 .site-header-sub {
+  position: relative;
+  z-index: 0;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;

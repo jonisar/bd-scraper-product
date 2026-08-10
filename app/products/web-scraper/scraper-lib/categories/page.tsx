@@ -97,17 +97,6 @@ export default function CategoriesPage() {
       <Header subnav={LIBRARY_SUBNAV} />
 
       <main>
-        {/* BREADCRUMB */}
-        <div className="container">
-          <nav className="site-breadcrumb" aria-label="Breadcrumb">
-            <a href="/products/web-scraper">Web Scraper</a>
-            <span aria-hidden="true">›</span>
-            <a href="/products/web-scraper/scraper-lib">Scraper Library</a>
-            <span aria-hidden="true">›</span>
-            <span aria-current="page">Categories</span>
-          </nav>
-        </div>
-
         {/* HERO */}
         <section className="site-hub-hero">
           <div className="container hero-inner" style={{ textAlign: "center" }}>

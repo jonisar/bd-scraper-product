@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import Link from "next/link";
+
 import { Header, Footer } from "@/components/Chrome";
 import ScraperCard from "@/components/ScraperCard";
 import AiPromptCta from "@/components/AiPromptCta";
@@ -281,17 +281,6 @@ export default function ScraperPage() {
       <Header />
 
       <main className="mx-auto w-full min-w-0 max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-10 lg:py-12">
-        {/* Breadcrumb */}
-        <nav className="animate-rise mb-6 flex flex-wrap items-center gap-x-0 gap-y-1 text-sm text-bd-muted sm:mb-8" aria-label="Breadcrumb">
-          <a href="https://brightdata.com/products" className="hover:text-bd-navy" target="_blank" rel="noreferrer">Products</a>
-          <span className="mx-1.5 text-bd-muted/50 sm:mx-2" aria-hidden="true">/</span>
-          <Link href="/products/web-scraper" className="hover:text-bd-navy">Web Scraper API</Link>
-          <span className="mx-1.5 text-bd-muted/50 sm:mx-2" aria-hidden="true">/</span>
-          <Link href="/products/web-scraper/amazon" className="hover:text-bd-navy">Amazon</Link>
-          <span className="mx-1.5 text-bd-muted/50 sm:mx-2" aria-hidden="true">/</span>
-          <span className="font-medium text-bd-blue" aria-current="page">Amazon Product Scraper</span>
-        </nav>
-
         <section className="animate-rise grid max-w-full gap-6 overflow-x-clip lg:gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
           {/* Main content */}
           <div className="min-w-0">

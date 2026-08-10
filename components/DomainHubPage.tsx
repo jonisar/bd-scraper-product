@@ -44,20 +44,6 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
       <Header subnav={HUB_SUBNAV} />
 
       <main>
-        <div className="container">
-          <nav className="site-breadcrumb" aria-label="Breadcrumb">
-            <a href="https://brightdata.com/products" target="_blank" rel="noopener noreferrer">
-              Products
-            </a>
-            <span aria-hidden="true">/</span>
-            <Link href="/products/web-scraper">Web Scraper API</Link>
-            <span aria-hidden="true">/</span>
-            <Link href="/products/web-scraper/scraper-lib">Scraper Library</Link>
-            <span aria-hidden="true">/</span>
-            <span aria-current="page">{hub.name}</span>
-          </nav>
-        </div>
-
         {/* HERO */}
         <section className="hero site-hub-hero">
           <div className="container hero-inner">
