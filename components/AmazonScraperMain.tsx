@@ -2647,9 +2647,9 @@ export function AmazonScraperMain({
                   </li>
                 </ul>
                 <p className="mt-3">
-                  Browse all 1,000+ scrapers in the{" "}
-                  <a href="/products/web-scraper/scraper-lib" className="font-semibold text-bd-blue hover:underline">
-                    Scraper Library
+                  Browse all 1,000+ scrapers on{" "}
+                  <a href="https://brightdata.com/cp/datasets" className="font-semibold text-bd-blue hover:underline" target="_blank" rel="noopener noreferrer">
+                    Bright Data
                   </a>.
                 </p>
               </section>

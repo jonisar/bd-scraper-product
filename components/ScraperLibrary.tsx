@@ -7,8 +7,10 @@ import ScraperCard from "@/components/ScraperCard";
 
 const CARD_LIMIT = 9;
 
-const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string }> = {
-  All: { label: "View all scrapers", href: "/products/web-scraper/scraper-lib" },
+const CP_DATASETS = "https://brightdata.com/cp/datasets";
+
+const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string; external?: boolean }> = {
+  All: { label: "Browse all scrapers", href: CP_DATASETS, external: true },
   "Social Media": { label: "View all Social Media scrapers", href: "/products/web-scraper/social-media" },
   "E-commerce": { label: "View all E-commerce scrapers", href: "/products/web-scraper/ecommerce" },
   "Business (B2B)": { label: "View all B2B scrapers", href: "/products/web-scraper/b2b" },
@@ -63,7 +65,11 @@ export default function ScraperLibrary() {
       <div className="lib-section">
         <div className="lib-section-head">
           <h2>{sectionTitle}</h2>
-          <a href={viewAll.href} className="lib-section-more">
+          <a
+            href={viewAll.href}
+            className="lib-section-more"
+            {...(viewAll.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
             {viewAll.label} →
           </a>
         </div>
@@ -103,8 +109,10 @@ export default function ScraperLibrary() {
           <span>Proxy rotation, CAPTCHA solving, and anti-bot bypass — built in. Pay only for successful results.</span>
         </div>
         <a
-          href="/products/web-scraper/scraper-lib"
+          href={CP_DATASETS}
           className="btn btn-primary btn-pill"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Browse all scrapers →
         </a>

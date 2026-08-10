@@ -3,8 +3,9 @@
 import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import type { Template } from "@/lib/templates";
 import { cpHrefForTemplate } from "@/lib/cp-href";
+import { DOMAIN_HUBS, CATEGORY_HUBS, type DomainHubData } from "@/lib/domain-hubs";
 
-const SEARCH_RESULTS_PATH = "/products/web-scraper/scraper-lib";
+const ALL_HUBS = Object.values(DOMAIN_HUBS).concat(Object.values(CATEGORY_HUBS));
 
 const POPULAR_SITES = [
   { label: "Amazon", domain: "amazon.com", color: "#FF9900", href: "/products/web-scraper/amazon" },
@@ -18,7 +19,7 @@ const POPULAR_SITES = [
     label: "Walmart",
     domain: "walmart.com",
     color: "#0071CE",
-    href: "/products/web-scraper/scraper-lib?q=walmart",
+    href: "/products/web-scraper/walmart",
   },
 ];
 
@@ -56,9 +57,25 @@ function scoreMatch(t: Template, needle: string, dom: string): number {
   return 0;
 }
 
-function searchResultsUrl(query: string): string {
-  return `${SEARCH_RESULTS_PATH}?q=${encodeURIComponent(query.trim())}`;
+function scoreHubMatch(hub: DomainHubData, needle: string, dom: string): number {
+  const name = hub.name.toLowerCase();
+  const slug = hub.slug.toLowerCase();
+  const domain = hub.domain.toLowerCase();
+  const root = domain.split(".")[0];
+
+  if (slug === needle || name === needle) return 100;
+  if (domain === needle || domain === dom) return 95;
+  if (root === needle || root === dom) return 90;
+  if (name.startsWith(needle)) return 80;
+  if (slug.startsWith(needle)) return 75;
+  if (domain.startsWith(needle)) return 70;
+  if (name.includes(needle)) return 60;
+  if (domain.includes(needle)) return 50;
+  if (dom && root.includes(dom)) return 30;
+  return 0;
 }
+
+const CP_DATASETS = "https://brightdata.com/cp/datasets";
 
 export default function HeroSearch({ templates }: { templates: Template[] }) {
   const [q, setQ] = useState("");
@@ -70,6 +87,15 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
 
   const needle = q.trim().toLowerCase();
   const dom = domainOf(q);
+
+  const hubMatches = useMemo(() => {
+    if (!needle) return [];
+    return ALL_HUBS
+      .map((hub) => ({ hub, score: scoreHubMatch(hub, needle, dom) }))
+      .filter((x) => x.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3);
+  }, [needle, dom]);
 
   const matches = useMemo(() => {
     if (!needle) return [];
@@ -86,6 +112,8 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
 
   const open = focused && needle.length > 0;
   const visible = matches.slice(0, MAX_RESULTS);
+  const totalItems = hubMatches.length + visible.length;
+  const hasAnyResults = hubMatches.length > 0 || visible.length > 0;
 
   useEffect(() => {
     if (!open) return;
@@ -107,22 +135,25 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
     }
   }, []);
 
-  /** Navigate to the scraper-lib search results page */
   const goToSearchResults = useCallback(() => {
     const trimmed = q.trim();
     if (!trimmed) return;
-    window.location.href = searchResultsUrl(trimmed);
+    window.open(CP_DATASETS, "_blank", "noopener,noreferrer");
   }, [q]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
+      if (activeIdx >= 0) {
+        const link = document.querySelector<HTMLAnchorElement>(".hsearch-panel [role=option].hsearch-row-active, .hsearch-panel [role=option].hsearch-hub-active");
+        if (link) { link.click(); return; }
+      }
       goToSearchResults();
     } else if (!open) {
       return;
     } else if (e.key === "ArrowDown") {
       e.preventDefault();
-      setActiveIdx((i) => Math.min(i + 1, visible.length - 1));
+      setActiveIdx((i) => Math.min(i + 1, totalItems - 1));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setActiveIdx((i) => Math.max(i - 1, 0));
@@ -204,39 +235,76 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
 
         {open && (
           <div className="hsearch-panel" role="listbox" id="hero-search-results">
-            {visible.length > 0 ? (
+            {hasAnyResults ? (
               <>
-                {visible.map((t, i) => {
-                  const href = resultHref(t);
-                  const external = href.startsWith("http");
-                  return (
-                    <a
-                      key={t.slug}
-                      href={href}
-                      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className={`hsearch-row${i === activeIdx ? " hsearch-row-active" : ""}`}
-                      role="option"
-                      aria-selected={i === activeIdx}
-                      onMouseEnter={() => setActiveIdx(i)}
-                      onMouseDown={(e) => e.preventDefault()}
-                    >
-                      <span className="hsearch-row-icon" style={{ color: t.color }}>
-                        {t.icon}
-                      </span>
-                      <span className="hsearch-row-main">
-                        <span className="hsearch-row-name">{t.name}</span>
-                        <span className="hsearch-row-domain">{t.domain}</span>
-                      </span>
-                      <span className="hsearch-avail">Available</span>
-                    </a>
-                  );
-                })}
+                {hubMatches.length > 0 && (
+                  <div className="hsearch-hub-group">
+                    <div className="hsearch-group-label">Domains</div>
+                    {hubMatches.map(({ hub }, i) => (
+                      <a
+                        key={hub.slug}
+                        href={`/products/web-scraper/${hub.slug}`}
+                        className={`hsearch-row hsearch-row-domain-hub${i === activeIdx ? " hsearch-row-active hsearch-hub-active" : ""}`}
+                        role="option"
+                        aria-selected={i === activeIdx}
+                        onMouseEnter={() => setActiveIdx(i)}
+                        onMouseDown={(e) => e.preventDefault()}
+                      >
+                        <span className="hsearch-hub-icon">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                            <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                          </svg>
+                        </span>
+                        <span className="hsearch-row-main">
+                          <span className="hsearch-row-name">{hub.name}</span>
+                          <span className="hsearch-row-domain">{hub.domain}</span>
+                        </span>
+                        <span className="hsearch-hub-badge">{hub.scrapers.length} scrapers</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+                {visible.length > 0 && (
+                  <div className="hsearch-scraper-group">
+                    {hubMatches.length > 0 && (
+                      <div className="hsearch-group-label">Scrapers</div>
+                    )}
+                    {visible.map((t, i) => {
+                      const idx = hubMatches.length + i;
+                      const href = resultHref(t);
+                      const external = href.startsWith("http");
+                      return (
+                        <a
+                          key={t.slug}
+                          href={href}
+                          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                          className={`hsearch-row${idx === activeIdx ? " hsearch-row-active" : ""}`}
+                          role="option"
+                          aria-selected={idx === activeIdx}
+                          onMouseEnter={() => setActiveIdx(idx)}
+                          onMouseDown={(e) => e.preventDefault()}
+                        >
+                          <span className="hsearch-row-icon" style={{ color: t.color }}>
+                            {t.icon}
+                          </span>
+                          <span className="hsearch-row-main">
+                            <span className="hsearch-row-name">{t.name}</span>
+                            <span className="hsearch-row-domain">{t.domain}</span>
+                          </span>
+                          <span className="hsearch-avail">Available</span>
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
                 <a
-                  href={searchResultsUrl(q)}
+                  href="https://brightdata.com/cp/datasets"
                   className="hsearch-more"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onMouseDown={(e) => e.preventDefault()}
                 >
-                  View all results for &ldquo;{q.trim()}&rdquo; →
+                  Browse all scrapers on Bright Data →
                 </a>
               </>
             ) : (
