@@ -5,10 +5,36 @@ type DatasetCtaBannerProps = {
   href?: string;
 };
 
+const DATASETS_BASE = "https://brightdata.com/products/datasets";
+
+const DATASET_SLUGS: Record<string, string> = {
+  Amazon: "amazon",
+  LinkedIn: "linkedin",
+  Instagram: "instagram",
+  TikTok: "tiktok",
+  Facebook: "facebook",
+  YouTube: "youtube",
+  X: "x",
+  Walmart: "walmart",
+  Indeed: "indeed",
+  Glassdoor: "glassdoor",
+  Zillow: "zillow",
+  Crunchbase: "crunchbase",
+  "Social Media": "social-media",
+  "E-Commerce": "ecommerce",
+  "Real Estate": "real-estate",
+};
+
 export default function DatasetCtaBanner({
   name,
-  href = "https://brightdata.com/products/datasets",
+  href,
 }: DatasetCtaBannerProps) {
+  const resolvedHref =
+    href ||
+    (name && DATASET_SLUGS[name]
+      ? `${DATASETS_BASE}/${DATASET_SLUGS[name]}`
+      : DATASETS_BASE);
+
   const article = name
     ? /^[aeiou]/i.test(name) ? "an" : "a"
     : "a";
@@ -16,15 +42,15 @@ export default function DatasetCtaBanner({
   return (
     <div className="container dataset-cta-wrap">
       <div className="dataset-cta-banner">
-        <p>
+        <p className="dataset-cta-line1">
           {name
             ? `Just want ${name} data? Skip scraping.`
             : "Just want the data? Skip scraping."}
         </p>
-        <p>
+        <p className="dataset-cta-line2">
           Purchase {article}{" "}
-          <a href={href} target="_blank" rel="noopener noreferrer">
-            {name ? `${name} dataset` : "ready-made dataset"}
+          <a href={resolvedHref} target="_blank" rel="noopener noreferrer">
+            {name ? `${name} dataset` : "dataset"}
           </a>
         </p>
       </div>

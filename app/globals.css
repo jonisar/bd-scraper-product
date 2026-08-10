@@ -1415,17 +1415,24 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   margin-top: var(--s6);
 }
 .dataset-cta-banner {
-  padding: var(--s7) var(--s6);
+  padding: var(--s8) var(--s7);
   border-radius: var(--radius-lg);
   background: linear-gradient(135deg, #7c5ce0 0%, #a855c8 40%, #e04da0 75%, #e86ca0 100%);
   text-align: center;
 }
-.dataset-cta-banner p {
+.dataset-cta-line1 {
   margin: 0;
   color: #fff;
-  font-size: 1.35rem;
+  font-size: 1.55rem;
   font-weight: 600;
-  line-height: 1.65;
+  line-height: 1.5;
+}
+.dataset-cta-line2 {
+  margin: 0.15em 0 0;
+  color: #fff;
+  font-size: 1.55rem;
+  font-weight: 600;
+  line-height: 1.5;
 }
 .dataset-cta-banner a {
   color: #fff;
@@ -1443,10 +1450,11 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
     margin-top: var(--s5);
   }
   .dataset-cta-banner {
-    padding: var(--s6) var(--s5);
+    padding: var(--s7) var(--s5);
   }
-  .dataset-cta-banner p {
-    font-size: 1.1rem;
+  .dataset-cta-line1,
+  .dataset-cta-line2 {
+    font-size: 1.2rem;
   }
 }
 
