@@ -15,7 +15,7 @@ export default function HowItWorksSteps({
         <div className="section-head">
           <span className="kicker">How it works</span>
           <h2>{heading}</h2>
-          <p>No proxies to configure, no infrastructure to manage. Just pick, call, and receive.</p>
+          <p>No proxies to configure, no infrastructure to manage. Pick, call, and receive.</p>
         </div>
         <div className="steps-grid">
           <div className="step-card">
@@ -26,7 +26,7 @@ export default function HowItWorksSteps({
           <div className="step-card">
             <span className="step-icon">02</span>
             <h3>Call the API</h3>
-            <p>One REST call with your target URL. Works with Python, Node.js, cURL, or any HTTP client.</p>
+            <p>One API call with up to 5,000 target URLs. Python and Node.js SDKs, CLI, MCP server, or any HTTP client.</p>
           </div>
           <div className="step-card">
             <span className="step-icon">03</span>
