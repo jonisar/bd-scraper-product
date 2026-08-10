@@ -237,7 +237,7 @@ export default function WebScraperHome() {
             <h2>One API call to get structured data</h2>
             <p>Send a URL, get structured JSON back. Works with any HTTP client in any language.</p>
           </div>
-          <HubCodeExample sampleUrl="https://www.amazon.com/dp/B09X7MPX8L" />
+          <HubCodeExample />
         </div>
       </section>
 

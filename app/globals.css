@@ -2345,6 +2345,20 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
 .hub-code-tab:hover { color: var(--text-1); }
 .hub-code-tab.active { color: var(--accent-2); border-bottom-color: var(--accent-2); }
 .hub-code-copy { margin-left: auto; }
+.hub-code-targets { display: flex; gap: 6px; margin-left: var(--s4); }
+.hub-code-target {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-3);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.hub-code-target:hover { color: var(--text-1); border-color: var(--border-strong); }
+.hub-code-target.active { color: var(--accent-2); border-color: var(--accent-2); background: rgba(61, 127, 252, 0.08); }
 .hub-code-pre {
   padding: var(--s4) var(--s5);
   margin: 0;
@@ -2358,6 +2372,8 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
 @media (max-width: 640px) {
   .hub-code-tab { padding: 8px 10px; font-size: 12px; }
   .hub-code-pre { padding: var(--s3) var(--s4); font-size: 12px; }
+  .hub-code-example .hub-code-tabs { flex-wrap: wrap; row-gap: 4px; padding-bottom: 8px; }
+  .hub-code-targets { margin-left: 0; }
 }
 
 /* Hub code split (request + response side by side) */
