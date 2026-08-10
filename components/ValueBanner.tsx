@@ -25,12 +25,12 @@ export default function ValueBanner() {
         </div>
         <div className="vb-item">
           <strong>
-            <span className="vb-emoji" aria-hidden="true">
-              ⚡
+            <span className="vb-emoji vb-emoji-gold" aria-hidden="true">
+              ✔
             </span>
-            MCP
+            GDPR &amp; CCPA
           </strong>
-          <span>AI agent ready</span>
+          <span>Full compliance</span>
         </div>
       </div>
     </section>

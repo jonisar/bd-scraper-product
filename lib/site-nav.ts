@@ -412,6 +412,7 @@ export const TOP_LINKS: NavLink[] = [
 export const HUB_SUBNAV: SubnavItem[] = [
   { label: "Scraper APIs", href: "#scrapers" },
   { label: "Scraper Marketplace", href: "/products/web-scraper/scraper-lib" },
+  { label: "Try it live", href: "#demo" },
   { label: "Pricing", href: "#pricing" },
   { label: "Code Examples", href: "#code" },
   { label: "AI Agents", href: "#agents" },
@@ -424,6 +425,7 @@ export const HUB_SUBNAV: SubnavItem[] = [
 export const HOME_SUBNAV: SubnavItem[] = [
   { label: "Scraper APIs", href: "#library" },
   { label: "Scraper Marketplace", href: "/products/web-scraper/scraper-lib" },
+  { label: "Try it live", href: "#demo" },
   { label: "Pricing", href: "#pricing" },
   { label: "Code Examples", href: "#code" },
   { label: "AI Agents", href: "#agents" },

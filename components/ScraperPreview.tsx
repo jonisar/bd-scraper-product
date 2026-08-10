@@ -4,7 +4,7 @@ import { AmazonScraperMain } from "@/components/AmazonScraperMain";
 
 export default function ScraperPreview() {
   return (
-    <section className="sp-preview animate-rise" aria-labelledby="sp-preview-kicker">
+    <section id="demo" className="sp-preview animate-rise hub-anchor" aria-labelledby="sp-preview-kicker">
       <div className="container">
         <div className="sp-section-head">
           <span className="kicker" id="sp-preview-kicker">
