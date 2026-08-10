@@ -267,7 +267,10 @@ response = requests.post(
 )
 
 data = response.json()
-print(data[0]["${f1}"], data[0]["${f2}"])`;
+if isinstance(data, dict):  # long scrape: snapshot envelope
+    print("processing, poll snapshot:", data["snapshot_id"])
+else:
+    print(data[0]["${f1}"], data[0]["${f2}"])`;
 
   const nodeCode = `// Synchronous request: results returned in real time\nconst response = await fetch(
   "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${target.datasetId}&format=json",
@@ -282,7 +285,8 @@ print(data[0]["${f1}"], data[0]["${f2}"])`;
 );
 
 const data = await response.json();
-console.log(data[0].${f1}, data[0].${f2});`;
+if (Array.isArray(data)) console.log(data[0].${f1}, data[0].${f2});
+else console.log("processing, poll snapshot:", data.snapshot_id);`;
 
   const codeMap: Record<Lang, string> = { cURL: curlCode, Python: pythonCode, "Node.js": nodeCode };
   const langs: Lang[] = ["cURL", "Python", "Node.js"];
