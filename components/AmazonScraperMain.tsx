@@ -706,7 +706,7 @@ function PricingTab({ compact = false }: { compact?: boolean }) {
             </p>
             <ul className="mt-3 space-y-1.5">
               {[
-                { item: "Compute / runtime units", note: "commonly metered per actor-hour or CU" },
+                { item: "Compute / runtime units", note: "commonly billed per scraper runtime hour or CU" },
                 { item: "Residential proxy bandwidth", note: "commonly billed per GB on top" },
                 { item: "Storage & dataset retention", note: "commonly billed per GB-month" },
                 { item: "Data transfer / egress", note: "commonly billed per GB out" },
