@@ -429,7 +429,7 @@ export const HOME_SUBNAV: SubnavItem[] = [
   { label: "Code Examples", href: "#code" },
   { label: "AI Agents", href: "#agents" },
   { label: "Live Demo", href: "#demo" },
-  { label: "Use Cases", href: "#use-cases" },
+  { label: "Compliance", href: "#why" },
   { label: "FAQs", href: "#faq" },
   { label: "Scraper Marketplace", href: "/products/web-scraper/scraper-lib" },
 ];
