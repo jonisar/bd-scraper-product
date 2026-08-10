@@ -701,7 +701,7 @@ function PricingTab({ compact = false }: { compact?: boolean }) {
           </summary>
           <div className="mt-2 text-[13px] leading-6 text-bd-ink/85">
             <p>
-              Most scraping platforms meter several line items on top of the advertised rate. Here, the
+              Most scraping platforms stack extra charges on top of the advertised rate. Here, the
               per-record price is the whole bill. Every one of these is included:
             </p>
             <ul className="mt-3 space-y-1.5">
