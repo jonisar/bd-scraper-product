@@ -589,10 +589,13 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   font-size: 22px;
   font-weight: 700;
   line-height: 1.15;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
   background: var(--grad-webdata);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 /* Keep emoji fully opaque — parent gradient clip would wash them out */
 .vb-item .vb-emoji {
@@ -605,12 +608,12 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   line-height: 1;
   flex-shrink: 0;
 }
-/* Gold check bookend — mirrors trophy gold on the left */
+/* Gold check bookend — mirrors trophy gold on the left (icon only; text stays strip-identical) */
 .vb-item .vb-emoji-gold {
   color: #e8b84a;
   -webkit-text-fill-color: #e8b84a;
-  font-weight: 800;
-  font-size: 0.95em;
+  font-weight: 700;
+  font-size: 0.88em;
 }
 .vb-item > span { font-size: 12px; color: var(--text-3); line-height: 1.3; }
 
