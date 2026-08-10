@@ -13,10 +13,18 @@ export type NavLink = {
   children?: { label: string; href: string; external?: boolean }[];
 };
 
-export type NavColumn = {
+export type NavSection = {
   title: string;
-  accent?: boolean;
   links: NavLink[];
+};
+
+export type NavColumn = {
+  /** Single-section column (most menus). */
+  title?: string;
+  accent?: boolean;
+  links?: NavLink[];
+  /** Stacked sections in one column (BD Products left column). */
+  sections?: NavSection[];
 };
 
 export type MegaMenu = {
@@ -37,38 +45,67 @@ export const MEGA_MENUS: MegaMenu[] = [
     label: "Products",
     columns: [
       {
-        title: "Web Access APIs",
-        links: [
+        /* BD layout: Web Access APIs + Proxy Services stacked */
+        sections: [
           {
-            label: "Unlocker API",
-            href: `${BD}/products/web-unlocker`,
-            desc: "Say goodbye to blocks and CAPTCHAs",
-            external: true,
-          },
-          {
-            label: "Discover API",
-            href: `${BD}/products/discover-api`,
-            desc: "Always live web discovery for agents",
-            badge: "FREE",
-            external: true,
-          },
-          {
-            label: "SERP API",
-            href: `${BD}/products/serp-api`,
-            desc: "Get multi-engine search results on-demand",
-            external: true,
-            children: [
-              { label: "Google", href: `${BD}/products/serp-api/google-search`, external: true },
-              { label: "Bing", href: `${BD}/products/serp-api/bing-search`, external: true },
-              { label: "DuckDuckGo", href: `${BD}/products/serp-api/duckduckgo-search`, external: true },
-              { label: "Yandex", href: `${BD}/products/serp-api/yandex-search`, external: true },
+            title: "Web Access APIs",
+            links: [
+              {
+                label: "Unlocker API",
+                href: `${BD}/products/web-unlocker`,
+                desc: "Say goodbye to blocks and CAPTCHAs",
+                external: true,
+              },
+              {
+                label: "Discover API",
+                href: `${BD}/products/discover-api`,
+                desc: "Always live web discovery for agents",
+                badge: "FREE",
+                external: true,
+              },
+              {
+                label: "SERP API",
+                href: `${BD}/products/serp-api`,
+                desc: "Get multi-engine search results on-demand",
+                external: true,
+                children: [
+                  { label: "Google", href: `${BD}/products/serp-api/google-search`, external: true },
+                  { label: "Bing", href: `${BD}/products/serp-api/bing-search`, external: true },
+                  { label: "DuckDuckGo", href: `${BD}/products/serp-api/duckduckgo-search`, external: true },
+                  { label: "Yandex", href: `${BD}/products/serp-api/yandex-search`, external: true },
+                ],
+              },
+              {
+                label: "Browser API",
+                href: `${BD}/products/scraping-browser`,
+                desc: "Spin up remote browsers, stealth included",
+                external: true,
+              },
             ],
           },
           {
-            label: "Browser API",
-            href: `${BD}/products/scraping-browser`,
-            desc: "Spin up remote browsers, stealth included",
-            external: true,
+            title: "Proxy Services",
+            links: [
+              {
+                label: "Residential Proxies",
+                href: `${BD}/proxy-types/residential-proxies`,
+                desc: "400M+ global IPs from real-peer devices",
+                badge: "50% OFF",
+                external: true,
+              },
+              {
+                label: "ISP Proxies",
+                href: `${BD}/proxy-types/isp-proxies`,
+                desc: "1.3M+ blazing fast static residential proxies",
+                external: true,
+              },
+              {
+                label: "Datacenter Proxies",
+                href: `${BD}/proxy-types/datacenter-proxies`,
+                desc: "1.3M+ high-speed proxies for data extraction",
+                external: true,
+              },
+            ],
           },
         ],
       },
@@ -80,18 +117,17 @@ export const MEGA_MENUS: MegaMenu[] = [
             href: "/products/web-scraper",
             desc: "Fetch real-time data from 600+ websites",
             children: [
-              { label: "All Scrapers", href: "/products/web-scraper/scraper-lib" },
               { label: "LinkedIn", href: "/products/web-scraper/linkedin" },
-              { label: "eCommerce", href: "/products/web-scraper/ecommerce" },
+              { label: "eComm", href: "/products/web-scraper/ecommerce" },
               { label: "Social media", href: "/products/web-scraper/social-media" },
               { label: "ChatGPT", href: "/products/web-scraper/chatgpt" },
+              { label: "All Scrapers", href: "/products/web-scraper/scraper-lib" },
             ],
           },
           {
             label: "Scraper Studio",
             href: "/products/web-scraper/studio",
             desc: "Turn any website into a data pipeline",
-            badge: "NEW",
           },
           {
             label: "Datasets",
@@ -109,30 +145,6 @@ export const MEGA_MENUS: MegaMenu[] = [
             label: "Data Firehose",
             href: `${BD}/products/data-feeds`,
             desc: "Real-time web data, delivered as it’s collected",
-            external: true,
-          },
-        ],
-      },
-      {
-        title: "Proxy Services",
-        links: [
-          {
-            label: "Residential Proxies",
-            href: `${BD}/proxy-types/residential-proxies`,
-            desc: "400M+ global IPs from real-peer devices",
-            badge: "50% OFF",
-            external: true,
-          },
-          {
-            label: "ISP Proxies",
-            href: `${BD}/proxy-types/isp-proxies`,
-            desc: "1.3M+ blazing fast static residential proxies",
-            external: true,
-          },
-          {
-            label: "Datacenter Proxies",
-            href: `${BD}/proxy-types/datacenter-proxies`,
-            desc: "1.3M+ high-speed proxies for data extraction",
             external: true,
           },
         ],
@@ -389,9 +401,14 @@ export const MEGA_MENUS: MegaMenu[] = [
 
 export const TOP_LINKS: NavLink[] = [
   { label: "Docs", href: "https://docs.brightdata.com/", external: true },
+  { label: "Support", href: `${BD}/contact`, external: true },
 ];
 
-/** Domain / vertical hub pages — matches BD /amazon subnav + our best conversion sections. */
+/**
+ * Domain / vertical hubs — BD /amazon secondary nav fused with our highest-converting
+ * sections (AI Agents for MCP/dev workflow).
+ * BD order: Scraper APIs · Marketplace · Pricing · Code · Compliance · How it Works · FAQs
+ */
 export const HUB_SUBNAV: SubnavItem[] = [
   { label: "Scraper APIs", href: "#scrapers" },
   { label: "Scraper Marketplace", href: "/products/web-scraper/scraper-lib" },
@@ -403,7 +420,7 @@ export const HUB_SUBNAV: SubnavItem[] = [
   { label: "FAQs", href: "#faq" },
 ];
 
-/** Main /products/web-scraper page. */
+/** Main /products/web-scraper — BD anchors + Use Cases (strong conversion on hub home). */
 export const HOME_SUBNAV: SubnavItem[] = [
   { label: "Scraper APIs", href: "#library" },
   { label: "Scraper Marketplace", href: "/products/web-scraper/scraper-lib" },
@@ -415,12 +432,14 @@ export const HOME_SUBNAV: SubnavItem[] = [
   { label: "FAQs", href: "#faq" },
 ];
 
-/** Scraper library / categories — lighter contextual nav. */
+/** Scraper library / categories — contextual nav with conversion paths. */
 export const LIBRARY_SUBNAV: SubnavItem[] = [
   { label: "All Scrapers", href: "/products/web-scraper/scraper-lib" },
   { label: "Categories", href: "/products/web-scraper/scraper-lib/categories" },
-  { label: "Studio", href: "/products/web-scraper/studio" },
+  { label: "AI Scraper Studio", href: "/products/web-scraper/studio" },
   { label: "Pricing", href: "/products/web-scraper#pricing" },
+  { label: "Code Examples", href: "/products/web-scraper#code" },
+  { label: "AI Agents", href: "/products/web-scraper#agents" },
   { label: "Docs", href: "https://docs.brightdata.com/" },
 ];
 

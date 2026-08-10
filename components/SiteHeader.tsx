@@ -76,6 +76,53 @@ function NavAnchor({
   );
 }
 
+function MegaLinkList({
+  links,
+  onNavigate,
+}: {
+  links: NavLink[];
+  onNavigate: () => void;
+}) {
+  return (
+    <ul className="site-mega-list">
+      {links.map((link) => (
+        <li key={link.label}>
+          <NavAnchor
+            link={link}
+            className="site-mega-item"
+            onNavigate={onNavigate}
+          />
+          {link.children && link.children.length > 0 && (
+            <div className="site-mega-children">
+              {link.children.map((child) =>
+                child.external || child.href.startsWith("http") ? (
+                  <a
+                    key={child.label}
+                    href={child.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={onNavigate}
+                  >
+                    {child.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={child.label}
+                    href={child.href}
+                    onClick={onNavigate}
+                  >
+                    {child.label}
+                  </Link>
+                )
+              )}
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function MegaPanel({
   menu,
   onNavigate,
@@ -86,50 +133,26 @@ function MegaPanel({
   return (
     <div className="site-mega-panel" role="menu" aria-label={menu.label}>
       <div className={`site-mega-grid site-mega-grid-${menu.columns.length}`}>
-        {menu.columns.map((col) => (
-          <div
-            key={col.title}
-            className={`site-mega-col${col.accent ? " is-accent" : ""}`}
-          >
-            <p className="site-mega-col-title">{col.title}</p>
-            <ul className="site-mega-list">
-              {col.links.map((link) => (
-                <li key={link.label}>
-                  <NavAnchor
-                    link={link}
-                    className="site-mega-item"
-                    onNavigate={onNavigate}
-                  />
-                  {link.children && link.children.length > 0 && (
-                    <div className="site-mega-children">
-                      {link.children.map((child) =>
-                        child.external || child.href.startsWith("http") ? (
-                          <a
-                            key={child.label}
-                            href={child.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={onNavigate}
-                          >
-                            {child.label}
-                          </a>
-                        ) : (
-                          <Link
-                            key={child.label}
-                            href={child.href}
-                            onClick={onNavigate}
-                          >
-                            {child.label}
-                          </Link>
-                        )
-                      )}
-                    </div>
-                  )}
-                </li>
+        {menu.columns.map((col, i) => {
+          const sections =
+            col.sections ??
+            (col.title && col.links
+              ? [{ title: col.title, links: col.links }]
+              : []);
+          return (
+            <div
+              key={col.title ?? col.sections?.[0]?.title ?? i}
+              className={`site-mega-col${col.accent ? " is-accent" : ""}`}
+            >
+              {sections.map((section) => (
+                <div key={section.title} className="site-mega-section">
+                  <p className="site-mega-col-title">{section.title}</p>
+                  <MegaLinkList links={section.links} onNavigate={onNavigate} />
+                </div>
               ))}
-            </ul>
-          </div>
-        ))}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -397,44 +420,60 @@ export default function SiteHeader({ subnav = null }: SiteHeaderProps) {
                   </button>
                   {open && (
                     <div className="site-mobile-section-body">
-                      {menu.columns.map((col) => (
-                        <div key={col.title} className="site-mobile-col">
-                          <p className="site-mega-col-title">{col.title}</p>
-                          {col.links.map((link) => (
-                            <div key={link.label}>
-                              <NavAnchor
-                                link={link}
-                                className="site-mobile-item"
-                                onNavigate={closeAll}
-                              />
-                              {link.children?.map((child) =>
-                                child.external ||
-                                child.href.startsWith("http") ? (
-                                  <a
-                                    key={child.label}
-                                    href={child.href}
-                                    className="site-mobile-child"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={closeAll}
-                                  >
-                                    {child.label}
-                                  </a>
-                                ) : (
-                                  <Link
-                                    key={child.label}
-                                    href={child.href}
-                                    className="site-mobile-child"
-                                    onClick={closeAll}
-                                  >
-                                    {child.label}
-                                  </Link>
-                                )
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      ))}
+                      {menu.columns.map((col, i) => {
+                        const sections =
+                          col.sections ??
+                          (col.title && col.links
+                            ? [{ title: col.title, links: col.links }]
+                            : []);
+                        return (
+                          <div
+                            key={col.title ?? col.sections?.[0]?.title ?? i}
+                            className="site-mobile-col"
+                          >
+                            {sections.map((section) => (
+                              <div key={section.title}>
+                                <p className="site-mega-col-title">
+                                  {section.title}
+                                </p>
+                                {section.links.map((link) => (
+                                  <div key={link.label}>
+                                    <NavAnchor
+                                      link={link}
+                                      className="site-mobile-item"
+                                      onNavigate={closeAll}
+                                    />
+                                    {link.children?.map((child) =>
+                                      child.external ||
+                                      child.href.startsWith("http") ? (
+                                        <a
+                                          key={child.label}
+                                          href={child.href}
+                                          className="site-mobile-child"
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          onClick={closeAll}
+                                        >
+                                          {child.label}
+                                        </a>
+                                      ) : (
+                                        <Link
+                                          key={child.label}
+                                          href={child.href}
+                                          className="site-mobile-child"
+                                          onClick={closeAll}
+                                        >
+                                          {child.label}
+                                        </Link>
+                                      )
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
