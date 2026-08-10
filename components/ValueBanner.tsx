@@ -12,8 +12,8 @@ export default function ValueBanner() {
           <span>World ranking</span>
         </div>
         <div className="vb-item">
-          <strong>98.4%</strong>
-          <span>success rate</span>
+          <strong>1,300+</strong>
+          <span>Verified scrapers</span>
         </div>
         <div className="vb-item">
           <strong>400M+</strong>
@@ -25,12 +25,12 @@ export default function ValueBanner() {
         </div>
         <div className="vb-item">
           <strong>
-            <span className="vb-emoji" aria-hidden="true">
-              ⚡
+            <span className="vb-emoji vb-emoji-gold" aria-hidden="true">
+              ✔
             </span>
-            MCP
+            GDPR &amp; CCPA
           </strong>
-          <span>AI agent ready</span>
+          <span>Full compliance</span>
         </div>
       </div>
     </section>

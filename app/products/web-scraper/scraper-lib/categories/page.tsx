@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "@/components/Chrome";
+import { LIBRARY_SUBNAV } from "@/lib/site-nav";
 import ScrollReveal from "@/components/ScrollReveal";
 import { CATALOG_CATEGORIES, catalog } from "@/lib/catalog";
 
@@ -93,7 +94,7 @@ export default function CategoriesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Header />
+      <Header subnav={LIBRARY_SUBNAV} />
 
       <main>
         {/* BREADCRUMB */}

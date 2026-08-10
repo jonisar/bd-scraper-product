@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "@/components/Chrome";
+import { HOME_SUBNAV } from "@/lib/site-nav";
 import HeroSearch from "@/components/HeroSearch";
 import ScraperLibrary from "@/components/ScraperLibrary";
 import AgentGetStarted from "@/components/AgentGetStarted";
@@ -19,6 +20,7 @@ import FaqSection from "@/components/FaqSection";
 import HeroRatings from "@/components/HeroRatings";
 import ScraperPreview from "@/components/ScraperPreview";
 import ValueBanner from "@/components/ValueBanner";
+import DatasetCtaBanner from "@/components/DatasetCtaBanner";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -153,7 +155,7 @@ export default function WebScraperHome() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <Header />
+      <Header subnav={HOME_SUBNAV} />
 
       <main>
       {/* HERO */}
@@ -184,6 +186,8 @@ export default function WebScraperHome() {
           <ScraperLibrary />
         </div>
       </section>
+
+      <DatasetCtaBanner />
 
       <ValueBanner />
 
