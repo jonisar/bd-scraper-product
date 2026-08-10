@@ -49,16 +49,26 @@ const TARGETS = [
     domain: "amazon.com",
     response: `[
   {
-    "title": "STANLEY Quencher H2.0 Flow State Tumbler, 40 oz, Fuchsia…",
-    "brand": "STANLEY",
+    "title": "STANLEY Quencher H2.0 Flow State Tumbler, 40 oz, Fuchsia | Handle and Straw | 3-Position Lid…",
     "seller_name": "Avrix Brands",
+    "brand": "STANLEY",
+    "description": "Constructed of recycled stainless steel for sustainable sipping, our 40 oz Quencher H2.0 offers maximum hydration…",
     "initial_price": 45,
     "final_price": 38.99,
+    "discount": "-13%",
     "currency": "USD",
+    "availability": "In Stock",
+    "is_available": true,
     "rating": 4.7,
     "reviews_count": 203567,
-    "availability": "In Stock",
-    "asin": "B0CRMZHDG8"
+    "bought_past_month": 400,
+    "categories": ["Home & Kitchen", "Kitchen & Dining", "Storage & Organization", "Thermoses", "Insulated Beverage Containers", "Tumblers"],
+    "delivery": ["FREE delivery Saturday, August 15", "Or Prime members get FREE delivery Wednesday, August 12…"],
+    "image_url": "https://m.media-amazon.com/images/I/61Q4eGZWFSL._AC_SL1500_.jpg",
+    "item_weight": "1.4 pounds",
+    "model_number": "100000003926",
+    "asin": "B0CRMZHDG8",
+    "url": "https://www.amazon.com/STANLEY-Quencher-State-Tumbler-Fuchsia/dp/B0CRMZHDG8"
   }
 ]`,
   },
