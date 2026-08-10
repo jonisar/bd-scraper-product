@@ -283,7 +283,7 @@ const SAMPLE_OUTPUT = `{
   "return_policy": "Eligible for Return, Refund or Replacement within 30 days"
 }`;
 
-const AGENT_PROMPT = `Read https://brightdata.com/skills.md and set up Bright Data.
+const AGENT_PROMPT = `Read https://brightdata.com/SKILL.md and set up Bright Data.
 
 Then complete these tasks with the Amazon pipelines
 (amazon_product, amazon_product_reviews, amazon_product_search):
