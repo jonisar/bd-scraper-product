@@ -19,6 +19,7 @@ import FaqSection from "@/components/FaqSection";
 import HeroRatings from "@/components/HeroRatings";
 import ScraperPreview from "@/components/ScraperPreview";
 import ValueBanner from "@/components/ValueBanner";
+import DatasetCtaBanner from "@/components/DatasetCtaBanner";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -184,6 +185,8 @@ export default function WebScraperHome() {
           <ScraperLibrary />
         </div>
       </section>
+
+      <DatasetCtaBanner />
 
       <ValueBanner />
 

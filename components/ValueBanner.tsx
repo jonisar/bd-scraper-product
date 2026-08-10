@@ -12,8 +12,8 @@ export default function ValueBanner() {
           <span>World ranking</span>
         </div>
         <div className="vb-item">
-          <strong>98.4%</strong>
-          <span>success rate</span>
+          <strong>1,300+</strong>
+          <span>Verified scrapers</span>
         </div>
         <div className="vb-item">
           <strong>400M+</strong>

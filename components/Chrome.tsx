@@ -11,14 +11,16 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-bd-line/60 bg-[#000000e6] backdrop-blur-lg">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-2 px-4 sm:px-6">
         <div className="flex shrink-0 items-center gap-4 xl:gap-6">
-          <Link href="/products/web-scraper" className="flex shrink-0 items-center gap-2.5">
-            <span className="brand-mark grid h-8 w-8 place-items-center rounded-lg text-sm font-extrabold text-white shadow-sm shadow-bd-blue/40">
-              BD
-            </span>
-            <span className="text-[15px] font-extrabold tracking-tight text-bd-navy">
+          <div className="flex shrink-0 items-center gap-2.5">
+            <a href="https://brightdata.com/" className="flex shrink-0" target="_blank" rel="noopener noreferrer" aria-label="Bright Data homepage">
+              <span className="brand-mark grid h-8 w-8 place-items-center rounded-lg text-sm font-extrabold text-white shadow-sm shadow-bd-blue/40">
+                BD
+              </span>
+            </a>
+            <Link href="/products/web-scraper" className="text-[15px] font-extrabold tracking-tight text-bd-navy transition hover:text-bd-blue">
               Web Scraper API
-            </span>
-          </Link>
+            </Link>
+          </div>
           <nav className="hidden items-center gap-3 text-[13px] font-semibold text-bd-ink lg:flex xl:gap-5 xl:text-sm">
             <Link href="/products/web-scraper/scraper-lib" className="whitespace-nowrap transition hover:text-bd-navy">
               All Scrapers

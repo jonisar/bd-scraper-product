@@ -25,6 +25,7 @@ import FaqSection from "@/components/FaqSection";
 import HeroRatings from "@/components/HeroRatings";
 import ScraperPreview from "@/components/ScraperPreview";
 import ValueBanner from "@/components/ValueBanner";
+import DatasetCtaBanner from "@/components/DatasetCtaBanner";
 import { sampleUrlForDomain, type DomainHubData } from "@/lib/domain-hubs";
 import { cpHref } from "@/lib/cp-href";
 
@@ -116,21 +117,13 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             )}
 
             <HubStrip />
-
-            {hub.datasetCta && (
-              <div className="hub-dataset-cta">
-                <div className="hub-dataset-cta-body">
-                  <span className="hub-dataset-cta-kicker">{hub.datasetCta.kicker}</span>
-                  <strong>{hub.datasetCta.title}</strong>
-                  <span>{hub.datasetCta.body}</span>
-                </div>
-                <a href={hub.datasetCta.href} className="btn btn-primary btn-pill" target="_blank" rel="noopener noreferrer">
-                  {hub.datasetCta.label}
-                </a>
-              </div>
-            )}
           </div>
         </section>
+
+        <DatasetCtaBanner
+          name={hub.name}
+          href={hub.datasetCta?.href}
+        />
 
         <ValueBanner />
 
