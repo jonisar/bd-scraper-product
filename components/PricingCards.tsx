@@ -37,7 +37,7 @@ function getPlans(unit: string): Plan[] {
       price: "$499",
       unit: "/month",
       features: [`384K ${unit} included`, "$1.00/1K at volume", "Cancel anytime"],
-      cta: "Get started",
+      cta: "Start free",
       href: SIGNUP,
     },
     {
