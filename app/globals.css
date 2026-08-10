@@ -2354,6 +2354,10 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
 .hub-code-dots { display: inline-flex; gap: 5px; }
 .hub-code-dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.18); }
 .hub-code-response .hub-code-pre { max-height: 320px; overflow: auto; }
+.hub-code-note { margin: 8px 0 0; font-size: 12px; line-height: 1.6; color: var(--text-3); }
+.hub-code-note code { font-family: var(--font-jetbrains, 'JetBrains Mono'), ui-monospace, monospace; font-size: 11px; padding: 1px 5px; border-radius: 5px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); }
+.hub-code-note a { color: var(--accent-2); text-decoration: none; }
+.hub-code-note a:hover { text-decoration: underline; }
 .hub-code-auth { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; margin: var(--s4) 0 0; padding: 12px 18px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02); font-size: 14px; color: var(--text-2); }
 .hub-code-auth code { font-family: var(--font-jetbrains, 'JetBrains Mono'), ui-monospace, monospace; font-size: 12px; padding: 2px 7px; border-radius: 6px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); }
 .hub-code-auth a { color: var(--accent-2); text-decoration: none; }

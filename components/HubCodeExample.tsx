@@ -44,19 +44,21 @@ const TARGETS = [
   {
     name: "Amazon",
     datasetId: "gd_l1vijqt9jfj7olije",
-    url: "https://www.amazon.com/dp/B09X7MPX8L",
-    printFields: ["title", "price"],
+    url: "https://www.amazon.com/Quencher-FlowState-Stainless-Insulated-Smoothie/dp/B0CRMZHDG8",
+    printFields: ["title", "final_price"],
     domain: "amazon.com",
     response: `[
   {
-    "title": "Wireless Bluetooth Earbuds, Active Noise Cancelling",
-    "brand": "SoundPods",
-    "price": 49.99,
+    "title": "STANLEY Quencher H2.0 Flow State Tumbler, 40 oz, Fuchsia…",
+    "brand": "STANLEY",
+    "seller_name": "Avrix Brands",
+    "initial_price": 45,
+    "final_price": 38.99,
     "currency": "USD",
-    "stars": 4.6,
-    "reviews_count": 12483,
-    "in_stock": true,
-    "asin": "B09X7MPX8L"
+    "rating": 4.7,
+    "reviews_count": 203567,
+    "availability": "In Stock",
+    "asin": "B0CRMZHDG8"
   }
 ]`,
   },
@@ -237,6 +239,18 @@ console.log(data[0].${f1}, data[0].${f2});`;
               </code>
             </pre>
           </div>
+          <p className="hub-code-note">
+            Large or slow scrapes return a <code>snapshot_id</code> instead of records.
+            Track it via the{" "}
+            <a
+              href="https://docs.brightdata.com/api-reference/web-scraper-api/management-apis/monitor-progress"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Monitor Snapshot endpoint
+            </a>{" "}
+            and download the result when ready.
+          </p>
         </div>
       </div>
       <p className="hub-code-auth">
