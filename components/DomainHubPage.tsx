@@ -248,7 +248,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </section>
         )}
 
-        <UnderTheHood name={hub.name} altBg hubAnchor />
+        <UnderTheHood name={hub.name} altBg={!hub.productTypes?.length} hubAnchor />
 
         <StatBanner />
 
