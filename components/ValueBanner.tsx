@@ -12,7 +12,7 @@ export default function ValueBanner() {
           <span>World ranking</span>
         </div>
         <div className="vb-item">
-          <strong>1,300+</strong>
+          <strong>1,400+</strong>
           <span>Verified scrapers</span>
         </div>
         <div className="vb-item">

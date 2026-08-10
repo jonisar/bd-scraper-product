@@ -26,11 +26,11 @@ import { templates } from "@/lib/templates";
 export const metadata: Metadata = {
   title: "Web Scraping API - 5K Records/Month for Free",
   description:
-    "The most reliable Web Scraping API. 1,300+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free, no credit card required.",
+    "The most reliable Web Scraping API. 1,400+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free, no credit card required.",
   openGraph: {
     title: "Web Scraping API - 5K Records/Month for Free",
     description:
-      "1,300+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free.",
+      "1,400+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free.",
     type: "website",
     url: "https://brightdata.com/products/web-scraper",
     siteName: "Bright Data",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Web Scraping API - 5K Records/Month for Free",
     description:
-      "1,300+ production-ready scrapers with auto proxy rotation, anti-bot bypass, and JS rendering. Start free.",
+      "1,400+ production-ready scrapers with auto proxy rotation, anti-bot bypass, and JS rendering. Start free.",
   },
   alternates: { canonical: "https://brightdata.com/products/web-scraper" },
 };
@@ -63,7 +63,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What websites can I scrape?",
-    a: "There are 1,300+ pre-built scrapers for popular sites including Amazon, LinkedIn, Instagram, TikTok, Google Maps, Zillow, and hundreds more. For any other website, use Scraper Studio to create a custom scraper with AI in minutes.",
+    a: "There are 1,400+ pre-built scrapers for popular sites including Amazon, LinkedIn, Instagram, TikTok, Google Maps, Zillow, and hundreds more. For any other website, use Scraper Studio to create a custom scraper with AI in minutes.",
   },
   {
     q: "Is web scraping with Bright Data legal and compliant?",
@@ -169,9 +169,9 @@ export default function WebScraperHome() {
           </h1>
 
           <p className="hero-sub">
-            The most reliable web scraping API, {" "}
-            <span className="hero-stat-accent">1,300+ scrapers</span>, automatic
-            proxy rotation, anti-bot bypass, and JS rendering.
+            The most reliable web scraping API: {" "}
+            <span className="hero-stat-accent">1,400+ scrapers we build and maintain</span>, with
+            automatic proxy rotation, anti-bot bypass, and JS rendering.
           </p>
 
           <HeroSearch templates={templates} />
@@ -225,7 +225,7 @@ export default function WebScraperHome() {
 
       <HowItWorksSteps
         heading="From zero to structured data in 3 steps"
-        step1="Browse 1,300+ pre-built scrapers or create your own with AI in minutes."
+        step1="Browse 1,400+ pre-built scrapers or create your own with AI in minutes."
       />
 
       {/* CODE EXAMPLE */}
@@ -415,7 +415,7 @@ export default function WebScraperHome() {
         name="Web Scraper API"
         title="Web Scraper API vs DIY scrapers and other providers"
         description="Compare Bright Data&rsquo;s managed Web Scraper API with other scraping providers and building your own scraper stack, infrastructure, anti-bot, proxies, maintenance, and compliance."
-        scraperRow={{ label: "Pre-built scrapers", bd: "✓ 1,300+", others: "50–200", diy: "0 (build each)" }}
+        scraperRow={{ label: "Pre-built scrapers", bd: "✓ 1,400+", others: "50–200", diy: "0 (build each)" }}
         othersHeader="Other scraping providers"
         altBg
       />
