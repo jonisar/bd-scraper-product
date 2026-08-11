@@ -56,11 +56,11 @@ export const metadata: Metadata = {
 const FAQ_ITEMS = [
   {
     q: "What is a Web Scraper API?",
-    a: "A cloud-based service that automates web data extraction. It handles IP rotation, CAPTCHA solving, JavaScript rendering, and data parsing into structured formats (JSON, CSV), so you get clean data without building or maintaining scraping infrastructure.",
+    a: "Bright Data's Web Scraper API is a cloud service that extracts structured data from websites for you. It handles IP rotation, CAPTCHA solving, JavaScript rendering, and parsing into JSON or CSV, so you get clean data without building scraping infrastructure.",
   },
   {
     q: "How is this different from building my own scraper?",
-    a: "DIY scrapers require managing proxies, solving CAPTCHAs, handling blocks, and constant maintenance when sites change. Bright Data's scrapers are maintained 24/7, run on 400M+ residential IPs, and include unblocking. You just call the API and get structured data back.",
+    a: "DIY scrapers require managing proxies, solving CAPTCHAs, handling blocks, and constant maintenance when sites change. Bright Data's scrapers are maintained 24/7, run on 400M+ residential IPs, and include unblocking. Call the API and get structured data back.",
   },
   {
     q: "What websites can I scrape?",
@@ -68,18 +68,22 @@ const FAQ_ITEMS = [
   },
   {
     q: "Is web scraping with Bright Data legal and compliant?",
-    a: "Yes. Bright Data collects only publicly available data, is ISO 27001 certified, GDPR-ready, and maintains SOC 2 controls. Our Compliance & Ethics team ensures all practices follow data protection laws including GDPR and CCPA.",
+    a: "Yes. Bright Data collects only publicly available data, is ISO 27001 certified, maintains SOC 2 controls, and is GDPR and CCPA compliant. A dedicated Compliance & Ethics team reviews every use case, backed by a documented Know Your Customer process and Acceptable Use Policy. Details are published in the Bright Data Trust Center.",
   },
   {
     q: "How do I get started with the Web Scraper API?",
-    a: "Sign up for free (no credit card), get 5,000 records/month at no cost. Browse the scraper library, pick one, and make your first API call in minutes. Works with cURL, Python, Node.js, or any HTTP client. Also available as an MCP server for AI agents.",
+    a: "Sign up for free (no credit card), get 5,000 records/month at no cost. Browse the scraper library, pick one, and make your first API call in minutes with the Python or Node.js SDKs, the CLI, or any HTTP client. Also available as an MCP server for AI agents.",
+  },
+  {
+    q: "Can AI agents use the Web Scraper API?",
+    a: "Yes. Connect any agent through the hosted MCP server, point a coding agent at brightdata.com/SKILL.md to set itself up, or use the CLI. Agents authenticate once with browser OAuth and can run any of the 1,400+ scrapers or build new ones with Scraper Studio.",
   },
   {
     q: "What data formats are supported?",
     a: "JSON, NDJSON, and CSV. Data can be delivered via API response, webhook, Amazon S3, Google Cloud Storage, Snowflake, or SFTP.",
   },
   {
-    q: "What use cases are Web Scraper APIs optimized for?",
+    q: "What use cases is the Web Scraper API optimized for?",
     a: "Competitive benchmarking, market trend analysis, dynamic pricing, sentiment extraction, lead generation, and feeding data into ML pipelines. Essential for e-commerce, fintech, real estate, and social media analytics.",
   },
   {
@@ -92,7 +96,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Can I use this Web Scraper API with Python or Node.js?",
-    a: "Yes. The API works with any HTTP client, Python (requests, aiohttp), Node.js (axios, fetch), cURL, Go, Java, or any language with HTTP support. We provide ready-made code snippets for each scraper in Python and JavaScript (sync and async).",
+    a: "Yes. Official SDKs for Python (brightdata-sdk) and Node.js (@brightdata/sdk) handle auth and result polling for you. You can also call the REST API from any HTTP client: requests, axios, cURL, Go, or Java. Every scraper page includes ready-made snippets in both languages.",
   },
 ] as const;
 
