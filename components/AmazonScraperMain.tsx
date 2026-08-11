@@ -7,6 +7,7 @@ import ScraperCard from "@/components/ScraperCard";
 import { PricingCards } from "@/components/PricingCards";
 import PricingSlider from "@/components/PricingSlider";
 import RestApiExample from "@/components/RestApiExample";
+import HubCodeExample from "@/components/HubCodeExample";
 import AgentSetupCta, { AGENT_SKILL_PROMPT } from "@/components/AgentSetupCta";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Playground" | "Connect Agent" | "Customize";
@@ -2121,8 +2122,11 @@ export function AmazonScraperMain({
                 </p>
               </section>
 
-              {/* ── 4. REST API example ── */}
-              <RestApiExample datasetId={DATASET_ID} />
+              {/* ── 4. Quick start: same verified examples as /products/web-scraper#code ── */}
+              <section>
+                <h3 className="mb-3 text-lg font-bold text-bd-navy">Quick start</h3>
+                <HubCodeExample fixedTarget="Amazon" withResponse />
+              </section>
 
               {/* ── 5. How to integrate ── */}
               <section>

@@ -271,10 +271,12 @@ type HubCodeExampleProps = {
   sampleUrl?: string;
   /** Pin to a known target (Amazon, LinkedIn, Instagram): SDK snippets + real dataset id, no switcher. */
   fixedTarget?: TargetName;
+  /** Render the response panel, snapshot note, and auth note alongside the request, as on the home page. */
+  withResponse?: boolean;
   className?: string;
 };
 
-export default function HubCodeExample({ sampleUrl, fixedTarget, className = "" }: HubCodeExampleProps) {
+export default function HubCodeExample({ sampleUrl, fixedTarget, withResponse = false, className = "" }: HubCodeExampleProps) {
   const [lang, setLang] = useState<Lang>("cURL");
   const [targetName, setTargetName] = useState<TargetName>("Amazon");
   const multiTarget = !sampleUrl && !fixedTarget;
@@ -372,24 +374,26 @@ else console.log("processing, poll snapshot:", data.snapshot_id);`;
     </div>
   );
 
-  if (!multiTarget) return requestCard;
+  if (!multiTarget && !withResponse) return requestCard;
 
   return (
     <div className={className}>
-      <div className="hub-code-targets" role="tablist" aria-label="Example target">
-        {TARGETS.map((t) => (
-          <button
-            key={t.name}
-            type="button"
-            role="tab"
-            aria-selected={targetName === t.name}
-            onClick={() => setTargetName(t.name)}
-            className={`hub-code-target ${targetName === t.name ? "active" : ""}`}
-          >
-            {t.name}
-          </button>
-        ))}
-      </div>
+      {multiTarget ? (
+        <div className="hub-code-targets" role="tablist" aria-label="Example target">
+          {TARGETS.map((t) => (
+            <button
+              key={t.name}
+              type="button"
+              role="tab"
+              aria-selected={targetName === t.name}
+              onClick={() => setTargetName(t.name)}
+              className={`hub-code-target ${targetName === t.name ? "active" : ""}`}
+            >
+              {t.name}
+            </button>
+          ))}
+        </div>
+      ) : null}
       <div className="hub-code-duo">
         <div className="hub-code-col">
           <p className="hub-code-kicker">Request</p>
