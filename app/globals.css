@@ -620,7 +620,7 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
 .library-section { padding: var(--s4) 0 var(--s7); }
 
 /* Library bar */
-.lib-bar { display: flex; align-items: center; gap: var(--s4); margin-bottom: var(--s4); position: sticky; top: 56px; z-index: 30; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); padding: var(--s3) 0; border-bottom: 1px solid var(--border); }
+.lib-bar { display: flex; align-items: center; gap: var(--s4); margin-bottom: var(--s4); position: sticky; top: 106px; z-index: 30; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); padding: var(--s3) 0; border-bottom: 1px solid var(--border); }
 .lib-chips-wrap { position: relative; flex: 1; min-width: 0; }
 .lib-chips-wrap::after { content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 48px; background: linear-gradient(to right, transparent, rgba(0,0,0,0.95)); pointer-events: none; z-index: 1; }
 .lib-chips { display: flex; gap: var(--s2); overflow-x: auto; scrollbar-width: none; padding-right: 40px; }
@@ -2810,7 +2810,7 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
 .hsearch-row:hover, .hsearch-row-active { background: rgba(61,127,252,0.08); }
 .hsearch-row-icon { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; font-weight: 700; font-size: 15px; background: rgba(61,127,252,0.08); border: 1px solid var(--border); flex-shrink: 0; }
 .hsearch-row-main { display: flex; flex-direction: column; flex: 1; min-width: 0; text-align: left; }
-.hsearch-row-name { color: var(--text-1); font-size: 14px; font-weight: 600; }
+.hsearch-row-name { color: var(--text-1); font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hsearch-row-domain { color: var(--text-3); font-size: 12px; font-family: var(--font-jetbrains, 'JetBrains Mono'), ui-monospace, monospace; }
 .hsearch-avail { color: var(--mint); font-size: 12px; font-weight: 600; flex-shrink: 0; display: inline-flex; align-items: center; gap: 4px; }
 .hsearch-avail::before { content: "✓"; }
@@ -3763,7 +3763,7 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
   align-items: center;
   gap: var(--s4);
   position: sticky;
-  top: 56px;
+  top: 106px;
   z-index: 30;
   background: rgba(0,0,0,0.95);
   backdrop-filter: blur(12px);

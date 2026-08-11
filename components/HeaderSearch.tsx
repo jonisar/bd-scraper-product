@@ -73,7 +73,7 @@ export default function HeaderSearch() {
   const goToSearchResults = useCallback(() => {
     const trimmed = q.trim();
     if (!trimmed) return;
-    window.open("https://brightdata.com/cp/datasets", "_blank", "noopener,noreferrer");
+    window.location.href = `/products/web-scraper/scraper-lib?q=${encodeURIComponent(trimmed)}`;
   }, [q]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -221,8 +221,6 @@ export default function HeaderSearch() {
             <a
               href="/products/web-scraper/scraper-lib"
               className="hdr-search-more"
-              target="_blank"
-              rel="noopener noreferrer"
               onMouseDown={(e) => e.preventDefault()}
             >
               Browse all scrapers →
@@ -234,8 +232,6 @@ export default function HeaderSearch() {
               <a
                 href="/products/web-scraper/scraper-lib"
                 className="hdr-search-empty-link"
-                target="_blank"
-                rel="noopener noreferrer"
                 onMouseDown={(e) => e.preventDefault()}
               >
                 Browse all scrapers →

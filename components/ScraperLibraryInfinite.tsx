@@ -533,7 +533,7 @@ export default function ScraperLibraryInfinite() {
               {popular.map((s, i) => renderCard(s, i))}
             </div>
             <p className="slib-view-all">
-              <a href="/products/web-scraper/scraper-lib" className="slib-view-all-link" target="_blank" rel="noopener noreferrer">
+              <a href="/products/web-scraper/scraper-lib" className="slib-view-all-link">
                 Browse all scrapers →
               </a>
             </p>
