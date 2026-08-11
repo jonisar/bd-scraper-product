@@ -11,7 +11,7 @@ const CARD_LIMIT = 9;
 const CATEGORY_VIEW_ALL: Record<string, { label: string; href: string; external?: boolean }> = {
   All: { label: "Browse all scrapers", href: "/products/web-scraper/scraper-lib" },
   "Social Media": { label: "View all Social Media scrapers", href: "/products/web-scraper/social-media" },
-  "E-commerce": { label: "View all E-commerce scrapers", href: "/products/web-scraper/ecommerce" },
+  "E-commerce": { label: "View all E-commerce scrapers", href: "/products/web-scraper/scraper-lib?cat=E-commerce" },
   "Business (B2B)": { label: "View all B2B scrapers", href: "/products/web-scraper/b2b" },
   Jobs: { label: "View all Jobs scrapers", href: "/products/web-scraper/jobs" },
   "Real Estate": { label: "View all Real Estate scrapers", href: "/products/web-scraper/real-estate" },

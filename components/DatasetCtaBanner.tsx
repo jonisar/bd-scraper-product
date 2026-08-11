@@ -21,7 +21,7 @@ const DATASET_SLUGS: Record<string, string> = {
   Zillow: "zillow",
   Crunchbase: "crunchbase",
   "Social Media": "social-media",
-  "E-Commerce": "ecommerce",
+  "E-commerce": "ecommerce",
   "Real Estate": "real-estate",
 };
 
