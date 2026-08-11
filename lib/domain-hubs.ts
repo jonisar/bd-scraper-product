@@ -42,6 +42,8 @@ export type DomainHubData = {
   datasetCta?: { kicker: string; title: string; body: string; href: string; label: string };
   /** Optional category-specific AIMultiple ranking page for the value banner */
   rankingUrl?: string;
+  /** Optional control panel destination for the choose-your-path card */
+  cpUrl?: string;
 };
 
 /** Map catalog scraper → CLI pipeline id used by `bdata pipelines`. */
@@ -1195,6 +1197,7 @@ export const CATEGORY_HUBS: Record<string, DomainHubData> = {
     domain: "e-commerce sites",
     category: "E-commerce",
     rankingUrl: "https://aimultiple.com/ecommerce-scraper",
+    cpUrl: "https://brightdata.com/cp/scrapers/browse?category=ecomm",
     title: "E-commerce Scraper API - Product Data, Prices & Reviews at Scale",
     headline: "E-commerce Scraper API",
     description: "Scrape product listings, pricing, reviews, inventory, and seller data from Amazon, Walmart, Shopee, eBay, and 50+ marketplaces via API.",
@@ -1213,6 +1216,7 @@ export const CATEGORY_HUBS: Record<string, DomainHubData> = {
       { q: "Can AI agents use the E-commerce Scraper API?", a: "Yes. Connect any agent through the hosted MCP server, point a coding agent at brightdata.com/SKILL.md, or use the CLI. Agents run the same e-commerce scrapers and get structured JSON back: products, prices, reviews, and sellers." },
       { q: "How do you handle anti-bot protections?", a: "Automatic IP rotation through 400M+ residential IPs, CAPTCHA solving, browser fingerprinting, and JavaScript rendering, all built in." },
       { q: "Is there a free tier available for the E-commerce Scraper API?", a: "Yes. New Bright Data accounts include 5,000 free records per month, no credit card, promo code, or commitment. Credits apply to Scrapers, Unlocker API, and SERP API, and renew on the 1st of each month." },
+      { q: "What are the usage limits for the E-commerce Scraper API?", a: "There are no hard concurrency caps for typical use, scale from small tests to millions of records on the same API. Prices start from $0.001 per record, and you only pay for successfully delivered results." },
       { q: "Do you provide support for the E-commerce Scraper API?", a: "Yes. Bright Data offers 24/7 support for the E-commerce Scraper API, with dedicated help for enterprise plans." },
       { q: "What output formats are supported?", a: "JSON, NDJSON, CSV, and .gz. Deliver via API response, webhook, S3, GCS, Snowflake, or SFTP." },
     ],

@@ -1,8 +1,12 @@
 type ChooseYourPathProps = {
   name?: string;
+  /** Control panel destination. Defaults to the Amazon product scraper's configuration screen. */
+  cpHref?: string;
 };
 
-export default function ChooseYourPath(_props: ChooseYourPathProps) {
+export default function ChooseYourPath({
+  cpHref = "https://brightdata.com/cp/scrapers/gd_l7q7dkf244hwjntr0/pdp/configuration",
+}: ChooseYourPathProps) {
 
   return (
     <div className="hub-paths">
@@ -21,7 +25,7 @@ export default function ChooseYourPath(_props: ChooseYourPathProps) {
         <span className="hub-path-cta">Start with API →</span>
       </a>
       <a
-        href="https://brightdata.com/cp/scrapers/gd_l7q7dkf244hwjntr0/pdp/configuration"
+        href={cpHref}
         className="hub-path-card"
         target="_blank"
         rel="noopener noreferrer"

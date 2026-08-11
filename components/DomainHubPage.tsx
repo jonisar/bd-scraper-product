@@ -188,7 +188,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
               <h2>Same scrapers, three ways to run them</h2>
               <p>Call the API from code, click through the control panel, or hand it to your AI agent.</p>
             </div>
-            <ChooseYourPath name={hub.name} />
+            <ChooseYourPath name={hub.name} cpHref={hub.cpUrl} />
           </div>
         </section>
 
