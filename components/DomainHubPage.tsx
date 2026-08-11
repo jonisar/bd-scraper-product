@@ -24,6 +24,7 @@ import FaqSection from "@/components/FaqSection";
 import HeroRatings from "@/components/HeroRatings";
 import ScraperPreview from "@/components/ScraperPreview";
 import ValueBanner from "@/components/ValueBanner";
+import HiddenCostAccordion from "@/components/HiddenCostAccordion";
 import DatasetCtaBanner from "@/components/DatasetCtaBanner";
 import { sampleUrlForDomain, type DomainHubData } from "@/lib/domain-hubs";
 import { cpHref } from "@/lib/cp-href";
@@ -108,12 +109,13 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           <div className="container">
             <div className="section-head">
               <span className="kicker">{hub.name} Scraper API Pricing</span>
-              <h2>Only pay for what&rsquo;s successfully delivered</h2>
+              <h2>Only pay for successful results</h2>
               <p>No hidden fees. No charges for failed deliveries. Every plan includes full access to {hub.name} scrapers and infrastructure.</p>
             </div>
             <PricingSlider className="mb-6" />
             <PricingCards unit="records" />
             <PricingAssurances />
+            <HiddenCostAccordion />
           </div>
         </section>
 
