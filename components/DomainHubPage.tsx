@@ -75,7 +75,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
               <span className="kicker">Web Scrapers</span>
               <h2>Popular {hub.name} scrapers</h2>
               <p>
-                Production-ready {hub.name} scrapers, maintained by Bright Data, unblockable, and ready to call via API.
+                Pick one and call it. Every scraper lists its output fields, delivery volume, and live success rate.
               </p>
             </div>
 
