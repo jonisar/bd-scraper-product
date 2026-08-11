@@ -2354,6 +2354,7 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
 .hub-code-dots { display: inline-flex; gap: 5px; }
 .hub-code-dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.18); }
 .hub-code-response .hub-code-pre { max-height: 320px; overflow: auto; }
+.hub-code-split-output .hub-code-pre { max-height: 420px; overflow: auto; }
 .hub-code-note { margin: 8px 0 0; font-size: 12px; line-height: 1.6; color: var(--text-3); }
 .hub-code-note code { font-family: var(--font-jetbrains, 'JetBrains Mono'), ui-monospace, monospace; font-size: 11px; padding: 1px 5px; border-radius: 5px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); }
 .hub-code-note a { color: var(--accent-2); text-decoration: none; }
