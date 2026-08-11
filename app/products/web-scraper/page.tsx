@@ -271,7 +271,7 @@ export default function WebScraperHome() {
             <h2>Never get blocked again</h2>
             <p>
               Every scraper runs on Bright Data&rsquo;s infrastructure. One API call,
-              and we handle IP rotation, CAPTCHA solving, rendering, and retries automatically.
+              and we handle IP rotation, CAPTCHA solving, rendering, parsing, and retries automatically.
             </p>
           </div>
           <div className="features-grid">
