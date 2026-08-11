@@ -248,6 +248,9 @@ export default function WebScraperHome() {
         </div>
       </section>
 
+      {/* AI Prompt CTA — build your own, right after the agent context */}
+      <AiPromptCta />
+
       {/* SCRAPER PREVIEW — interactive example after agent context */}
       <ScraperPreview />
 
@@ -430,8 +433,6 @@ export default function WebScraperHome() {
         altBg
       />
 
-      {/* AI Prompt CTA */}
-      <AiPromptCta />
       </main>
 
       <Footer />
