@@ -2416,6 +2416,7 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
 @media (max-width: 700px) { .twin-cols { grid-template-columns: 1fr; gap: var(--s6); } }
 .twin-col h2 { font-size: clamp(20px, 3vw, 24px); margin-bottom: var(--s3); }
 .twin-col p { font-size: 14px; color: var(--text-3); line-height: 1.6; }
+.compliance-link { margin: 14px 0 0; font-size: 14px; text-align: center; }
 .compliance-badges {
   display: flex;
   flex-wrap: wrap;
