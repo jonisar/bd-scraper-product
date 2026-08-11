@@ -41,9 +41,13 @@ export default function CompareTable({
               <tr><td>Anti-bot &amp; CAPTCHA bypass</td><td className="compare-highlight">✓ Built-in</td><td>Partial</td><td>Build yourself</td></tr>
               <tr><td>Residential proxy network</td><td className="compare-highlight">✓ 400M+ IPs</td><td>Limited pool</td><td>Buy separately</td></tr>
               <tr><td>{scraperRow.label}</td><td className="compare-highlight">{scraperRow.bd}</td><td>{scraperRow.others}</td><td>{scraperRow.diy}</td></tr>
-              <tr><td>Auto-maintenance (site changes)</td><td className="compare-highlight">✓ 24/7</td><td>Varies</td><td>Your team</td></tr>
+              <tr><td>Auto-maintenance (site changes)</td><td className="compare-highlight">✓ 24/7</td><td>Depends on who built it</td><td>Your team</td></tr>
+              <tr><td>Pricing model</td><td className="compare-highlight">✓ One all-in price per record</td><td>Compute, proxy, and storage metered separately</td><td>Infra plus engineering time</td></tr>
+              <tr><td>Failed requests</td><td className="compare-highlight">✓ Free, pay only for success</td><td>Often billed</td><td>Your cost either way</td></tr>
+              <tr><td>Custom sites (no pre-built scraper)</td><td className="compare-highlight">✓ AI builds it in minutes, self-healing included</td><td>Community-built scrapers, no SLA</td><td>Weeks of code</td></tr>
               <tr><td>Compliance (GDPR, CCPA, SOC 2)</td><td className="compare-highlight">✓ Full</td><td>Partial</td><td>Your responsibility</td></tr>
               <tr><td>Structured output (JSON/CSV)</td><td className="compare-highlight">✓ Automatic</td><td>✓</td><td>Build parsers</td></tr>
+              <tr><td>Support</td><td className="compare-highlight">✓ 24/7 experts, even on the free tier</td><td>Community forum</td><td>You are the support</td></tr>
               <tr><td>Free tier</td><td className="compare-highlight">✓ 5K records/mo</td><td>Varies</td><td>Infra costs</td></tr>
             </tbody>
           </table>

@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import type { Template } from "@/lib/templates";
-import { cpHrefForTemplate } from "@/lib/cp-href";
+import { templateHref } from "@/lib/templates";
 import { DOMAIN_HUBS, CATEGORY_HUBS, type DomainHubData } from "@/lib/domain-hubs";
 
 const ALL_HUBS = Object.values(DOMAIN_HUBS).concat(Object.values(CATEGORY_HUBS));
@@ -37,7 +37,8 @@ function domainOf(input: string) {
 }
 
 function resultHref(t: Template): string {
-  return cpHrefForTemplate(t);
+  // Prefer local detail/hub pages over CP so search matches card behavior
+  return templateHref(t);
 }
 
 function scoreMatch(t: Template, needle: string, dom: string): number {
@@ -298,19 +299,19 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
                   </div>
                 )}
                 <a
-                  href="https://brightdata.com/cp/datasets"
+                  href="/products/web-scraper/scraper-lib"
                   className="hsearch-more"
                   target="_blank"
                   rel="noopener noreferrer"
                   onMouseDown={(e) => e.preventDefault()}
                 >
-                  Browse all scrapers on Bright Data →
+                  Browse all scrapers →
                 </a>
               </>
             ) : (
               <div className="hsearch-empty">
                 <div className="hsearch-empty-top">
-                  No scraper for <b>{dom || q}</b> yet — build one with AI in minutes.
+                  No scraper for <b>{dom || q}</b> yet, build one with AI in minutes.
                 </div>
                 <div className="hsearch-empty-actions">
                   <a

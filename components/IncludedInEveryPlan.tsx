@@ -11,7 +11,7 @@ export default function IncludedInEveryPlan({
         <div className="section-head">
           <span className="kicker">Included in every plan</span>
           <h2>Everything you need, built in</h2>
-          <p>You pay for results. Proxies, rendering, concurrency, and delivery are always included — on every plan.</p>
+          <p>You pay for results. Proxies, rendering, concurrency, and delivery are always included, on every plan.</p>
         </div>
         <div className="features-grid">
           <div className="feature-card"><span className="feature-icon">⟳</span><h3>400M+ proxy IPs</h3><p>Residential IPs across 195 countries. Automatic rotation. No extra charge.</p></div>

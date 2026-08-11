@@ -12,7 +12,7 @@ import AgentGetStarted from "@/components/AgentGetStarted";
 import PricingAssurances from "@/components/PricingAssurances";
 import PricingSlider from "@/components/PricingSlider";
 import { PricingCards } from "@/components/PricingCards";
-import HubCodeExample from "@/components/HubCodeExample";
+import HubCodeExample, { getHubTarget } from "@/components/HubCodeExample";
 import ChooseYourPath from "@/components/ChooseYourPath";
 import StatBanner from "@/components/StatBanner";
 import HubStrip from "@/components/HubStrip";
@@ -75,7 +75,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
               <span className="kicker">Web Scrapers</span>
               <h2>Popular {hub.name} scrapers</h2>
               <p>
-                Production-ready {hub.name} scrapers — auto-maintained, unblockable, and ready to call via API or no-code.
+                Production-ready {hub.name} scrapers, maintained by Bright Data, unblockable, and ready to call via API.
               </p>
             </div>
 
@@ -90,7 +90,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                   fieldsPreview={s.fieldsPreview}
                   views={s.views}
                   downloads={s.downloads}
-                  href={cpHref(s)}
+                  href={s.href || cpHref(s)}
                 />
               ))}
             </div>
@@ -143,7 +143,10 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             </div>
             <div className="hub-code-split">
               <div className="hub-code-split-main">
-                <HubCodeExample sampleUrl={sampleUrl} />
+                <HubCodeExample
+                  sampleUrl={getHubTarget(hub.domain) ? undefined : sampleUrl}
+                  fixedTarget={getHubTarget(hub.domain)?.name}
+                />
               </div>
               <div className="hub-code-split-output">
                 <div className="hub-code-example">
@@ -151,7 +154,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                     <span className="hub-code-tab active" style={{ cursor: "default" }}>Sample response</span>
                   </div>
                   <pre className="hub-code-pre">
-                    <code>{`[{\n  "url": "${sampleUrl}",\n  ${topScraper?.fieldsPreview
+                    <code>{getHubTarget(hub.domain)?.response ?? `[{\n  "url": "${sampleUrl}",\n  ${topScraper?.fieldsPreview
                       ? topScraper.fieldsPreview
                           .replace(", and more.", "")
                           .split(", ")
@@ -187,8 +190,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           <div className="container">
             <div className="section-head">
               <span className="kicker">Choose your path</span>
-              <h2>Start scraping in minutes — your way</h2>
-              <p>Same scrapers, three ways to run them — pick the workflow that fits your team.</p>
+              <h2>Start scraping in minutes, your way</h2>
+              <p>Same scrapers, three ways to run them, pick the workflow that fits your team.</p>
             </div>
             <ChooseYourPath name={hub.name} />
           </div>

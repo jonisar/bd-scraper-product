@@ -24,7 +24,7 @@ export const AMAZON_SITE = {
   title: "Amazon Scraper API",
   headline: "Amazon Scraper API",
   description:
-    "Extract Amazon product data — prices, reviews, ratings, availability, seller info, and more — via API or no-code scraper. Auto-maintained and always unblocked.",
+    "Extract Amazon product data via API: prices, reviews, ratings, availability, seller info, and more. Maintained by Bright Data and always unblocked.",
   scraperCount: 14,
 } as const;
 
@@ -32,7 +32,7 @@ export const AMAZON_SCRAPERS: AmazonScraper[] = [
   {
     id: "amazon-product",
     name: "Amazon Product Scraper",
-    desc: "Collect full product detail pages by URL — title, price, stock, seller, ratings, and more.",
+    desc: "Collect full product detail pages by URL, title, price, stock, seller, ratings, and more.",
     fieldsPreview: "Title, brand, price, availability, reviews, and more.",
     views: "34.7K+",
     downloads: "5.7K+",
@@ -176,7 +176,7 @@ export const AMAZON_PRODUCT_TYPES: {
   },
   {
     title: "Amazon ASIN Scraper",
-    desc: "Product pages by ASIN — title, brand, price, images, availability, and more.",
+    desc: "Product pages by ASIN, title, brand, price, images, availability, and more.",
     href: "/products/web-scraper/amazon/amazon-product-scraper",
     local: true,
   },
@@ -215,7 +215,7 @@ export const AMAZON_FAQS = [
   },
   {
     q: "Is there a free tier available for the Amazon Scraper API?",
-    a: "Yes. New Bright Data accounts include 5,000 free records per month (~$7.50 value) — no credit card, promo code, or commitment. Credits apply to Scrapers, Unlocker API, and SERP API, and renew on the 1st of each month.",
+    a: "Yes. New Bright Data accounts include 5,000 free records per month (~$7.50 value), no credit card, promo code, or commitment. Credits apply to Scrapers, Unlocker API, and SERP API, and renew on the 1st of each month.",
   },
   {
     q: "What happens when my free credits run out while using the Amazon Scraper API?",
@@ -223,7 +223,7 @@ export const AMAZON_FAQS = [
   },
   {
     q: "What are the usage limits for the Amazon Scraper API?",
-    a: "There are no hard concurrency caps for typical use — scale from small tests to millions of records on the same API. Pay only for successfully delivered results.",
+    a: "There are no hard concurrency caps for typical use, scale from small tests to millions of records on the same API. Pay only for successfully delivered results.",
   },
   {
     q: "Do you provide support for the Amazon Scraper API?",

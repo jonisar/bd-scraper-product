@@ -10,6 +10,7 @@ import AiPromptCta from "@/components/AiPromptCta";
 import { PricingCards } from "@/components/PricingCards";
 import PricingSlider from "@/components/PricingSlider";
 import PricingAssurances from "@/components/PricingAssurances";
+import DiscountBanner from "@/components/DiscountBanner";
 import HubCodeExample from "@/components/HubCodeExample";
 import StatBanner from "@/components/StatBanner";
 import ChooseYourPath from "@/components/ChooseYourPath";
@@ -26,11 +27,11 @@ import { templates } from "@/lib/templates";
 export const metadata: Metadata = {
   title: "Web Scraping API - 5K Records/Month for Free",
   description:
-    "The most reliable Web Scraping API. 1,300+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free — no credit card required.",
+    "The most reliable Web Scraping API. 1,400+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free, no credit card required.",
   openGraph: {
     title: "Web Scraping API - 5K Records/Month for Free",
     description:
-      "1,300+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free.",
+      "1,400+ production-ready scrapers with automatic proxy rotation, anti-bot bypass, and JavaScript rendering. Start free.",
     type: "website",
     url: "https://brightdata.com/products/web-scraper",
     siteName: "Bright Data",
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Web Scraping API - 5K Records/Month for Free",
     description:
-      "1,300+ production-ready scrapers with auto proxy rotation, anti-bot bypass, and JS rendering. Start free.",
+      "1,400+ production-ready scrapers with auto proxy rotation, anti-bot bypass, and JS rendering. Start free.",
   },
   alternates: { canonical: "https://brightdata.com/products/web-scraper" },
 };
@@ -55,30 +56,34 @@ export const metadata: Metadata = {
 const FAQ_ITEMS = [
   {
     q: "What is a Web Scraper API?",
-    a: "A cloud-based service that automates web data extraction. It handles IP rotation, CAPTCHA solving, JavaScript rendering, and data parsing into structured formats (JSON, CSV) — so you get clean data without building or maintaining scraping infrastructure.",
+    a: "Bright Data's Web Scraper API is a cloud service that extracts structured data from websites for you. It handles IP rotation, CAPTCHA solving, JavaScript rendering, and parsing into JSON or CSV, so you get clean data without building scraping infrastructure.",
   },
   {
     q: "How is this different from building my own scraper?",
-    a: "DIY scrapers require managing proxies, solving CAPTCHAs, handling blocks, and constant maintenance when sites change. Bright Data's scrapers are auto-maintained 24/7, run on 400M+ residential IPs, and include unblocking — you just call the API and get structured data back.",
+    a: "DIY scrapers require managing proxies, solving CAPTCHAs, handling blocks, and constant maintenance when sites change. Bright Data's scrapers are maintained 24/7, run on 400M+ residential IPs, and include unblocking. Call the API and get structured data back.",
   },
   {
     q: "What websites can I scrape?",
-    a: "There are 1,300+ pre-built scrapers for popular sites including Amazon, LinkedIn, Instagram, TikTok, Google Maps, Zillow, and hundreds more. For any other website, use Scraper Studio to create a custom scraper with AI in minutes.",
+    a: "There are 1,400+ pre-built scrapers for popular sites including Amazon, LinkedIn, Instagram, TikTok, Google Maps, Zillow, and hundreds more. For any other website, use Scraper Studio to create a custom scraper with AI in minutes.",
   },
   {
     q: "Is web scraping with Bright Data legal and compliant?",
-    a: "Yes. Bright Data collects only publicly available data, is ISO 27001 certified, GDPR-ready, and maintains SOC 2 controls. Our Compliance & Ethics team ensures all practices follow data protection laws including GDPR and CCPA.",
+    a: "Yes. Bright Data collects only publicly available data, is ISO 27001 certified, maintains SOC 2 controls, and is GDPR and CCPA compliant. A dedicated Compliance & Ethics team reviews every use case, backed by a documented Know Your Customer process and Acceptable Use Policy. Details are published in the Bright Data Trust Center.",
   },
   {
     q: "How do I get started with the Web Scraper API?",
-    a: "Sign up for free (no credit card), get 5,000 records/month at no cost. Browse the scraper library, pick one, and make your first API call in minutes. Works with cURL, Python, Node.js, or any HTTP client. Also available as an MCP server for AI agents.",
+    a: "Sign up for free (no credit card), get 5,000 records/month at no cost. Browse the scraper library, pick one, and make your first API call in minutes with the Python or Node.js SDKs, the CLI, or any HTTP client. Also available as an MCP server for AI agents.",
+  },
+  {
+    q: "Can AI agents use the Web Scraper API?",
+    a: "Yes. Connect any agent through the hosted MCP server, point a coding agent at brightdata.com/SKILL.md to set itself up, or use the CLI. Agents authenticate once with browser OAuth and can run any of the 1,400+ scrapers or build new ones with Scraper Studio.",
   },
   {
     q: "What data formats are supported?",
     a: "JSON, NDJSON, and CSV. Data can be delivered via API response, webhook, Amazon S3, Google Cloud Storage, Snowflake, or SFTP.",
   },
   {
-    q: "What use cases are Web Scraper APIs optimized for?",
+    q: "What use cases is the Web Scraper API optimized for?",
     a: "Competitive benchmarking, market trend analysis, dynamic pricing, sentiment extraction, lead generation, and feeding data into ML pipelines. Essential for e-commerce, fintech, real estate, and social media analytics.",
   },
   {
@@ -87,11 +92,11 @@ const FAQ_ITEMS = [
   },
   {
     q: "How much does web scraping cost?",
-    a: "Bright Data's Web Scraper API starts free with 5,000 records/month. Pay-as-you-go pricing is $1.50 per 1,000 records, with volume discounts available. You only pay for successfully delivered data — failed requests are free.",
+    a: "Bright Data's Web Scraper API starts free with 5,000 records/month. Pay-as-you-go pricing is $1.50 per 1,000 records, with volume discounts available. You only pay for successfully delivered data, failed requests are free.",
   },
   {
     q: "Can I use this Web Scraper API with Python or Node.js?",
-    a: "Yes. The API works with any HTTP client — Python (requests, aiohttp), Node.js (axios, fetch), cURL, Go, Java, or any language with HTTP support. We provide ready-made code snippets for each scraper in Python and JavaScript (sync and async).",
+    a: "Yes. Official SDKs for Python (brightdata-sdk) and Node.js (@brightdata/sdk) handle auth and result polling for you. You can also call the REST API from any HTTP client: requests, axios, cURL, Go, or Java. Every scraper page includes ready-made snippets in both languages.",
   },
 ] as const;
 
@@ -169,9 +174,8 @@ export default function WebScraperHome() {
           </h1>
 
           <p className="hero-sub">
-            The most reliable web scraping API —{" "}
-            <span className="hero-stat-accent">1,300+ scrapers</span>, automatic
-            proxy rotation, anti-bot bypass, and JS rendering.
+            <span className="hero-stat-accent">1,400+ scrapers we build and maintain</span>, with
+            automatic proxy rotation, anti-bot bypass, and JS rendering.
           </p>
 
           <HeroSearch templates={templates} />
@@ -199,6 +203,7 @@ export default function WebScraperHome() {
             <h2>Only pay for what&rsquo;s successfully delivered</h2>
             <p>No hidden fees. No charges for failed requests. Every plan includes full access to all scrapers and infrastructure.</p>
           </div>
+          <DiscountBanner />
           <PricingSlider className="mb-6" />
           <PricingCards unit="records" />
           <PricingAssurances />
@@ -209,9 +214,9 @@ export default function WebScraperHome() {
               <svg className="hidden-cost-chevron" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
             </summary>
             <div className="hidden-cost-body">
-              <p>Most platforms meter multiple line items on top of the per-record rate. With Bright Data, the record price is the whole bill:</p>
+              <p>Most platforms stack extra charges on top of the per-record rate. With Bright Data, the record price is the whole bill:</p>
               <ul className="hidden-cost-list">
-                <li><span className="hidden-cost-item">Compute / runtime units</span><span className="hidden-cost-note">commonly billed per actor-hour or CU</span><span className="hidden-cost-included">✓ Included</span></li>
+                <li><span className="hidden-cost-item">Compute / runtime units</span><span className="hidden-cost-note">commonly billed per scraper runtime hour or compute unit</span><span className="hidden-cost-included">✓ Included</span></li>
                 <li><span className="hidden-cost-item">Residential proxy bandwidth</span><span className="hidden-cost-note">commonly billed per GB</span><span className="hidden-cost-included">✓ Included</span></li>
                 <li><span className="hidden-cost-item">Storage &amp; dataset retention</span><span className="hidden-cost-note">commonly billed per GB-month</span><span className="hidden-cost-included">✓ Included</span></li>
                 <li><span className="hidden-cost-item">Data transfer / egress</span><span className="hidden-cost-note">commonly billed per GB out</span><span className="hidden-cost-included">✓ Included</span></li>
@@ -225,7 +230,7 @@ export default function WebScraperHome() {
 
       <HowItWorksSteps
         heading="From zero to structured data in 3 steps"
-        step1="Browse 1,300+ pre-built scrapers or create your own with AI in minutes."
+        step1="Browse 1,400+ pre-built scrapers or create your own with AI in minutes."
       />
 
       {/* CODE EXAMPLE */}
@@ -236,7 +241,7 @@ export default function WebScraperHome() {
             <h2>One API call to get structured data</h2>
             <p>Send a URL, get structured JSON back. Works with any HTTP client in any language.</p>
           </div>
-          <HubCodeExample sampleUrl="https://www.amazon.com/dp/B09X7MPX8L" />
+          <HubCodeExample />
         </div>
       </section>
 
@@ -247,6 +252,9 @@ export default function WebScraperHome() {
         </div>
       </section>
 
+      {/* AI Prompt CTA — build your own, right after the agent context */}
+      <AiPromptCta />
+
       {/* SCRAPER PREVIEW — interactive example after agent context */}
       <ScraperPreview />
 
@@ -255,8 +263,8 @@ export default function WebScraperHome() {
         <div className="container">
           <div className="section-head">
             <span className="kicker">Choose your path</span>
-            <h2>Start scraping in minutes — your way</h2>
-            <p>Same scrapers, three ways to run them — pick the workflow that fits your team.</p>
+            <h2>Start scraping in minutes, your way</h2>
+            <p>Same scrapers, three ways to run them, pick the workflow that fits your team.</p>
           </div>
           <ChooseYourPath />
         </div>
@@ -269,8 +277,8 @@ export default function WebScraperHome() {
             <span className="kicker">Under the hood</span>
             <h2>Never get blocked again</h2>
             <p>
-              Every scraper runs on Bright Data&rsquo;s infrastructure. One API call &mdash;
-              we handle IP rotation, CAPTCHA solving, rendering, and retries automatically.
+              Every scraper runs on Bright Data&rsquo;s infrastructure. One API call,
+              and we handle IP rotation, CAPTCHA solving, rendering, parsing, and retries automatically.
             </p>
           </div>
           <div className="features-grid">
@@ -351,6 +359,20 @@ export default function WebScraperHome() {
               <a href="/products/web-scraper/social-media" className="usecase-cta">View all Social Media scrapers →</a>
             </div>
             <div className="usecase-card">
+              <h3><a href="/products/web-scraper/search" className="usecase-title-link">Search &amp; maps scraping API</a></h3>
+              <div className="usecase-labels">
+                <a href="/products/web-scraper/google-maps" className="usecase-label">Google Maps</a>
+                <a href="/products/web-scraper/yelp" className="usecase-label">Yelp</a>
+                <a href="https://brightdata.com/products/web-scraper/tripadvisor" className="usecase-label" target="_blank" rel="noopener noreferrer">Tripadvisor</a>
+                <a href="https://brightdata.com/products/web-scraper/yellow-pages" className="usecase-label" target="_blank" rel="noopener noreferrer">Yellow Pages</a>
+              </div>
+              <p>
+                Collect Google Maps business listings, reviews, ratings, and local SEO data.
+                Monitor rankings, analyze competitors, and track customer sentiment by location.
+              </p>
+              <a href="/products/web-scraper/search" className="usecase-cta">View all Search scrapers →</a>
+            </div>
+            <div className="usecase-card">
               <h3><a href="/products/web-scraper/real-estate" className="usecase-title-link">Real estate scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/zillow" className="usecase-label">Zillow</a>
@@ -380,20 +402,6 @@ export default function WebScraperHome() {
               <a href="/products/web-scraper/b2b" className="usecase-cta">View all B2B scrapers →</a>
             </div>
             <div className="usecase-card">
-              <h3><a href="/products/web-scraper/search" className="usecase-title-link">Search &amp; maps scraping API</a></h3>
-              <div className="usecase-labels">
-                <a href="/products/web-scraper/google-maps" className="usecase-label">Google Maps</a>
-                <a href="/products/web-scraper/yelp" className="usecase-label">Yelp</a>
-                <a href="https://brightdata.com/products/web-scraper/tripadvisor" className="usecase-label" target="_blank" rel="noopener noreferrer">Tripadvisor</a>
-                <a href="https://brightdata.com/products/web-scraper/yellow-pages" className="usecase-label" target="_blank" rel="noopener noreferrer">Yellow Pages</a>
-              </div>
-              <p>
-                Collect Google Maps business listings, reviews, ratings, and local SEO data.
-                Monitor rankings, analyze competitors, and track customer sentiment by location.
-              </p>
-              <a href="/products/web-scraper/search" className="usecase-cta">View all Search scrapers →</a>
-            </div>
-            <div className="usecase-card">
               <h3><a href="/products/web-scraper/finance" className="usecase-title-link">Financial data scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="https://brightdata.com/products/web-scraper/yahoo-finance" className="usecase-label" target="_blank" rel="noopener noreferrer">Yahoo Finance</a>
@@ -414,8 +422,8 @@ export default function WebScraperHome() {
       <CompareTable
         name="Web Scraper API"
         title="Web Scraper API vs DIY scrapers and other providers"
-        description="Compare Bright Data&rsquo;s managed Web Scraper API with other scraping providers and building your own scraper stack — infrastructure, anti-bot, proxies, maintenance, and compliance."
-        scraperRow={{ label: "Pre-built scrapers", bd: "✓ 1,300+", others: "50–200", diy: "0 (build each)" }}
+        description="Compare Bright Data&rsquo;s managed Web Scraper API with other scraping providers and building your own scraper stack, infrastructure, anti-bot, proxies, maintenance, and compliance."
+        scraperRow={{ label: "Pre-built scrapers", bd: "✓ 1,400+", others: "50–200", diy: "0 (build each)" }}
         othersHeader="Other scraping providers"
         altBg
       />
@@ -424,13 +432,11 @@ export default function WebScraperHome() {
 
       <FaqSection
         title="Web Scraper API FAQs"
-        description="Common questions about Bright Data&rsquo;s Web Scraping API — how it works, what you can scrape, compliance, pricing, and getting started."
+        description="Common questions about Bright Data&rsquo;s Web Scraping API, how it works, what you can scrape, compliance, pricing, and getting started."
         items={FAQ_ITEMS}
         altBg
       />
 
-      {/* AI Prompt CTA */}
-      <AiPromptCta />
       </main>
 
       <Footer />

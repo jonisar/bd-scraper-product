@@ -7,11 +7,11 @@ import { CATALOG_CATEGORIES, catalog } from "@/lib/catalog";
 export const metadata: Metadata = {
   title: "Scraper Categories - Browse by Industry & Platform",
   description:
-    "Browse web scrapers by category: e-commerce, social media, B2B, jobs, real estate, travel, search, news, and finance. 1,300+ production-ready scrapers with built-in proxies.",
+    "Browse web scrapers by category: e-commerce, social media, B2B, jobs, real estate, travel, search, news, and finance. 1,400+ production-ready scrapers with built-in proxies.",
   openGraph: {
     title: "Scraper Categories - Browse by Industry & Platform",
     description:
-      "Browse web scrapers by category. 1,300+ production-ready scrapers organized by industry and platform.",
+      "Browse web scrapers by category. 1,400+ production-ready scrapers organized by industry and platform.",
     type: "website",
     url: "https://brightdata.com/products/web-scraper/scraper-lib/categories",
     siteName: "Bright Data",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Scraper Categories - Browse by Industry & Platform",
     description:
-      "Browse 1,300+ web scrapers organized by industry: e-commerce, social media, B2B, jobs, real estate, and more.",
+      "Browse 1,400+ web scrapers organized by industry: e-commerce, social media, B2B, jobs, real estate, and more.",
   },
   alternates: { canonical: "https://brightdata.com/products/web-scraper/scraper-lib/categories" },
 };
@@ -82,7 +82,7 @@ const jsonLd = {
   "@id": "https://brightdata.com/products/web-scraper/scraper-lib/categories",
   url: "https://brightdata.com/products/web-scraper/scraper-lib/categories",
   name: "Scraper Categories - Browse by Industry & Platform",
-  description: "Browse 1,300+ web scrapers organized by category.",
+  description: "Browse 1,400+ web scrapers organized by category.",
   isPartOf: { "@id": "https://brightdata.com#website" },
   inLanguage: "en-US",
 };
@@ -167,7 +167,7 @@ export default function CategoriesPage() {
           <div className="container" style={{ textAlign: "center" }}>
             <h2>Can&rsquo;t find what you need?</h2>
             <p style={{ maxWidth: 520, margin: "0 auto 1.5rem", opacity: 0.8 }}>
-              Build a custom scraper for any website in minutes with AI Scraper Studio — no code required.
+              Build a custom scraper for any website in minutes with AI Scraper Studio, no code required.
             </p>
             <a
               href="/products/web-scraper/studio"

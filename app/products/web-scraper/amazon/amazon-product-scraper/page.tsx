@@ -4,11 +4,11 @@ import ScraperPage from "@/app/components/ScraperPage";
 export const metadata: Metadata = {
   title: "Amazon Product Scraper API - 5K Records/Month for Free",
   description:
-    "Extract prices, reviews, stock levels & seller data from any Amazon product page via API. 40+ structured fields, 99.99% uptime SLA. Start free — 5K records/month, no credit card required.",
+    "Extract prices, reviews, stock levels & seller data from any Amazon product page via API. 40+ structured fields, 99.99% uptime SLA. Start free, 5K records/month, no credit card required.",
   openGraph: {
     title: "Amazon Product Scraper API - 5K Records/Month for Free",
     description:
-      "Extract Amazon product data — prices, reviews, ratings, availability, seller info — via API. 40+ structured fields, 99.99% uptime SLA. Start free.",
+      "Extract Amazon product data, prices, reviews, ratings, availability, seller info, via API. 40+ structured fields, 99.99% uptime SLA. Start free.",
     type: "website",
     url: "https://brightdata.com/products/web-scraper/amazon/amazon-product-scraper",
     siteName: "Bright Data",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 const PAGE_FAQS = [
   {
     q: "What is the Amazon Scraper API?",
-    a: "A fully managed REST API that extracts structured product data from Amazon. Send URLs or ASINs, get back clean JSON with 40+ fields — prices, reviews, seller info, stock levels, and more.",
+    a: "A fully managed REST API that extracts structured product data from Amazon. Send URLs or ASINs, get back clean JSON with 40+ fields, prices, reviews, seller info, stock levels, and more.",
   },
   {
     q: "How does the Amazon Scraper API work?",
@@ -44,7 +44,7 @@ const PAGE_FAQS = [
   },
   {
     q: "Is there a free tier?",
-    a: "Yes. Every account includes 5,000 free records per month — no credit card required. Credits renew on the 1st of each month.",
+    a: "Yes. Every account includes 5,000 free records per month, no credit card required. Credits renew on the 1st of each month.",
   },
   {
     q: "What happens when free credits run out?",
@@ -56,7 +56,7 @@ const PAGE_FAQS = [
   },
   {
     q: "Is the API compliant with data protection regulations?",
-    a: "Yes. All data collection complies with GDPR, CCPA, and SEC regulations. Only publicly available data is collected — the same information any logged-out shopper can see.",
+    a: "Yes. All data collection complies with GDPR, CCPA, and SEC regulations. Only publicly available data is collected, the same information any logged-out shopper can see.",
   },
   {
     q: "Can I use it for competitive analysis?",
@@ -72,7 +72,7 @@ const PAGE_FAQS = [
   },
   {
     q: "Do you provide support?",
-    a: "Yes — 24/7 dedicated support with under 10 minutes average response time, available via chat, email, or phone.",
+    a: "Yes, 24/7 dedicated support with under 10 minutes average response time, available via chat, email, or phone.",
   },
 ] as const;
 

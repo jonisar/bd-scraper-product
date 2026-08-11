@@ -418,7 +418,7 @@ export const HUB_SUBNAV: SubnavItem[] = [
   { label: "Live Demo", href: "#demo" },
   { label: "Compliance", href: "#why" },
   { label: "FAQs", href: "#faq" },
-  { label: "Scraper Marketplace", href: "/products/web-scraper/scraper-lib" },
+  { label: "Scraper Library", href: "/products/web-scraper/scraper-lib" },
 ];
 
 /** Main /products/web-scraper — BD anchors + Use Cases (strong conversion on hub home). */
@@ -431,7 +431,7 @@ export const HOME_SUBNAV: SubnavItem[] = [
   { label: "Live Demo", href: "#demo" },
   { label: "Compliance", href: "#why" },
   { label: "FAQs", href: "#faq" },
-  { label: "Scraper Marketplace", href: "/products/web-scraper/scraper-lib" },
+  { label: "Scraper Library", href: "/products/web-scraper/scraper-lib" },
 ];
 
 /** Scraper library / categories — contextual nav with conversion paths. */

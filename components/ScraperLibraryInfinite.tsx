@@ -533,8 +533,8 @@ export default function ScraperLibraryInfinite() {
               {popular.map((s, i) => renderCard(s, i))}
             </div>
             <p className="slib-view-all">
-              <a href="https://brightdata.com/cp/datasets" className="slib-view-all-link" target="_blank" rel="noopener noreferrer">
-                Browse all scrapers on Bright Data →
+              <a href="/products/web-scraper/scraper-lib" className="slib-view-all-link" target="_blank" rel="noopener noreferrer">
+                Browse all scrapers →
               </a>
             </p>
           </div>
@@ -577,7 +577,7 @@ export default function ScraperLibraryInfinite() {
           <div className="slib-bottom-cta">
             <div className="slib-bottom-cta-body">
               <strong>Can&rsquo;t find what you need?</strong>
-              <p>Build a custom scraper for any website in minutes with AI — no code required.</p>
+              <p>Build a custom scraper for any website in minutes with AI, no code required.</p>
             </div>
             <a href="/products/web-scraper/studio" className="btn btn-primary btn-pill">
               Open Scraper Studio →

@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import { templates } from "@/lib/templates";
-import { cpHrefForTemplate } from "@/lib/cp-href";
+import { templateHref } from "@/lib/templates";
 import { DOMAIN_HUBS, CATEGORY_HUBS, type DomainHubData } from "@/lib/domain-hubs";
 
 const ALL_HUBS = Object.values(DOMAIN_HUBS).concat(Object.values(CATEGORY_HUBS));
@@ -192,7 +192,7 @@ export default function HeaderSearch() {
                 )}
                 {matches.slice(0, 5).map((t, i) => {
                   const idx = hubMatches.length + i;
-                  const href = cpHrefForTemplate(t);
+                  const href = templateHref(t);
                   const external = href.startsWith("http");
                   return (
                   <a
@@ -219,20 +219,20 @@ export default function HeaderSearch() {
               </div>
             )}
             <a
-              href="https://brightdata.com/cp/datasets"
+              href="/products/web-scraper/scraper-lib"
               className="hdr-search-more"
               target="_blank"
               rel="noopener noreferrer"
               onMouseDown={(e) => e.preventDefault()}
             >
-              Browse all scrapers on Bright Data →
+              Browse all scrapers →
             </a>
             </>
           ) : (
             <div className="hdr-search-empty">
               <p>No scraper for <b>{dom || q}</b></p>
               <a
-                href="https://brightdata.com/cp/datasets"
+                href="/products/web-scraper/scraper-lib"
                 className="hdr-search-empty-link"
                 target="_blank"
                 rel="noopener noreferrer"

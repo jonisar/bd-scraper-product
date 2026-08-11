@@ -21,7 +21,7 @@ import json
 API_TOKEN = "<YOUR_API_TOKEN>"
 DATASET_ID = "${DATASET_ID}"
 
-# Synchronous request — results returned in real time
+# Synchronous request, results returned in real time
 response = requests.post(
     "https://api.brightdata.com/datasets/v3/scrape",
     headers={
@@ -41,7 +41,7 @@ response = requests.post(
 
 products = response.json()
 for product in products:
-    print(f"{product['title']} — {product['price']}")
+    print(f"{product['title']}, {product['price']}")
 
 # 📚 Docs → https://docs.brightdata.com/api-reference/scrapers/synchronous-requests`;
 
@@ -90,7 +90,7 @@ results = requests.get(
 )
 
 for product in results.json():
-    print(f"{product['title']} — {product['price']}")
+    print(f"{product['title']}, {product['price']}")
 
 # 📚 Docs → https://docs.brightdata.com/api-reference/scrapers/asynchronous-requests`;
 
@@ -114,7 +114,7 @@ const response = await fetch(
 );
 
 const products = await response.json();
-products.forEach((p) => console.log(\`\${p.title} — \${p.price}\`));
+products.forEach((p) => console.log(\`\${p.title}, \${p.price}\`));
 
 // 📚 Docs → https://docs.brightdata.com/api-reference/scrapers/synchronous-requests`;
 
@@ -158,7 +158,7 @@ const results = await fetch(
 );
 
 const products = await results.json();
-products.forEach((p) => console.log(\`\${p.title} — \${p.price}\`));
+products.forEach((p) => console.log(\`\${p.title}, \${p.price}\`));
 
 // 📚 Docs → https://docs.brightdata.com/api-reference/scrapers/asynchronous-requests`;
 
@@ -215,7 +215,7 @@ const OPENAPI_SNIPPET = `{
     "/datasets/v3/scrape": {
       "post": {
         "operationId": "sync-scrape",
-        "summary": "Synchronous scrape — returns data in real time",
+        "summary": "Synchronous scrape, returns data in real time",
         "parameters": [
           { "name": "dataset_id", "in": "query", "required": true, "schema": { "type": "string" } },
           { "name": "format", "in": "query", "schema": { "type": "string", "enum": ["json", "ndjson", "jsonl", "csv"] } },
@@ -237,7 +237,7 @@ const OPENAPI_SNIPPET = `{
     "/datasets/v3/trigger": {
       "post": {
         "operationId": "async-trigger",
-        "summary": "Async trigger — returns snapshot_id, poll for results",
+        "summary": "Async trigger, returns snapshot_id, poll for results",
         "parameters": [
           { "name": "dataset_id", "in": "query", "required": true, "schema": { "type": "string" } }
         ]
@@ -283,13 +283,13 @@ const SAMPLE_OUTPUT = `{
   "return_policy": "Eligible for Return, Refund or Replacement within 30 days"
 }`;
 
-const AGENT_PROMPT = `Read https://brightdata.com/skills.md and set up Bright Data.
+const AGENT_PROMPT = `Read https://brightdata.com/SKILL.md and set up Bright Data.
 
 Then complete these tasks with the Amazon pipelines
 (amazon_product, amazon_product_reviews, amazon_product_search):
 
-1. Scrape https://www.amazon.com/dp/B09X7MPX8L and report
-   title, price, stars, and in_stock.
+1. Get structured JSON for https://www.amazon.com/dp/B09X7MPX8L
+   via amazon_product and report title, price, stars, and in_stock.
 
 2. Pull reviews for the same product and summarize the top
    complaints in 3 bullets.
@@ -314,7 +314,7 @@ const AGENT_MCP_CONFIG = `{
   }
 }`;
 
-const AGENT_MCP_HOSTED = `# Hosted MCP — no local install needed
+const AGENT_MCP_HOSTED = `# Hosted MCP, no local install needed
 # Use this URL directly in Claude Desktop, Cursor, VS Code, or any MCP client:
 
 https://mcp.brightdata.com/sse?token=<YOUR_API_KEY>
@@ -414,7 +414,7 @@ API_KEY = "<YOUR_API_KEY>"
 DATASET_ID = "${DATASET_ID}"
 
 def scrape_amazon(urls: list[str]) -> list[dict]:
-    """Scrape Amazon products — call this from any agent framework."""
+    """Scrape Amazon products, call this from any agent framework."""
     response = requests.post(
         "https://api.brightdata.com/datasets/v3/scrape",
         headers={
@@ -438,10 +438,10 @@ products = scrape_amazon([
 ])
 
 for p in products:
-    print(f"{p['title']} — \${p['price']} ({p['stars']}★)")`;
+    print(f"{p['title']}, \${p['price']} ({p['stars']}★)")`;
 
 const DESCRIPTION =
-  "Extract prices, reviews, stock levels, and seller data from any Amazon product page via API. No proxy management, no anti-bot headaches — just send URLs and get structured JSON back.";
+  "Extract prices, reviews, stock levels, and seller data from any Amazon product page via API. No proxy management, no anti-bot headaches, just send URLs and get structured JSON back.";
 
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -582,7 +582,7 @@ const FREE_SAMPLE_DATA = [
     reviews_count: 21350,
     categories: "Electronics > Computers & Accessories > Mice > Wireless Mice",
     image: "https://m.media-amazon.com/images/I/61ni3t1ryQL.jpg",
-    features: ["8K DPI any-surface tracking on glass", "Quiet Clicks with 90% less click noise", "MagSpeed scroll wheel — fast, precise, and quiet"],
+    features: ["8K DPI any-surface tracking on glass", "Quiet Clicks with 90% less click noise", "MagSpeed scroll wheel, fast, precise, and quiet"],
     seller: { name: "Logitech", id: "A2MGZTKQA37PXP" },
     delivery: "Saturday, January 25",
   },
@@ -701,12 +701,12 @@ function PricingTab({ compact = false }: { compact?: boolean }) {
           </summary>
           <div className="mt-2 text-[13px] leading-6 text-bd-ink/85">
             <p>
-              Most scraping platforms meter several line items on top of the advertised rate. Here, the
+              Most scraping platforms stack extra charges on top of the advertised rate. Here, the
               per-record price is the whole bill. Every one of these is included:
             </p>
             <ul className="mt-3 space-y-1.5">
               {[
-                { item: "Compute / runtime units", note: "commonly metered per actor-hour or CU" },
+                { item: "Compute / runtime units", note: "commonly billed per scraper runtime hour or compute unit" },
                 { item: "Residential proxy bandwidth", note: "commonly billed per GB on top" },
                 { item: "Storage & dataset retention", note: "commonly billed per GB-month" },
                 { item: "Data transfer / egress", note: "commonly billed per GB out" },
@@ -735,7 +735,7 @@ function PricingTab({ compact = false }: { compact?: boolean }) {
           {[
             { q: "What counts as a record?", a: "One successfully scraped product = one record. Each record is a single JSON object with all data fields (title, price, reviews, seller, etc.). Failed or errored requests are never charged." },
             { q: "Are there setup fees or hidden costs?", a: "No. Zero setup fees, no minimum commitment, no per-request charges, no bandwidth fees. You pay only for successfully delivered records at the rate shown above." },
-            { q: "How do the free records work?", a: "Every Bright Data account includes 5,000 free records per month — no credit card required. Use them with any scraper in the library. Credits renew on the 1st of each month." },
+            { q: "How do the free records work?", a: "Every Bright Data account includes 5,000 free records per month, no credit card required. Use them with any scraper in the library. Credits renew on the 1st of each month." },
             { q: "What happens when free credits run out?", a: "If you have pre-deposited funds, usage continues seamlessly at pay-as-you-go rates. Otherwise, API requests return a clear error until you add funds or credits renew next month." },
             { q: "Can I set a spending limit?", a: "Yes. Set a monthly spend cap in your dashboard. When the limit is reached, requests pause automatically, so there are no surprise bills." },
             { q: "How do volume discounts work?", a: "Rates drop as volume increases, from $1.50/1K at pay-as-you-go down to $1.00/1K at higher volumes. The Scale plan ($499/mo) includes 384K records. Enterprise customers can negotiate further. No long-term commitment required." },
@@ -854,7 +854,7 @@ function PlaygroundPanel() {
           setStatus("error");
           const hint = res.status === 401 ? "\n\nCheck that your API key is correct." :
                        res.status === 403 ? "\n\nYour API key may lack the required permissions." :
-                       res.status === 429 ? "\n\nRate limit exceeded — try again in a few seconds." : "";
+                       res.status === 429 ? "\n\nRate limit exceeded, try again in a few seconds." : "";
           setResult(`HTTP ${res.status} ${res.statusText}${hint}\n\n${text}`);
           applyCooldown(runCount + 1);
           return;
@@ -873,7 +873,7 @@ function PlaygroundPanel() {
         setStatus("error");
         const msg = err instanceof Error ? err.message : "Request failed";
         const hint = msg.includes("Failed to fetch") || msg.includes("NetworkError")
-          ? "Network error — check your connection and try again."
+          ? "Network error, check your connection and try again."
           : msg;
         setResult(hint);
         applyCooldown(runCount + 1);
@@ -1000,7 +1000,7 @@ function PlaygroundPanel() {
           </p>
         ) : urlStatus === "non-amazon" && !isUsingApiKey ? (
           <p className="mt-1.5 text-xs text-amber-400">
-            Not an Amazon URL — add an API key below to scrape non-Amazon sites, or enter an amazon.com product URL for the free demo.
+            Not an Amazon URL, add an API key below to scrape non-Amazon sites, or enter an amazon.com product URL for the free demo.
           </p>
         ) : urlStatus === "non-amazon" && isUsingApiKey ? (
           <p className="mt-1.5 text-xs text-amber-400">
@@ -1019,8 +1019,8 @@ function PlaygroundPanel() {
         ) : !isUsingApiKey && urlStatus !== "invalid" ? (
           <p className={`mt-1.5 text-xs ${sampleState.remaining <= 0 ? "text-amber-400" : "text-bd-muted"}`}>
             {sampleState.remaining > 0
-              ? `${sampleState.remaining}/${FREE_SAMPLE_LIMIT} free demo runs remaining — no sign-up required`
-              : "Free demo limit reached — add your API key for unlimited runs"}
+              ? `${sampleState.remaining}/${FREE_SAMPLE_LIMIT} free demo runs remaining, no sign-up required`
+              : "Free demo limit reached, add your API key for unlimited runs"}
           </p>
         ) : null}
       </div>
@@ -1047,7 +1047,7 @@ function PlaygroundPanel() {
               {status === "running"
                 ? `Scraping… ${(elapsed / 1000).toFixed(1)}s`
                 : status === "done"
-                  ? `Done in ${(elapsed / 1000).toFixed(1)}s — ${isUsingApiKey ? "live results" : "5 sample records returned"}`
+                  ? `Done in ${(elapsed / 1000).toFixed(1)}s, ${isUsingApiKey ? "live results" : "5 sample records returned"}`
                   : "Request failed"}
             </span>
           </span>
@@ -1087,7 +1087,7 @@ function PlaygroundPanel() {
               <p className="text-sm font-semibold text-bd-navy">Hit Run to see real data</p>
               <p className="mt-0.5 text-[13px] leading-relaxed text-bd-muted">
                 Returns structured JSON with title, price, reviews, stock, seller info and more.
-                The default URL is pre-filled — just click Run.
+                The default URL is pre-filled, just click Run.
               </p>
             </div>
           </div>
@@ -1105,7 +1105,7 @@ function PlaygroundPanel() {
             <path d="M6 3.5l4.5 4.5L6 12.5V3.5z" />
           </svg>
           {isUsingApiKey ? (
-            <span className="text-bd-success">API key active — running live queries</span>
+            <span className="text-bd-success">API key active, running live queries</span>
           ) : (
             "Use your API key for live data"
           )}
@@ -1130,7 +1130,7 @@ function PlaygroundPanel() {
                 <a href="https://brightdata.com/cp/setting/users" className="text-bd-blue hover:underline" target="_blank" rel="noreferrer">
                   brightdata.com/cp/setting/users
                 </a>
-                {" "}· Sent directly to api.brightdata.com — never stored.
+                {" "}· Sent directly to api.brightdata.com, never stored.
               </p>
             </div>
             {apiKey.trim() && (
@@ -1374,7 +1374,7 @@ function CustomizeTab({ datasetId, apiMode, onApiModeChange, compact = false }: 
           <div className="min-w-0">
             <h2 className="mb-3 text-lg font-bold text-bd-navy">Customize output</h2>
             <p className="mt-1.5 text-sm leading-6 text-bd-ink/85">
-              Toggle fields and settings below — then open the control panel to run this config for real.
+              Toggle fields and settings below, then open the control panel to run this config for real.
             </p>
           </div>
           <div className="flex w-full shrink-0 flex-col gap-2 sm:w-auto sm:items-end">
@@ -1555,7 +1555,7 @@ function CustomizeTab({ datasetId, apiMode, onApiModeChange, compact = false }: 
         <p className="mt-2.5 text-xs text-bd-muted">
           Configure these in the{" "}
           <a href="https://brightdata.com/cp/datasets" className="font-medium text-bd-blue hover:underline" target="_blank" rel="noreferrer">control panel</a>
-          {" "}— no code needed.
+          {" "}, no code needed.
         </p>
       </section>
 
@@ -1710,7 +1710,7 @@ export function AmazonScraperMain({
                     Amazon Product Scraper
                   </TitleTag>
                   <p className="mt-1.5 text-[13px] leading-snug text-bd-muted/80">
-                    Real-time prices, reviews, stock &amp; seller data — one API call
+                    Real-time prices, reviews, stock &amp; seller data, one API call
                   </p>
                 </div>
                 <div className="flex shrink-0 items-center gap-5 rounded-lg border border-bd-line/50 bg-bd-canvas/40 px-4 py-2.5">
@@ -1782,7 +1782,7 @@ export function AmazonScraperMain({
                 <header>
                   <h2 className="mb-3 text-lg font-bold text-bd-navy">API examples</h2>
                   <p className="mt-1.5 text-[15px] leading-7 text-bd-ink/80">
-                    Call this scraper from your code — pick a language, copy the snippet, add your API key.
+                    Call this scraper from your code, pick a language, copy the snippet, add your API key.
                     Showing{" "}
                     <strong className="font-semibold text-bd-ink">{apiMode === "sync" ? "sync" : "async"}</strong>
                     {" "}examples
@@ -1839,7 +1839,7 @@ export function AmazonScraperMain({
                         <p className="mt-1 text-xs text-bd-muted">
                           {apiMode === "sync"
                             ? "Real-time response via /datasets/v3/scrape"
-                            : "Returns snapshot_id via /datasets/v3/trigger — poll or webhook"}
+                            : "Returns snapshot_id via /datasets/v3/trigger, poll or webhook"}
                         </p>
                       </div>
 
@@ -1946,7 +1946,7 @@ export function AmazonScraperMain({
                       id: "async" as const,
                       title: "Async",
                       endpoint: "/datasets/v3/trigger",
-                      body: "Returns a snapshot_id instantly — poll the snapshot or deliver via webhook.",
+                      body: "Returns a snapshot_id instantly, poll the snapshot or deliver via webhook.",
                       best: "Best for: production & large jobs, any size",
                     },
                   ]).map((mode) => {
@@ -2117,7 +2117,7 @@ export function AmazonScraperMain({
                   ))}
                 </div>
                 <p className="mt-2.5 text-[13px] leading-5 text-bd-ink/85">
-                  Sample of the most-used fields — full types and samples are in the schema.
+                  Sample of the most-used fields, full types and samples are in the schema.
                 </p>
               </section>
 
@@ -2131,8 +2131,8 @@ export function AmazonScraperMain({
                   {[
                     { method: "REST API", desc: "Bearer-token auth. POST URLs to /datasets/v3/scrape (sync) or /datasets/v3/trigger (async). Python, Node.js, cURL.", tab: "API" as MainTab },
                     { method: "CLI", desc: "npx @brightdata/cli bdata login (browser OAuth) → bdata pipelines amazon_product \"URL\". No API key to paste.", tab: "Connect Agent" as MainTab },
-                    { method: "MCP", desc: "Hosted server URL — paste into Claude Desktop, Cursor, or VS Code. No install required.", tab: "Connect Agent" as MainTab },
-                    { method: "SDKs", desc: "LangChain, CrewAI, OpenAI SDK — wrap Amazon scraping as a callable tool in your agent.", tab: "Connect Agent" as MainTab },
+                    { method: "MCP", desc: "Hosted server URL, paste into Claude Desktop, Cursor, or VS Code. No install required.", tab: "Connect Agent" as MainTab },
+                    { method: "SDKs", desc: "LangChain, CrewAI, OpenAI SDK, wrap Amazon scraping as a callable tool in your agent.", tab: "Connect Agent" as MainTab },
                   ].map((m) => (
                     <button
                       key={m.method}
@@ -2152,11 +2152,11 @@ export function AmazonScraperMain({
                 <h3 className="mb-3 text-lg font-bold text-bd-navy">Key capabilities</h3>
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {[
-                    { title: "Rich product schema", desc: "Prices, reviews, BSR, seller info, stock status, images — parsed and typed." },
+                    { title: "Rich product schema", desc: "Prices, reviews, BSR, seller info, stock status, images, parsed and typed." },
                     { title: "Anti-bot bypass", desc: "Proxy rotation, CAPTCHA solving, fingerprint management, and JS rendering." },
                     { title: "18 marketplaces", desc: "Scrape .com, .co.uk, .de, .co.jp, and 14 more. Localized pricing and rankings." },
                     { title: "Bulk & async", desc: "Unlimited URLs per request (up to 1 GB input). Async mode returns a snapshot ID for polling/webhook." },
-                    { title: "Pay for success", desc: "Charged only for successfully delivered records — failed scrapes are free." },
+                    { title: "Pay for success", desc: "Charged only for successfully delivered records, failed scrapes are free." },
                     { title: "Unlimited concurrency", desc: "Run as many parallel requests as you need. Scale plans get priority throughput." },
                   ].map((f) => (
                     <div key={f.title} className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
@@ -2170,7 +2170,7 @@ export function AmazonScraperMain({
               {/* ── 7. Infrastructure — what's handled ── */}
               <section>
                 <h3 className="mb-3 text-lg font-bold text-bd-navy">
-                  Fully managed — included in every request
+                  Fully managed, included in every request
                 </h3>
                 <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
                   {[
@@ -2203,7 +2203,7 @@ export function AmazonScraperMain({
                   Limits, alerts &amp; job controls
                 </h2>
                 <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/85">
-                  Production knobs developers use to keep scrapes predictable — configure in the{" "}
+                  Production knobs developers use to keep scrapes predictable, configure in the{" "}
                   <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">
                     Customize
                   </button>{" "}
@@ -2213,7 +2213,7 @@ export function AmazonScraperMain({
                   {[
                     {
                       title: "Hard spend & record limits",
-                      desc: "Set a monthly spend cap and per-run record limit. Requests pause when a cap is hit — no surprise bills.",
+                      desc: "Set a monthly spend cap and per-run record limit. Requests pause when a cap is hit, no surprise bills.",
                     },
                     {
                       title: "Alerts & notifications",
@@ -2221,7 +2221,7 @@ export function AmazonScraperMain({
                     },
                     {
                       title: "Scheduled & batch runs",
-                      desc: "Trigger hourly, daily, or weekly collections — or fire jobs via API for your own cron/orchestrator.",
+                      desc: "Trigger hourly, daily, or weekly collections, or fire jobs via API for your own cron/orchestrator.",
                     },
                     {
                       title: "Job management APIs",
@@ -2233,7 +2233,7 @@ export function AmazonScraperMain({
                     },
                     {
                       title: "Errors you can act on",
-                      desc: "Use include_errors to return failed inputs with error codes alongside successful records — nothing silently dropped.",
+                      desc: "Use include_errors to return failed inputs with error codes alongside successful records, nothing silently dropped.",
                     },
                   ].map((f) => (
                     <div key={f.title} className="rounded-xl border border-bd-line bg-bd-panel px-4 py-3">
@@ -2261,7 +2261,7 @@ export function AmazonScraperMain({
                         ["Output formats", "JSON, NDJSON, CSV, .gz compressed"],
                         ["Geotargeting", "18 Amazon marketplaces worldwide"],
                         ["Uptime SLA", "99.9%"],
-                        ["Rate limits", "Based on plan — Scale plans include priority throughput"],
+                        ["Rate limits", "Based on plan, Scale plans include priority throughput"],
                         ["SDKs & integrations", "Python, JavaScript, cURL, MCP, OpenAI, LangChain, CrewAI"],
                       ].map(([label, value]) => (
                         <tr key={label}>
@@ -2304,16 +2304,16 @@ export function AmazonScraperMain({
                   Popular Amazon Scrapers
                 </h2>
                 <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/80">
-                  Specialized scrapers for every Amazon data type — pick the one that fits your use case.
+                  Specialized scrapers for every Amazon data type, pick the one that fits your use case.
                 </p>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
                   {[
-                    { name: "Amazon Product Scraper", domain: "amazon.com", category: "E-commerce", desc: "Prices, titles, images, specs, stock levels, and 40+ fields from any product page.", fieldsPreview: "title, price, rating, reviews, stock, images", views: "48.2K+", downloads: "12.6K+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije" },
-                    { name: "Amazon Best Sellers", domain: "amazon.com", category: "Rankings", desc: "Bestseller rankings, category leaderboards, movers & shakers, and trending products.", fieldsPreview: "rank, title, price, rating, category, sales_volume", views: "34.6K+", downloads: "5.1K+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije" },
-                    { name: "Amazon Reviews Scraper", domain: "amazon.com", category: "Reviews", desc: "Review text, star ratings, author info, verified purchase status, and helpful votes.", fieldsPreview: "review_text, rating, author, verified, helpful_votes", views: "7.2K+", downloads: "1.8K+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_le8e811kzy4ggddlq" },
-                    { name: "Amazon Sellers Info", domain: "amazon.com", category: "Sellers", desc: "Seller name, store rating, feedback count, return policy, and business address.", fieldsPreview: "seller_name, rating, feedback_count, return_policy", views: "2.4K+", downloads: "820+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_lhotzucw1etoe5iw1k" },
-                    { name: "Amazon Price Tracker", domain: "amazon.com", category: "Pricing", desc: "Real-time pricing, discounts, deal badges, Buy Box winner, and stock availability.", fieldsPreview: "price, list_price, discount, buy_box, stock_status", views: "1.6K+", downloads: "540+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije" },
-                    { name: "Amazon Keyword Search", domain: "amazon.com", category: "Search", desc: "Search results by keyword — product listings, sponsored placements, and organic rankings.", fieldsPreview: "title, price, position, sponsored, rating, url", views: "3.8K+", downloads: "1.1K+", href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_lwdb4vjm1ehb499uxs" },
+                    { name: "Amazon Product Scraper", domain: "amazon.com", category: "E-commerce", desc: "Prices, titles, images, specs, stock levels, and 40+ fields from any product page.", fieldsPreview: "title, price, rating, reviews, stock, images", views: "48.2K+", downloads: "12.6K+", href: "/products/web-scraper/amazon/amazon-product-scraper" },
+                    { name: "Amazon Best Sellers", domain: "amazon.com", category: "Rankings", desc: "Bestseller rankings, category leaderboards, movers & shakers, and trending products.", fieldsPreview: "rank, title, price, rating, category, sales_volume", views: "34.6K+", downloads: "5.1K+", href: "https://brightdata.com/products/web-scraper/amazon/best-sellers" },
+                    { name: "Amazon Reviews Scraper", domain: "amazon.com", category: "Reviews", desc: "Review text, star ratings, author info, verified purchase status, and helpful votes.", fieldsPreview: "review_text, rating, author, verified, helpful_votes", views: "7.2K+", downloads: "1.8K+", href: "https://brightdata.com/products/web-scraper/amazon/reviews" },
+                    { name: "Amazon Sellers Info", domain: "amazon.com", category: "Sellers", desc: "Seller name, store rating, feedback count, return policy, and business address.", fieldsPreview: "seller_name, rating, feedback_count, return_policy", views: "2.4K+", downloads: "820+", href: "https://brightdata.com/products/web-scraper/amazon/seller" },
+                    { name: "Amazon Price Tracker", domain: "amazon.com", category: "Pricing", desc: "Real-time pricing, discounts, deal badges, Buy Box winner, and stock availability.", fieldsPreview: "price, list_price, discount, buy_box, stock_status", views: "1.6K+", downloads: "540+", href: "https://brightdata.com/products/web-scraper/amazon/price" },
+                    { name: "Amazon Keyword Search", domain: "amazon.com", category: "Search", desc: "Search results by keyword, product listings, sponsored placements, and organic rankings.", fieldsPreview: "title, price, position, sponsored, rating, url", views: "3.8K+", downloads: "1.1K+", href: "https://brightdata.com/products/web-scraper/amazon" },
                   ].map((s) => (
                     <ScraperCard key={s.name} {...s} />
                   ))}
@@ -2389,7 +2389,7 @@ export function AmazonScraperMain({
                   {[
                     {
                       q: "What is the Amazon Scraper API?",
-                      a: "A fully managed REST API that extracts structured product data from Amazon. Send URLs or ASINs, get back clean JSON with 40+ fields — prices, reviews, seller info, stock levels, and more.",
+                      a: "A fully managed REST API that extracts structured product data from Amazon. Send URLs or ASINs, get back clean JSON with 40+ fields, prices, reviews, seller info, stock levels, and more.",
                     },
                     {
                       q: "How does the Amazon Scraper API work?",
@@ -2397,7 +2397,7 @@ export function AmazonScraperMain({
                     },
                     {
                       q: "Are free records included?",
-                      a: "Yes. Every account includes 5,000 free records per month — no credit card required. Credits renew on the 1st of each month.",
+                      a: "Yes. Every account includes 5,000 free records per month, no credit card required. Credits renew on the 1st of each month.",
                     },
                     {
                       q: "What happens when free credits run out?",
@@ -2409,7 +2409,7 @@ export function AmazonScraperMain({
                     },
                     {
                       q: "Is the API compliant with data protection regulations?",
-                      a: "Yes. All data collection complies with GDPR, CCPA, and SEC regulations. Only publicly available data is collected — the same information any logged-out shopper can see.",
+                      a: "Yes. All data collection complies with GDPR, CCPA, and SEC regulations. Only publicly available data is collected, the same information any logged-out shopper can see.",
                     },
                     {
                       q: "Can I use it for competitive analysis?",
@@ -2425,7 +2425,7 @@ export function AmazonScraperMain({
                     },
                     {
                       q: "Do you provide support?",
-                      a: "Yes — 24/7 dedicated support with under 10 minutes average response time, available via chat, email, or phone.",
+                      a: "Yes, 24/7 dedicated support with under 10 minutes average response time, available via chat, email, or phone.",
                     },
                   ].map((faq) => (
                     <details key={faq.q} open className="group px-4 py-3.5">
@@ -2468,7 +2468,7 @@ export function AmazonScraperMain({
                         ["Geotargeting", "Buy proxies per country", "18 marketplaces, one API"],
                         ["Output format", "Custom parsing logic", "Clean JSON / CSV / NDJSON"],
                         ["Uptime & reliability", "Depends on your infra", "99.9% SLA, 24/7 monitoring"],
-                        ["Time to first result", "Days–weeks of development", "Minutes — one API call"],
+                        ["Time to first result", "Days–weeks of development", "Minutes, one API call"],
                       ].map(([cap, diy, bd]) => (
                         <tr key={cap}>
                           <td className="px-4 py-2.5 font-medium text-bd-navy">{cap}</td>
@@ -2486,7 +2486,7 @@ export function AmazonScraperMain({
                   Amazon Scraping Challenges & How Bright Data Solves Them
                 </h2>
                 <p className="mt-2">
-                  Amazon runs one of the most aggressive anti-bot stacks on the web — AWS WAF, TLS
+                  Amazon runs one of the most aggressive anti-bot stacks on the web, AWS WAF, TLS
                   fingerprinting, behavioral analysis, and IP reputation scoring. Here&apos;s how the
                   managed scraper handles each layer automatically:
                 </p>
@@ -2498,7 +2498,7 @@ export function AmazonScraperMain({
                     },
                     {
                       challenge: "CAPTCHA challenges",
-                      solution: "Built-in CAPTCHA solving — handled server-side, no 3rd-party service needed.",
+                      solution: "Built-in CAPTCHA solving, handled server-side, no 3rd-party service needed.",
                     },
                     {
                       challenge: "Dynamic JavaScript rendering",
@@ -2510,7 +2510,7 @@ export function AmazonScraperMain({
                     },
                     {
                       challenge: "Frequent layout changes",
-                      solution: "Bright Data maintains and updates parsers continuously — zero maintenance for you.",
+                      solution: "Bright Data maintains and updates parsers continuously, zero maintenance for you.",
                     },
                     {
                       challenge: "Geo-restricted pricing",
