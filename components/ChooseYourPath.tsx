@@ -26,7 +26,7 @@ export default function ChooseYourPath(_props: ChooseYourPathProps) {
         <span className="hub-path-cta">Start with API →</span>
       </a>
       <a
-        href="https://brightdata.com/cp/data_collector/collectors/create?camp=plg"
+        href="https://brightdata.com/cp/scrapers/gd_l7q7dkf244hwjntr0/pdp/configuration"
         className="hub-path-card"
         target="_blank"
         rel="noopener noreferrer"
