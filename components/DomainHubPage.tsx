@@ -12,7 +12,7 @@ import AgentGetStarted from "@/components/AgentGetStarted";
 import PricingAssurances from "@/components/PricingAssurances";
 import PricingSlider from "@/components/PricingSlider";
 import { PricingCards } from "@/components/PricingCards";
-import HubCodeExample, { getHubTarget } from "@/components/HubCodeExample";
+import HubCodeExample, { getHubTarget, HubCodeAuthNote } from "@/components/HubCodeExample";
 import ChooseYourPath from "@/components/ChooseYourPath";
 import StatBanner from "@/components/StatBanner";
 import HowItWorksSteps from "@/components/HowItWorksSteps";
@@ -158,6 +158,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                 </div>
               </div>
             </div>
+            <HubCodeAuthNote />
           </div>
         </section>
 

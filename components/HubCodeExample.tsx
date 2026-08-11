@@ -219,6 +219,24 @@ const TARGETS = [
 
 type TargetName = (typeof TARGETS)[number]["name"];
 
+/** Shared authentication note rendered under quick start code panels. */
+export function HubCodeAuthNote() {
+  return (
+    <p className="hub-code-auth">
+      <span aria-hidden="true">🔑</span> <strong>Authentication:</strong> pass your API
+      key as a Bearer token in the <code>Authorization</code> header. Get your key at{" "}
+      <a
+        href="https://brightdata.com/cp/setting/users"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        brightdata.com/cp/setting/users
+      </a>
+      .
+    </p>
+  );
+}
+
 /** Hub pages with a real captured example (SDK call + genuine response). */
 export function getHubTarget(domain: string) {
   return TARGETS.find((t) => t.domain === domain);
@@ -400,18 +418,7 @@ else console.log("processing, poll snapshot:", data.snapshot_id);`;
           </p>
         </div>
       </div>
-      <p className="hub-code-auth">
-        <span aria-hidden="true">🔑</span> <strong>Authentication:</strong> pass your API
-        key as a Bearer token in the <code>Authorization</code> header. Get your key at{" "}
-        <a
-          href="https://brightdata.com/cp/setting/users"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          brightdata.com/cp/setting/users
-        </a>
-        .
-      </p>
+      <HubCodeAuthNote />
     </div>
   );
 }
