@@ -73,7 +73,7 @@ export default function HeaderSearch() {
   const goToSearchResults = useCallback(() => {
     const trimmed = q.trim();
     if (!trimmed) return;
-    window.open("https://brightdata.com/cp/datasets", "_blank", "noopener,noreferrer");
+    window.location.href = `/products/web-scraper/scraper-lib?q=${encodeURIComponent(trimmed)}`;
   }, [q]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

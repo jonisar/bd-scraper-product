@@ -76,12 +76,10 @@ function scoreHubMatch(hub: DomainHubData, needle: string, dom: string): number 
   return 0;
 }
 
-const CP_DATASETS = "https://brightdata.com/cp/datasets";
-
 export default function HeroSearch({ templates }: { templates: Template[] }) {
   const [q, setQ] = useState("");
   const [focused, setFocused] = useState(false);
-  const [activeIdx, setActiveIdx] = useState(0);
+  const [activeIdx, setActiveIdx] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const blurTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -139,7 +137,7 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
   const goToSearchResults = useCallback(() => {
     const trimmed = q.trim();
     if (!trimmed) return;
-    window.open(CP_DATASETS, "_blank", "noopener,noreferrer");
+    window.location.href = `/products/web-scraper/scraper-lib?q=${encodeURIComponent(trimmed)}`;
   }, [q]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -210,7 +208,7 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
             value={q}
             onChange={(e) => {
               setQ(e.target.value);
-              setActiveIdx(0);
+              setActiveIdx(-1);
               setFocused(true);
             }}
             onFocus={handleFocus}
