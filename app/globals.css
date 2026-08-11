@@ -424,9 +424,14 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   gap: var(--s3);
   margin-top: var(--s5);
 }
+.hero-ctas .btn {
+  font-size: 16px;
+  padding: 14px 36px;
+  letter-spacing: -0.01em;
+}
 @media (max-width: 640px) {
-  .hero-ctas { flex-direction: column; width: 100%; max-width: 360px; margin-left: auto; margin-right: auto; }
-  .hero-ctas .btn { width: 100%; justify-content: center; }
+  .hero-ctas { flex-direction: column; width: 100%; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .hero-ctas .btn { width: 100%; justify-content: center; padding: 16px 36px; }
 }
 .lib-page .hero-sub,
 .hero-sub { font-size: 17px; color: var(--text-2); max-width: 580px; margin: var(--s3) 0 var(--s4); line-height: 1.5; }

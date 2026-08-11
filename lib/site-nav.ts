@@ -434,15 +434,15 @@ export const HOME_SUBNAV: SubnavItem[] = [
   { label: "Scraper Library", href: "/products/web-scraper/scraper-lib" },
 ];
 
-/** Scraper library / categories — contextual nav with conversion paths. */
+/** Scraper library / categories — quick-nav for popular verticals + build-your-own. */
 export const LIBRARY_SUBNAV: SubnavItem[] = [
-  { label: "All Scrapers", href: "/products/web-scraper/scraper-lib" },
   { label: "Categories", href: "/products/web-scraper/scraper-lib/categories" },
+  { label: "E-commerce", href: "/products/web-scraper/ecommerce" },
+  { label: "Social Media", href: "/products/web-scraper/social-media" },
+  { label: "B2B", href: "/products/web-scraper/b2b" },
+  { label: "Jobs", href: "/products/web-scraper/jobs" },
+  { label: "Real Estate", href: "/products/web-scraper/real-estate" },
   { label: "AI Scraper Studio", href: "/products/web-scraper/studio" },
-  { label: "Pricing", href: "/products/web-scraper#pricing" },
-  { label: "Code Examples", href: "/products/web-scraper#code" },
-  { label: "AI Agents", href: "/products/web-scraper#agents" },
-  { label: "Docs", href: "https://docs.brightdata.com/" },
 ];
 
 /** AI Scraper Studio page. */
