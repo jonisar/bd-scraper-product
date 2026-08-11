@@ -15,7 +15,6 @@ import { PricingCards } from "@/components/PricingCards";
 import HubCodeExample, { getHubTarget } from "@/components/HubCodeExample";
 import ChooseYourPath from "@/components/ChooseYourPath";
 import StatBanner from "@/components/StatBanner";
-import HubStrip from "@/components/HubStrip";
 import HowItWorksSteps from "@/components/HowItWorksSteps";
 import IncludedInEveryPlan from "@/components/IncludedInEveryPlan";
 import UnderTheHood from "@/components/UnderTheHood";
@@ -95,7 +94,6 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
               ))}
             </div>
 
-            <HubStrip />
           </div>
         </section>
 
