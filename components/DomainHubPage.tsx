@@ -12,7 +12,7 @@ import AgentGetStarted from "@/components/AgentGetStarted";
 import PricingAssurances from "@/components/PricingAssurances";
 import PricingSlider from "@/components/PricingSlider";
 import { PricingCards } from "@/components/PricingCards";
-import HubCodeExample, { getHubTarget, HubCodeAuthNote } from "@/components/HubCodeExample";
+import HubCodeExample, { getHubTarget, HubCodeAuthNote, Highlighted } from "@/components/HubCodeExample";
 import ChooseYourPath from "@/components/ChooseYourPath";
 import StatBanner from "@/components/StatBanner";
 import HowItWorksSteps from "@/components/HowItWorksSteps";
@@ -148,7 +148,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                     <span className="hub-code-tab active" style={{ cursor: "default" }}>Sample response</span>
                   </div>
                   <pre className="hub-code-pre">
-                    <code>{getHubTarget(hub.domain)?.response ?? `[{\n  "url": "${sampleUrl}",\n  ${topScraper?.fieldsPreview
+                    <code><Highlighted kind="json" code={getHubTarget(hub.domain)?.response ?? `[{\n  "url": "${sampleUrl}",\n  ${topScraper?.fieldsPreview
                       ? topScraper.fieldsPreview
                           .replace(", and more.", "")
                           .split(", ")
@@ -156,7 +156,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                           .map((f) => `"${f.trim()}": "..."`)
                           .join(",\n  ")
                       : `"title": "...",\n  "price": "..."`
-                    },\n  ...\n}]`}</code>
+                    },\n  ...\n}]`} /></code>
                   </pre>
                 </div>
               </div>

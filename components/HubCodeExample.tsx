@@ -20,7 +20,7 @@ const GROUP_CLASSES: Record<TokKind, (string | null)[]> = {
   json: ["cx-key", null, "cx-str", "cx-num", "cx-bool"],
 };
 
-function Highlighted({ code, kind }: { code: string; kind: TokKind }) {
+export function Highlighted({ code, kind }: { code: string; kind: TokKind }) {
   const re = new RegExp(TOKEN_RES[kind].source, "g");
   const classes = GROUP_CLASSES[kind];
   const out: ReactNode[] = [];
