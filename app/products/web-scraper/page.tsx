@@ -263,8 +263,8 @@ export default function WebScraperHome() {
         <div className="container">
           <div className="section-head">
             <span className="kicker">Choose your path</span>
-            <h2>Start scraping in minutes, your way</h2>
-            <p>Same scrapers, three ways to run them, pick the workflow that fits your team.</p>
+            <h2>Same scrapers, three ways to run them</h2>
+            <p>Call the API from code, click through the control panel, or hand it to your AI agent.</p>
           </div>
           <ChooseYourPath />
         </div>

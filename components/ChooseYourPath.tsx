@@ -2,11 +2,7 @@ type ChooseYourPathProps = {
   name?: string;
 };
 
-export default function ChooseYourPath({ name }: ChooseYourPathProps) {
-  const label = name || "web";
-  const heading = name
-    ? `Effortlessly scrape ${name} data`
-    : "Start scraping in minutes, your way";
+export default function ChooseYourPath(_props: ChooseYourPathProps) {
 
   return (
     <div className="hub-paths">
@@ -16,15 +12,15 @@ export default function ChooseYourPath({ name }: ChooseYourPathProps) {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span className="hub-path-kicker">API-based scraper</span>
-        <h3>{label === "web" ? "Web Scraper API" : `${name} Scraper API`}</h3>
+        <span className="hub-path-kicker">API</span>
+        <h3>Call it from code</h3>
         <p>
-          Trigger collections with parameters, schedule at scale, and deliver to
+          Trigger runs with parameters, schedule recurring jobs, and deliver to
           your storage or webhook.
         </p>
         <ul className="hub-path-list">
           <li>Build requests in any language</li>
-          <li>Automate with schedulers &amp; webhooks</li>
+          <li>Automate with schedulers and webhooks</li>
           <li>JSON, NDJSON, or CSV delivery</li>
         </ul>
         <span className="hub-path-cta">Start with API →</span>
@@ -35,30 +31,29 @@ export default function ChooseYourPath({ name }: ChooseYourPathProps) {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span className="hub-path-kicker">Control panel scraper</span>
-        <h3>{label === "web" ? "No-code scraper" : `${name} no-code scraper`}</h3>
+        <span className="hub-path-kicker">Control panel</span>
+        <h3>Run it in the control panel</h3>
         <p>
-          Plug-and-play in the control panel, add inputs, run the scraper,
-          download results.
+          No engineering required: configure inputs, run, and download results
+          in one place.
         </p>
         <ul className="hub-path-list">
-          <li>No engineering required</li>
-          <li>Configure inputs in the UI</li>
-          <li>Download results from the CP</li>
+          <li>Configure inputs visually</li>
+          <li>Run with one click</li>
+          <li>Download JSON or CSV</li>
         </ul>
         <span className="hub-path-cta">Open control panel →</span>
       </a>
       <a href="#agents" className="hub-path-card">
-        <span className="hub-path-kicker">AI agent integration</span>
-        <h3>{label === "web" ? "Agent scraper" : `${name} agent scraper`}</h3>
+        <span className="hub-path-kicker">AI agent</span>
+        <h3>Hand it to your agent</h3>
         <p>
-          Connect via MCP or CLI, your AI agent reads a skill file and scrapes
-          autonomously.
+          Your agent reads SKILL.md over MCP or the CLI and scrapes on its own.
         </p>
         <ul className="hub-path-list">
           <li>Works with any MCP-compatible agent</li>
-          <li>Single prompt to scrape</li>
-          <li>Structured data returned to agent</li>
+          <li>One prompt to scrape</li>
+          <li>Structured JSON straight back to your agent</li>
         </ul>
         <span className="hub-path-cta">Connect your agent →</span>
       </a>
