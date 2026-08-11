@@ -299,8 +299,6 @@ export default function HeroSearch({ templates }: { templates: Template[] }) {
                 <a
                   href="/products/web-scraper/scraper-lib"
                   className="hsearch-more"
-                  target="_blank"
-                  rel="noopener noreferrer"
                   onMouseDown={(e) => e.preventDefault()}
                 >
                   Browse all scrapers →

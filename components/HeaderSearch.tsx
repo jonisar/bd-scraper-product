@@ -221,8 +221,6 @@ export default function HeaderSearch() {
             <a
               href="/products/web-scraper/scraper-lib"
               className="hdr-search-more"
-              target="_blank"
-              rel="noopener noreferrer"
               onMouseDown={(e) => e.preventDefault()}
             >
               Browse all scrapers →
@@ -234,8 +232,6 @@ export default function HeaderSearch() {
               <a
                 href="/products/web-scraper/scraper-lib"
                 className="hdr-search-empty-link"
-                target="_blank"
-                rel="noopener noreferrer"
                 onMouseDown={(e) => e.preventDefault()}
               >
                 Browse all scrapers →
