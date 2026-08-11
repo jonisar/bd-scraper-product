@@ -1205,7 +1205,8 @@ export const CATEGORY_HUBS: Record<string, DomainHubData> = {
       { title: "Market & inventory intelligence", body: "Track stock levels, seller activity, bestseller rankings, and new product launches to identify market opportunities and optimize inventory planning.", tags: "Stock · Sellers · Rankings · Launches" },
     ],
     faqs: [
-      { q: "Which e-commerce sites can I scrape?", a: "Amazon, Walmart, Shopee, eBay, Target, Home Depot, Best Buy, Etsy, AliExpress, and 50+ more marketplaces. Each has dedicated pre-built scrapers." },
+      { q: "Which e-commerce sites can I scrape?", a: "Bright Data has dedicated pre-built scrapers for Amazon, Walmart, Shopee, eBay, Target, Home Depot, Best Buy, Etsy, AliExpress, and 50+ more marketplaces." },
+      { q: "Can AI agents use the E-commerce Scraper API?", a: "Yes. Connect any agent through the hosted MCP server, point a coding agent at brightdata.com/SKILL.md, or use the CLI. Agents run the same e-commerce scrapers and get structured JSON back: products, prices, reviews, and sellers." },
       { q: "What e-commerce data can I extract?", a: "Product titles, prices, reviews, ratings, images, stock levels, seller info, category rankings, shipping details, and promotional data, all as structured JSON." },
       { q: "Can I track price changes over time?", a: "Yes. Schedule recurring scraper runs to build price history datasets. Combine with webhook delivery for real-time price change alerts." },
       { q: "How do you handle anti-bot protections?", a: "Automatic IP rotation through 400M+ residential IPs, CAPTCHA solving, browser fingerprinting, and JavaScript rendering, all built in." },
