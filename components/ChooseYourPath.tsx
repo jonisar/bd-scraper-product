@@ -6,12 +6,7 @@ export default function ChooseYourPath(_props: ChooseYourPathProps) {
 
   return (
     <div className="hub-paths">
-      <a
-        href="https://brightdata.com/cp/start"
-        className="hub-path-card"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href="#code" className="hub-path-card">
         <span className="hub-path-kicker">API</span>
         <h3>Call it from code</h3>
         <p>
