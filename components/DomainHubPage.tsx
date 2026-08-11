@@ -12,7 +12,7 @@ import AgentGetStarted from "@/components/AgentGetStarted";
 import PricingAssurances from "@/components/PricingAssurances";
 import PricingSlider from "@/components/PricingSlider";
 import { PricingCards } from "@/components/PricingCards";
-import HubCodeExample from "@/components/HubCodeExample";
+import HubCodeExample, { getHubTarget } from "@/components/HubCodeExample";
 import ChooseYourPath from "@/components/ChooseYourPath";
 import StatBanner from "@/components/StatBanner";
 import HubStrip from "@/components/HubStrip";
@@ -143,7 +143,10 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             </div>
             <div className="hub-code-split">
               <div className="hub-code-split-main">
-                <HubCodeExample sampleUrl={sampleUrl} />
+                <HubCodeExample
+                  sampleUrl={getHubTarget(hub.domain) ? undefined : sampleUrl}
+                  fixedTarget={getHubTarget(hub.domain)?.name}
+                />
               </div>
               <div className="hub-code-split-output">
                 <div className="hub-code-example">
@@ -151,7 +154,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                     <span className="hub-code-tab active" style={{ cursor: "default" }}>Sample response</span>
                   </div>
                   <pre className="hub-code-pre">
-                    <code>{`[{\n  "url": "${sampleUrl}",\n  ${topScraper?.fieldsPreview
+                    <code>{getHubTarget(hub.domain)?.response ?? `[{\n  "url": "${sampleUrl}",\n  ${topScraper?.fieldsPreview
                       ? topScraper.fieldsPreview
                           .replace(", and more.", "")
                           .split(", ")

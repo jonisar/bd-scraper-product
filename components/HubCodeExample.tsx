@@ -219,6 +219,11 @@ const TARGETS = [
 
 type TargetName = (typeof TARGETS)[number]["name"];
 
+/** Hub pages with a real captured example (SDK call + genuine response). */
+export function getHubTarget(domain: string) {
+  return TARGETS.find((t) => t.domain === domain);
+}
+
 function CopyBtn({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
   return (
@@ -240,16 +245,21 @@ function CopyBtn({ text }: { text: string }) {
 type HubCodeExampleProps = {
   /** When set, renders a single fixed example for this URL (hub pages). Without it, shows the Amazon/LinkedIn/Instagram switcher. */
   sampleUrl?: string;
+  /** Pin to a known target (Amazon, LinkedIn, Instagram): SDK snippets + real dataset id, no switcher. */
+  fixedTarget?: TargetName;
   className?: string;
 };
 
-export default function HubCodeExample({ sampleUrl, className = "" }: HubCodeExampleProps) {
+export default function HubCodeExample({ sampleUrl, fixedTarget, className = "" }: HubCodeExampleProps) {
   const [lang, setLang] = useState<Lang>("cURL");
   const [targetName, setTargetName] = useState<TargetName>("Amazon");
-  const multiTarget = !sampleUrl;
-  const target = multiTarget
-    ? TARGETS.find((t) => t.name === targetName) ?? TARGETS[0]
-    : { name: "custom", datasetId: "DATASET_ID", url: sampleUrl, printFields: ["title", "price"] as const, sdkCall: "", domain: "", response: "" };
+  const multiTarget = !sampleUrl && !fixedTarget;
+  const pinned = fixedTarget ? TARGETS.find((t) => t.name === fixedTarget) : undefined;
+  const target = pinned
+    ? pinned
+    : multiTarget
+      ? TARGETS.find((t) => t.name === targetName) ?? TARGETS[0]
+      : { name: "custom", datasetId: "DATASET_ID", url: sampleUrl!, printFields: ["title", "price"] as const, sdkCall: "", domain: "", response: "" };
   const [f1, f2] = target.printFields;
 
   const curlCode = `# Synchronous request: results returned in real time\ncurl -X POST "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${target.datasetId}&format=json" \\
@@ -257,7 +267,7 @@ export default function HubCodeExample({ sampleUrl, className = "" }: HubCodeExa
   -H "Content-Type: application/json" \\
   -d '[{"url": "${target.url}"}]'`;
 
-  const pythonCode = multiTarget
+  const pythonCode = target.sdkCall
     ? `# pip install brightdata-sdk
 from brightdata import SyncBrightDataClient
 
@@ -283,7 +293,7 @@ if isinstance(data, dict):  # long scrape: snapshot envelope
 else:
     print(data[0]["${f1}"], data[0]["${f2}"])`;
 
-  const nodeCode = multiTarget
+  const nodeCode = target.sdkCall
     ? `// npm install @brightdata/sdk
 import { bdclient } from '@brightdata/sdk';
 
