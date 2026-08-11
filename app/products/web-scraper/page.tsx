@@ -352,6 +352,20 @@ export default function WebScraperHome() {
               <a href="/products/web-scraper/social-media" className="usecase-cta">View all Social Media scrapers →</a>
             </div>
             <div className="usecase-card">
+              <h3><a href="/products/web-scraper/search" className="usecase-title-link">Search &amp; maps scraping API</a></h3>
+              <div className="usecase-labels">
+                <a href="/products/web-scraper/google-maps" className="usecase-label">Google Maps</a>
+                <a href="/products/web-scraper/yelp" className="usecase-label">Yelp</a>
+                <a href="https://brightdata.com/products/web-scraper/tripadvisor" className="usecase-label" target="_blank" rel="noopener noreferrer">Tripadvisor</a>
+                <a href="https://brightdata.com/products/web-scraper/yellow-pages" className="usecase-label" target="_blank" rel="noopener noreferrer">Yellow Pages</a>
+              </div>
+              <p>
+                Collect Google Maps business listings, reviews, ratings, and local SEO data.
+                Monitor rankings, analyze competitors, and track customer sentiment by location.
+              </p>
+              <a href="/products/web-scraper/search" className="usecase-cta">View all Search scrapers →</a>
+            </div>
+            <div className="usecase-card">
               <h3><a href="/products/web-scraper/real-estate" className="usecase-title-link">Real estate scraping API</a></h3>
               <div className="usecase-labels">
                 <a href="/products/web-scraper/zillow" className="usecase-label">Zillow</a>
@@ -379,20 +393,6 @@ export default function WebScraperHome() {
                 LinkedIn, Crunchbase, and Glassdoor. Fuel CRM enrichment, competitive intel, and market mapping.
               </p>
               <a href="/products/web-scraper/b2b" className="usecase-cta">View all B2B scrapers →</a>
-            </div>
-            <div className="usecase-card">
-              <h3><a href="/products/web-scraper/search" className="usecase-title-link">Search &amp; maps scraping API</a></h3>
-              <div className="usecase-labels">
-                <a href="/products/web-scraper/google-maps" className="usecase-label">Google Maps</a>
-                <a href="/products/web-scraper/yelp" className="usecase-label">Yelp</a>
-                <a href="https://brightdata.com/products/web-scraper/tripadvisor" className="usecase-label" target="_blank" rel="noopener noreferrer">Tripadvisor</a>
-                <a href="https://brightdata.com/products/web-scraper/yellow-pages" className="usecase-label" target="_blank" rel="noopener noreferrer">Yellow Pages</a>
-              </div>
-              <p>
-                Collect Google Maps business listings, reviews, ratings, and local SEO data.
-                Monitor rankings, analyze competitors, and track customer sentiment by location.
-              </p>
-              <a href="/products/web-scraper/search" className="usecase-cta">View all Search scrapers →</a>
             </div>
             <div className="usecase-card">
               <h3><a href="/products/web-scraper/finance" className="usecase-title-link">Financial data scraping API</a></h3>
