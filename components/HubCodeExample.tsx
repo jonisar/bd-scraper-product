@@ -238,8 +238,14 @@ export function HubCodeAuthNote() {
 }
 
 /** Hub pages with a real captured example (SDK call + genuine response). */
+/** Category hubs demo a verified representative target instead of a dead placeholder. */
+const DOMAIN_ALIASES: Record<string, string> = {
+  "e-commerce sites": "amazon.com",
+};
+
 export function getHubTarget(domain: string) {
-  return TARGETS.find((t) => t.domain === domain);
+  const resolved = DOMAIN_ALIASES[domain] ?? domain;
+  return TARGETS.find((t) => t.domain === resolved);
 }
 
 function CopyBtn({ text }: { text: string }) {
