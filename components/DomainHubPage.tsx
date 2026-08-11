@@ -101,7 +101,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           href={hub.datasetCta?.href}
         />
 
-        <ValueBanner />
+        <ValueBanner rankingHref={hub.rankingUrl} />
 
         {/* PRICING — high up for quick buyer conversion */}
         <section className="section section-alt animate-rise hub-anchor" id="pricing">

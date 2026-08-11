@@ -40,6 +40,8 @@ export type DomainHubData = {
   productTypes?: DomainHubProductType[];
   /** Optional dataset CTA for domains that have pre-collected datasets */
   datasetCta?: { kicker: string; title: string; body: string; href: string; label: string };
+  /** Optional category-specific AIMultiple ranking page for the value banner */
+  rankingUrl?: string;
 };
 
 /** Map catalog scraper → CLI pipeline id used by `bdata pipelines`. */
@@ -1192,6 +1194,7 @@ export const CATEGORY_HUBS: Record<string, DomainHubData> = {
     name: "E-commerce",
     domain: "e-commerce sites",
     category: "E-commerce",
+    rankingUrl: "https://aimultiple.com/ecommerce-scraper",
     title: "E-commerce Scraper API - Product Data, Prices & Reviews at Scale",
     headline: "E-commerce Scraper API",
     description: "Scrape product listings, pricing, reviews, inventory, and seller data from Amazon, Walmart, Shopee, eBay, and 50+ marketplaces via API.",
