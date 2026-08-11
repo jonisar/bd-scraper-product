@@ -94,13 +94,6 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                 />
               ))}
             </div>
-            {hub.scrapers.length > 9 && (
-              <p className="hub-view-all">
-                <a href="https://brightdata.com/cp/datasets" className="hub-view-all-link" target="_blank" rel="noopener noreferrer">
-                  View all {hub.scrapers.length} {hub.name} scrapers →
-                </a>
-              </p>
-            )}
 
             <HubStrip />
           </div>
