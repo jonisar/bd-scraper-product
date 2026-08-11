@@ -17,7 +17,6 @@ import ChooseYourPath from "@/components/ChooseYourPath";
 import StatBanner from "@/components/StatBanner";
 import HowItWorksSteps from "@/components/HowItWorksSteps";
 import IncludedInEveryPlan from "@/components/IncludedInEveryPlan";
-import UnderTheHood from "@/components/UnderTheHood";
 import UseCasesGrid from "@/components/UseCasesGrid";
 import CompareTable from "@/components/CompareTable";
 import DxComplianceSection from "@/components/DxComplianceSection";
@@ -189,7 +188,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
-        <IncludedInEveryPlan hubAnchor />
+        <IncludedInEveryPlan name={hub.name} hubAnchor />
 
         {/* PRODUCT TYPES — domain-specific deep dive (optional) */}
         {hub.productTypes && hub.productTypes.length > 0 && (
@@ -226,8 +225,6 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             </div>
           </section>
         )}
-
-        <UnderTheHood name={hub.name} altBg={!hub.productTypes?.length} hubAnchor />
 
         <StatBanner />
 
