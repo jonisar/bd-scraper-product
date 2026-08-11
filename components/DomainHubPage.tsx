@@ -25,6 +25,7 @@ import HeroRatings from "@/components/HeroRatings";
 import ScraperPreview from "@/components/ScraperPreview";
 import ValueBanner from "@/components/ValueBanner";
 import HiddenCostAccordion from "@/components/HiddenCostAccordion";
+import DiscountBanner from "@/components/DiscountBanner";
 import DatasetCtaBanner from "@/components/DatasetCtaBanner";
 import { sampleUrlForDomain, type DomainHubData } from "@/lib/domain-hubs";
 import { cpHref } from "@/lib/cp-href";
@@ -112,6 +113,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
               <h2>Only pay for successful results</h2>
               <p>No hidden fees. No charges for failed deliveries. Every plan includes full access to {hub.name} scrapers and infrastructure.</p>
             </div>
+            <DiscountBanner />
             <PricingSlider className="mb-6" />
             <PricingCards unit="records" />
             <PricingAssurances />
