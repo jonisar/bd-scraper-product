@@ -2522,6 +2522,17 @@ export function AmazonScraperMain({
               )}
 
               <div>
+                <h3 className="mb-3 text-lg font-bold text-bd-navy">Example request body</h3>
+                <CodeBlock
+                  code={`[
+  {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
+  {"url": "https://www.amazon.com/dp/B0D5CQPGFQ"},
+  {"url": "https://www.amazon.com/s?k=wireless+keyboard"}
+]`}
+                  label="json"
+                />
+              </div>
+              <div>
                 <h3 className="mb-3 text-lg font-bold text-bd-navy">Request parameters</h3>
                 <div className="overflow-x-auto rounded-xl border border-bd-line">
                   <table className="w-full text-sm">
@@ -2599,17 +2610,6 @@ export function AmazonScraperMain({
                 </div>
               </div>
 
-              <div>
-                <h3 className="mb-3 text-lg font-bold text-bd-navy">Example request body</h3>
-                <CodeBlock
-                  code={`[
-  {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
-  {"url": "https://www.amazon.com/dp/B0D5CQPGFQ"},
-  {"url": "https://www.amazon.com/s?k=wireless+keyboard"}
-]`}
-                  label="json"
-                />
-              </div>
             </div>
           ) : null}
 
