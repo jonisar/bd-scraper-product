@@ -1749,10 +1749,10 @@ export function AmazonScraperMain({
                         <h3 className="text-lg font-bold text-bd-navy">
                           {apiLang} · {apiMode === "sync" ? "Sync" : "Async"}
                         </h3>
-                        <p className="mt-1 text-xs text-bd-muted">
+                        <p className="mt-1 text-xs leading-5 text-bd-muted">
                           {apiMode === "sync"
-                            ? "Real-time response via /datasets/v3/scrape"
-                            : "Returns snapshot_id via /datasets/v3/trigger, poll or webhook"}
+                            ? "Real-time response via /datasets/v3/scrape. Best for single-product lookups. Requests over roughly a minute return a snapshot_id instead."
+                            : "Returns a snapshot_id instantly via /datasets/v3/trigger. Poll the snapshot or deliver via webhook. Best for production jobs of any size."}
                         </p>
                       </div>
 
@@ -1835,81 +1835,6 @@ export function AmazonScraperMain({
                 </div>
               </section>
 
-              {/* Sync and async — interactive mode control */}
-              <section className="border-t border-bd-line pt-8">
-                <div className="mb-4">
-                  <h3 className="mb-3 text-lg font-bold text-bd-navy">Sync and async</h3>
-                  <p className="mt-1 text-sm text-bd-ink/85">
-                    Click a mode to update the language examples above.
-                    Same setting is shared with{" "}
-                    <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">
-                      Customize
-                    </button>
-                    .
-                  </p>
-                </div>
-
-                <div className="grid gap-3 sm:grid-cols-2" role="radiogroup" aria-label="API mode">
-                  {([
-                    {
-                      id: "sync" as const,
-                      title: "Sync",
-                      endpoint: "/datasets/v3/scrape",
-                      body: "Returns product JSON in real time. 1‑min timeout, then auto-switches to async.",
-                      best: "Best for: quick lookups, up to 20 URLs",
-                    },
-                    {
-                      id: "async" as const,
-                      title: "Async",
-                      endpoint: "/datasets/v3/trigger",
-                      body: "Returns a snapshot_id instantly, poll the snapshot or deliver via webhook.",
-                      best: "Best for: production & large jobs, any size",
-                    },
-                  ]).map((mode) => {
-                    const active = apiMode === mode.id;
-                    return (
-                      <button
-                        key={mode.id}
-                        type="button"
-                        role="radio"
-                        aria-checked={active}
-                        onClick={() => {
-                          setApiMode(mode.id);
-                          if (apiLang === "Python" || apiLang === "Node.js" || apiLang === "cURL") {
-                            window.requestAnimationFrame(() => {
-                              document.getElementById("api-code-examples")?.scrollIntoView({
-                                behavior: "smooth",
-                                block: "start",
-                              });
-                            });
-                          }
-                        }}
-                        className={`rounded-xl border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bd-blue/40 ${
-                          active
-                            ? "border-bd-blue/50 bg-bd-blue-soft/50 shadow-sm shadow-bd-blue/10"
-                            : "border-bd-line bg-bd-canvas hover:border-bd-blue/30 hover:bg-bd-blue-soft/20"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between gap-2">
-                          <p className="text-sm font-bold text-bd-navy">{mode.title}</p>
-                          {active ? (
-                            <span className="rounded-full bg-bd-blue px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-                              Selected
-                            </span>
-                          ) : (
-                            <span className="text-[11px] font-semibold text-bd-blue">Select →</span>
-                          )}
-                        </div>
-                        <code className="mt-2 inline-block rounded bg-bd-panel px-1.5 py-0.5 font-mono text-[11px] text-bd-blue sm:text-xs">
-                          {mode.endpoint}
-                        </code>
-                        <p className="mt-2.5 text-sm leading-6 text-bd-ink/80">{mode.body}</p>
-                        <p className="mt-2 text-xs font-medium text-bd-muted">{mode.best}</p>
-                      </button>
-                    );
-                  })}
-                </div>
-              </section>
             </div>
           ) : null}
 
