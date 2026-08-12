@@ -1,5 +1,6 @@
 "use client";
 
+import { AGENT_PROMPT, MCP_CONFIG as AGENT_MCP_CONFIG } from "@/lib/agent-prompt";
 import { useState, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
 import TrustedByStrip from "@/components/TrustedByStrip";
@@ -321,44 +322,13 @@ const SAMPLE_OUTPUT = `[
   }
 ]`;
 
-const AGENT_PROMPT = `Read https://brightdata.com/SKILL.md and set up Bright Data.
-
-Then complete these tasks with the Amazon pipelines
-(amazon_product, amazon_product_reviews, amazon_product_search):
-
-1. Get structured JSON for https://www.amazon.com/dp/B09X7MPX8L
-   via amazon_product and report title, final_price, rating, and availability.
-
-2. Pull reviews for the same product and summarize the top
-   complaints in 3 bullets.
-
-3. Search "wireless earbuds" on https://amazon.com and save
-   the results to earbuds.csv.
-
-When done, list the commands you ran so I can rerun them.`;
-
-const AGENT_MCP_CONFIG = `{
-  "mcpServers": {
-    "brightdata": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@anthropic-ai/mcp-remote",
-        "https://mcp.brightdata.com/sse",
-        "--header",
-        "Authorization: Bearer <YOUR_API_KEY>"
-      ]
-    }
-  }
-}`;
-
 const AGENT_MCP_HOSTED = `# Hosted MCP, no local install needed
 # Use this URL directly in Claude Desktop, Cursor, VS Code, or any MCP client:
 
-https://mcp.brightdata.com/sse?token=<YOUR_API_KEY>
+https://mcp.brightdata.com/sse?token=YOUR_API_KEY
 
 # For Streamable HTTP (OpenAI Agent Builder, n8n, etc.):
-https://mcp.brightdata.com/mcp?token=<YOUR_API_KEY>`;
+https://mcp.brightdata.com/mcp?token=YOUR_API_KEY`;
 
 const AGENT_OPENAI = `from openai import OpenAI
 
@@ -370,7 +340,7 @@ response = client.responses.create(
         {
             "type": "mcp",
             "server_label": "BrightData",
-            "server_url": "https://mcp.brightdata.com/sse?token=<YOUR_API_KEY>",
+            "server_url": "https://mcp.brightdata.com/sse?token=YOUR_API_KEY",
             "require_approval": "never",
         },
     ],
