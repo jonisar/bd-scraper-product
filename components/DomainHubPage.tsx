@@ -80,7 +80,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             </div>
 
             <div className="lib-grid">
-              {hub.scrapers.slice(0, 9).map((s) => (
+              {hub.scrapers.slice(0, 12).map((s) => (
                 <ScraperCard
                   key={s.id}
                   name={s.name}
@@ -94,7 +94,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                 />
               ))}
             </div>
-            {hub.scrapers.length > 9 && (
+            {hub.scrapers.length > 12 && (
               <p className="hub-view-all">
                 <a href="https://brightdata.com/cp/datasets" className="hub-view-all-link" target="_blank" rel="noopener noreferrer">
                   View all {hub.scrapers.length} {hub.name} scrapers →
