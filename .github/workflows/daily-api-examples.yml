@@ -34,9 +34,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Active LTS. Node 20 is end-of-life, so testing the snippets on it
+      # would be testing an older runtime than the people copying them use.
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - uses: actions/setup-python@v5
         with:
