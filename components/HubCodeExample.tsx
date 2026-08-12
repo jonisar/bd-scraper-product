@@ -43,7 +43,7 @@ export function Highlighted({ code, kind }: { code: string; kind: TokKind }) {
 const TARGETS = [
   {
     name: "Amazon",
-    datasetId: "gd_l1vijqt9jfj7olije",
+    datasetId: "gd_l7q7dkf244hwjntr0",
     url: "https://www.amazon.com/Quencher-FlowState-Stainless-Insulated-Smoothie/dp/B0CRMZHDG8",
     printFields: ["title", "final_price"],
     sdkCall: "amazon.products",

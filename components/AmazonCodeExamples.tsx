@@ -16,7 +16,7 @@ const EXAMPLES: Record<
 > = {
   products: {
     label: "Products",
-    datasetId: "gd_l1vijqt9jfj7olije",
+    datasetId: "gd_l7q7dkf244hwjntr0",
     payload: `[
   {"url": "https://www.amazon.com/dp/B0CRMZHDG8", "asin": "B0CRMZHDG8", "zipcode": "94107"},
   {"url": "https://www.amazon.com/dp/B07PZF3QS3", "asin": "B07PZF3QS3"}
