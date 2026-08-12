@@ -6,186 +6,90 @@ import TrustedByStrip from "@/components/TrustedByStrip";
 import ScraperCard from "@/components/ScraperCard";
 import { PricingCards } from "@/components/PricingCards";
 import PricingSlider from "@/components/PricingSlider";
-import RestApiExample from "@/components/RestApiExample";
-import HubCodeExample from "@/components/HubCodeExample";
+import HubCodeExample, { getHubTarget, buildSnippets, Highlighted } from "@/components/HubCodeExample";
 import AgentSetupCta, { AGENT_SKILL_PROMPT } from "@/components/AgentSetupCta";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Playground" | "Connect Agent" | "Customize";
-type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
+type ApiLang = "Python" | "Node.js" | "cURL" | "MCP" | "OpenAPI";
 type AgentPlatform = "Prompt" | "CLI" | "MCP" | "OpenAI SDK" | "LangChain" | "CrewAI" | "REST API";
 
 const DATASET_ID = "gd_l1vijqt9jfj7olije";
 
-const PYTHON_SYNC = `import requests
-import json
+/** Amazon target and snippets shared with /products/web-scraper#code, executed against the live API. */
+const AMAZON_TARGET = getHubTarget("amazon.com")!;
+const SHARED_SNIPPETS = buildSnippets(AMAZON_TARGET);
 
-API_TOKEN = "<YOUR_API_TOKEN>"
-DATASET_ID = "${DATASET_ID}"
+const BATCH_URLS = `URLS = [
+    "https://www.amazon.com/dp/B0CRMZHDG8",
+    "https://www.amazon.com/dp/B09X7MPX8L",
+]`;
 
-# Synchronous request, results returned in real time
-response = requests.post(
-    "https://api.brightdata.com/datasets/v3/scrape",
-    headers={
-        "Authorization": f"Bearer {API_TOKEN}",
-        "Content-Type": "application/json",
-    },
-    params={
-        "dataset_id": DATASET_ID,
-        "format": "json",
-        "include_errors": "true",
-    },
-    json=[
-        {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
-        {"url": "https://www.amazon.com/dp/B0D5CQPGFQ"},
-    ],
-)
+const PYTHON_SYNC = SHARED_SNIPPETS.Python;
 
-products = response.json()
-for product in products:
-    print(f"{product['title']}, {product['price']}")
-
-# 📚 Docs → https://docs.brightdata.com/api-reference/scrapers/synchronous-requests`;
-
-const PYTHON_ASYNC = `import requests
+const PYTHON_ASYNC = `# pip install brightdata-sdk
 import time
+from brightdata import SyncBrightDataClient
 
-API_TOKEN = "<YOUR_API_TOKEN>"
-DATASET_ID = "${DATASET_ID}"
+${BATCH_URLS}
 
-# Step 1: Trigger an async collection
-trigger = requests.post(
-    "https://api.brightdata.com/datasets/v3/trigger",
-    headers={
-        "Authorization": f"Bearer {API_TOKEN}",
-        "Content-Type": "application/json",
-    },
-    params={
-        "dataset_id": DATASET_ID,
-        "format": "json",
-        "include_errors": "true",
-    },
-    json=[
-        {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
-        {"url": "https://www.amazon.com/dp/B0D5CQPGFQ"},
-    ],
-)
+with SyncBrightDataClient(token="YOUR_API_KEY") as client:
+    amazon = client.scrape.amazon
 
-snapshot_id = trigger.json()["snapshot_id"]
-print(f"Snapshot: {snapshot_id}")
+    # Step 1: Trigger the collection, returns a snapshot id right away
+    job = amazon.products_trigger(url=URLS)
+    print("Snapshot:", job.snapshot_id)
 
-# Step 2: Poll until ready
-while True:
-    status = requests.get(
-        f"https://api.brightdata.com/datasets/v3/snapshots/{snapshot_id}",
-        headers={"Authorization": f"Bearer {API_TOKEN}"},
-    )
-    if status.json()["status"] == "ready":
-        break
-    time.sleep(5)
+    # Step 2: Poll until the snapshot is ready
+    while amazon.products_status(job.snapshot_id) != "ready":
+        time.sleep(5)
 
-# Step 3: Download results
-results = requests.get(
-    f"https://api.brightdata.com/datasets/v3/snapshots/{snapshot_id}",
-    headers={"Authorization": f"Bearer {API_TOKEN}"},
-    params={"format": "json"},
-)
+    # Step 3: Download the results
+    for product in amazon.products_fetch(job.snapshot_id):
+        print(product["title"], product["final_price"])
 
-for product in results.json():
-    print(f"{product['title']}, {product['price']}")
+# 📚 Docs → https://docs.brightdata.com/api-reference/SDK`;
 
-# 📚 Docs → https://docs.brightdata.com/api-reference/scrapers/asynchronous-requests`;
+const JS_SYNC = SHARED_SNIPPETS["Node.js"];
 
-const JS_SYNC = `const API_TOKEN = "<YOUR_API_TOKEN>";
-const DATASET_ID = "${DATASET_ID}";
+const JS_ASYNC = `// npm install @brightdata/sdk
+import { bdclient } from '@brightdata/sdk';
 
-// Synchronous request — results returned in real time
-const response = await fetch(
-  \`https://api.brightdata.com/datasets/v3/scrape?dataset_id=\${DATASET_ID}&format=json&include_errors=true\`,
-  {
-    method: "POST",
-    headers: {
-      Authorization: \`Bearer \${API_TOKEN}\`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify([
-      { url: "https://www.amazon.com/dp/B09X7MPX8L" },
-      { url: "https://www.amazon.com/dp/B0D5CQPGFQ" },
-    ]),
-  }
-);
+const urls = [
+  "https://www.amazon.com/dp/B0CRMZHDG8",
+  "https://www.amazon.com/dp/B09X7MPX8L",
+];
 
-const products = await response.json();
-products.forEach((p) => console.log(\`\${p.title}, \${p.price}\`));
+const client = new bdclient({ apiKey: "YOUR_API_KEY" });
 
-// 📚 Docs → https://docs.brightdata.com/api-reference/scrapers/synchronous-requests`;
+// Step 1: Trigger the collection, returns a job with a snapshot id
+const job = await client.scrape.amazon.collectProducts(urls, { async: true, format: "json" });
+console.log("Snapshot:", job.snapshotId);
 
-const JS_ASYNC = `const API_TOKEN = "<YOUR_API_TOKEN>";
-const DATASET_ID = "${DATASET_ID}";
+// Step 2: Poll until the snapshot is ready
+await job.wait({ pollInterval: 5000 });
 
-// Step 1: Trigger async collection
-const trigger = await fetch(
-  \`https://api.brightdata.com/datasets/v3/trigger?dataset_id=\${DATASET_ID}&format=json\`,
-  {
-    method: "POST",
-    headers: {
-      Authorization: \`Bearer \${API_TOKEN}\`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify([
-      { url: "https://www.amazon.com/dp/B09X7MPX8L" },
-      { url: "https://www.amazon.com/dp/B0D5CQPGFQ" },
-    ]),
-  }
-);
+// Step 3: Fetch the results
+const products = await job.fetch();
+products.forEach((p) => console.log(p.title, p.final_price));
 
-const { snapshot_id } = await trigger.json();
-console.log("Snapshot:", snapshot_id);
+// 📚 Docs → https://docs.brightdata.com/api-reference/SDK-JS`;
 
-// Step 2: Poll until ready
-let status;
-do {
-  await new Promise((r) => setTimeout(r, 5000));
-  const res = await fetch(
-    \`https://api.brightdata.com/datasets/v3/snapshots/\${snapshot_id}\`,
-    { headers: { Authorization: \`Bearer \${API_TOKEN}\` } }
-  );
-  status = (await res.json()).status;
-} while (status !== "ready");
-
-// Step 3: Download results
-const results = await fetch(
-  \`https://api.brightdata.com/datasets/v3/snapshots/\${snapshot_id}?format=json\`,
-  { headers: { Authorization: \`Bearer \${API_TOKEN}\` } }
-);
-
-const products = await results.json();
-products.forEach((p) => console.log(\`\${p.title}, \${p.price}\`));
-
-// 📚 Docs → https://docs.brightdata.com/api-reference/scrapers/asynchronous-requests`;
-
-const CURL_SYNC = `curl -X POST \\
-  "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${DATASET_ID}&format=json&include_errors=true" \\
-  -H "Authorization: Bearer <YOUR_API_TOKEN>" \\
-  -H "Content-Type: application/json" \\
-  -d '[
-    {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
-    {"url": "https://www.amazon.com/dp/B0D5CQPGFQ"}
-  ]'`;
+const CURL_SYNC = SHARED_SNIPPETS.cURL;
 
 const CURL_ASYNC = `# Step 1: Trigger collection
 curl -X POST \\
   "https://api.brightdata.com/datasets/v3/trigger?dataset_id=${DATASET_ID}&format=json" \\
-  -H "Authorization: Bearer <YOUR_API_TOKEN>" \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '[
-    {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
-    {"url": "https://www.amazon.com/dp/B0D5CQPGFQ"}
+    {"url": "https://www.amazon.com/dp/B0CRMZHDG8"},
+    {"url": "https://www.amazon.com/dp/B09X7MPX8L"}
   ]'
-# → Returns: {"snapshot_id": "s_abc123..."}
+# → Returns: {"snapshot_id": "sd_abc123..."}
 
 # Step 2: Check status / download results
-curl "https://api.brightdata.com/datasets/v3/snapshots/s_abc123?format=json" \\
-  -H "Authorization: Bearer <YOUR_API_TOKEN>"`;
+curl "https://api.brightdata.com/datasets/v3/snapshots/sd_abc123?format=json" \\
+  -H "Authorization: Bearer YOUR_API_KEY"`;
 
 const MCP_CODE = `{
   "mcpServers": {
@@ -487,6 +391,14 @@ function AgentCmd({ text }: { text: string }) {
   );
 }
 
+/** Map a CodeBlock label to the shared highlighter's token grammar. */
+const TOKEN_KIND: Record<string, "bash" | "python" | "js" | "json"> = {
+  bash: "bash",
+  python: "python",
+  javascript: "js",
+  json: "json",
+};
+
 function CodeBlock({ code, label }: { code: string; label: string }) {
   return (
     <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
@@ -495,7 +407,9 @@ function CodeBlock({ code, label }: { code: string; label: string }) {
         <CopyButton text={code} />
       </div>
       <pre className="code-scroll max-h-[520px] overflow-auto p-3 text-[12px] leading-5 text-[#d7e6ff] sm:p-4 sm:text-[13px] sm:leading-6">
-        <code className="font-mono whitespace-pre">{code}</code>
+        <code className="font-mono whitespace-pre">
+          <Highlighted code={code} kind={TOKEN_KIND[label] ?? "bash"} />
+        </code>
       </pre>
     </div>
   );
@@ -1614,16 +1528,16 @@ export function AmazonScraperMain({
 }: AmazonScraperMainProps) {
   const TitleTag = titleAs;
   const [mainTab, setMainTab] = useState<MainTab>("Overview");
-  const [apiLang, setApiLang] = useState<ApiLang>("Python");
+  const [apiLang, setApiLang] = useState<ApiLang>("cURL");
   const [apiMode, setApiMode] = useState<"sync" | "async">("sync");
   const [agentPlatform, setAgentPlatform] = useState<AgentPlatform>("Prompt");
 
   const mainTabs: MainTab[] = ["Overview", "Playground", "Pricing", "API", "Input", "Output", "Connect Agent", "Customize"];
-  const apiLangs: ApiLang[] = ["Python", "JavaScript", "cURL", "MCP", "OpenAPI"];
+  const apiLangs: ApiLang[] = ["cURL", "Python", "Node.js", "MCP", "OpenAPI"];
 
   function getCodeForLang() {
     if (apiLang === "Python") return apiMode === "sync" ? PYTHON_SYNC : PYTHON_ASYNC;
-    if (apiLang === "JavaScript") return apiMode === "sync" ? JS_SYNC : JS_ASYNC;
+    if (apiLang === "Node.js") return apiMode === "sync" ? JS_SYNC : JS_ASYNC;
     if (apiLang === "cURL") return apiMode === "sync" ? CURL_SYNC : CURL_ASYNC;
     return "";
   }
@@ -1831,7 +1745,7 @@ export function AmazonScraperMain({
                 </div>
 
                 <div className="mt-5">
-                  {(apiLang === "Python" || apiLang === "JavaScript" || apiLang === "cURL") ? (
+                  {(apiLang === "Python" || apiLang === "Node.js" || apiLang === "cURL") ? (
                     <div className="space-y-4" key={`${apiLang}-${apiMode}`}>
                       <div>
                         <h3 className="text-lg font-bold text-bd-navy">
@@ -1844,16 +1758,19 @@ export function AmazonScraperMain({
                         </p>
                       </div>
 
-                      {apiLang === "Python" ? (
+                      {apiLang === "Python" || apiLang === "Node.js" ? (
                         <div className="space-y-2">
                           <p className="text-sm text-bd-ink/85">Only dependency needed:</p>
-                          <CodeBlock code="pip install requests" label="bash" />
+                          <CodeBlock
+                            code={apiLang === "Python" ? "pip install brightdata-sdk" : "npm install @brightdata/sdk"}
+                            label="bash"
+                          />
                         </div>
                       ) : null}
 
                       <CodeBlock
                         code={getCodeForLang()}
-                        label={apiLang === "cURL" ? "bash" : apiLang.toLowerCase()}
+                        label={apiLang === "cURL" ? "bash" : apiLang === "Node.js" ? "javascript" : "python"}
                       />
 
                       <div className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
@@ -1913,19 +1830,12 @@ export function AmazonScraperMain({
                 </div>
               </section>
 
-              <RestApiExample
-                datasetId={DATASET_ID}
-                mode={apiMode}
-                onModeChange={setApiMode}
-                className="border-t border-bd-line pt-8"
-              />
-
               {/* Sync and async — interactive mode control */}
               <section className="border-t border-bd-line pt-8">
                 <div className="mb-4">
                   <h3 className="mb-3 text-lg font-bold text-bd-navy">Sync and async</h3>
                   <p className="mt-1 text-sm text-bd-ink/85">
-                    Click a mode to update the language examples and REST sample above.
+                    Click a mode to update the language examples above.
                     Same setting is shared with{" "}
                     <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">
                       Customize
@@ -1960,7 +1870,7 @@ export function AmazonScraperMain({
                         aria-checked={active}
                         onClick={() => {
                           setApiMode(mode.id);
-                          if (apiLang === "Python" || apiLang === "JavaScript" || apiLang === "cURL") {
+                          if (apiLang === "Python" || apiLang === "Node.js" || apiLang === "cURL") {
                             window.requestAnimationFrame(() => {
                               document.getElementById("api-code-examples")?.scrollIntoView({
                                 behavior: "smooth",

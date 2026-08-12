@@ -276,16 +276,18 @@ type HubCodeExampleProps = {
   className?: string;
 };
 
-export default function HubCodeExample({ sampleUrl, fixedTarget, withResponse = false, className = "" }: HubCodeExampleProps) {
-  const [lang, setLang] = useState<Lang>("cURL");
-  const [targetName, setTargetName] = useState<TargetName>("Amazon");
-  const multiTarget = !sampleUrl && !fixedTarget;
-  const pinned = fixedTarget ? TARGETS.find((t) => t.name === fixedTarget) : undefined;
-  const target = pinned
-    ? pinned
-    : multiTarget
-      ? TARGETS.find((t) => t.name === targetName) ?? TARGETS[0]
-      : { name: "custom", datasetId: "DATASET_ID", url: sampleUrl!, printFields: ["title", "price"] as const, sdkCall: "", domain: "", response: "" };
+type SnippetTarget = {
+  datasetId: string;
+  url: string;
+  printFields: readonly string[];
+  sdkCall: string;
+};
+
+/**
+ * The verified snippets, one source of truth for every page that shows them.
+ * Every SDK variant here has been executed against the live API.
+ */
+export function buildSnippets(target: SnippetTarget): Record<Lang, string> {
   const [f1, f2] = target.printFields;
 
   const curlCode = `# Synchronous request: results returned in real time\ncurl -X POST "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${target.datasetId}&format=json" \\
@@ -343,7 +345,21 @@ const data = await response.json();
 if (Array.isArray(data)) console.log(data[0].${f1}, data[0].${f2});
 else console.log("processing, poll snapshot:", data.snapshot_id);`;
 
-  const codeMap: Record<Lang, string> = { cURL: curlCode, Python: pythonCode, "Node.js": nodeCode };
+  return { cURL: curlCode, Python: pythonCode, "Node.js": nodeCode };
+}
+
+export default function HubCodeExample({ sampleUrl, fixedTarget, withResponse = false, className = "" }: HubCodeExampleProps) {
+  const [lang, setLang] = useState<Lang>("cURL");
+  const [targetName, setTargetName] = useState<TargetName>("Amazon");
+  const multiTarget = !sampleUrl && !fixedTarget;
+  const pinned = fixedTarget ? TARGETS.find((t) => t.name === fixedTarget) : undefined;
+  const target = pinned
+    ? pinned
+    : multiTarget
+      ? TARGETS.find((t) => t.name === targetName) ?? TARGETS[0]
+      : { name: "custom", datasetId: "DATASET_ID", url: sampleUrl!, printFields: ["title", "price"] as const, sdkCall: "", domain: "", response: "" };
+
+  const codeMap = buildSnippets(target);
   const langs: Lang[] = ["cURL", "Python", "Node.js"];
 
   const requestCard = (
