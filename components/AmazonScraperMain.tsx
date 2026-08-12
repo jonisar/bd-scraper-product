@@ -607,6 +607,64 @@ const TOKEN_KIND: Record<string, "bash" | "python" | "js" | "json"> = {
   json: "json",
 };
 
+function OutputFieldTable() {
+  const [query, setQuery] = useState("");
+  const q = query.trim().toLowerCase();
+  const shown = q
+    ? OUTPUT_FIELDS.filter(([f, t, d]) =>
+        f.toLowerCase().includes(q) || t.toLowerCase().includes(q) || d.toLowerCase().includes(q)
+      )
+    : OUTPUT_FIELDS;
+
+  return (
+    <div>
+      <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+        <h3 className="text-lg font-bold text-bd-navy">Field reference</h3>
+        <span className="text-xs font-medium text-bd-muted">
+          {q ? `${shown.length} of ${OUTPUT_FIELDS.length} fields` : `All ${OUTPUT_FIELDS.length} fields this scraper returns`}
+        </span>
+      </div>
+      <input
+        type="search"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search fields, e.g. price, seller, rank"
+        aria-label="Search output fields"
+        className="mb-3 w-full rounded-xl border border-bd-line bg-bd-canvas px-4 py-2.5 text-sm text-bd-ink placeholder:text-bd-muted focus:border-bd-blue/50 focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
+      />
+      <div className="max-h-[420px] overflow-auto rounded-xl border border-bd-line">
+        <table className="w-full text-sm">
+          <thead className="sticky top-0 z-10">
+            <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
+              <th className="px-4 py-2.5">Field</th>
+              <th className="px-4 py-2.5">Type</th>
+              <th className="px-4 py-2.5">Description</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-bd-line text-bd-ink">
+            {shown.map(([field, type, desc]) => (
+              <tr key={field}>
+                <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">{field}</td>
+                <td className="px-4 py-2.5">
+                  <span className="rounded bg-bd-canvas px-1.5 py-0.5 text-xs">{type}</span>
+                </td>
+                <td className="px-4 py-2.5 text-bd-ink/80">{desc}</td>
+              </tr>
+            ))}
+            {shown.length === 0 && (
+              <tr>
+                <td colSpan={3} className="px-4 py-6 text-center text-sm text-bd-muted">
+                  No field matches &ldquo;{query}&rdquo;.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 function CodeBlock({ code, label }: { code: string; label: string }) {
   return (
     <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
@@ -2872,34 +2930,7 @@ export function AmazonScraperMain({
                 <span className="rounded-full border border-bd-line px-2.5 py-1 text-bd-muted">OpenAPI ready</span>
               </div>
 
-              <div>
-                <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="text-lg font-bold text-bd-navy">Field reference</h3>
-                  <span className="text-xs font-medium text-bd-muted">All {OUTPUT_FIELDS.length} fields this scraper returns</span>
-                </div>
-                <div className="max-h-[560px] overflow-auto rounded-xl border border-bd-line">
-                  <table className="w-full text-sm">
-                    <thead className="sticky top-0 z-10">
-                      <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
-                        <th className="px-4 py-2.5">Field</th>
-                        <th className="px-4 py-2.5">Type</th>
-                        <th className="px-4 py-2.5">Description</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-bd-line text-bd-ink">
-                      {OUTPUT_FIELDS.map(([field, type, desc]) => (
-                        <tr key={field}>
-                          <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">{field}</td>
-                          <td className="px-4 py-2.5">
-                            <span className="rounded bg-bd-canvas px-1.5 py-0.5 text-xs">{type}</span>
-                          </td>
-                          <td className="px-4 py-2.5 text-bd-ink/80">{desc}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              <OutputFieldTable />
 
               <div>
                 <h3 className="mb-3 text-lg font-bold text-bd-navy">Sample response</h3>
