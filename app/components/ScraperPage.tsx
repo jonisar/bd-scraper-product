@@ -305,7 +305,7 @@ export default function ScraperPage() {
                 <div className="mt-4 rounded-xl bg-bd-canvas/60 px-4 py-3">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-bd-muted">Pay as you go</p>
                   <p className="mt-1 flex items-baseline gap-x-1.5">
-                    <span className="text-xl font-extrabold tracking-tight text-bd-navy">$1.00–1.50</span>
+                    <span className="text-xl font-extrabold tracking-tight text-bd-navy">$1.50</span>
                     <span className="text-xs font-semibold text-bd-muted">/ 1K records</span>
                   </p>
                 </div>

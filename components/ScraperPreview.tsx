@@ -8,7 +8,7 @@ export default function ScraperPreview() {
       <div className="container">
         <div className="sp-section-head">
           <span className="kicker" id="sp-preview-kicker">
-            Live example
+            Live playground
           </span>
         </div>
         <div className="sp-frame">

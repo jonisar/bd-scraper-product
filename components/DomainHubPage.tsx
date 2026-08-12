@@ -18,7 +18,7 @@ import StatBanner from "@/components/StatBanner";
 import HubStrip from "@/components/HubStrip";
 import HowItWorksSteps from "@/components/HowItWorksSteps";
 import IncludedInEveryPlan from "@/components/IncludedInEveryPlan";
-import UnderTheHood from "@/components/UnderTheHood";
+
 import UseCasesGrid from "@/components/UseCasesGrid";
 import CompareTable from "@/components/CompareTable";
 import DxComplianceSection from "@/components/DxComplianceSection";
@@ -80,7 +80,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             </div>
 
             <div className="lib-grid">
-              {hub.scrapers.slice(0, 9).map((s) => (
+              {hub.scrapers.slice(0, 12).map((s) => (
                 <ScraperCard
                   key={s.id}
                   name={s.name}
@@ -94,7 +94,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                 />
               ))}
             </div>
-            {hub.scrapers.length > 9 && (
+            {hub.scrapers.length > 12 && (
               <p className="hub-view-all">
                 <a href="https://brightdata.com/cp/datasets" className="hub-view-all-link" target="_blank" rel="noopener noreferrer">
                   View all {hub.scrapers.length} {hub.name} scrapers →
@@ -182,6 +182,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
+        <IncludedInEveryPlan hubAnchor />
+
         {/* SCRAPER PREVIEW — interactive example after agent context */}
         <ScraperPreview />
 
@@ -196,8 +198,6 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             <ChooseYourPath name={hub.name} />
           </div>
         </section>
-
-        <IncludedInEveryPlan hubAnchor />
 
         {/* PRODUCT TYPES — domain-specific deep dive (optional) */}
         {hub.productTypes && hub.productTypes.length > 0 && (
@@ -235,16 +235,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </section>
         )}
 
-        <UnderTheHood name={hub.name} altBg={!hub.productTypes?.length} hubAnchor />
-
         <StatBanner />
-
-        <UseCasesGrid
-          name={hub.name}
-          description={`Real-time ${hub.name} intelligence for your business.`}
-          items={hub.useCases}
-          hubAnchor
-        />
 
         <CompareTable
           name={hub.name}
@@ -255,7 +246,20 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           hubAnchor
         />
 
+        <UseCasesGrid
+          name={hub.name}
+          description={`Real-time ${hub.name} intelligence for your business.`}
+          items={hub.useCases}
+          hubAnchor
+        />
+
         <DxComplianceSection hubAnchor />
+
+        {hub.slug === "ecommerce" ? (
+          <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper" />
+        ) : (
+          <AiPromptCta />
+        )}
 
         <FaqSection
           title={`${hub.name} Scraper API FAQs`}
@@ -264,12 +268,6 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           altBg
           hubAnchor
         />
-
-        {hub.slug === "ecommerce" ? (
-          <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper" />
-        ) : (
-          <AiPromptCta />
-        )}
       </main>
 
       <Footer />

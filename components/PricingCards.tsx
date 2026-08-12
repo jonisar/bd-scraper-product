@@ -25,7 +25,7 @@ function getPlans(unit: string): Plan[] {
     },
     {
       tier: "Pay as you go",
-      price: "$1.00–1.50",
+      price: "$1.50",
       unit: `/1K ${unit}`,
       features: ["Pay only for success", "Unlimited concurrency", "Set monthly spend limits"],
       cta: "Start free",

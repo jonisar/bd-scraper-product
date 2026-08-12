@@ -252,10 +252,26 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* AI Prompt CTA — build your own, right after the agent context */}
-      <AiPromptCta />
+      {/* WHY BRIGHT DATA SCRAPERS — right after agents */}
+      <section className="section section-alt animate-rise" id="how">
+        <div className="container">
+          <div className="section-head">
+            <span className="kicker">World's #1 scraping platform</span>
+            <h2>Everything you need, built in</h2>
+            <p>You pay for results. Proxies, rendering, concurrency, and delivery are always included, on every plan.</p>
+          </div>
+          <div className="features-grid">
+            <div className="feature-card"><div className="feature-head"><span className="feature-icon">🛡</span><h3>Proxies, unblocking, and rendering included</h3></div><p>Every request runs on 400M+ IPs with CAPTCHA solving, anti-bot bypass, and JS rendering. No separate services to set up.</p></div>
+            <div className="feature-card"><div className="feature-head"><span className="feature-icon">⚡</span><h3>Scale to millions of pages instantly</h3></div><p>Unlimited concurrency. Batch up to 5K URLs per request. No infrastructure to manage, no config to change.</p></div>
+            <div className="feature-card"><div className="feature-head"><span className="feature-icon">🔄</span><h3>Scrapers auto-fix when sites change</h3></div><p>Self-healing technology detects site changes and repairs scrapers. Your pipelines keep running without engineering work.</p></div>
+            <div className="feature-card"><div className="feature-head"><span className="feature-icon">✓</span><h3>1,400+ scrapers, always maintained</h3></div><p>Every scraper is built, tested, and kept working by Bright Data. Defined inputs, structured outputs. No community guesswork.</p></div>
+            <div className="feature-card"><div className="feature-head"><span className="feature-icon">💲</span><h3>Pay per result, nothing extra</h3></div><p>One price per record delivered. Proxies, retries, rendering, unblocking &mdash; all included in that price.</p></div>
+            <div className="feature-card"><div className="feature-head"><span className="feature-icon">🏛</span><h3>Compliant and fully supported</h3></div><p>GDPR &amp; CCPA compliant. 24/7 human support on every plan, including free.</p></div>
+          </div>
+        </div>
+      </section>
 
-      {/* SCRAPER PREVIEW — interactive example after agent context */}
+      {/* SCRAPER PREVIEW */}
       <ScraperPreview />
 
       {/* CHOOSE YOUR PATH */}
@@ -267,52 +283,6 @@ export default function WebScraperHome() {
             <p>Same scrapers, three ways to run them, pick the workflow that fits your team.</p>
           </div>
           <ChooseYourPath />
-        </div>
-      </section>
-
-      {/* UNDER THE HOOD — what's included */}
-      <section className="section section-alt animate-rise" id="how">
-        <div className="container">
-          <div className="section-head">
-            <span className="kicker">Under the hood</span>
-            <h2>Never get blocked again</h2>
-            <p>
-              Every scraper runs on Bright Data&rsquo;s infrastructure. One API call,
-              and we handle IP rotation, CAPTCHA solving, rendering, parsing, and retries automatically.
-            </p>
-          </div>
-          <div className="features-grid">
-            <div className="feature-card">
-              <span className="feature-icon">⟳</span>
-              <h3>Automatic IP rotation</h3>
-              <p>400M+ residential IPs across 195 countries. Requests are routed through real-user devices to avoid blocks.</p>
-            </div>
-            <div className="feature-card">
-              <span className="feature-icon">◈</span>
-              <h3>CAPTCHA &amp; anti-bot bypass</h3>
-              <p>Automated CAPTCHA solving, browser fingerprinting, and user-agent rotation. You never see a challenge page.</p>
-            </div>
-            <div className="feature-card">
-              <span className="feature-icon">⬡</span>
-              <h3>JavaScript rendering</h3>
-              <p>Full browser rendering for SPAs and dynamic content. Get the same data a real user sees.</p>
-            </div>
-            <div className="feature-card">
-              <span className="feature-icon">⊞</span>
-              <h3>Bulk &amp; scheduled collection</h3>
-              <p>Send up to 5,000 URLs per request. Schedule recurring jobs, get results via webhook or API.</p>
-            </div>
-            <div className="feature-card">
-              <span className="feature-icon">✓</span>
-              <h3>Data validation &amp; parsing</h3>
-              <p>Raw HTML is parsed into structured JSON, NDJSON, or CSV. Built-in validation ensures data quality.</p>
-            </div>
-            <div className="feature-card">
-              <span className="feature-icon">∞</span>
-              <h3>Unlimited scalability</h3>
-              <p>No concurrency limits. Scale from 10 to 10M requests with the same API. Pay only for successful results.</p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -429,6 +399,8 @@ export default function WebScraperHome() {
       />
 
       <DxComplianceSection />
+
+      <AiPromptCta />
 
       <FaqSection
         title="Web Scraper API FAQs"

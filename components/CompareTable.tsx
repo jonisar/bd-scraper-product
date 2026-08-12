@@ -19,7 +19,7 @@ export default function CompareTable({
     <section className={`section ${altBg ? "section-alt " : ""}animate-rise${hubAnchor ? " hub-anchor" : ""}`} id="compare">
       <div className="container">
         <div className="section-head">
-          <span className="kicker">Why Bright Data</span>
+          <span className="kicker">Compare Bright Data to others</span>
           <h2>{title}</h2>
           <p>{description}</p>
         </div>

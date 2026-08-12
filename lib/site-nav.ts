@@ -410,12 +410,12 @@ export const TOP_LINKS: NavLink[] = [
  * BD order: Scraper APIs · Marketplace · Pricing · Code · Compliance · How it Works · FAQs
  */
 export const HUB_SUBNAV: SubnavItem[] = [
-  { label: "Scraper APIs", href: "#scrapers" },
+  { label: "Try Scrapers", href: "#scrapers" },
   { label: "Pricing", href: "#pricing" },
-  { label: "How it Works", href: "#steps" },
   { label: "Code Examples", href: "#code" },
   { label: "AI Agents", href: "#agents" },
-  { label: "Live Demo", href: "#demo" },
+  { label: "Features", href: "#included" },
+  { label: "Live Playground", href: "#demo" },
   { label: "Compliance", href: "#why" },
   { label: "FAQs", href: "#faq" },
   { label: "Scraper Library", href: "/products/web-scraper/scraper-lib" },
@@ -423,12 +423,12 @@ export const HUB_SUBNAV: SubnavItem[] = [
 
 /** Main /products/web-scraper — BD anchors + Use Cases (strong conversion on hub home). */
 export const HOME_SUBNAV: SubnavItem[] = [
-  { label: "Scraper APIs", href: "#library" },
+  { label: "Try Scrapers", href: "#library" },
   { label: "Pricing", href: "#pricing" },
-  { label: "How it Works", href: "#steps" },
   { label: "Code Examples", href: "#code" },
   { label: "AI Agents", href: "#agents" },
-  { label: "Live Demo", href: "#demo" },
+  { label: "Features", href: "#how" },
+  { label: "Live Playground", href: "#demo" },
   { label: "Compliance", href: "#why" },
   { label: "FAQs", href: "#faq" },
   { label: "Scraper Library", href: "/products/web-scraper/scraper-lib" },
@@ -448,9 +448,8 @@ export const LIBRARY_SUBNAV: SubnavItem[] = [
 /** AI Scraper Studio page. */
 export const STUDIO_SUBNAV: SubnavItem[] = [
   { label: "How it Works", href: "#how" },
-  { label: "Features", href: "#features" },
+  { label: "What You Get", href: "#features" },
   { label: "Pricing", href: "#pricing" },
-  { label: "Support", href: "#support" },
   { label: "Compliance", href: "#compliance" },
   { label: "FAQs", href: "#faq" },
 ];
