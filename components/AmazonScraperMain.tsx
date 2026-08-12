@@ -1810,7 +1810,7 @@ export function AmazonScraperMain({
                       <CodeBlock code={MCP_CODE} label="json" />
                       <p className="text-sm text-bd-ink/85">
                         <a
-                          href="https://docs.brightdata.com/integrations/mcp"
+                          href="https://docs.brightdata.com/ai/mcp-server/overview"
                           className="font-semibold text-bd-blue hover:underline"
                           target="_blank"
                           rel="noreferrer"
@@ -2916,7 +2916,7 @@ export function AmazonScraperMain({
 
                   <div className="grid gap-3 sm:grid-cols-3">
                     {[
-                      ["Claude Desktop", "https://docs.brightdata.com/ai/mcp-server/integrations/claude-desktop"],
+                      ["Claude Desktop", "https://docs.brightdata.com/ai/mcp-server/integrations/claude"],
                       ["Cursor", "https://docs.brightdata.com/ai/mcp-server/integrations/cursor"],
                       ["VS Code", "https://docs.brightdata.com/ai/mcp-server/integrations/vscode"],
                     ].map(([name, url]) => (
@@ -3017,7 +3017,7 @@ export function AmazonScraperMain({
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {[
-                    ["Claude Desktop", "https://docs.brightdata.com/ai/mcp-server/integrations/claude-desktop"],
+                    ["Claude Desktop", "https://docs.brightdata.com/ai/mcp-server/integrations/claude"],
                     ["Cursor", "https://docs.brightdata.com/ai/mcp-server/integrations/cursor"],
                     ["VS Code", "https://docs.brightdata.com/ai/mcp-server/integrations/vscode"],
                     ["OpenAI Codex", "https://docs.brightdata.com/ai/mcp-server/integrations/codex"],
