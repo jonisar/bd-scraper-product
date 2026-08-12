@@ -64,25 +64,37 @@ jobs:
       - name: Pre-fetch the Bright Data MCP server
         run: npm install -g @brightdata/mcp
 
-      - name: Fail early if a secret is missing
+      - name: Check the secrets are present and well formed
         env:
           BD_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
-          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          RAW_CLAUDE_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: |
           missing=""
           [ -z "$BD_KEY" ] && missing="$missing BRIGHTDATA_API_KEY"
-          [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ] && missing="$missing CLAUDE_CODE_OAUTH_TOKEN"
+          [ -z "$RAW_CLAUDE_TOKEN" ] && missing="$missing CLAUDE_CODE_OAUTH_TOKEN"
           if [ -n "$missing" ]; then
             echo "::error::Missing secret(s):$missing"
             echo "Generate the Claude token locally with: claude setup-token"
             exit 1
           fi
+          # A long token pasted from a wrapped terminal carries a newline, which
+          # the API rejects as an invalid Authorization header. Warn here, where
+          # the cause is obvious, rather than letting every run fail in 2s.
+          # Never print the value, only its shape.
+          lines=$(printf '%s' "$RAW_CLAUDE_TOKEN" | wc -l | tr -d ' ')
+          if [ "$lines" -ne 0 ]; then
+            echo "::warning::CLAUDE_CODE_OAUTH_TOKEN contains a line break and is being joined. Re-add it as a single line to silence this."
+          fi
 
       - name: Run the published agent prompt
         env:
           BD_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
-          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          RAW_CLAUDE_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: |
+          # Strip any stray CR/LF the secret picked up on paste. Done through
+          # the environment so the token never appears on a command line.
+          CLAUDE_CODE_OAUTH_TOKEN="$(printf '%s' "$RAW_CLAUDE_TOKEN" | tr -d '\r\n')"
+          export CLAUDE_CODE_OAUTH_TOKEN
           npx tsx scripts/validate-agent-prompts.mjs \
             --agent claude \
             --runs "${{ inputs.runs || '3' }}" \
