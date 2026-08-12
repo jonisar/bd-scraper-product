@@ -175,32 +175,226 @@ const OPENAPI_SNIPPET = `{
   "security": [{ "bearerAuth": [] }]
 }`;
 
-const SAMPLE_OUTPUT = `{
-  "title": "SanDisk 1TB Extreme microSDXC UHS-I Memory Card with Adapter",
-  "url": "https://www.amazon.com/dp/B09X7MPX8L",
-  "asin": "B09X7MPX8L",
-  "in_stock": true,
-  "brand": "SanDisk",
-  "price": 145.50,
-  "list_price": 299.99,
-  "currency": "USD",
-  "stars": 4.8,
-  "reviews_count": 36704,
-  "answered_questions": 151,
-  "categories": "Electronics › Computers & Accessories › Memory Cards › Micro SD Cards",
-  "image": "https://m.media-amazon.com/images/I/716kSUlHouL.jpg",
-  "features": [
-    "Save time with card offload speeds of up to 190MB/s",
-    "Up to 130MB/s write speeds for fast shooting",
-    "4K and 5K UHD-ready with UHS Speed Class 3 (U3)"
-  ],
-  "seller": {
-    "name": "Direct Suppliers US",
-    "id": "A210SJF12S88M5"
-  },
-  "delivery": "Thursday, January 26",
-  "return_policy": "Eligible for Return, Refund or Replacement within 30 days"
-}`;
+/** Output fields as documented in the scraper library dictionary. */
+const OUTPUT_FIELDS: [string, string, string][] = [
+  ["title", "Text", "Product title"],
+  ["seller_name", "Text", "Seller name"],
+  ["brand", "Text", "Product brand"],
+  ["description", "Text", "A brief description of the product"],
+  ["initial_price", "Price", "Initial price"],
+  ["final_price", "Price", "Final price of the product"],
+  ["final_price_high", "Price", "Highest value of the final price when it is a range"],
+  ["currency", "Text", "Currency of the product"],
+  ["availability", "Text", "Product availability"],
+  ["is_available", "Boolean", "Indication if the product is still available"],
+  ["reviews_count", "Number", "Number of reviews"],
+  ["rating", "Number", "Product rating"],
+  ["categories", "Array", "Product categories"],
+  ["asin", "Text", "Unique identifier for each product"],
+  ["parent_asin", "Text", "Parent ASIN of the product"],
+  ["input_asin", "Text", "Input ASIN (currently inactive)"],
+  ["buybox_seller", "Text", "Seller in the buy box"],
+  ["buybox_prices", "Object", "Product price details"],
+  ["buybox_seller_rating", "Number", "The rating of the buy box seller"],
+  ["inactive_buy_box", "Object", "Price information when the buy box is unavailable"],
+  ["number_of_sellers", "Number", "Number of sellers for the product"],
+  ["other_sellers_prices", "Array", "Offers from other sellers for the same product"],
+  ["seller_id", "Text", "Unique identifier for each seller"],
+  ["seller_url", "Url", "Seller storefront or profile URL on Amazon"],
+  ["store_url", "Url", "The product's store URL"],
+  ["root_bs_rank", "Number", "Best sellers rank in the general category"],
+  ["root_bs_category", "Text", "Best seller root category"],
+  ["bs_category", "Text", "Best seller category"],
+  ["bs_rank", "Number", "Best seller rank in the specific category"],
+  ["subcategory_rank", "Array", "Best sellers rank entries by subcategory"],
+  ["subcategory_link", "Array", "Best sellers link entries by subcategory"],
+  ["badge", "Text", "Product badge, for example #1 Best Seller or Amazon's Choice"],
+  ["all_badges", "Array", "All badges"],
+  ["amazon_choice", "Boolean", "Specifies if the product is Amazon's Choice"],
+  ["amazon_prime", "Boolean", "Does it have Amazon Prime delivery"],
+  ["premium_brand", "Boolean", "Is it a premium brand"],
+  ["sponsored", "Boolean", "Amazon Sponsored flag"],
+  ["sponsered", "Boolean", "Sponsored, legacy field spelling"],
+  ["ISBN10", "Text", "ISBN-10 identifier for books"],
+  ["upc", "Text", "Universal Product Code"],
+  ["model_number", "Text", "Model number of the product"],
+  ["manufacturer", "Text", "Manufacturer of the product"],
+  ["department", "Text", "Department to which the product belongs"],
+  ["item_weight", "Text", "Weight of the product"],
+  ["product_dimensions", "Text", "Dimensions of the product"],
+  ["country_of_origin", "Text", "Country of origin of the product"],
+  ["ingredients", "Text", "Ingredients of the product, relevant mostly for food products"],
+  ["date_first_available", "Text", "Date when the product first became available"],
+  ["discount", "Text", "Product discount information"],
+  ["coupon", "Text", "Coupon"],
+  ["coupon_description", "Text", "Coupon description"],
+  ["prices_breakdown", "Object", "Breakdown of list and typical pricing and deal status"],
+  ["bought_past_month", "Number", "Units bought in the past month, as shown by Amazon"],
+  ["max_quantity_available", "Number", "Maximum quantity allowed to add to cart"],
+  ["answered_questions", "Number", "Number of answered questions"],
+  ["top_review", "Text", "Top review for the product"],
+  ["customer_says", "Text", "Customer says summary"],
+  ["customers_say", "Object", "Amazon's Customers say summary extracted from reviews"],
+  ["editorial_reviews", "Array", "The editorial reviews of the book"],
+  ["about_the_author", "Text", "About the author information"],
+  ["format", "Array", "Books format-related information"],
+  ["features", "Array", "Product features"],
+  ["product_details", "Array", "Full product details"],
+  ["product_description", "Array", "Media embedded in the product description section"],
+  ["from_the_brand", "Array", "Brand-provided promotional media shown on the page"],
+  ["plus_content", "Boolean", "Boolean indicating the presence of additional content"],
+  ["variations", "Array", "Details about the same product in different variations"],
+  ["variations_values", "Array", "Variations and their possible values"],
+  ["images", "Array", "URLs of the product images"],
+  ["image", "Url", "URL that links directly to the product image"],
+  ["image_url", "Url", "URL that links directly to the product image"],
+  ["images_count", "Number", "Number of images"],
+  ["video", "Boolean", "Boolean indicating the presence of videos"],
+  ["videos", "Array", "URLs of the product's videos"],
+  ["video_count", "Number", "Number of videos"],
+  ["downloadable_videos", "Text", "Not available: Amazon's streaming delivery and DRM prevent direct video file links"],
+  ["delivery", "Array", "Delivery-related information"],
+  ["ships_from", "Text", "Where the item ships from"],
+  ["zipcode", "Text", "ZIP or postal code used for delivery and availability estimates"],
+  ["city", "Text", "City related to shipping or seller location context"],
+  ["return_policy", "Text", "Return policy text shown on the product page"],
+  ["is_frequently_returned_item_badge", "Boolean", "Indicates whether the frequently-returned badge is present"],
+  ["frequently_returned_item_message", "Text", "The text shown inside the warning box"],
+  ["is_customers_usually_keep", "Boolean", "Indicates whether customers usually keep this item"],
+  ["sustainability_features", "Array", "Sustainability badges and certifications with references"],
+  ["climate_pledge_friendly", "Boolean", "Whether the product shows the Climate Pledge Friendly badge"],
+  ["safety_information", "Text", "Safety information"],
+  ["language", "Text", "Language of the product page content"],
+  ["domain", "Url", "URL of the product domain"],
+  ["url", "Url", "URL that links directly to the product"],
+  ["origin_url", "Url", "Source page URL used to extract this record"],
+];
+
+const SAMPLE_OUTPUT = `[
+  {
+    "title": "Among The Jacaranda: Buds of Matata in Kenya (MATATA BOOKS SERIES)",
+    "seller_name": "Ama***.co***",
+    "brand": "Braz Menezes",
+    "description": "Lando is born in British-ruled Kenya to parents from Goa as WW II breaks out in Europe. His family and community struggle to keep their Indo-Portuguese heritage alive in a Kenya dominated by the reality of racial segregation.",
+    "initial_price": 12.9,
+    "currency": "USD",
+    "availability": "In Stock",
+    "reviews_count": 17,
+    "categories": ["Books", "History", "Africa", "Kenya"],
+    "parent_asin": "B07GBSGV2C",
+    "asin": "1724274848",
+    "buybox_seller": "Amazon.com",
+    "number_of_sellers": 1,
+    "root_bs_rank": 3858056,
+    "ISBN10": "1724274848",
+    "answered_questions": 0,
+    "domain": "https://www.amazon.com/",
+    "images_count": 2,
+    "url": "https://www.amazon.com/Among-Jacaranda-Matata-Kenya-Trilogy/dp/1724274848",
+    "video_count": 0,
+    "image_url": "https://m.media-amazon.com/images/I/41hOzTjI5DL.jpg",
+    "item_weight": "14.9 ounces",
+    "rating": 4.2,
+    "product_dimensions": "5.5 x 0.62 x 8.5 inches",
+    "seller_id": "ATVPDKIKX0DER",
+    "department": "Books",
+    "final_price": 12.9,
+    "final_price_high": null,
+    "is_available": true,
+    "root_bs_category": "Books",
+    "bs_category": "Kenya History",
+    "bs_rank": 214,
+    "amazon_prime": true,
+    "amazon_choice": false,
+    "climate_pledge_friendly": false,
+    "max_quantity_available": 30,
+    "return_policy": "FREE 30-day refund/replacement",
+    "delivery": [
+      "FREE delivery Monday, August 17 on orders shipped by Amazon over $35",
+      "Or fastest delivery Saturday, August 15"
+    ],
+    "format": [
+      {
+        "name": "Kindle",
+        "price": { "currency": "USD", "value": 4.99 },
+        "url": "https://www.amazon.com/Among-Jacaranda-Matata-Kenya-Trilogy-ebook/dp/B07G9PWV58"
+      }
+    ],
+    "buybox_prices": {
+      "final_price": { "currency": "USD", "value": 12.9 }
+    },
+    "subcategory_rank": [
+      { "subcategory_name": "Kenya History", "subcategory_rank": 214 },
+      { "subcategory_name": "Kenya Travel Guides", "subcategory_rank": 274 },
+      { "subcategory_name": "Asian History (Books)", "subcategory_rank": 28139 }
+    ],
+    "images": [
+      "https://m.media-amazon.com/images/I/41hOzTjI5DL.jpg",
+      "https://m.media-amazon.com/images/I/41RGYjaQohL.jpg"
+    ],
+    "product_details": [
+      { "type": "Publisher", "value": "CreateSpace Independent Publishing Platform" },
+      { "type": "Publication date", "value": "July 30, 2018" },
+      { "type": "Language", "value": "English" },
+      { "type": "Print length", "value": "274 pages" },
+      { "type": "ISBN-10", "value": "1724274848" },
+      { "type": "ISBN-13", "value": "978-1724274847" },
+      { "type": "Item Weight", "value": "14.9 ounces" },
+      { "type": "Dimensions", "value": "5.5 x 0.62 x 8.5 inches" },
+      { "type": "Customer Reviews", "value": "17" }
+    ],
+    "other_sellers_prices": [
+      {
+        "seller_name": "Amazon.com",
+        "price": 12.9,
+        "seller_rating": 4,
+        "num_of_ratings": 17,
+        "ships_from": "Amazon.com",
+        "delivery": "FREE delivery Monday, August 17 on orders shipped by Amazon over $35"
+      },
+      {
+        "seller_name": "ThriftBooks-Dallas",
+        "price": 12.89,
+        "seller_rating": 4.5,
+        "num_of_ratings": 434238,
+        "ships_from": "ThriftBooks-Dallas",
+        "delivery": "FREE delivery August 19 - 21"
+      }
+    ],
+    "seller_url": "https://www.amazon.com/sp?ie=UTF8&seller=ATVPDKIKX0DER&asin=1724274848",
+    "subcategory_link": [
+      {
+        "subcategory_name": "Kenya History",
+        "subcategory_link": "https://www.amazon.com/gp/bestsellers/books/4781"
+      }
+    ],
+    "zipcode": "******",
+    "title_clean": "Among The Jacaranda: Buds of Matata in Kenya (MATATA BOOKS SERIES)",
+    "sponsored": false,
+    "premium_brand": false,
+    "plus_content": false,
+    "video": false,
+    "is_high_price": false,
+    "is_frequently_returned_item_badge": false,
+    "is_customers_usually_keep": false,
+    "discount": null,
+    "coupon": null,
+    "badge": null,
+    "manufacturer": null,
+    "model_number": null,
+    "upc": null,
+    "features": null,
+    "variations": null,
+    "input_asin": null,
+    "inactive_buy_box": null,
+    "buybox_seller_rating": null,
+    "customers_say": null,
+    "editorial_reviews": null,
+    "about_the_author": null,
+    "country_of_origin": null,
+    "bought_past_month": null
+  }
+]`;
 
 const AGENT_PROMPT = `Read https://brightdata.com/SKILL.md and set up Bright Data.
 
@@ -2679,43 +2873,25 @@ export function AmazonScraperMain({
               </div>
 
               <div>
-                <h3 className="mb-3 text-lg font-bold text-bd-navy">Field reference</h3>
-                <div className="overflow-x-auto rounded-xl border border-bd-line">
+                <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 className="text-lg font-bold text-bd-navy">Field reference</h3>
+                  <span className="text-xs font-medium text-bd-muted">All {OUTPUT_FIELDS.length} fields this scraper returns</span>
+                </div>
+                <div className="max-h-[560px] overflow-auto rounded-xl border border-bd-line">
                   <table className="w-full text-sm">
-                    <thead>
+                    <thead className="sticky top-0 z-10">
                       <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
                         <th className="px-4 py-2.5">Field</th>
                         <th className="px-4 py-2.5">Type</th>
-                        <th className="px-4 py-2.5">Nullable</th>
                         <th className="px-4 py-2.5">Description</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-bd-line text-bd-ink">
-                      {[
-                        ["title", "string", "No", "Product title"],
-                        ["url", "string", "No", "Canonical Amazon product URL"],
-                        ["asin", "string", "No", "Amazon Standard Identification Number"],
-                        ["price", "number", "Yes", "Current selling price (null if unavailable)"],
-                        ["list_price", "number", "Yes", "Original list / strike-through price"],
-                        ["currency", "string", "No", "ISO currency code (USD, EUR, GBP, JPY…)"],
-                        ["stars", "number", "Yes", "Average rating (0–5 scale, 1 decimal)"],
-                        ["reviews_count", "number", "Yes", "Total number of customer reviews"],
-                        ["in_stock", "boolean", "No", "Whether the product is currently in stock"],
-                        ["brand", "string", "Yes", "Brand name"],
-                        ["seller", "object", "Yes", "Seller name, ID, and marketplace URL"],
-                        ["features", "array", "Yes", "Bullet-point product features (strings)"],
-                        ["categories", "string", "Yes", "Breadcrumb category path"],
-                        ["image", "string", "Yes", "Main product image URL (high-res)"],
-                      ].map(([field, type, nullable, desc]) => (
+                      {OUTPUT_FIELDS.map(([field, type, desc]) => (
                         <tr key={field}>
                           <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">{field}</td>
                           <td className="px-4 py-2.5">
                             <span className="rounded bg-bd-canvas px-1.5 py-0.5 text-xs">{type}</span>
-                          </td>
-                          <td className="px-4 py-2.5">
-                            {nullable === "No"
-                              ? <span className="text-bd-success font-medium">Required</span>
-                              : <span className="text-bd-muted">Optional</span>}
                           </td>
                           <td className="px-4 py-2.5 text-bd-ink/80">{desc}</td>
                         </tr>
