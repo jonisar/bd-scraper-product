@@ -93,15 +93,13 @@ curl "https://api.brightdata.com/datasets/v3/snapshots/sd_abc123?format=json" \\
 
 const MCP_CODE = `{
   "mcpServers": {
-    "brightdata": {
+    "Bright Data": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@anthropic-ai/mcp-remote",
-        "https://mcp.brightdata.com/sse",
-        "--header",
-        "Authorization: Bearer <YOUR_API_TOKEN>"
-      ]
+      "args": ["-y", "@brightdata/mcp"],
+      "env": {
+        "API_TOKEN": "YOUR_API_KEY",
+        "GROUPS": "ecommerce"
+      }
     }
   }
 }`;
@@ -1800,6 +1798,13 @@ export function AmazonScraperMain({
                         <p className="mt-1 text-sm leading-6 text-bd-ink/85">
                           Connect this scraper to Claude Desktop, Cursor, or any MCP client.
                           Mode selection below does not change MCP setup.
+                        </p>
+                        <p className="mt-2 text-sm leading-6 text-bd-ink/85">
+                          <code className="font-mono text-[12px] text-bd-blue">GROUPS: &quot;ecommerce&quot;</code>{" "}
+                          loads <code className="font-mono text-[12px] text-bd-blue">web_data_amazon_product</code>,
+                          plus the reviews and search tools. Without it the server starts with five
+                          generic tools and your agent scrapes the raw page instead of calling this scraper.
+                          Product URLs must contain <code className="font-mono text-[12px] text-bd-blue">/dp/</code>.
                         </p>
                       </div>
                       <CodeBlock code={MCP_CODE} label="json" />
