@@ -6,6 +6,7 @@ Two scheduled jobs check that what the site publishes actually works:
 |---|---|---|
 | `daily-flow-validation.yml` | 05:00 UTC | Live pages render, CLI commands and prompts work, docs and API endpoints resolve |
 | `daily-api-examples.yml` | 05:30 UTC | Every code example on the Amazon Product Scraper page, executed against the live API: cURL, Python and Node.js, sync and async |
+| `daily-agent-prompts.yml` | 06:00 UTC | The published agent prompt and MCP config, driven through real Claude Code, graded on which tools the agent called |
 
 05:00 and 05:30 UTC are 08:00 and 08:30 in Israel, 10:30 and 11:00 IST. To move
 them, edit the `cron` line in each workflow. GitHub cron is UTC only and has no
@@ -41,6 +42,37 @@ Both workflows share `.github/actions/alert-issue`.
 
 The label is created automatically on first failure, so there is nothing to set
 up for it.
+
+## Extra setup for the agent prompt job
+
+That job drives a real Claude Code session, so it needs its own credential.
+
+1. Generate a token on your own machine:
+
+   ```bash
+   claude setup-token
+   ```
+
+   It prints a long-lived OAuth token tied to your Claude subscription, so runs
+   bill against the plan rather than a separate API key.
+
+2. Add it as `CLAUDE_CODE_OAUTH_TOKEN` under
+   Settings → Secrets and variables → Actions. Secrets, not Variables.
+
+The token belongs to whoever generated it. If that person's subscription
+lapses or the token is revoked, the job fails on the secret check with a clear
+message rather than reporting a false break in the docs.
+
+### Why it is a threshold and not a pass/fail
+
+Agents are non-deterministic. Two consecutive local runs of the same prompt
+against the same config gave a route failure and then a clean pass, so a single
+run tells you almost nothing. The job runs the prompt three times, alerts only
+below the threshold, and always reports the rate. Watch the rate: a drift from
+3/3 to 1/3 is a real regression even while the job is still green.
+
+The threshold ships at 1 of 3, which alerts only on total breakage. Tighten it
+to 2 once the flakiness itself is addressed.
 
 ## Second channel, optional
 

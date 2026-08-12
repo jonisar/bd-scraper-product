@@ -42,3 +42,6 @@ next-env.d.ts
 
 .api-example-runs/
 api-examples-report.md
+
+.agent-eval-runs/
+agent-prompt-report.md

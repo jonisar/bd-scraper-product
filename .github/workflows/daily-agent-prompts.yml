@@ -1,0 +1,110 @@
+name: Daily agent prompt validation
+
+# Hands a real coding agent the prompt and MCP config the Connect Agent tab
+# publishes, then grades which tools it reached for.
+#
+# This exists because a broken agent path does not look broken. An agent with
+# no Amazon tools loaded still answers confidently, using Web Unlocker or raw
+# curl, and the output reads fine. Grading the prose would score that a pass.
+# Grading the tool calls is the only way to see it.
+#
+# Two verdicts are tracked separately:
+#   route   did it use the MCP tools the page tells it to install
+#   data    did it come back with the real product
+#
+# Setup notes are in .github/workflows/README.md.
+
+on:
+  schedule:
+    # 06:00 UTC, after the API example job at 05:30 so a shared API outage
+    # shows up on the cheaper job first.
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      runs:
+        description: "How many times to run the prompt"
+        default: "3"
+      min-pass:
+        description: "Runs that must pass for the job to be green"
+        default: "1"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  agent-prompts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install repo dependencies
+        run: npm ci
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      # Warm the npx cache. The MCP server starts as "pending" and connects
+      # asynchronously; making the agent wait on a cold package download is a
+      # measurable cause of runs that finish before any tool is available.
+      - name: Pre-fetch the Bright Data MCP server
+        run: npm install -g @brightdata/mcp
+
+      - name: Fail early if a secret is missing
+        env:
+          BD_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          missing=""
+          [ -z "$BD_KEY" ] && missing="$missing BRIGHTDATA_API_KEY"
+          [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ] && missing="$missing CLAUDE_CODE_OAUTH_TOKEN"
+          if [ -n "$missing" ]; then
+            echo "::error::Missing secret(s):$missing"
+            echo "Generate the Claude token locally with: claude setup-token"
+            exit 1
+          fi
+
+      - name: Run the published agent prompt
+        env:
+          BD_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          npx tsx scripts/validate-agent-prompts.mjs \
+            --agent claude \
+            --runs "${{ inputs.runs || '3' }}" \
+            --min-pass "${{ inputs['min-pass'] || '1' }}"
+
+      - name: Publish report to the run summary
+        if: always()
+        run: cat agent-prompt-report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-prompt-report
+          path: agent-prompt-report.md
+
+      - name: Raise the alert
+        if: failure() && github.event_name != 'pull_request'
+        uses: ./.github/actions/alert-issue
+        with:
+          outcome: failure
+          title: The published agent prompt no longer reaches the scraper
+          label: agent-prompt-broken
+          assignee: anil-bd
+          report-path: agent-prompt-report.md
+
+      - name: Clear the alert
+        if: success() && github.event_name != 'pull_request'
+        uses: ./.github/actions/alert-issue
+        with:
+          outcome: success
+          title: The published agent prompt no longer reaches the scraper
+          label: agent-prompt-broken
+          assignee: anil-bd
