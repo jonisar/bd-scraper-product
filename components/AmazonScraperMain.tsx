@@ -1696,18 +1696,14 @@ export function AmazonScraperMain({
                   <h2 className="mb-3 text-lg font-bold text-bd-navy">API examples</h2>
                   <p className="mt-1.5 text-[15px] leading-7 text-bd-ink/80">
                     Call this scraper from your code, pick a language, copy the snippet, add your API key.
-                    Showing{" "}
-                    <strong className="font-semibold text-bd-ink">{apiMode === "sync" ? "sync" : "async"}</strong>
-                    {" "}examples
-                    {apiMode === "sync" ? " for real-time lookups" : " for bulk jobs"}
-                    . Select a mode below to update every example on this tab.
+                    The cURL, Python and Node.js examples come in sync and async modes.
                   </p>
                 </header>
               )}
 
               {/* Language pills + sync/async toggle + code */}
               <section id="api-code-examples">
-                <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-3">
                   <div className="flex flex-wrap gap-2">
                     {apiLangs.map((lang) => (
                       <button
@@ -1724,36 +1720,39 @@ export function AmazonScraperMain({
                       </button>
                     ))}
                   </div>
-                  <div className="flex shrink-0 items-center rounded-lg border border-bd-line bg-bd-canvas p-0.5">
-                    {(["sync", "async"] as const).map((m) => (
-                      <button
-                        key={m}
-                        type="button"
-                        onClick={() => setApiMode(m)}
-                        className={`rounded-md px-3 py-1.5 text-xs font-semibold transition ${
-                          apiMode === m
-                            ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/20"
-                            : "text-bd-muted hover:text-bd-ink"
-                        }`}
-                      >
-                        {m === "sync" ? "Sync" : "Async"}
-                      </button>
-                    ))}
-                  </div>
                 </div>
 
                 <div className="mt-5">
                   {(apiLang === "Python" || apiLang === "Node.js" || apiLang === "cURL") ? (
-                    <div className="space-y-4" key={`${apiLang}-${apiMode}`}>
-                      <div>
-                        <h3 className="text-lg font-bold text-bd-navy">
-                          {apiLang} · {apiMode === "sync" ? "Sync" : "Async"}
-                        </h3>
-                        <p className="mt-1 text-xs leading-5 text-bd-muted">
-                          {apiMode === "sync"
-                            ? "Real-time response via /datasets/v3/scrape. Best for single-product lookups. Requests over roughly a minute return a snapshot_id instead."
-                            : "Returns a snapshot_id instantly via /datasets/v3/trigger. Poll the snapshot or deliver via webhook. Best for production jobs of any size."}
-                        </p>
+                    <div className="space-y-4">
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <h3 className="text-lg font-bold text-bd-navy">
+                            {apiLang} · {apiMode === "sync" ? "Sync" : "Async"}
+                          </h3>
+                          <p className="mt-1 text-xs leading-5 text-bd-muted">
+                            {apiMode === "sync"
+                              ? "Real-time response via /datasets/v3/scrape. Best for single-product lookups. Requests over roughly a minute return a snapshot_id instead."
+                              : "Returns a snapshot_id instantly via /datasets/v3/trigger. Poll the snapshot or deliver via webhook. Best for production jobs of any size."}
+                          </p>
+                        </div>
+                        <div className="flex shrink-0 items-center rounded-lg border border-bd-line bg-bd-canvas p-0.5" role="group" aria-label="Request mode">
+                          {(["sync", "async"] as const).map((m) => (
+                            <button
+                              key={m}
+                              type="button"
+                              aria-pressed={apiMode === m}
+                              onClick={() => setApiMode(m)}
+                              className={`rounded-md px-3 py-1.5 text-xs font-semibold transition ${
+                                apiMode === m
+                                  ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/20"
+                                  : "text-bd-muted hover:text-bd-ink"
+                              }`}
+                            >
+                              {m === "sync" ? "Sync" : "Async"}
+                            </button>
+                          ))}
+                        </div>
                       </div>
 
                       {apiLang === "Python" || apiLang === "Node.js" ? (
@@ -1797,7 +1796,6 @@ export function AmazonScraperMain({
                         <h3 className="text-lg font-bold text-bd-navy">MCP server config</h3>
                         <p className="mt-1 text-sm leading-6 text-bd-ink/85">
                           Connect this scraper to Claude Desktop, Cursor, or any MCP client.
-                          Mode selection below does not change MCP setup.
                         </p>
                         <p className="mt-2 text-sm leading-6 text-bd-ink/85">
                           <code className="font-mono text-[12px] text-bd-blue">GROUPS: &quot;ecommerce&quot;</code>{" "}
@@ -1826,10 +1824,20 @@ export function AmazonScraperMain({
                       <div>
                         <h3 className="text-lg font-bold text-bd-navy">OpenAPI specification</h3>
                         <p className="mt-1 text-sm leading-6 text-bd-ink/85">
-                          Import into Postman, Swagger UI, or your code generator. Spec covers both sync and async paths.
+                          Import into Postman, Swagger UI, or your code generator. Covers both the sync and async scraper paths.
                         </p>
                       </div>
                       <CodeBlock code={OPENAPI_SNIPPET} label="json" />
+                      <p className="text-sm text-bd-ink/85">
+                        <a
+                          href="https://docs.brightdata.com/api-reference/openapi.json"
+                          className="font-semibold text-bd-blue hover:underline"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Full Bright Data OpenAPI spec →
+                        </a>
+                      </p>
                     </div>
                   ) : null}
                 </div>
