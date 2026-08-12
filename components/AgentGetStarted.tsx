@@ -93,7 +93,7 @@ export default function AgentGetStarted({
           <CopyCmd text={`bdata pipelines ${pipelineId} "${sampleUrl}"`} />
 
           <p className="term-label mt">Or connect over MCP:</p>
-          <CopyCmd text="https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN" />
+          <CopyCmd text="https://mcp.brightdata.com/mcp?token=YOUR_API_KEY" />
           <p className="term-note">
             <a
               href="https://brightdata.com/cp/mcp"

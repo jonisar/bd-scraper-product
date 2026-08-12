@@ -356,7 +356,7 @@ from langgraph.prebuilt import create_react_agent
 
 # Initialize the Bright Data scraper tool
 scraper = BrightDataWebScraperAPI(
-    bright_data_api_key="<YOUR_API_KEY>"
+    bright_data_api_key="YOUR_API_KEY"
 )
 
 # Create an agent that can scrape Amazon
@@ -418,7 +418,7 @@ print(result)`;
 const AGENT_REST = `import requests
 import json
 
-API_KEY = "<YOUR_API_KEY>"
+API_KEY = "YOUR_API_KEY"
 DATASET_ID = "${DATASET_ID}"
 
 def scrape_amazon(urls: list[str]) -> list[dict]:
