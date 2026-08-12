@@ -182,6 +182,8 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </div>
         </section>
 
+        <IncludedInEveryPlan hubAnchor />
+
         {/* SCRAPER PREVIEW — interactive example after agent context */}
         <ScraperPreview />
 
@@ -196,8 +198,6 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             <ChooseYourPath name={hub.name} />
           </div>
         </section>
-
-        <IncludedInEveryPlan hubAnchor />
 
         {/* PRODUCT TYPES — domain-specific deep dive (optional) */}
         {hub.productTypes && hub.productTypes.length > 0 && (
@@ -255,6 +255,12 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
 
         <DxComplianceSection hubAnchor />
 
+        {hub.slug === "ecommerce" ? (
+          <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper" />
+        ) : (
+          <AiPromptCta />
+        )}
+
         <FaqSection
           title={`${hub.name} Scraper API FAQs`}
           description={`Common questions about scraping ${hub.name} with Bright Data\u2019s Web Scraper API.`}
@@ -262,12 +268,6 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           altBg
           hubAnchor
         />
-
-        {hub.slug === "ecommerce" ? (
-          <AiPromptCta headingPlain="Build your own" headingAccent="e-commerce scraper" />
-        ) : (
-          <AiPromptCta />
-        )}
       </main>
 
       <Footer />

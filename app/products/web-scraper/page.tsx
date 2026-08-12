@@ -252,25 +252,7 @@ export default function WebScraperHome() {
         </div>
       </section>
 
-      {/* AI Prompt CTA — build your own, right after the agent context */}
-      <AiPromptCta />
-
-      {/* SCRAPER PREVIEW — interactive example after agent context */}
-      <ScraperPreview />
-
-      {/* CHOOSE YOUR PATH */}
-      <section className="section animate-rise" id="paths">
-        <div className="container">
-          <div className="section-head">
-            <span className="kicker">Choose your path</span>
-            <h2>Start scraping in minutes, your way</h2>
-            <p>Same scrapers, three ways to run them, pick the workflow that fits your team.</p>
-          </div>
-          <ChooseYourPath />
-        </div>
-      </section>
-
-      {/* INCLUDED IN EVERY PLAN */}
+      {/* WHY BRIGHT DATA SCRAPERS — right after agents */}
       <section className="section section-alt animate-rise" id="how">
         <div className="container">
           <div className="section-head">
@@ -286,6 +268,21 @@ export default function WebScraperHome() {
             <div className="feature-card"><div className="feature-head"><span className="feature-icon">💲</span><h3>Pay per result, nothing extra</h3></div><p>One price per record delivered. Proxies, retries, rendering, unblocking &mdash; all included in that price.</p></div>
             <div className="feature-card"><div className="feature-head"><span className="feature-icon">🏛</span><h3>Compliant and fully supported</h3></div><p>GDPR &amp; CCPA compliant. 24/7 human support on every plan, including free.</p></div>
           </div>
+        </div>
+      </section>
+
+      {/* SCRAPER PREVIEW */}
+      <ScraperPreview />
+
+      {/* CHOOSE YOUR PATH */}
+      <section className="section animate-rise" id="paths">
+        <div className="container">
+          <div className="section-head">
+            <span className="kicker">Choose your path</span>
+            <h2>Start scraping in minutes, your way</h2>
+            <p>Same scrapers, three ways to run them, pick the workflow that fits your team.</p>
+          </div>
+          <ChooseYourPath />
         </div>
       </section>
 
@@ -402,6 +399,8 @@ export default function WebScraperHome() {
       />
 
       <DxComplianceSection />
+
+      <AiPromptCta />
 
       <FaqSection
         title="Web Scraper API FAQs"
