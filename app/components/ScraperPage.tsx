@@ -62,7 +62,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "rank, title, price, rating, category, sales_volume",
     views: "34.6K+",
     downloads: "5.1K+",
-    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijixj9g2vp7563",
   },
   {
     name: "Amazon Sellers Info",
@@ -82,7 +82,7 @@ const RELATED_SCRAPERS = [
     fieldsPreview: "price, list_price, discount, buy_box, stock_status",
     views: "1.6K+",
     downloads: "540+",
-    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l1vijqt9jfj7olije",
+    href: "https://brightdata.com/cp/datasets/configure?dataset_id=gd_l7q7dkf244hwjntr0",
   },
   {
     name: "Walmart Products",

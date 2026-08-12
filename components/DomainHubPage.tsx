@@ -12,13 +12,11 @@ import AgentGetStarted from "@/components/AgentGetStarted";
 import PricingAssurances from "@/components/PricingAssurances";
 import PricingSlider from "@/components/PricingSlider";
 import { PricingCards } from "@/components/PricingCards";
-import HubCodeExample, { getHubTarget } from "@/components/HubCodeExample";
+import HubCodeExample, { getHubTarget, HubCodeAuthNote, Highlighted } from "@/components/HubCodeExample";
 import ChooseYourPath from "@/components/ChooseYourPath";
 import StatBanner from "@/components/StatBanner";
-import HubStrip from "@/components/HubStrip";
 import HowItWorksSteps from "@/components/HowItWorksSteps";
 import IncludedInEveryPlan from "@/components/IncludedInEveryPlan";
-
 import UseCasesGrid from "@/components/UseCasesGrid";
 import CompareTable from "@/components/CompareTable";
 import DxComplianceSection from "@/components/DxComplianceSection";
@@ -26,6 +24,8 @@ import FaqSection from "@/components/FaqSection";
 import HeroRatings from "@/components/HeroRatings";
 import ScraperPreview from "@/components/ScraperPreview";
 import ValueBanner from "@/components/ValueBanner";
+import HiddenCostAccordion from "@/components/HiddenCostAccordion";
+import DiscountBanner from "@/components/DiscountBanner";
 import DatasetCtaBanner from "@/components/DatasetCtaBanner";
 import { sampleUrlForDomain, type DomainHubData } from "@/lib/domain-hubs";
 import { cpHref } from "@/lib/cp-href";
@@ -75,7 +75,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
               <span className="kicker">Web Scrapers</span>
               <h2>Popular {hub.name} scrapers</h2>
               <p>
-                Production-ready {hub.name} scrapers, maintained by Bright Data, unblockable, and ready to call via API.
+                Pick one and call it. Every scraper lists its output fields, delivery volume, and live success rate.
               </p>
             </div>
 
@@ -94,15 +94,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                 />
               ))}
             </div>
-            {hub.scrapers.length > 12 && (
-              <p className="hub-view-all">
-                <a href="https://brightdata.com/cp/datasets" className="hub-view-all-link" target="_blank" rel="noopener noreferrer">
-                  View all {hub.scrapers.length} {hub.name} scrapers →
-                </a>
-              </p>
-            )}
 
-            <HubStrip />
           </div>
         </section>
 
@@ -111,19 +103,21 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           href={hub.datasetCta?.href}
         />
 
-        <ValueBanner />
+        <ValueBanner rankingHref={hub.rankingUrl} />
 
         {/* PRICING — high up for quick buyer conversion */}
         <section className="section section-alt animate-rise hub-anchor" id="pricing">
           <div className="container">
             <div className="section-head">
               <span className="kicker">{hub.name} Scraper API Pricing</span>
-              <h2>Only pay for what&rsquo;s successfully delivered</h2>
+              <h2>Only pay for successful results</h2>
               <p>No hidden fees. No charges for failed deliveries. Every plan includes full access to {hub.name} scrapers and infrastructure.</p>
             </div>
+            <DiscountBanner />
             <PricingSlider className="mb-6" />
             <PricingCards unit="records" />
             <PricingAssurances />
+            <HiddenCostAccordion />
           </div>
         </section>
 
@@ -154,7 +148,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                     <span className="hub-code-tab active" style={{ cursor: "default" }}>Sample response</span>
                   </div>
                   <pre className="hub-code-pre">
-                    <code>{getHubTarget(hub.domain)?.response ?? `[{\n  "url": "${sampleUrl}",\n  ${topScraper?.fieldsPreview
+                    <code><Highlighted kind="json" code={getHubTarget(hub.domain)?.response ?? `[{\n  "url": "${sampleUrl}",\n  ${topScraper?.fieldsPreview
                       ? topScraper.fieldsPreview
                           .replace(", and more.", "")
                           .split(", ")
@@ -162,11 +156,12 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
                           .map((f) => `"${f.trim()}": "..."`)
                           .join(",\n  ")
                       : `"title": "...",\n  "price": "..."`
-                    },\n  ...\n}]`}</code>
+                    },\n  ...\n}]`} /></code>
                   </pre>
                 </div>
               </div>
             </div>
+            <HubCodeAuthNote />
           </div>
         </section>
 
@@ -192,10 +187,10 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           <div className="container">
             <div className="section-head">
               <span className="kicker">Choose your path</span>
-              <h2>Start scraping in minutes, your way</h2>
-              <p>Same scrapers, three ways to run them, pick the workflow that fits your team.</p>
+              <h2>Same scrapers, three ways to run them</h2>
+              <p>Call the API from code, click through the control panel, or hand it to your AI agent.</p>
             </div>
-            <ChooseYourPath name={hub.name} />
+            <ChooseYourPath name={hub.name} cpHref={hub.cpUrl} />
           </div>
         </section>
 

@@ -16,7 +16,7 @@ const EXAMPLES: Record<
 > = {
   products: {
     label: "Products",
-    datasetId: "gd_l1vijqt9jfj7olije",
+    datasetId: "gd_l7q7dkf244hwjntr0",
     payload: `[
   {"url": "https://www.amazon.com/dp/B0CRMZHDG8", "asin": "B0CRMZHDG8", "zipcode": "94107"},
   {"url": "https://www.amazon.com/dp/B07PZF3QS3", "asin": "B07PZF3QS3"}
@@ -73,7 +73,7 @@ function buildCode(lang: Lang, datasetId: string, payload: string): string {
   if (lang === "cURL") {
     return `curl -X POST \\
   "https://api.brightdata.com/datasets/v3/trigger?dataset_id=${datasetId}&format=json" \\
-  -H "Authorization: Bearer <YOUR_API_TOKEN>" \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '${compact}'`;
   }
@@ -81,7 +81,7 @@ function buildCode(lang: Lang, datasetId: string, payload: string): string {
     return `import requests
 
 headers = {
-    "Authorization": "Bearer <YOUR_API_TOKEN>",
+    "Authorization": "Bearer YOUR_API_KEY",
     "Content-Type": "application/json",
 }
 payload = ${payload}
@@ -99,7 +99,7 @@ print(response.json())`;
   {
     method: "POST",
     headers: {
-      Authorization: "Bearer <YOUR_API_TOKEN>",
+      Authorization: "Bearer YOUR_API_KEY",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(${payload}),

@@ -1,10 +1,14 @@
-export default function ValueBanner() {
+export default function ValueBanner({
+  rankingHref = "https://aimultiple.com/web-scraping-apis",
+}: {
+  rankingHref?: string;
+} = {}) {
   return (
     <section className="value-banner">
       <div className="container value-banner-inner">
         <a
           className="vb-item vb-item-link"
-          href="https://aimultiple.com/web-scraping-apis"
+          href={rankingHref}
           target="_blank"
           rel="noopener noreferrer"
         >

@@ -1,202 +1,47 @@
 "use client";
 
+import { AGENT_PROMPT, MCP_CONFIG as AGENT_MCP_CONFIG } from "@/lib/agent-prompt";
 import { useState, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
 import TrustedByStrip from "@/components/TrustedByStrip";
 import ScraperCard from "@/components/ScraperCard";
 import { PricingCards } from "@/components/PricingCards";
 import PricingSlider from "@/components/PricingSlider";
-import RestApiExample from "@/components/RestApiExample";
+import HubCodeExample, { getHubTarget, Highlighted } from "@/components/HubCodeExample";
+import { CURL_SYNC, CURL_ASYNC, PYTHON_SYNC, PYTHON_ASYNC, JS_SYNC, JS_ASYNC } from "@/lib/api-snippets";
 import AgentSetupCta, { AGENT_SKILL_PROMPT } from "@/components/AgentSetupCta";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Playground" | "Connect Agent" | "Customize";
-type ApiLang = "Python" | "JavaScript" | "cURL" | "MCP" | "OpenAPI";
+
+/** URL slugs so tabs are linkable, e.g. ?tab=api. Only used on the standalone page. */
+const TAB_SLUGS: Record<MainTab, string> = {
+  Overview: "overview",
+  Playground: "playground",
+  Pricing: "pricing",
+  API: "api",
+  Input: "input",
+  Output: "output",
+  "Connect Agent": "connect-agent",
+  Customize: "customize",
+};
+
+const TAB_BY_SLUG = Object.fromEntries(
+  Object.entries(TAB_SLUGS).map(([tab, slug]) => [slug, tab as MainTab])
+) as Record<string, MainTab>;
+type ApiLang = "Python" | "Node.js" | "cURL" | "MCP" | "OpenAPI";
 type AgentPlatform = "Prompt" | "CLI" | "MCP" | "OpenAI SDK" | "LangChain" | "CrewAI" | "REST API";
 
-const DATASET_ID = "gd_l1vijqt9jfj7olije";
-
-const PYTHON_SYNC = `import requests
-import json
-
-API_TOKEN = "<YOUR_API_TOKEN>"
-DATASET_ID = "${DATASET_ID}"
-
-# Synchronous request, results returned in real time
-response = requests.post(
-    "https://api.brightdata.com/datasets/v3/scrape",
-    headers={
-        "Authorization": f"Bearer {API_TOKEN}",
-        "Content-Type": "application/json",
-    },
-    params={
-        "dataset_id": DATASET_ID,
-        "format": "json",
-        "include_errors": "true",
-    },
-    json=[
-        {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
-        {"url": "https://www.amazon.com/dp/B0D5CQPGFQ"},
-    ],
-)
-
-products = response.json()
-for product in products:
-    print(f"{product['title']}, {product['price']}")
-
-# 📚 Docs → https://docs.brightdata.com/api-reference/scrapers/synchronous-requests`;
-
-const PYTHON_ASYNC = `import requests
-import time
-
-API_TOKEN = "<YOUR_API_TOKEN>"
-DATASET_ID = "${DATASET_ID}"
-
-# Step 1: Trigger an async collection
-trigger = requests.post(
-    "https://api.brightdata.com/datasets/v3/trigger",
-    headers={
-        "Authorization": f"Bearer {API_TOKEN}",
-        "Content-Type": "application/json",
-    },
-    params={
-        "dataset_id": DATASET_ID,
-        "format": "json",
-        "include_errors": "true",
-    },
-    json=[
-        {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
-        {"url": "https://www.amazon.com/dp/B0D5CQPGFQ"},
-    ],
-)
-
-snapshot_id = trigger.json()["snapshot_id"]
-print(f"Snapshot: {snapshot_id}")
-
-# Step 2: Poll until ready
-while True:
-    status = requests.get(
-        f"https://api.brightdata.com/datasets/v3/snapshots/{snapshot_id}",
-        headers={"Authorization": f"Bearer {API_TOKEN}"},
-    )
-    if status.json()["status"] == "ready":
-        break
-    time.sleep(5)
-
-# Step 3: Download results
-results = requests.get(
-    f"https://api.brightdata.com/datasets/v3/snapshots/{snapshot_id}",
-    headers={"Authorization": f"Bearer {API_TOKEN}"},
-    params={"format": "json"},
-)
-
-for product in results.json():
-    print(f"{product['title']}, {product['price']}")
-
-# 📚 Docs → https://docs.brightdata.com/api-reference/scrapers/asynchronous-requests`;
-
-const JS_SYNC = `const API_TOKEN = "<YOUR_API_TOKEN>";
-const DATASET_ID = "${DATASET_ID}";
-
-// Synchronous request — results returned in real time
-const response = await fetch(
-  \`https://api.brightdata.com/datasets/v3/scrape?dataset_id=\${DATASET_ID}&format=json&include_errors=true\`,
-  {
-    method: "POST",
-    headers: {
-      Authorization: \`Bearer \${API_TOKEN}\`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify([
-      { url: "https://www.amazon.com/dp/B09X7MPX8L" },
-      { url: "https://www.amazon.com/dp/B0D5CQPGFQ" },
-    ]),
-  }
-);
-
-const products = await response.json();
-products.forEach((p) => console.log(\`\${p.title}, \${p.price}\`));
-
-// 📚 Docs → https://docs.brightdata.com/api-reference/scrapers/synchronous-requests`;
-
-const JS_ASYNC = `const API_TOKEN = "<YOUR_API_TOKEN>";
-const DATASET_ID = "${DATASET_ID}";
-
-// Step 1: Trigger async collection
-const trigger = await fetch(
-  \`https://api.brightdata.com/datasets/v3/trigger?dataset_id=\${DATASET_ID}&format=json\`,
-  {
-    method: "POST",
-    headers: {
-      Authorization: \`Bearer \${API_TOKEN}\`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify([
-      { url: "https://www.amazon.com/dp/B09X7MPX8L" },
-      { url: "https://www.amazon.com/dp/B0D5CQPGFQ" },
-    ]),
-  }
-);
-
-const { snapshot_id } = await trigger.json();
-console.log("Snapshot:", snapshot_id);
-
-// Step 2: Poll until ready
-let status;
-do {
-  await new Promise((r) => setTimeout(r, 5000));
-  const res = await fetch(
-    \`https://api.brightdata.com/datasets/v3/snapshots/\${snapshot_id}\`,
-    { headers: { Authorization: \`Bearer \${API_TOKEN}\` } }
-  );
-  status = (await res.json()).status;
-} while (status !== "ready");
-
-// Step 3: Download results
-const results = await fetch(
-  \`https://api.brightdata.com/datasets/v3/snapshots/\${snapshot_id}?format=json\`,
-  { headers: { Authorization: \`Bearer \${API_TOKEN}\` } }
-);
-
-const products = await results.json();
-products.forEach((p) => console.log(\`\${p.title}, \${p.price}\`));
-
-// 📚 Docs → https://docs.brightdata.com/api-reference/scrapers/asynchronous-requests`;
-
-const CURL_SYNC = `curl -X POST \\
-  "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${DATASET_ID}&format=json&include_errors=true" \\
-  -H "Authorization: Bearer <YOUR_API_TOKEN>" \\
-  -H "Content-Type: application/json" \\
-  -d '[
-    {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
-    {"url": "https://www.amazon.com/dp/B0D5CQPGFQ"}
-  ]'`;
-
-const CURL_ASYNC = `# Step 1: Trigger collection
-curl -X POST \\
-  "https://api.brightdata.com/datasets/v3/trigger?dataset_id=${DATASET_ID}&format=json" \\
-  -H "Authorization: Bearer <YOUR_API_TOKEN>" \\
-  -H "Content-Type: application/json" \\
-  -d '[
-    {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
-    {"url": "https://www.amazon.com/dp/B0D5CQPGFQ"}
-  ]'
-# → Returns: {"snapshot_id": "s_abc123..."}
-
-# Step 2: Check status / download results
-curl "https://api.brightdata.com/datasets/v3/snapshots/s_abc123?format=json" \\
-  -H "Authorization: Bearer <YOUR_API_TOKEN>"`;
+const DATASET_ID = "gd_l7q7dkf244hwjntr0";
 
 const MCP_CODE = `{
   "mcpServers": {
-    "brightdata": {
+    "Bright Data": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@anthropic-ai/mcp-remote",
-        "https://mcp.brightdata.com/sse",
-        "--header",
-        "Authorization: Bearer <YOUR_API_TOKEN>"
-      ]
+      "args": ["-y", "@brightdata/mcp"],
+      "env": {
+        "API_TOKEN": "YOUR_API_KEY",
+        "GROUPS": "ecommerce"
+      }
     }
   }
 }`;
@@ -256,71 +101,234 @@ const OPENAPI_SNIPPET = `{
   "security": [{ "bearerAuth": [] }]
 }`;
 
-const SAMPLE_OUTPUT = `{
-  "title": "SanDisk 1TB Extreme microSDXC UHS-I Memory Card with Adapter",
-  "url": "https://www.amazon.com/dp/B09X7MPX8L",
-  "asin": "B09X7MPX8L",
-  "in_stock": true,
-  "brand": "SanDisk",
-  "price": 145.50,
-  "list_price": 299.99,
-  "currency": "USD",
-  "stars": 4.8,
-  "reviews_count": 36704,
-  "answered_questions": 151,
-  "categories": "Electronics › Computers & Accessories › Memory Cards › Micro SD Cards",
-  "image": "https://m.media-amazon.com/images/I/716kSUlHouL.jpg",
-  "features": [
-    "Save time with card offload speeds of up to 190MB/s",
-    "Up to 130MB/s write speeds for fast shooting",
-    "4K and 5K UHD-ready with UHS Speed Class 3 (U3)"
-  ],
-  "seller": {
-    "name": "Direct Suppliers US",
-    "id": "A210SJF12S88M5"
-  },
-  "delivery": "Thursday, January 26",
-  "return_policy": "Eligible for Return, Refund or Replacement within 30 days"
-}`;
+/** Output fields as documented in the scraper library dictionary. */
+const OUTPUT_FIELDS: [string, string, string][] = [
+  ["title", "Text", "Product title"],
+  ["seller_name", "Text", "Seller name"],
+  ["brand", "Text", "Product brand"],
+  ["description", "Text", "A brief description of the product"],
+  ["initial_price", "Price", "Initial price"],
+  ["final_price", "Price", "Final price of the product"],
+  ["final_price_high", "Price", "Highest value of the final price when it is a range"],
+  ["currency", "Text", "Currency of the product"],
+  ["availability", "Text", "Product availability"],
+  ["is_available", "Boolean", "Indication if the product is still available"],
+  ["reviews_count", "Number", "Number of reviews"],
+  ["rating", "Number", "Product rating"],
+  ["categories", "Array", "Product categories"],
+  ["asin", "Text", "Unique identifier for each product"],
+  ["parent_asin", "Text", "Parent ASIN of the product"],
+  ["input_asin", "Text", "Input ASIN (currently inactive)"],
+  ["buybox_seller", "Text", "Seller in the buy box"],
+  ["buybox_prices", "Object", "Product price details"],
+  ["buybox_seller_rating", "Number", "The rating of the buy box seller"],
+  ["inactive_buy_box", "Object", "Price information when the buy box is unavailable"],
+  ["number_of_sellers", "Number", "Number of sellers for the product"],
+  ["other_sellers_prices", "Array", "Offers from other sellers for the same product"],
+  ["seller_id", "Text", "Unique identifier for each seller"],
+  ["seller_url", "Url", "Seller storefront or profile URL on Amazon"],
+  ["store_url", "Url", "The product's store URL"],
+  ["root_bs_rank", "Number", "Best sellers rank in the general category"],
+  ["root_bs_category", "Text", "Best seller root category"],
+  ["bs_category", "Text", "Best seller category"],
+  ["bs_rank", "Number", "Best seller rank in the specific category"],
+  ["subcategory_rank", "Array", "Best sellers rank entries by subcategory"],
+  ["subcategory_link", "Array", "Best sellers link entries by subcategory"],
+  ["badge", "Text", "Product badge, for example #1 Best Seller or Amazon's Choice"],
+  ["all_badges", "Array", "All badges"],
+  ["amazon_choice", "Boolean", "Specifies if the product is Amazon's Choice"],
+  ["amazon_prime", "Boolean", "Does it have Amazon Prime delivery"],
+  ["premium_brand", "Boolean", "Is it a premium brand"],
+  ["sponsored", "Boolean", "Amazon Sponsored flag"],
+  ["sponsered", "Boolean", "Sponsored, legacy field spelling"],
+  ["ISBN10", "Text", "ISBN-10 identifier for books"],
+  ["upc", "Text", "Universal Product Code"],
+  ["model_number", "Text", "Model number of the product"],
+  ["manufacturer", "Text", "Manufacturer of the product"],
+  ["department", "Text", "Department to which the product belongs"],
+  ["item_weight", "Text", "Weight of the product"],
+  ["product_dimensions", "Text", "Dimensions of the product"],
+  ["country_of_origin", "Text", "Country of origin of the product"],
+  ["ingredients", "Text", "Ingredients of the product, relevant mostly for food products"],
+  ["date_first_available", "Text", "Date when the product first became available"],
+  ["discount", "Text", "Product discount information"],
+  ["coupon", "Text", "Coupon"],
+  ["coupon_description", "Text", "Coupon description"],
+  ["prices_breakdown", "Object", "Breakdown of list and typical pricing and deal status"],
+  ["bought_past_month", "Number", "Units bought in the past month, as shown by Amazon"],
+  ["max_quantity_available", "Number", "Maximum quantity allowed to add to cart"],
+  ["answered_questions", "Number", "Number of answered questions"],
+  ["top_review", "Text", "Top review for the product"],
+  ["customer_says", "Text", "Customer says summary"],
+  ["customers_say", "Object", "Amazon's Customers say summary extracted from reviews"],
+  ["editorial_reviews", "Array", "The editorial reviews of the book"],
+  ["about_the_author", "Text", "About the author information"],
+  ["format", "Array", "Books format-related information"],
+  ["features", "Array", "Product features"],
+  ["product_details", "Array", "Full product details"],
+  ["product_description", "Array", "Media embedded in the product description section"],
+  ["from_the_brand", "Array", "Brand-provided promotional media shown on the page"],
+  ["plus_content", "Boolean", "Boolean indicating the presence of additional content"],
+  ["variations", "Array", "Details about the same product in different variations"],
+  ["variations_values", "Array", "Variations and their possible values"],
+  ["images", "Array", "URLs of the product images"],
+  ["image", "Url", "URL that links directly to the product image"],
+  ["image_url", "Url", "URL that links directly to the product image"],
+  ["images_count", "Number", "Number of images"],
+  ["video", "Boolean", "Boolean indicating the presence of videos"],
+  ["videos", "Array", "URLs of the product's videos"],
+  ["video_count", "Number", "Number of videos"],
+  ["downloadable_videos", "Text", "Not available: Amazon's streaming delivery and DRM prevent direct video file links"],
+  ["delivery", "Array", "Delivery-related information"],
+  ["ships_from", "Text", "Where the item ships from"],
+  ["zipcode", "Text", "ZIP or postal code used for delivery and availability estimates"],
+  ["city", "Text", "City related to shipping or seller location context"],
+  ["return_policy", "Text", "Return policy text shown on the product page"],
+  ["is_frequently_returned_item_badge", "Boolean", "Indicates whether the frequently-returned badge is present"],
+  ["frequently_returned_item_message", "Text", "The text shown inside the warning box"],
+  ["is_customers_usually_keep", "Boolean", "Indicates whether customers usually keep this item"],
+  ["sustainability_features", "Array", "Sustainability badges and certifications with references"],
+  ["climate_pledge_friendly", "Boolean", "Whether the product shows the Climate Pledge Friendly badge"],
+  ["safety_information", "Text", "Safety information"],
+  ["language", "Text", "Language of the product page content"],
+  ["domain", "Url", "URL of the product domain"],
+  ["url", "Url", "URL that links directly to the product"],
+  ["origin_url", "Url", "Source page URL used to extract this record"],
+];
 
-const AGENT_PROMPT = `Read https://brightdata.com/SKILL.md and set up Bright Data.
-
-Then complete these tasks with the Amazon pipelines
-(amazon_product, amazon_product_reviews, amazon_product_search):
-
-1. Get structured JSON for https://www.amazon.com/dp/B09X7MPX8L
-   via amazon_product and report title, price, stars, and in_stock.
-
-2. Pull reviews for the same product and summarize the top
-   complaints in 3 bullets.
-
-3. Search "wireless earbuds" on https://amazon.com and save
-   the results to earbuds.csv.
-
-When done, list the commands you ran so I can rerun them.`;
-
-const AGENT_MCP_CONFIG = `{
-  "mcpServers": {
-    "brightdata": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@anthropic-ai/mcp-remote",
-        "https://mcp.brightdata.com/sse",
-        "--header",
-        "Authorization: Bearer <YOUR_API_KEY>"
-      ]
-    }
+const SAMPLE_OUTPUT = `[
+  {
+    "title": "Among The Jacaranda: Buds of Matata in Kenya (MATATA BOOKS SERIES)",
+    "seller_name": "Ama***.co***",
+    "brand": "Braz Menezes",
+    "description": "Lando is born in British-ruled Kenya to parents from Goa as WW II breaks out in Europe. His family and community struggle to keep their Indo-Portuguese heritage alive in a Kenya dominated by the reality of racial segregation.",
+    "initial_price": 12.9,
+    "currency": "USD",
+    "availability": "In Stock",
+    "reviews_count": 17,
+    "categories": ["Books", "History", "Africa", "Kenya"],
+    "parent_asin": "B07GBSGV2C",
+    "asin": "1724274848",
+    "buybox_seller": "Amazon.com",
+    "number_of_sellers": 1,
+    "root_bs_rank": 3858056,
+    "ISBN10": "1724274848",
+    "answered_questions": 0,
+    "domain": "https://www.amazon.com/",
+    "images_count": 2,
+    "url": "https://www.amazon.com/Among-Jacaranda-Matata-Kenya-Trilogy/dp/1724274848",
+    "video_count": 0,
+    "image_url": "https://m.media-amazon.com/images/I/41hOzTjI5DL.jpg",
+    "item_weight": "14.9 ounces",
+    "rating": 4.2,
+    "product_dimensions": "5.5 x 0.62 x 8.5 inches",
+    "seller_id": "ATVPDKIKX0DER",
+    "department": "Books",
+    "final_price": 12.9,
+    "final_price_high": null,
+    "is_available": true,
+    "root_bs_category": "Books",
+    "bs_category": "Kenya History",
+    "bs_rank": 214,
+    "amazon_prime": true,
+    "amazon_choice": false,
+    "climate_pledge_friendly": false,
+    "max_quantity_available": 30,
+    "return_policy": "FREE 30-day refund/replacement",
+    "delivery": [
+      "FREE delivery Monday, August 17 on orders shipped by Amazon over $35",
+      "Or fastest delivery Saturday, August 15"
+    ],
+    "format": [
+      {
+        "name": "Kindle",
+        "price": { "currency": "USD", "value": 4.99 },
+        "url": "https://www.amazon.com/Among-Jacaranda-Matata-Kenya-Trilogy-ebook/dp/B07G9PWV58"
+      }
+    ],
+    "buybox_prices": {
+      "final_price": { "currency": "USD", "value": 12.9 }
+    },
+    "subcategory_rank": [
+      { "subcategory_name": "Kenya History", "subcategory_rank": 214 },
+      { "subcategory_name": "Kenya Travel Guides", "subcategory_rank": 274 },
+      { "subcategory_name": "Asian History (Books)", "subcategory_rank": 28139 }
+    ],
+    "images": [
+      "https://m.media-amazon.com/images/I/41hOzTjI5DL.jpg",
+      "https://m.media-amazon.com/images/I/41RGYjaQohL.jpg"
+    ],
+    "product_details": [
+      { "type": "Publisher", "value": "CreateSpace Independent Publishing Platform" },
+      { "type": "Publication date", "value": "July 30, 2018" },
+      { "type": "Language", "value": "English" },
+      { "type": "Print length", "value": "274 pages" },
+      { "type": "ISBN-10", "value": "1724274848" },
+      { "type": "ISBN-13", "value": "978-1724274847" },
+      { "type": "Item Weight", "value": "14.9 ounces" },
+      { "type": "Dimensions", "value": "5.5 x 0.62 x 8.5 inches" },
+      { "type": "Customer Reviews", "value": "17" }
+    ],
+    "other_sellers_prices": [
+      {
+        "seller_name": "Amazon.com",
+        "price": 12.9,
+        "seller_rating": 4,
+        "num_of_ratings": 17,
+        "ships_from": "Amazon.com",
+        "delivery": "FREE delivery Monday, August 17 on orders shipped by Amazon over $35"
+      },
+      {
+        "seller_name": "ThriftBooks-Dallas",
+        "price": 12.89,
+        "seller_rating": 4.5,
+        "num_of_ratings": 434238,
+        "ships_from": "ThriftBooks-Dallas",
+        "delivery": "FREE delivery August 19 - 21"
+      }
+    ],
+    "seller_url": "https://www.amazon.com/sp?ie=UTF8&seller=ATVPDKIKX0DER&asin=1724274848",
+    "subcategory_link": [
+      {
+        "subcategory_name": "Kenya History",
+        "subcategory_link": "https://www.amazon.com/gp/bestsellers/books/4781"
+      }
+    ],
+    "zipcode": "******",
+    "title_clean": "Among The Jacaranda: Buds of Matata in Kenya (MATATA BOOKS SERIES)",
+    "sponsored": false,
+    "premium_brand": false,
+    "plus_content": false,
+    "video": false,
+    "is_high_price": false,
+    "is_frequently_returned_item_badge": false,
+    "is_customers_usually_keep": false,
+    "discount": null,
+    "coupon": null,
+    "badge": null,
+    "manufacturer": null,
+    "model_number": null,
+    "upc": null,
+    "features": null,
+    "variations": null,
+    "input_asin": null,
+    "inactive_buy_box": null,
+    "buybox_seller_rating": null,
+    "customers_say": null,
+    "editorial_reviews": null,
+    "about_the_author": null,
+    "country_of_origin": null,
+    "bought_past_month": null
   }
-}`;
+]`;
 
 const AGENT_MCP_HOSTED = `# Hosted MCP, no local install needed
 # Use this URL directly in Claude Desktop, Cursor, VS Code, or any MCP client:
 
-https://mcp.brightdata.com/sse?token=<YOUR_API_KEY>
+https://mcp.brightdata.com/sse?token=YOUR_API_KEY
 
 # For Streamable HTTP (OpenAI Agent Builder, n8n, etc.):
-https://mcp.brightdata.com/mcp?token=<YOUR_API_KEY>`;
+https://mcp.brightdata.com/mcp?token=YOUR_API_KEY`;
 
 const AGENT_OPENAI = `from openai import OpenAI
 
@@ -332,7 +340,7 @@ response = client.responses.create(
         {
             "type": "mcp",
             "server_label": "BrightData",
-            "server_url": "https://mcp.brightdata.com/sse?token=<YOUR_API_KEY>",
+            "server_url": "https://mcp.brightdata.com/sse?token=YOUR_API_KEY",
             "require_approval": "never",
         },
     ],
@@ -348,7 +356,7 @@ from langgraph.prebuilt import create_react_agent
 
 # Initialize the Bright Data scraper tool
 scraper = BrightDataWebScraperAPI(
-    bright_data_api_key="<YOUR_API_KEY>"
+    bright_data_api_key="YOUR_API_KEY"
 )
 
 # Create an agent that can scrape Amazon
@@ -410,7 +418,7 @@ print(result)`;
 const AGENT_REST = `import requests
 import json
 
-API_KEY = "<YOUR_API_KEY>"
+API_KEY = "YOUR_API_KEY"
 DATASET_ID = "${DATASET_ID}"
 
 def scrape_amazon(urls: list[str]) -> list[dict]:
@@ -438,7 +446,7 @@ products = scrape_amazon([
 ])
 
 for p in products:
-    print(f"{p['title']}, \${p['price']} ({p['stars']}★)")`;
+    print(f"{p['title']}, \${p['final_price']} ({p['rating']}★)")`;
 
 const DESCRIPTION =
   "Extract prices, reviews, stock levels, and seller data from any Amazon product page via API. No proxy management, no anti-bot headaches, just send URLs and get structured JSON back.";
@@ -486,6 +494,72 @@ function AgentCmd({ text }: { text: string }) {
   );
 }
 
+/** Map a CodeBlock label to the shared highlighter's token grammar. */
+const TOKEN_KIND: Record<string, "bash" | "python" | "js" | "json"> = {
+  bash: "bash",
+  python: "python",
+  javascript: "js",
+  json: "json",
+};
+
+function OutputFieldTable() {
+  const [query, setQuery] = useState("");
+  const q = query.trim().toLowerCase();
+  const shown = q
+    ? OUTPUT_FIELDS.filter(([f, t, d]) =>
+        f.toLowerCase().includes(q) || t.toLowerCase().includes(q) || d.toLowerCase().includes(q)
+      )
+    : OUTPUT_FIELDS;
+
+  return (
+    <div>
+      <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+        <h3 className="text-lg font-bold text-bd-navy">Field reference</h3>
+        <span className="text-xs font-medium text-bd-muted">
+          {q ? `${shown.length} of ${OUTPUT_FIELDS.length} fields` : `All ${OUTPUT_FIELDS.length} fields this scraper returns`}
+        </span>
+      </div>
+      <input
+        type="search"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search fields, e.g. price, seller, rank"
+        aria-label="Search output fields"
+        className="mb-3 w-full rounded-xl border border-bd-line bg-bd-canvas px-4 py-2.5 text-sm text-bd-ink placeholder:text-bd-muted focus:border-bd-blue/50 focus:outline-none focus:ring-2 focus:ring-bd-blue/20"
+      />
+      <div className="max-h-[420px] overflow-auto rounded-xl border border-bd-line">
+        <table className="w-full text-sm">
+          <thead className="sticky top-0 z-10">
+            <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
+              <th className="px-4 py-2.5">Field</th>
+              <th className="px-4 py-2.5">Type</th>
+              <th className="px-4 py-2.5">Description</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-bd-line text-bd-ink">
+            {shown.map(([field, type, desc]) => (
+              <tr key={field}>
+                <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">{field}</td>
+                <td className="px-4 py-2.5">
+                  <span className="rounded bg-bd-canvas px-1.5 py-0.5 text-xs">{type}</span>
+                </td>
+                <td className="px-4 py-2.5 text-bd-ink/80">{desc}</td>
+              </tr>
+            ))}
+            {shown.length === 0 && (
+              <tr>
+                <td colSpan={3} className="px-4 py-6 text-center text-sm text-bd-muted">
+                  No field matches &ldquo;{query}&rdquo;.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 function CodeBlock({ code, label }: { code: string; label: string }) {
   return (
     <div className="overflow-hidden rounded-xl border border-[#2a4060] bg-bd-code-bg shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
@@ -494,7 +568,9 @@ function CodeBlock({ code, label }: { code: string; label: string }) {
         <CopyButton text={code} />
       </div>
       <pre className="code-scroll max-h-[520px] overflow-auto p-3 text-[12px] leading-5 text-[#d7e6ff] sm:p-4 sm:text-[13px] sm:leading-6">
-        <code className="font-mono whitespace-pre">{code}</code>
+        <code className="font-mono whitespace-pre">
+          <Highlighted code={code} kind={TOKEN_KIND[label] ?? "bash"} />
+        </code>
       </pre>
     </div>
   );
@@ -1613,16 +1689,49 @@ export function AmazonScraperMain({
 }: AmazonScraperMainProps) {
   const TitleTag = titleAs;
   const [mainTab, setMainTab] = useState<MainTab>("Overview");
-  const [apiLang, setApiLang] = useState<ApiLang>("Python");
+  /** Embedded previews must never rewrite their host page's URL. */
+  const routable = !compact;
+  const [apiLang, setApiLang] = useState<ApiLang>("cURL");
   const [apiMode, setApiMode] = useState<"sync" | "async">("sync");
   const [agentPlatform, setAgentPlatform] = useState<AgentPlatform>("Prompt");
 
   const mainTabs: MainTab[] = ["Overview", "Playground", "Pricing", "API", "Input", "Output", "Connect Agent", "Customize"];
-  const apiLangs: ApiLang[] = ["Python", "JavaScript", "cURL", "MCP", "OpenAPI"];
+
+  // Open the tab named in ?tab=, and follow browser back/forward between tabs.
+  useEffect(() => {
+    if (!routable) return;
+    const fromUrl = () => {
+      const slug = new URLSearchParams(window.location.search).get("tab");
+      return slug ? TAB_BY_SLUG[slug] : undefined;
+    };
+    const initial = fromUrl();
+    if (initial) setMainTab(initial);
+    const onPop = () => setMainTab(fromUrl() ?? "Overview");
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, [routable]);
+
+  const selectTab = useCallback(
+    (tab: MainTab, scroll = true) => {
+      setMainTab(tab);
+      if (routable) {
+        const params = new URLSearchParams(window.location.search);
+        if (tab === "Overview") params.delete("tab");
+        else params.set("tab", TAB_SLUGS[tab]);
+        const qs = params.toString();
+        window.history.pushState(null, "", window.location.pathname + (qs ? `?${qs}` : "") + window.location.hash);
+      }
+      if (scroll) {
+        document.getElementById(tabsId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    },
+    [routable, tabsId]
+  );
+  const apiLangs: ApiLang[] = ["cURL", "Python", "Node.js", "MCP", "OpenAPI"];
 
   function getCodeForLang() {
     if (apiLang === "Python") return apiMode === "sync" ? PYTHON_SYNC : PYTHON_ASYNC;
-    if (apiLang === "JavaScript") return apiMode === "sync" ? JS_SYNC : JS_ASYNC;
+    if (apiLang === "Node.js") return apiMode === "sync" ? JS_SYNC : JS_ASYNC;
     if (apiLang === "cURL") return apiMode === "sync" ? CURL_SYNC : CURL_ASYNC;
     return "";
   }
@@ -1756,10 +1865,7 @@ export function AmazonScraperMain({
               <button
                 key={tab}
                 type="button"
-                onClick={() => {
-                  setMainTab(tab);
-                  document.getElementById(tabsId)?.scrollIntoView({ behavior: "smooth", block: "start" });
-                }}
+                onClick={() => selectTab(tab)}
                 className={`relative -mb-px shrink-0 border-b-2 px-3 py-3 text-[13px] font-medium transition-colors sm:px-3.5 sm:text-sm ${
                   mainTab === tab
                     ? "border-bd-blue text-bd-blue"
@@ -1783,18 +1889,14 @@ export function AmazonScraperMain({
                   <h2 className="mb-3 text-lg font-bold text-bd-navy">API examples</h2>
                   <p className="mt-1.5 text-[15px] leading-7 text-bd-ink/80">
                     Call this scraper from your code, pick a language, copy the snippet, add your API key.
-                    Showing{" "}
-                    <strong className="font-semibold text-bd-ink">{apiMode === "sync" ? "sync" : "async"}</strong>
-                    {" "}examples
-                    {apiMode === "sync" ? " for real-time lookups" : " for bulk jobs"}
-                    . Select a mode below to update every example on this tab.
+                    The cURL, Python and Node.js examples come in sync and async modes.
                   </p>
                 </header>
               )}
 
               {/* Language pills + sync/async toggle + code */}
               <section id="api-code-examples">
-                <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-3">
                   <div className="flex flex-wrap gap-2">
                     {apiLangs.map((lang) => (
                       <button
@@ -1811,48 +1913,54 @@ export function AmazonScraperMain({
                       </button>
                     ))}
                   </div>
-                  <div className="flex shrink-0 items-center rounded-lg border border-bd-line bg-bd-canvas p-0.5">
-                    {(["sync", "async"] as const).map((m) => (
-                      <button
-                        key={m}
-                        type="button"
-                        onClick={() => setApiMode(m)}
-                        className={`rounded-md px-3 py-1.5 text-xs font-semibold transition ${
-                          apiMode === m
-                            ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/20"
-                            : "text-bd-muted hover:text-bd-ink"
-                        }`}
-                      >
-                        {m === "sync" ? "Sync" : "Async"}
-                      </button>
-                    ))}
-                  </div>
                 </div>
 
                 <div className="mt-5">
-                  {(apiLang === "Python" || apiLang === "JavaScript" || apiLang === "cURL") ? (
-                    <div className="space-y-4" key={`${apiLang}-${apiMode}`}>
-                      <div>
-                        <h3 className="text-lg font-bold text-bd-navy">
-                          {apiLang} · {apiMode === "sync" ? "Sync" : "Async"}
-                        </h3>
-                        <p className="mt-1 text-xs text-bd-muted">
-                          {apiMode === "sync"
-                            ? "Real-time response via /datasets/v3/scrape"
-                            : "Returns snapshot_id via /datasets/v3/trigger, poll or webhook"}
-                        </p>
+                  {(apiLang === "Python" || apiLang === "Node.js" || apiLang === "cURL") ? (
+                    <div className="space-y-4">
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <h3 className="text-lg font-bold text-bd-navy">
+                            {apiLang} · {apiMode === "sync" ? "Sync" : "Async"}
+                          </h3>
+                          <p className="mt-1 text-xs leading-5 text-bd-muted">
+                            {apiMode === "sync"
+                              ? "Real-time response via /datasets/v3/scrape. Best for lookups of roughly 20 URLs or fewer. Requests over roughly a minute return a snapshot_id instead."
+                              : "Returns a snapshot_id instantly via /datasets/v3/trigger. Poll the snapshot or deliver via webhook. Best for production jobs of any size."}
+                          </p>
+                        </div>
+                        <div className="flex shrink-0 items-center rounded-lg border border-bd-line bg-bd-canvas p-0.5" role="group" aria-label="Request mode">
+                          {(["sync", "async"] as const).map((m) => (
+                            <button
+                              key={m}
+                              type="button"
+                              aria-pressed={apiMode === m}
+                              onClick={() => setApiMode(m)}
+                              className={`rounded-md px-3 py-1.5 text-xs font-semibold transition ${
+                                apiMode === m
+                                  ? "bg-bd-blue text-white shadow-sm shadow-bd-blue/20"
+                                  : "text-bd-muted hover:text-bd-ink"
+                              }`}
+                            >
+                              {m === "sync" ? "Sync" : "Async"}
+                            </button>
+                          ))}
+                        </div>
                       </div>
 
-                      {apiLang === "Python" ? (
+                      {apiLang === "Python" || apiLang === "Node.js" ? (
                         <div className="space-y-2">
                           <p className="text-sm text-bd-ink/85">Only dependency needed:</p>
-                          <CodeBlock code="pip install requests" label="bash" />
+                          <CodeBlock
+                            code={apiLang === "Python" ? "pip install brightdata-sdk" : "npm install @brightdata/sdk"}
+                            label="bash"
+                          />
                         </div>
                       ) : null}
 
                       <CodeBlock
                         code={getCodeForLang()}
-                        label={apiLang === "cURL" ? "bash" : apiLang.toLowerCase()}
+                        label={apiLang === "cURL" ? "bash" : apiLang === "Node.js" ? "javascript" : "python"}
                       />
 
                       <div className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
@@ -1881,13 +1989,19 @@ export function AmazonScraperMain({
                         <h3 className="text-lg font-bold text-bd-navy">MCP server config</h3>
                         <p className="mt-1 text-sm leading-6 text-bd-ink/85">
                           Connect this scraper to Claude Desktop, Cursor, or any MCP client.
-                          Mode selection below does not change MCP setup.
+                        </p>
+                        <p className="mt-2 text-sm leading-6 text-bd-ink/85">
+                          <code className="font-mono text-[12px] text-bd-blue">GROUPS: &quot;ecommerce&quot;</code>{" "}
+                          loads <code className="font-mono text-[12px] text-bd-blue">web_data_amazon_product</code>,
+                          plus the reviews and search tools. Without it the server starts with five
+                          generic tools and your agent scrapes the raw page instead of calling this scraper.
+                          Product URLs must contain <code className="font-mono text-[12px] text-bd-blue">/dp/</code>.
                         </p>
                       </div>
                       <CodeBlock code={MCP_CODE} label="json" />
                       <p className="text-sm text-bd-ink/85">
                         <a
-                          href="https://docs.brightdata.com/integrations/mcp"
+                          href="https://docs.brightdata.com/ai/mcp-server/overview"
                           className="font-semibold text-bd-blue hover:underline"
                           target="_blank"
                           rel="noreferrer"
@@ -1903,97 +2017,25 @@ export function AmazonScraperMain({
                       <div>
                         <h3 className="text-lg font-bold text-bd-navy">OpenAPI specification</h3>
                         <p className="mt-1 text-sm leading-6 text-bd-ink/85">
-                          Import into Postman, Swagger UI, or your code generator. Spec covers both sync and async paths.
+                          Import into Postman, Swagger UI, or your code generator. Covers both the sync and async scraper paths.
                         </p>
                       </div>
                       <CodeBlock code={OPENAPI_SNIPPET} label="json" />
+                      <p className="text-sm text-bd-ink/85">
+                        <a
+                          href="https://docs.brightdata.com/api-reference/openapi.json"
+                          className="font-semibold text-bd-blue hover:underline"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Full Bright Data OpenAPI spec →
+                        </a>
+                      </p>
                     </div>
                   ) : null}
                 </div>
               </section>
 
-              <RestApiExample
-                datasetId={DATASET_ID}
-                mode={apiMode}
-                onModeChange={setApiMode}
-                className="border-t border-bd-line pt-8"
-              />
-
-              {/* Sync and async — interactive mode control */}
-              <section className="border-t border-bd-line pt-8">
-                <div className="mb-4">
-                  <h3 className="mb-3 text-lg font-bold text-bd-navy">Sync and async</h3>
-                  <p className="mt-1 text-sm text-bd-ink/85">
-                    Click a mode to update the language examples and REST sample above.
-                    Same setting is shared with{" "}
-                    <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">
-                      Customize
-                    </button>
-                    .
-                  </p>
-                </div>
-
-                <div className="grid gap-3 sm:grid-cols-2" role="radiogroup" aria-label="API mode">
-                  {([
-                    {
-                      id: "sync" as const,
-                      title: "Sync",
-                      endpoint: "/datasets/v3/scrape",
-                      body: "Returns product JSON in real time. 1‑min timeout, then auto-switches to async.",
-                      best: "Best for: quick lookups, up to 20 URLs",
-                    },
-                    {
-                      id: "async" as const,
-                      title: "Async",
-                      endpoint: "/datasets/v3/trigger",
-                      body: "Returns a snapshot_id instantly, poll the snapshot or deliver via webhook.",
-                      best: "Best for: production & large jobs, any size",
-                    },
-                  ]).map((mode) => {
-                    const active = apiMode === mode.id;
-                    return (
-                      <button
-                        key={mode.id}
-                        type="button"
-                        role="radio"
-                        aria-checked={active}
-                        onClick={() => {
-                          setApiMode(mode.id);
-                          if (apiLang === "Python" || apiLang === "JavaScript" || apiLang === "cURL") {
-                            window.requestAnimationFrame(() => {
-                              document.getElementById("api-code-examples")?.scrollIntoView({
-                                behavior: "smooth",
-                                block: "start",
-                              });
-                            });
-                          }
-                        }}
-                        className={`rounded-xl border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bd-blue/40 ${
-                          active
-                            ? "border-bd-blue/50 bg-bd-blue-soft/50 shadow-sm shadow-bd-blue/10"
-                            : "border-bd-line bg-bd-canvas hover:border-bd-blue/30 hover:bg-bd-blue-soft/20"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between gap-2">
-                          <p className="text-sm font-bold text-bd-navy">{mode.title}</p>
-                          {active ? (
-                            <span className="rounded-full bg-bd-blue px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-                              Selected
-                            </span>
-                          ) : (
-                            <span className="text-[11px] font-semibold text-bd-blue">Select →</span>
-                          )}
-                        </div>
-                        <code className="mt-2 inline-block rounded bg-bd-panel px-1.5 py-0.5 font-mono text-[11px] text-bd-blue sm:text-xs">
-                          {mode.endpoint}
-                        </code>
-                        <p className="mt-2.5 text-sm leading-6 text-bd-ink/80">{mode.body}</p>
-                        <p className="mt-2 text-xs font-medium text-bd-muted">{mode.best}</p>
-                      </button>
-                    );
-                  })}
-                </div>
-              </section>
             </div>
           ) : null}
 
@@ -2050,7 +2092,7 @@ export function AmazonScraperMain({
                       key={path.title}
                       type="button"
                       onClick={() => {
-                        setMainTab(path.tab);
+                        selectTab(path.tab, false);
                         setTimeout(() => document.getElementById(tabsId)?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
                       }}
                       className="group rounded-xl border border-bd-line bg-bd-canvas px-4 py-4 text-left transition hover:border-bd-blue/40 hover:bg-bd-blue-soft/30"
@@ -2087,7 +2129,7 @@ export function AmazonScraperMain({
                   <button
                     type="button"
                     onClick={() => {
-                      setMainTab("Output");
+                      selectTab("Output", false);
                       setTimeout(() => document.getElementById(tabsId)?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
                     }}
                     className="self-start text-[13px] font-semibold text-bd-blue transition hover:underline sm:self-center"
@@ -2121,8 +2163,11 @@ export function AmazonScraperMain({
                 </p>
               </section>
 
-              {/* ── 4. REST API example ── */}
-              <RestApiExample datasetId={DATASET_ID} />
+              {/* ── 4. Quick start: same verified examples as /products/web-scraper#code ── */}
+              <section>
+                <h3 className="mb-3 text-lg font-bold text-bd-navy">Quick start</h3>
+                <HubCodeExample fixedTarget="Amazon" withResponse />
+              </section>
 
               {/* ── 5. How to integrate ── */}
               <section>
@@ -2137,7 +2182,7 @@ export function AmazonScraperMain({
                     <button
                       key={m.method}
                       type="button"
-                      onClick={() => { setMainTab(m.tab); setTimeout(() => document.getElementById(tabsId)?.scrollIntoView({ behavior: "smooth", block: "start" }), 50); }}
+                      onClick={() => { selectTab(m.tab, false); setTimeout(() => document.getElementById(tabsId)?.scrollIntoView({ behavior: "smooth", block: "start" }), 50); }}
                       className="flex w-full items-start gap-3 rounded-xl border border-bd-line bg-bd-panel px-4 py-3 text-left transition hover:border-bd-blue/40 hover:bg-bd-blue-soft/20"
                     >
                       <span className="mt-0.5 shrink-0 rounded bg-bd-blue/10 px-2 py-0.5 font-mono text-[11px] font-bold text-bd-blue">{m.method}</span>
@@ -2174,7 +2219,7 @@ export function AmazonScraperMain({
 
               <DataFieldsExplorer
                 onOpenCustomize={() => {
-                  setMainTab("Customize");
+                  selectTab("Customize", false);
                   setTimeout(() => document.getElementById(tabsId)?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
                 }}
               />
@@ -2185,7 +2230,7 @@ export function AmazonScraperMain({
                 </h2>
                 <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/85">
                   Production knobs developers use to keep scrapes predictable, configure in the{" "}
-                  <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">
+                  <button type="button" onClick={() => selectTab("Customize", false)} className="font-semibold text-bd-blue hover:underline">
                     Customize
                   </button>{" "}
                   tab or control panel.
@@ -2651,6 +2696,17 @@ export function AmazonScraperMain({
               )}
 
               <div>
+                <h3 className="mb-3 text-lg font-bold text-bd-navy">Example request body</h3>
+                <CodeBlock
+                  code={`[
+  {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
+  {"url": "https://www.amazon.com/dp/B0D5CQPGFQ"},
+  {"url": "https://www.amazon.com/s?k=wireless+keyboard"}
+]`}
+                  label="json"
+                />
+              </div>
+              <div>
                 <h3 className="mb-3 text-lg font-bold text-bd-navy">Request parameters</h3>
                 <div className="overflow-x-auto rounded-xl border border-bd-line">
                   <table className="w-full text-sm">
@@ -2728,17 +2784,6 @@ export function AmazonScraperMain({
                 </div>
               </div>
 
-              <div>
-                <h3 className="mb-3 text-lg font-bold text-bd-navy">Example request body</h3>
-                <CodeBlock
-                  code={`[
-  {"url": "https://www.amazon.com/dp/B09X7MPX8L"},
-  {"url": "https://www.amazon.com/dp/B0D5CQPGFQ"},
-  {"url": "https://www.amazon.com/s?k=wireless+keyboard"}
-]`}
-                  label="json"
-                />
-              </div>
             </div>
           ) : null}
 
@@ -2761,52 +2806,7 @@ export function AmazonScraperMain({
                 <span className="rounded-full border border-bd-line px-2.5 py-1 text-bd-muted">OpenAPI ready</span>
               </div>
 
-              <div>
-                <h3 className="mb-3 text-lg font-bold text-bd-navy">Field reference</h3>
-                <div className="overflow-x-auto rounded-xl border border-bd-line">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="bg-bd-canvas text-left text-xs font-semibold uppercase tracking-wider text-bd-muted">
-                        <th className="px-4 py-2.5">Field</th>
-                        <th className="px-4 py-2.5">Type</th>
-                        <th className="px-4 py-2.5">Nullable</th>
-                        <th className="px-4 py-2.5">Description</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-bd-line text-bd-ink">
-                      {[
-                        ["title", "string", "No", "Product title"],
-                        ["url", "string", "No", "Canonical Amazon product URL"],
-                        ["asin", "string", "No", "Amazon Standard Identification Number"],
-                        ["price", "number", "Yes", "Current selling price (null if unavailable)"],
-                        ["list_price", "number", "Yes", "Original list / strike-through price"],
-                        ["currency", "string", "No", "ISO currency code (USD, EUR, GBP, JPY…)"],
-                        ["stars", "number", "Yes", "Average rating (0–5 scale, 1 decimal)"],
-                        ["reviews_count", "number", "Yes", "Total number of customer reviews"],
-                        ["in_stock", "boolean", "No", "Whether the product is currently in stock"],
-                        ["brand", "string", "Yes", "Brand name"],
-                        ["seller", "object", "Yes", "Seller name, ID, and marketplace URL"],
-                        ["features", "array", "Yes", "Bullet-point product features (strings)"],
-                        ["categories", "string", "Yes", "Breadcrumb category path"],
-                        ["image", "string", "Yes", "Main product image URL (high-res)"],
-                      ].map(([field, type, nullable, desc]) => (
-                        <tr key={field}>
-                          <td className="px-4 py-2.5 font-mono text-xs text-bd-blue">{field}</td>
-                          <td className="px-4 py-2.5">
-                            <span className="rounded bg-bd-canvas px-1.5 py-0.5 text-xs">{type}</span>
-                          </td>
-                          <td className="px-4 py-2.5">
-                            {nullable === "No"
-                              ? <span className="text-bd-success font-medium">Required</span>
-                              : <span className="text-bd-muted">Optional</span>}
-                          </td>
-                          <td className="px-4 py-2.5 text-bd-ink/80">{desc}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              <OutputFieldTable />
 
               <div>
                 <h3 className="mb-3 text-lg font-bold text-bd-navy">Sample response</h3>
@@ -2978,7 +2978,7 @@ export function AmazonScraperMain({
 
                   <div className="grid gap-3 sm:grid-cols-3">
                     {[
-                      ["Claude Desktop", "https://docs.brightdata.com/ai/mcp-server/integrations/claude-desktop"],
+                      ["Claude Desktop", "https://docs.brightdata.com/ai/mcp-server/integrations/claude"],
                       ["Cursor", "https://docs.brightdata.com/ai/mcp-server/integrations/cursor"],
                       ["VS Code", "https://docs.brightdata.com/ai/mcp-server/integrations/vscode"],
                     ].map(([name, url]) => (
@@ -3079,7 +3079,7 @@ export function AmazonScraperMain({
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {[
-                    ["Claude Desktop", "https://docs.brightdata.com/ai/mcp-server/integrations/claude-desktop"],
+                    ["Claude Desktop", "https://docs.brightdata.com/ai/mcp-server/integrations/claude"],
                     ["Cursor", "https://docs.brightdata.com/ai/mcp-server/integrations/cursor"],
                     ["VS Code", "https://docs.brightdata.com/ai/mcp-server/integrations/vscode"],
                     ["OpenAI Codex", "https://docs.brightdata.com/ai/mcp-server/integrations/codex"],

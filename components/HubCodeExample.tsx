@@ -20,7 +20,7 @@ const GROUP_CLASSES: Record<TokKind, (string | null)[]> = {
   json: ["cx-key", null, "cx-str", "cx-num", "cx-bool"],
 };
 
-function Highlighted({ code, kind }: { code: string; kind: TokKind }) {
+export function Highlighted({ code, kind }: { code: string; kind: TokKind }) {
   const re = new RegExp(TOKEN_RES[kind].source, "g");
   const classes = GROUP_CLASSES[kind];
   const out: ReactNode[] = [];
@@ -43,7 +43,7 @@ function Highlighted({ code, kind }: { code: string; kind: TokKind }) {
 const TARGETS = [
   {
     name: "Amazon",
-    datasetId: "gd_l1vijqt9jfj7olije",
+    datasetId: "gd_l7q7dkf244hwjntr0",
     url: "https://www.amazon.com/Quencher-FlowState-Stainless-Insulated-Smoothie/dp/B0CRMZHDG8",
     printFields: ["title", "final_price"],
     sdkCall: "amazon.products",
@@ -219,9 +219,33 @@ const TARGETS = [
 
 type TargetName = (typeof TARGETS)[number]["name"];
 
+/** Shared authentication note rendered under quick start code panels. */
+export function HubCodeAuthNote() {
+  return (
+    <p className="hub-code-auth">
+      <span aria-hidden="true">🔑</span> <strong>Authentication:</strong> pass your API
+      key as a Bearer token in the <code>Authorization</code> header. Get your key at{" "}
+      <a
+        href="https://brightdata.com/cp/setting/users"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        brightdata.com/cp/setting/users
+      </a>
+      .
+    </p>
+  );
+}
+
 /** Hub pages with a real captured example (SDK call + genuine response). */
+/** Category hubs demo a verified representative target instead of a dead placeholder. */
+const DOMAIN_ALIASES: Record<string, string> = {
+  "e-commerce sites": "amazon.com",
+};
+
 export function getHubTarget(domain: string) {
-  return TARGETS.find((t) => t.domain === domain);
+  const resolved = DOMAIN_ALIASES[domain] ?? domain;
+  return TARGETS.find((t) => t.domain === resolved);
 }
 
 function CopyBtn({ text }: { text: string }) {
@@ -247,19 +271,23 @@ type HubCodeExampleProps = {
   sampleUrl?: string;
   /** Pin to a known target (Amazon, LinkedIn, Instagram): SDK snippets + real dataset id, no switcher. */
   fixedTarget?: TargetName;
+  /** Render the response panel, snapshot note, and auth note alongside the request, as on the home page. */
+  withResponse?: boolean;
   className?: string;
 };
 
-export default function HubCodeExample({ sampleUrl, fixedTarget, className = "" }: HubCodeExampleProps) {
-  const [lang, setLang] = useState<Lang>("cURL");
-  const [targetName, setTargetName] = useState<TargetName>("Amazon");
-  const multiTarget = !sampleUrl && !fixedTarget;
-  const pinned = fixedTarget ? TARGETS.find((t) => t.name === fixedTarget) : undefined;
-  const target = pinned
-    ? pinned
-    : multiTarget
-      ? TARGETS.find((t) => t.name === targetName) ?? TARGETS[0]
-      : { name: "custom", datasetId: "DATASET_ID", url: sampleUrl!, printFields: ["title", "price"] as const, sdkCall: "", domain: "", response: "" };
+type SnippetTarget = {
+  datasetId: string;
+  url: string;
+  printFields: readonly string[];
+  sdkCall: string;
+};
+
+/**
+ * The verified snippets, one source of truth for every page that shows them.
+ * Every SDK variant here has been executed against the live API.
+ */
+export function buildSnippets(target: SnippetTarget): Record<Lang, string> {
   const [f1, f2] = target.printFields;
 
   const curlCode = `# Synchronous request: results returned in real time\ncurl -X POST "https://api.brightdata.com/datasets/v3/scrape?dataset_id=${target.datasetId}&format=json" \\
@@ -317,7 +345,21 @@ const data = await response.json();
 if (Array.isArray(data)) console.log(data[0].${f1}, data[0].${f2});
 else console.log("processing, poll snapshot:", data.snapshot_id);`;
 
-  const codeMap: Record<Lang, string> = { cURL: curlCode, Python: pythonCode, "Node.js": nodeCode };
+  return { cURL: curlCode, Python: pythonCode, "Node.js": nodeCode };
+}
+
+export default function HubCodeExample({ sampleUrl, fixedTarget, withResponse = false, className = "" }: HubCodeExampleProps) {
+  const [lang, setLang] = useState<Lang>("cURL");
+  const [targetName, setTargetName] = useState<TargetName>("Amazon");
+  const multiTarget = !sampleUrl && !fixedTarget;
+  const pinned = fixedTarget ? TARGETS.find((t) => t.name === fixedTarget) : undefined;
+  const target = pinned
+    ? pinned
+    : multiTarget
+      ? TARGETS.find((t) => t.name === targetName) ?? TARGETS[0]
+      : { name: "custom", datasetId: "DATASET_ID", url: sampleUrl!, printFields: ["title", "price"] as const, sdkCall: "", domain: "", response: "" };
+
+  const codeMap = buildSnippets(target);
   const langs: Lang[] = ["cURL", "Python", "Node.js"];
 
   const requestCard = (
@@ -348,24 +390,26 @@ else console.log("processing, poll snapshot:", data.snapshot_id);`;
     </div>
   );
 
-  if (!multiTarget) return requestCard;
+  if (!multiTarget && !withResponse) return requestCard;
 
   return (
     <div className={className}>
-      <div className="hub-code-targets" role="tablist" aria-label="Example target">
-        {TARGETS.map((t) => (
-          <button
-            key={t.name}
-            type="button"
-            role="tab"
-            aria-selected={targetName === t.name}
-            onClick={() => setTargetName(t.name)}
-            className={`hub-code-target ${targetName === t.name ? "active" : ""}`}
-          >
-            {t.name}
-          </button>
-        ))}
-      </div>
+      {multiTarget ? (
+        <div className="hub-code-targets" role="tablist" aria-label="Example target">
+          {TARGETS.map((t) => (
+            <button
+              key={t.name}
+              type="button"
+              role="tab"
+              aria-selected={targetName === t.name}
+              onClick={() => setTargetName(t.name)}
+              className={`hub-code-target ${targetName === t.name ? "active" : ""}`}
+            >
+              {t.name}
+            </button>
+          ))}
+        </div>
+      ) : null}
       <div className="hub-code-duo">
         <div className="hub-code-col">
           <p className="hub-code-kicker">Request</p>
@@ -400,18 +444,7 @@ else console.log("processing, poll snapshot:", data.snapshot_id);`;
           </p>
         </div>
       </div>
-      <p className="hub-code-auth">
-        <span aria-hidden="true">🔑</span> <strong>Authentication:</strong> pass your API
-        key as a Bearer token in the <code>Authorization</code> header. Get your key at{" "}
-        <a
-          href="https://brightdata.com/cp/setting/users"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          brightdata.com/cp/setting/users
-        </a>
-        .
-      </p>
+      <HubCodeAuthNote />
     </div>
   );
 }

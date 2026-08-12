@@ -40,6 +40,10 @@ export type DomainHubData = {
   productTypes?: DomainHubProductType[];
   /** Optional dataset CTA for domains that have pre-collected datasets */
   datasetCta?: { kicker: string; title: string; body: string; href: string; label: string };
+  /** Optional category-specific AIMultiple ranking page for the value banner */
+  rankingUrl?: string;
+  /** Optional control panel destination for the choose-your-path card */
+  cpUrl?: string;
 };
 
 /** Map catalog scraper → CLI pipeline id used by `bdata pipelines`. */
@@ -155,17 +159,18 @@ export const DOMAIN_HUBS: Record<string, DomainHubData> = {
       },
     ],
     faqs: [
-      { q: "What is the Amazon Scraper API?", a: "The Amazon Scraper API automates data extraction from Amazon, so you can gather product, review, seller, and pricing data at scale without building or maintaining scrapers." },
+      { q: "What is the Amazon Scraper API?", a: "Bright Data's Amazon Scraper API automates data extraction from Amazon, so you can gather product, review, seller, and pricing data at scale without building or maintaining scrapers." },
       { q: "How does the Amazon Scraper API work?", a: "Send a request with product URLs, ASINs, keywords, or category links. Bright Data handles proxies, CAPTCHAs, and rendering, then returns structured JSON, NDJSON, or CSV." },
+      { q: "Which Amazon marketplaces does the Amazon Scraper API support?", a: "International marketplaces are supported, including amazon.de, amazon.co.uk, and amazon.co.jp alongside amazon.com. Send a URL from any marketplace and get the same structured schema back." },
       { q: "Is the Amazon Scraper API compliant with data protection regulations?", a: "Yes. Bright Data collects only publicly available data and is designed to comply with GDPR, CCPA, and related privacy frameworks, backed by SOC 2 and ISO 27001 controls." },
       { q: "Can I use the Amazon Scraper API for competitive analysis?", a: "Yes. Teams use it for pricing intelligence, bestseller tracking, review sentiment, seller benchmarking, and catalog monitoring across Amazon marketplaces." },
-      { q: "How can I integrate the Amazon Scraper API with my existing systems?", a: "Use the REST API with any HTTP client (Python, Node.js, cURL), deliver results via webhook, or push to Amazon S3, GCS, Azure, Snowflake, or SFTP." },
+      { q: "How can I integrate the Amazon Scraper API with my existing systems?", a: "Use the official Python (brightdata-sdk) or Node.js (@brightdata/sdk) SDKs, the REST API from any HTTP client, or the CLI. Deliver results via webhook, or push to Amazon S3, GCS, Azure, Snowflake, or SFTP." },
+      { q: "Can AI agents use the Amazon Scraper API?", a: "Yes. Connect any agent through the hosted MCP server, point a coding agent at brightdata.com/SKILL.md, or use the CLI. Agents run the same Amazon scrapers and get structured JSON back: products, reviews, sellers, and search results." },
       { q: "Is there a free tier available for the Amazon Scraper API?", a: "Yes. New Bright Data accounts include 5,000 free records per month (~$7.50 value), no credit card, promo code, or commitment. Credits apply to Scrapers, Unlocker API, and SERP API, and renew on the 1st of each month." },
       { q: "What happens when my free credits run out while using the Amazon Scraper API?", a: "If you have deposited funds, usage continues at pay-as-you-go rates. Without funds, requests error until you add balance or credits renew. Unused free credits do not roll over. Enable auto-recharge in billing settings to avoid interruptions." },
       { q: "What are the usage limits for the Amazon Scraper API?", a: "There are no hard concurrency caps for typical use, scale from small tests to millions of records on the same API. Pay only for successfully delivered results." },
       { q: "Do you provide support for the Amazon Scraper API?", a: "Yes. Bright Data offers 24/7 support for the Amazon Scraper API, with dedicated help for enterprise plans." },
-      { q: "What delivery methods are available?", a: "API download, webhook, Amazon S3, Google Cloud Storage, Google Pub/Sub, Microsoft Azure Storage, Snowflake, and SFTP." },
-      { q: "What file formats are available?", a: "JSON, NDJSON, JSON lines, CSV, and .gz (compressed)." },
+      { q: "What formats and delivery methods does the Amazon Scraper API support?", a: "Formats: JSON, NDJSON, CSV, and .gz (compressed). Delivery: API download, webhook, Amazon S3, Google Cloud Storage, Google Pub/Sub, Microsoft Azure Storage, Snowflake, and SFTP." },
     ],
     scrapers: scrapersForDomain("amazon.com"),
   },
@@ -1191,6 +1196,8 @@ export const CATEGORY_HUBS: Record<string, DomainHubData> = {
     name: "E-commerce",
     domain: "e-commerce sites",
     category: "E-commerce",
+    rankingUrl: "https://aimultiple.com/ecommerce-scraper",
+    cpUrl: "https://brightdata.com/cp/scrapers/browse?category=ecomm",
     title: "E-commerce Scraper API - Product Data, Prices & Reviews at Scale",
     headline: "E-commerce Scraper API",
     description: "Scrape product listings, pricing, reviews, inventory, and seller data from Amazon, Walmart, Shopee, eBay, and 50+ marketplaces via API.",
@@ -1201,10 +1208,16 @@ export const CATEGORY_HUBS: Record<string, DomainHubData> = {
       { title: "Market & inventory intelligence", body: "Track stock levels, seller activity, bestseller rankings, and new product launches to identify market opportunities and optimize inventory planning.", tags: "Stock · Sellers · Rankings · Launches" },
     ],
     faqs: [
-      { q: "Which e-commerce sites can I scrape?", a: "Amazon, Walmart, Shopee, eBay, Target, Home Depot, Best Buy, Etsy, AliExpress, and 50+ more marketplaces. Each has dedicated pre-built scrapers." },
+      { q: "What is the E-commerce Scraper API?", a: "Bright Data's E-commerce Scraper API extracts product, pricing, review, and seller data from Amazon, Walmart, eBay, and other marketplaces, so you can collect catalog and competitive data at scale without building or maintaining scrapers." },
+      { q: "How does the E-commerce Scraper API work?", a: "Send a request with product URLs, search terms, or category links. Bright Data handles proxies, CAPTCHAs, and rendering, then returns structured JSON, NDJSON, or CSV." },
+      { q: "Which e-commerce sites can I scrape?", a: "Bright Data has dedicated pre-built scrapers for Amazon, Walmart, Shopee, eBay, Target, Home Depot, Best Buy, Etsy, AliExpress, and 50+ more marketplaces." },
       { q: "What e-commerce data can I extract?", a: "Product titles, prices, reviews, ratings, images, stock levels, seller info, category rankings, shipping details, and promotional data, all as structured JSON." },
       { q: "Can I track price changes over time?", a: "Yes. Schedule recurring scraper runs to build price history datasets. Combine with webhook delivery for real-time price change alerts." },
+      { q: "Can AI agents use the E-commerce Scraper API?", a: "Yes. Connect any agent through the hosted MCP server, point a coding agent at brightdata.com/SKILL.md, or use the CLI. Agents run the same e-commerce scrapers and get structured JSON back: products, prices, reviews, and sellers." },
       { q: "How do you handle anti-bot protections?", a: "Automatic IP rotation through 400M+ residential IPs, CAPTCHA solving, browser fingerprinting, and JavaScript rendering, all built in." },
+      { q: "Is there a free tier available for the E-commerce Scraper API?", a: "Yes. New Bright Data accounts include 5,000 free records per month, no credit card, promo code, or commitment. Credits apply to Scrapers, Unlocker API, and SERP API, and renew on the 1st of each month." },
+      { q: "What are the usage limits for the E-commerce Scraper API?", a: "There are no hard concurrency caps for typical use, scale from small tests to millions of records on the same API. Prices start from $0.001 per record, and you only pay for successfully delivered results." },
+      { q: "Do you provide support for the E-commerce Scraper API?", a: "Yes. Bright Data offers 24/7 support for the E-commerce Scraper API, with dedicated help for enterprise plans." },
       { q: "What output formats are supported?", a: "JSON, NDJSON, CSV, and .gz. Deliver via API response, webhook, S3, GCS, Snowflake, or SFTP." },
     ],
     scrapers: scrapersForCategory("E-commerce"),
