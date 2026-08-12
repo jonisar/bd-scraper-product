@@ -1,0 +1,102 @@
+name: Daily API example validation
+
+# Executes every code example on the Amazon Product Scraper page against the
+# live Bright Data API: cURL, Python, and Node.js, each in sync and async mode.
+# Python and Node.js run through the official SDKs, installed here the same way
+# the snippets tell a user to install them.
+#
+# The snippets come from lib/api-snippets.ts, the module the page renders, so a
+# broken example fails this job before it reaches a user.
+#
+# On failure it opens a GitHub issue assigned to anil-bd, which GitHub emails.
+# Setup notes are in .github/workflows/README.md.
+
+on:
+  schedule:
+    # 05:30 UTC daily, so 08:30 Israel and 11:00 IST. Off the top of the hour
+    # on purpose: GitHub delays cron jobs most at :00.
+    - cron: "30 5 * * *"
+  workflow_dispatch: {}
+  pull_request:
+    paths:
+      - "lib/api-snippets.ts"
+      - "components/HubCodeExample.tsx"
+      - "scripts/validate-api-examples.mjs"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  api-examples:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # The install commands the snippets themselves document.
+      - name: Install the Python SDK
+        run: pip install brightdata-sdk
+
+      - name: Install the Node.js SDK
+        run: npm install --no-save @brightdata/sdk
+
+      - name: Install repo dependencies
+        run: npm ci
+
+      - name: Fail early if the API key secret is missing
+        env:
+          BD_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
+        run: |
+          if [ -z "$BD_KEY" ]; then
+            echo "::error::Secret BRIGHTDATA_API_KEY is not set on this repository."
+            echo "Add it under Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
+      - name: Execute every API example
+        env:
+          BD_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
+        run: npx tsx scripts/validate-api-examples.mjs
+
+      # Always publish the table, so the notification links to something that
+      # names the broken example rather than just saying the job failed.
+      - name: Publish report to the run summary
+        if: always()
+        run: cat api-examples-report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-examples-report
+          path: api-examples-report.md
+
+      # Alerting is skipped on pull requests: the PR already shows a red check,
+      # and an issue per push would be noise.
+      - name: Raise the alert
+        if: failure() && github.event_name != 'pull_request'
+        uses: ./.github/actions/alert-issue
+        with:
+          outcome: failure
+          title: A published API example is broken
+          label: api-examples-broken
+          assignee: anil-bd
+          report-path: api-examples-report.md
+
+      - name: Clear the alert
+        if: success() && github.event_name != 'pull_request'
+        uses: ./.github/actions/alert-issue
+        with:
+          outcome: success
+          title: A published API example is broken
+          label: api-examples-broken
+          assignee: anil-bd

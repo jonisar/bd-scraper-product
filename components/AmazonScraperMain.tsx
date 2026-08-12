@@ -6,7 +6,8 @@ import TrustedByStrip from "@/components/TrustedByStrip";
 import ScraperCard from "@/components/ScraperCard";
 import { PricingCards } from "@/components/PricingCards";
 import PricingSlider from "@/components/PricingSlider";
-import HubCodeExample, { getHubTarget, buildSnippets, Highlighted } from "@/components/HubCodeExample";
+import HubCodeExample, { getHubTarget, Highlighted } from "@/components/HubCodeExample";
+import { CURL_SYNC, CURL_ASYNC, PYTHON_SYNC, PYTHON_ASYNC, JS_SYNC, JS_ASYNC } from "@/lib/api-snippets";
 import AgentSetupCta, { AGENT_SKILL_PROMPT } from "@/components/AgentSetupCta";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Playground" | "Connect Agent" | "Customize";
@@ -29,83 +30,7 @@ const TAB_BY_SLUG = Object.fromEntries(
 type ApiLang = "Python" | "Node.js" | "cURL" | "MCP" | "OpenAPI";
 type AgentPlatform = "Prompt" | "CLI" | "MCP" | "OpenAI SDK" | "LangChain" | "CrewAI" | "REST API";
 
-const DATASET_ID = "gd_l1vijqt9jfj7olije";
-
-/** Amazon target and snippets shared with /products/web-scraper#code, executed against the live API. */
-const AMAZON_TARGET = getHubTarget("amazon.com")!;
-const SHARED_SNIPPETS = buildSnippets(AMAZON_TARGET);
-
-const BATCH_URLS = `URLS = [
-    "https://www.amazon.com/dp/B0CRMZHDG8",
-    "https://www.amazon.com/dp/B09X7MPX8L",
-]`;
-
-const PYTHON_SYNC = SHARED_SNIPPETS.Python;
-
-const PYTHON_ASYNC = `# pip install brightdata-sdk
-import time
-from brightdata import SyncBrightDataClient
-
-${BATCH_URLS}
-
-with SyncBrightDataClient(token="YOUR_API_KEY") as client:
-    amazon = client.scrape.amazon
-
-    # Step 1: Trigger the collection, returns a snapshot id right away
-    job = amazon.products_trigger(url=URLS)
-    print("Snapshot:", job.snapshot_id)
-
-    # Step 2: Poll until the snapshot is ready
-    while amazon.products_status(job.snapshot_id) != "ready":
-        time.sleep(5)
-
-    # Step 3: Download the results
-    for product in amazon.products_fetch(job.snapshot_id):
-        print(product["title"], product["final_price"])
-
-# 📚 Docs → https://docs.brightdata.com/api-reference/SDK`;
-
-const JS_SYNC = SHARED_SNIPPETS["Node.js"];
-
-const JS_ASYNC = `// npm install @brightdata/sdk
-import { bdclient } from '@brightdata/sdk';
-
-const urls = [
-  "https://www.amazon.com/dp/B0CRMZHDG8",
-  "https://www.amazon.com/dp/B09X7MPX8L",
-];
-
-const client = new bdclient({ apiKey: "YOUR_API_KEY" });
-
-// Step 1: Trigger the collection, returns a job with a snapshot id
-const job = await client.scrape.amazon.collectProducts(urls, { async: true, format: "json" });
-console.log("Snapshot:", job.snapshotId);
-
-// Step 2: Poll until the snapshot is ready
-await job.wait({ pollInterval: 5000 });
-
-// Step 3: Fetch the results
-const products = await job.fetch();
-products.forEach((p) => console.log(p.title, p.final_price));
-
-// 📚 Docs → https://docs.brightdata.com/api-reference/SDK-JS`;
-
-const CURL_SYNC = SHARED_SNIPPETS.cURL;
-
-const CURL_ASYNC = `# Step 1: Trigger collection
-curl -X POST \\
-  "https://api.brightdata.com/datasets/v3/trigger?dataset_id=${DATASET_ID}&format=json" \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '[
-    {"url": "https://www.amazon.com/dp/B0CRMZHDG8"},
-    {"url": "https://www.amazon.com/dp/B09X7MPX8L"}
-  ]'
-# → Returns: {"snapshot_id": "sd_abc123..."}
-
-# Step 2: Check status / download results
-curl "https://api.brightdata.com/datasets/v3/snapshots/sd_abc123?format=json" \\
-  -H "Authorization: Bearer YOUR_API_KEY"`;
+const DATASET_ID = "gd_l7q7dkf244hwjntr0";
 
 const MCP_CODE = `{
   "mcpServers": {
@@ -2030,7 +1955,7 @@ export function AmazonScraperMain({
                           </h3>
                           <p className="mt-1 text-xs leading-5 text-bd-muted">
                             {apiMode === "sync"
-                              ? "Real-time response via /datasets/v3/scrape. Best for single-product lookups. Requests over roughly a minute return a snapshot_id instead."
+                              ? "Real-time response via /datasets/v3/scrape. Best for lookups of roughly 20 URLs or fewer. Requests over roughly a minute return a snapshot_id instead."
                               : "Returns a snapshot_id instantly via /datasets/v3/trigger. Poll the snapshot or deliver via webhook. Best for production jobs of any size."}
                           </p>
                         </div>

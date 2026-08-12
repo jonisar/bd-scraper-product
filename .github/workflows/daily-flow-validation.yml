@@ -4,6 +4,9 @@ name: Daily flow validation
 # command and prompt on the pages actually works, SKILL.md and API/MCP
 # endpoints are alive, docs links resolve. Fails loudly so we know a flow
 # broke before a user does.
+#
+# On failure it opens a GitHub issue assigned to anil-bd, which GitHub emails.
+# Setup notes are in .github/workflows/README.md.
 
 on:
   schedule:
@@ -11,6 +14,10 @@ on:
   workflow_dispatch: {}
   push:
     branches: [main]
+
+permissions:
+  contents: read
+  issues: write
 
 jobs:
   validate:
@@ -26,9 +33,31 @@ jobs:
           BASE_URL: ${{ vars.VALIDATION_BASE_URL || 'https://bd-scraper-product.vercel.app' }}
           BRIGHTDATA_API_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
         run: node scripts/validate-flows.mjs
+      - name: Publish report to the run summary
+        if: always()
+        run: cat validation-report.md >> "$GITHUB_STEP_SUMMARY" || true
       - name: Upload report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: validation-report
           path: validation-report.md
+
+      - name: Raise the alert
+        if: failure()
+        uses: ./.github/actions/alert-issue
+        with:
+          outcome: failure
+          title: Daily flow validation is failing
+          label: flow-validation-broken
+          assignee: anil-bd
+          report-path: validation-report.md
+
+      - name: Clear the alert
+        if: success()
+        uses: ./.github/actions/alert-issue
+        with:
+          outcome: success
+          title: Daily flow validation is failing
+          label: flow-validation-broken
+          assignee: anil-bd

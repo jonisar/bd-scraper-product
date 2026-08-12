@@ -1,0 +1,112 @@
+name: Alert issue
+description: >
+  Opens a GitHub issue when a validation job fails and closes it when the job
+  passes again. Assignment is what delivers the email: GitHub notifies the
+  assignee at their account notification address. One issue is reused for the
+  duration of an outage rather than one per day.
+
+inputs:
+  outcome:
+    description: 'failure to raise the alert, success to clear it'
+    required: true
+  title:
+    description: Issue title, also the identity of the alert
+    required: true
+  label:
+    description: Label used to find this alert's existing issue
+    required: true
+  assignee:
+    description: GitHub username to assign, and therefore to email
+    required: true
+  report-path:
+    description: Markdown report to include in the issue body
+    required: false
+    default: ''
+  github-token:
+    description: Token with issues:write
+    required: false
+    default: ${{ github.token }}
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/github-script@v7
+      with:
+        github-token: ${{ inputs.github-token }}
+        script: |
+          const fs = require('fs');
+          const { outcome, title, label, assignee } = {
+            outcome: process.env.IN_OUTCOME,
+            title: process.env.IN_TITLE,
+            label: process.env.IN_LABEL,
+            assignee: process.env.IN_ASSIGNEE,
+          };
+          const reportPath = process.env.IN_REPORT_PATH;
+          const { owner, repo } = context.repo;
+          const runUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+          const sha = context.sha.slice(0, 7);
+
+          let report = '';
+          if (reportPath) {
+            try {
+              report = fs.readFileSync(reportPath, 'utf8');
+            } catch {
+              report = '_The report file was not produced, so the job failed before the checks ran._';
+            }
+          }
+
+          // The label is the alert's identity, so a rename of the title text
+          // never orphans an open issue.
+          const open = await github.rest.issues.listForRepo({
+            owner, repo, state: 'open', labels: label,
+          });
+
+          if (outcome === 'success') {
+            for (const issue of open.data) {
+              await github.rest.issues.createComment({
+                owner, repo, issue_number: issue.number,
+                body: `Passing again as of ${sha}. Closing.\n\n[Run log](${runUrl})`,
+              });
+              await github.rest.issues.update({
+                owner, repo, issue_number: issue.number, state: 'closed',
+              });
+            }
+            return;
+          }
+
+          if (open.data.length > 0) {
+            await github.rest.issues.createComment({
+              owner, repo, issue_number: open.data[0].number,
+              body: `Still failing as of ${sha}.\n\n${report}\n\n[Run log](${runUrl})`,
+            });
+            return;
+          }
+
+          // Create the label on first use so setup is not a manual prerequisite.
+          try {
+            await github.rest.issues.getLabel({ owner, repo, name: label });
+          } catch {
+            await github.rest.issues.createLabel({
+              owner, repo, name: label, color: 'b60205',
+              description: 'Automated validation is failing',
+            });
+          }
+
+          await github.rest.issues.create({
+            owner, repo, title,
+            body: [
+              `${title} on ${sha}.`,
+              '',
+              report,
+              '',
+              `[Full run log](${runUrl})`,
+            ].join('\n'),
+            labels: [label],
+            assignees: [assignee],
+          });
+      env:
+        IN_OUTCOME: ${{ inputs.outcome }}
+        IN_TITLE: ${{ inputs.title }}
+        IN_LABEL: ${{ inputs.label }}
+        IN_ASSIGNEE: ${{ inputs.assignee }}
+        IN_REPORT_PATH: ${{ inputs.report-path }}
