@@ -410,7 +410,7 @@ export const TOP_LINKS: NavLink[] = [
  * BD order: Scraper APIs · Marketplace · Pricing · Code · Compliance · How it Works · FAQs
  */
 export const HUB_SUBNAV: SubnavItem[] = [
-  { label: "Scraper APIs", href: "#scrapers" },
+  { label: "Try Scrapers", href: "#scrapers" },
   { label: "Pricing", href: "#pricing" },
   { label: "Code Examples", href: "#code" },
   { label: "AI Agents", href: "#agents" },
@@ -423,7 +423,7 @@ export const HUB_SUBNAV: SubnavItem[] = [
 
 /** Main /products/web-scraper — BD anchors + Use Cases (strong conversion on hub home). */
 export const HOME_SUBNAV: SubnavItem[] = [
-  { label: "Scraper APIs", href: "#library" },
+  { label: "Try Scrapers", href: "#library" },
   { label: "Pricing", href: "#pricing" },
   { label: "Code Examples", href: "#code" },
   { label: "AI Agents", href: "#agents" },
