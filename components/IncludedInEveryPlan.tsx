@@ -9,7 +9,7 @@ export default function IncludedInEveryPlan({
     <section className={`section ${altBg ? "section-alt " : ""}animate-rise${hubAnchor ? " hub-anchor" : ""}`} id="included">
       <div className="container">
         <div className="section-head">
-          <span className="kicker">Why Bright Data scrapers</span>
+          <span className="kicker">World's #1 scraping platform</span>
           <h2>Everything you need, built in</h2>
           <p>You pay for results. Proxies, rendering, concurrency, and delivery are always included, on every plan.</p>
         </div>
