@@ -10,6 +10,22 @@ import HubCodeExample, { getHubTarget, buildSnippets, Highlighted } from "@/comp
 import AgentSetupCta, { AGENT_SKILL_PROMPT } from "@/components/AgentSetupCta";
 
 type MainTab = "Overview" | "Pricing" | "Input" | "API" | "Output" | "Playground" | "Connect Agent" | "Customize";
+
+/** URL slugs so tabs are linkable, e.g. ?tab=api. Only used on the standalone page. */
+const TAB_SLUGS: Record<MainTab, string> = {
+  Overview: "overview",
+  Playground: "playground",
+  Pricing: "pricing",
+  API: "api",
+  Input: "input",
+  Output: "output",
+  "Connect Agent": "connect-agent",
+  Customize: "customize",
+};
+
+const TAB_BY_SLUG = Object.fromEntries(
+  Object.entries(TAB_SLUGS).map(([tab, slug]) => [slug, tab as MainTab])
+) as Record<string, MainTab>;
 type ApiLang = "Python" | "Node.js" | "cURL" | "MCP" | "OpenAPI";
 type AgentPlatform = "Prompt" | "CLI" | "MCP" | "OpenAI SDK" | "LangChain" | "CrewAI" | "REST API";
 
@@ -1526,11 +1542,44 @@ export function AmazonScraperMain({
 }: AmazonScraperMainProps) {
   const TitleTag = titleAs;
   const [mainTab, setMainTab] = useState<MainTab>("Overview");
+  /** Embedded previews must never rewrite their host page's URL. */
+  const routable = !compact;
   const [apiLang, setApiLang] = useState<ApiLang>("cURL");
   const [apiMode, setApiMode] = useState<"sync" | "async">("sync");
   const [agentPlatform, setAgentPlatform] = useState<AgentPlatform>("Prompt");
 
   const mainTabs: MainTab[] = ["Overview", "Playground", "Pricing", "API", "Input", "Output", "Connect Agent", "Customize"];
+
+  // Open the tab named in ?tab=, and follow browser back/forward between tabs.
+  useEffect(() => {
+    if (!routable) return;
+    const fromUrl = () => {
+      const slug = new URLSearchParams(window.location.search).get("tab");
+      return slug ? TAB_BY_SLUG[slug] : undefined;
+    };
+    const initial = fromUrl();
+    if (initial) setMainTab(initial);
+    const onPop = () => setMainTab(fromUrl() ?? "Overview");
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, [routable]);
+
+  const selectTab = useCallback(
+    (tab: MainTab, scroll = true) => {
+      setMainTab(tab);
+      if (routable) {
+        const params = new URLSearchParams(window.location.search);
+        if (tab === "Overview") params.delete("tab");
+        else params.set("tab", TAB_SLUGS[tab]);
+        const qs = params.toString();
+        window.history.pushState(null, "", window.location.pathname + (qs ? `?${qs}` : "") + window.location.hash);
+      }
+      if (scroll) {
+        document.getElementById(tabsId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    },
+    [routable, tabsId]
+  );
   const apiLangs: ApiLang[] = ["cURL", "Python", "Node.js", "MCP", "OpenAPI"];
 
   function getCodeForLang() {
@@ -1669,10 +1718,7 @@ export function AmazonScraperMain({
               <button
                 key={tab}
                 type="button"
-                onClick={() => {
-                  setMainTab(tab);
-                  document.getElementById(tabsId)?.scrollIntoView({ behavior: "smooth", block: "start" });
-                }}
+                onClick={() => selectTab(tab)}
                 className={`relative -mb-px shrink-0 border-b-2 px-3 py-3 text-[13px] font-medium transition-colors sm:px-3.5 sm:text-sm ${
                   mainTab === tab
                     ? "border-bd-blue text-bd-blue"
@@ -1899,7 +1945,7 @@ export function AmazonScraperMain({
                       key={path.title}
                       type="button"
                       onClick={() => {
-                        setMainTab(path.tab);
+                        selectTab(path.tab, false);
                         setTimeout(() => document.getElementById(tabsId)?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
                       }}
                       className="group rounded-xl border border-bd-line bg-bd-canvas px-4 py-4 text-left transition hover:border-bd-blue/40 hover:bg-bd-blue-soft/30"
@@ -1936,7 +1982,7 @@ export function AmazonScraperMain({
                   <button
                     type="button"
                     onClick={() => {
-                      setMainTab("Output");
+                      selectTab("Output", false);
                       setTimeout(() => document.getElementById(tabsId)?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
                     }}
                     className="self-start text-[13px] font-semibold text-bd-blue transition hover:underline sm:self-center"
@@ -1989,7 +2035,7 @@ export function AmazonScraperMain({
                     <button
                       key={m.method}
                       type="button"
-                      onClick={() => { setMainTab(m.tab); setTimeout(() => document.getElementById(tabsId)?.scrollIntoView({ behavior: "smooth", block: "start" }), 50); }}
+                      onClick={() => { selectTab(m.tab, false); setTimeout(() => document.getElementById(tabsId)?.scrollIntoView({ behavior: "smooth", block: "start" }), 50); }}
                       className="flex w-full items-start gap-3 rounded-xl border border-bd-line bg-bd-panel px-4 py-3 text-left transition hover:border-bd-blue/40 hover:bg-bd-blue-soft/20"
                     >
                       <span className="mt-0.5 shrink-0 rounded bg-bd-blue/10 px-2 py-0.5 font-mono text-[11px] font-bold text-bd-blue">{m.method}</span>
@@ -2045,7 +2091,7 @@ export function AmazonScraperMain({
 
               <DataFieldsExplorer
                 onOpenCustomize={() => {
-                  setMainTab("Customize");
+                  selectTab("Customize", false);
                   setTimeout(() => document.getElementById(tabsId)?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
                 }}
               />
@@ -2056,7 +2102,7 @@ export function AmazonScraperMain({
                 </h2>
                 <p className="mt-2 text-[15px] leading-relaxed text-bd-ink/85">
                   Production knobs developers use to keep scrapes predictable, configure in the{" "}
-                  <button type="button" onClick={() => setMainTab("Customize")} className="font-semibold text-bd-blue hover:underline">
+                  <button type="button" onClick={() => selectTab("Customize", false)} className="font-semibold text-bd-blue hover:underline">
                     Customize
                   </button>{" "}
                   tab or control panel.
