@@ -327,7 +327,7 @@ Then complete these tasks with the Amazon pipelines
 (amazon_product, amazon_product_reviews, amazon_product_search):
 
 1. Get structured JSON for https://www.amazon.com/dp/B09X7MPX8L
-   via amazon_product and report title, price, stars, and in_stock.
+   via amazon_product and report title, final_price, rating, and availability.
 
 2. Pull reviews for the same product and summarize the top
    complaints in 3 bullets.
@@ -476,7 +476,7 @@ products = scrape_amazon([
 ])
 
 for p in products:
-    print(f"{p['title']}, \${p['price']} ({p['stars']}★)")`;
+    print(f"{p['title']}, \${p['final_price']} ({p['rating']}★)")`;
 
 const DESCRIPTION =
   "Extract prices, reviews, stock levels, and seller data from any Amazon product page via API. No proxy management, no anti-bot headaches, just send URLs and get structured JSON back.";
