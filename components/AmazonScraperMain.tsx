@@ -2147,43 +2147,24 @@ export function AmazonScraperMain({
                 </div>
               </section>
 
-              {/* ── 6. Key capabilities ── */}
+              {/* ── 6. Platform features ── */}
               <section>
-                <h3 className="mb-3 text-lg font-bold text-bd-navy">Key capabilities</h3>
+                <h3 className="mb-3 text-lg font-bold text-bd-navy">World&rsquo;s #1 scraping platform</h3>
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {[
-                    { title: "Rich product schema", desc: "Prices, reviews, BSR, seller info, stock status, images, parsed and typed." },
-                    { title: "Anti-bot bypass", desc: "Proxy rotation, CAPTCHA solving, fingerprint management, and JS rendering." },
-                    { title: "18 marketplaces", desc: "Scrape .com, .co.uk, .de, .co.jp, and 14 more. Localized pricing and rankings." },
-                    { title: "Bulk & async", desc: "Unlimited URLs per request (up to 1 GB input). Async mode returns a snapshot ID for polling/webhook." },
-                    { title: "Pay for success", desc: "Charged only for successfully delivered records, failed scrapes are free." },
-                    { title: "Unlimited concurrency", desc: "Run as many parallel requests as you need. Scale plans get priority throughput." },
+                    { icon: "🛡", title: "Proxies, unblocking & rendering included", desc: "Every request runs on 400M+ IPs with CAPTCHA solving, anti-bot bypass, and JS rendering." },
+                    { icon: "⚡", title: "Scale to millions of pages instantly", desc: "Unlimited concurrency. Batch up to 5K URLs per request. No infrastructure to manage." },
+                    { icon: "🔄", title: "Scrapers auto-fix when sites change", desc: "Self-healing technology detects site changes and repairs scrapers automatically." },
+                    { icon: "✓", title: "1,400+ scrapers, always maintained", desc: "Every scraper is built, tested, and kept working by Bright Data. Defined inputs, structured outputs." },
+                    { icon: "💲", title: "Pay per result, nothing extra", desc: "One price per record delivered. Proxies, retries, rendering, unblocking — all included." },
+                    { icon: "🏛", title: "Compliant and fully supported", desc: "GDPR & CCPA compliant. 24/7 human support on every plan, including free." },
                   ].map((f) => (
                     <div key={f.title} className="rounded-xl border border-bd-line bg-bd-canvas px-4 py-3">
-                      <p className="font-bold text-bd-navy">{f.title}</p>
-                      <p className="mt-1 text-[13px] leading-5 text-bd-ink/85">{f.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* ── 7. Infrastructure — what's handled ── */}
-              <section>
-                <h3 className="mb-3 text-lg font-bold text-bd-navy">
-                  Fully managed, included in every request
-                </h3>
-                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-                  {[
-                    ["🔄", "IP rotation"],
-                    ["🧩", "CAPTCHA solving"],
-                    ["🌐", "JS rendering"],
-                    ["🏠", "Residential proxies"],
-                    ["🎭", "Fingerprint mgmt"],
-                    ["📍", "Geotargeting (18 regions)"],
-                  ].map(([icon, label]) => (
-                    <div key={label} className="flex items-center gap-2 rounded-lg border border-bd-line bg-bd-panel px-3 py-2.5">
-                      <span className="text-sm">{icon}</span>
-                      <span className="text-[13px] font-medium text-bd-navy">{label}</span>
+                      <div className="flex items-center gap-2.5 mb-2">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-bd-blue/10 text-sm">{f.icon}</span>
+                        <p className="font-bold text-[14px] leading-snug text-bd-navy">{f.title}</p>
+                      </div>
+                      <p className="text-[13px] leading-5 text-bd-ink/85">{f.desc}</p>
                     </div>
                   ))}
                 </div>
