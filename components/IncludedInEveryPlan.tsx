@@ -9,17 +9,17 @@ export default function IncludedInEveryPlan({
     <section className={`section ${altBg ? "section-alt " : ""}animate-rise${hubAnchor ? " hub-anchor" : ""}`} id="included">
       <div className="container">
         <div className="section-head">
-          <span className="kicker">Included in every plan</span>
+          <span className="kicker">Why Bright Data scrapers</span>
           <h2>Everything you need, built in</h2>
           <p>You pay for results. Proxies, rendering, concurrency, and delivery are always included, on every plan.</p>
         </div>
         <div className="features-grid">
-          <div className="feature-card"><span className="feature-icon">⟳</span><h3>400M+ proxy IPs</h3><p>Residential IPs across 195 countries. Automatic rotation. No extra charge.</p></div>
-          <div className="feature-card"><span className="feature-icon">◈</span><h3>CAPTCHA &amp; anti-bot</h3><p>Automated CAPTCHA solving, fingerprinting, and user-agent rotation. Always on.</p></div>
-          <div className="feature-card"><span className="feature-icon">⬡</span><h3>JS rendering</h3><p>Full browser rendering for SPAs and dynamic pages. No headless browser to manage.</p></div>
-          <div className="feature-card"><span className="feature-icon">∞</span><h3>Unlimited concurrency</h3><p>No rate limits. Scale from 10 to 10M requests with zero config changes.</p></div>
-          <div className="feature-card"><span className="feature-icon">⊞</span><h3>5K URLs per batch</h3><p>Bulk collection with scheduling, webhooks, and job management APIs.</p></div>
-          <div className="feature-card"><span className="feature-icon">⇢</span><h3>Flexible delivery</h3><p>JSON, NDJSON, or CSV. Deliver via API response, webhook, or cloud storage.</p></div>
+          <div className="feature-card"><div className="feature-head"><span className="feature-icon">🛡</span><h3>Proxies, unblocking, and rendering included</h3></div><p>Every request runs on 400M+ IPs with CAPTCHA solving, anti-bot bypass, and JS rendering. No separate services to set up.</p></div>
+          <div className="feature-card"><div className="feature-head"><span className="feature-icon">⚡</span><h3>Scale to millions of pages instantly</h3></div><p>Unlimited concurrency. Batch up to 5K URLs per request. No infrastructure to manage, no config to change.</p></div>
+          <div className="feature-card"><div className="feature-head"><span className="feature-icon">🔄</span><h3>Scrapers auto-fix when sites change</h3></div><p>Self-healing technology detects site changes and repairs scrapers. Your pipelines keep running without engineering work.</p></div>
+          <div className="feature-card"><div className="feature-head"><span className="feature-icon">✓</span><h3>1,400+ scrapers, always maintained</h3></div><p>Every scraper is built, tested, and kept working by Bright Data. Defined inputs, structured outputs. No community guesswork.</p></div>
+          <div className="feature-card"><div className="feature-head"><span className="feature-icon">💲</span><h3>Pay per result, nothing extra</h3></div><p>One price per record delivered. Proxies, retries, rendering, unblocking &mdash; all included in that price.</p></div>
+          <div className="feature-card"><div className="feature-head"><span className="feature-icon">🏛</span><h3>Compliant and fully supported</h3></div><p>GDPR &amp; CCPA compliant. 24/7 human support on every plan, including free.</p></div>
         </div>
       </div>
     </section>

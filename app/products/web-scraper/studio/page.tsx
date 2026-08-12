@@ -125,102 +125,59 @@ export default function StudioPage() {
       <Header subnav={STUDIO_SUBNAV} />
 
       <main>
-        {/* HERO — unified section with ratings flowing into prompt */}
-        <section className="studio-hero">
-          <div className="container studio-hero-inner">
-            <div className="studio-hero-ratings">
-              <a className="studio-hero-rating" href="https://www.trustpilot.com/review/brightdata.com" target="_blank" rel="noopener noreferrer">
-                <span className="studio-stars" aria-label="4.6 out of 5 stars">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                </span>
-                <strong>4.6</strong> Trustpilot
+        {/* HERO */}
+        <section className="hero site-hub-hero">
+          <div className="container hero-inner">
+            <h1>
+              Describe any scraper. <span className="grad-text">AI builds it.</span>
+            </h1>
+            <p className="hero-sub">
+              Tell the AI what data you need. It generates a production scraper in minutes,
+              runs it on Bright Data&rsquo;s infrastructure, and auto-fixes it when sites change.
+            </p>
+            <div className="hero-ctas">
+              <a href={SIGNUP} className="btn btn-primary btn-pill" target="_blank" rel="noopener noreferrer">
+                Start free
               </a>
-              <a className="studio-hero-rating" href="https://www.g2.com/products/bright-data/reviews" target="_blank" rel="noopener noreferrer">
-                <span className="studio-stars" aria-label="4.6 out of 5 stars">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                </span>
-                <strong>4.6</strong> G2
-              </a>
-              <a className="studio-hero-rating" href="https://www.capterra.com/p/146810/Luminati/" target="_blank" rel="noopener noreferrer">
-                <span className="studio-stars" aria-label="4.8 out of 5 stars">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                </span>
-                <strong>4.8</strong> Capterra
+              <a href={CONTACT} className="btn btn-ghost btn-pill" target="_blank" rel="noopener noreferrer">
+                Contact sales
               </a>
             </div>
-            <h1 className="sr-only">AI Scraper Studio, Build Any Web Scraper With a Prompt</h1>
+            <p className="hub-hero-note">No credit card required &middot; 5K free page loads/month</p>
           </div>
         </section>
 
         <AiPromptCta variant="hero" />
 
-        {/* HERO VALUE PROPS — key benefits directly under the prompt */}
+        {/* HERO VALUE PROPS */}
         <section className="studio-value-props">
           <div className="container">
             <div className="studio-props-grid">
               <div className="studio-prop">
                 <span className="studio-prop-icon">⊞</span>
                 <strong>Any website</strong>
-                <span>Scale to hundreds of domains from one prompt</span>
+                <span>Build a scraper for any site from a prompt</span>
               </div>
               <div className="studio-prop">
-                <span className="studio-prop-icon">⟳</span>
-                <strong>Self-healing</strong>
-                <span>AI auto-repairs when sites change layout</span>
+                <span className="studio-prop-icon">🔄</span>
+                <strong>Auto-maintained</strong>
+                <span>AI detects site changes and fixes your scraper</span>
               </div>
               <div className="studio-prop">
                 <span className="studio-prop-icon">∞</span>
-                <strong>Schedule &amp; monitor</strong>
-                <span>Run on intervals via IDE, API, or webhook</span>
+                <strong>Schedule &amp; deliver</strong>
+                <span>Run daily, weekly, or via API. Data to S3, webhook, etc.</span>
               </div>
               <div className="studio-prop">
-                <span className="studio-prop-icon">☁</span>
-                <strong>Infra included</strong>
-                <span>Proxies, browsers, CAPTCHA solving built in</span>
+                <span className="studio-prop-icon">🛡</span>
+                <strong>Infrastructure included</strong>
+                <span>400M+ IPs, proxies, CAPTCHA solving, all built in</span>
               </div>
             </div>
           </div>
         </section>
 
         <TrustedByStrip />
-
-        {/* VALUE BANNER */}
-        <section className="value-banner">
-          <div className="container value-banner-inner">
-            <div className="vb-item">
-              <strong>5 min</strong>
-              <span>prompt to scraper</span>
-            </div>
-            <div className="vb-item">
-              <strong>0</strong>
-              <span>code required</span>
-            </div>
-            <div className="vb-item">
-              <strong>400M+</strong>
-              <span>proxy IPs built in</span>
-            </div>
-            <div className="vb-item">
-              <strong>1-click</strong>
-              <span>self-healing</span>
-            </div>
-            <div className="vb-item">
-              <strong>24/7</strong>
-              <span>scheduled delivery</span>
-            </div>
-          </div>
-        </section>
 
         {/* HOW IT WORKS */}
         <section className="section animate-rise" id="how">
@@ -234,114 +191,95 @@ export default function StudioPage() {
               <div className="step-card">
                 <span className="step-icon">01</span>
                 <h3>Describe your data</h3>
-                <p>Tell the AI what website to scrape and which fields you need, product names, prices, reviews, anything publicly available.</p>
+                <p>Tell the AI what website to scrape and which fields you need — product names, prices, reviews, anything publicly available.</p>
               </div>
               <div className="step-card">
                 <span className="step-icon">02</span>
-                <h3>AI generates the scraper</h3>
-                <p>The AI writes the scraper code, configures proxies, and tests it against the target site. Review and edit in the built-in IDE.</p>
+                <h3>AI builds the scraper</h3>
+                <p>The AI writes scraper code, configures proxies, and tests it against the target site. Review and edit in the built-in IDE if you want.</p>
               </div>
               <div className="step-card">
                 <span className="step-icon">03</span>
-                <h3>Deploy &amp; schedule</h3>
-                <p>Run once or schedule daily, weekly, or custom intervals. Data is delivered via API, webhook, S3, BigQuery, or Snowflake.</p>
+                <h3>Run &amp; forget</h3>
+                <p>Schedule daily, weekly, or custom runs. Data is delivered via API, webhook, S3, BigQuery, or Snowflake. AI auto-fixes when sites change.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* SELF-HEALING */}
-        <section className="section section-alt animate-rise" id="healing">
+        {/* WHAT YOU GET */}
+        <section className="section section-alt animate-rise" id="features">
           <div className="container">
             <div className="section-head">
-              <span className="kicker">AI Self-Healing</span>
-              <h2>Scrapers that fix themselves</h2>
-              <p>
-                When target websites change their layout, traditional scrapers break.
-                Scraper Studio&rsquo;s AI detects changes and auto-repairs your scraper, one click, zero debugging.
-              </p>
+              <span className="kicker">What you get</span>
+              <h2>Everything to scrape any site at any scale</h2>
+              <p>AI generation, auto-maintenance, cloud infra, proxies, and a full IDE — all included in every plan.</p>
             </div>
             <div className="features-grid">
               <div className="feature-card">
-                <span className="feature-icon">⟳</span>
-                <h3>AI code fixes</h3>
-                <p>Automatically repair broken scraper code with AI-driven refactors when site structure changes.</p>
+                <div className="feature-head">
+                  <span className="feature-icon">✦</span>
+                  <h3>AI generates your scraper</h3>
+                </div>
+                <p>Describe the data you need in plain English. The AI writes the code, configures selectors, and tests it — ready to run in minutes.</p>
               </div>
               <div className="feature-card">
-                <span className="feature-icon">◈</span>
-                <h3>Fast schema updates</h3>
-                <p>Add or modify output fields in seconds without manual coding. The AI adjusts selectors and parsing logic.</p>
+                <div className="feature-head">
+                  <span className="feature-icon">🔄</span>
+                  <h3>Auto-maintained by AI</h3>
+                </div>
+                <p>When target sites change layout or structure, the AI detects it and auto-repairs your scraper. No manual debugging, no downtime.</p>
               </div>
               <div className="feature-card">
-                <span className="feature-icon">✓</span>
-                <h3>Lower maintenance</h3>
-                <p>Cut ongoing upkeep as scrapers adapt to site changes automatically. Focus on using data, not fixing pipelines.</p>
+                <div className="feature-head">
+                  <span className="feature-icon">🛡</span>
+                  <h3>400M+ IPs &amp; unblocking</h3>
+                </div>
+                <p>Proxies, geo-targeting, CAPTCHA solving, browser fingerprinting, retries — all built in. You never manage infrastructure.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-head">
+                  <span className="feature-icon">☁</span>
+                  <h3>Runs in the cloud</h3>
+                </div>
+                <p>All compute runs on Bright Data&rsquo;s managed cloud. No servers, no DevOps. Scale from 10 requests to 10 million.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-head">
+                  <span className="feature-icon">⬡</span>
+                  <h3>Built-in IDE</h3>
+                </div>
+                <p>Edit, debug, and test scrapers in a fully hosted IDE with live logs. Refine AI-generated code or write your own.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-head">
+                  <span className="feature-icon">∞</span>
+                  <h3>Scheduled delivery</h3>
+                </div>
+                <p>Trigger runs on a schedule or via API. Deliver data to S3, GCS, BigQuery, Snowflake, or your webhook.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* KEY FEATURES */}
-        <section className="section animate-rise" id="features">
+        {/* CHOOSE YOUR WORKFLOW */}
+        <section className="section animate-rise" id="paths">
           <div className="container">
             <div className="section-head">
-              <span className="kicker">Features</span>
-              <h2>Everything you need to scrape at scale</h2>
-              <p>AI code generation, cloud infrastructure, built-in proxies, and a full IDE, all included.</p>
-            </div>
-            <div className="features-grid">
-              <div className="feature-card">
-                <span className="feature-icon">✦</span>
-                <h3>AI code generation</h3>
-                <p>Transform simple prompts into complete scraper code, ready to run. No templates to configure.</p>
-              </div>
-              <div className="feature-card">
-                <span className="feature-icon">☁</span>
-                <h3>Cloud infrastructure</h3>
-                <p>Run all compute on Bright Data&rsquo;s managed cloud. No hardware costs, no DevOps, scale instantly.</p>
-              </div>
-              <div className="feature-card">
-                <span className="feature-icon">⊞</span>
-                <h3>Built-in proxies &amp; unblocking</h3>
-                <p>400M+ residential IPs, geo-targeting, CAPTCHA solving, browser fingerprinting, and automated retries, all built in.</p>
-              </div>
-              <div className="feature-card">
-                <span className="feature-icon">⬡</span>
-                <h3>IDE workspace</h3>
-                <p>Fully hosted IDE where you can edit, debug, and test your scrapers with live logs and syntax highlighting.</p>
-              </div>
-              <div className="feature-card">
-                <span className="feature-icon">∞</span>
-                <h3>Scheduled delivery</h3>
-                <p>Trigger scrapers on a schedule or via API. Deliver data to S3, GCS, BigQuery, Snowflake, or webhook.</p>
-              </div>
-              <div className="feature-card">
-                <span className="feature-icon">⟳</span>
-                <h3>AI editing &amp; self-healing</h3>
-                <p>Edit scrapers with natural language commands. Auto-repair when sites change, no manual maintenance.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* COLLECT DATA YOUR WAY */}
-        <section className="section section-alt animate-rise" id="paths">
-          <div className="container">
-            <div className="section-head">
-              <span className="kicker">Flexible</span>
-              <h2>Collect data your way</h2>
-              <p>Whether you want full control or a hands-off approach, Scraper Studio adapts to your workflow.</p>
+              <span className="kicker">Your choice</span>
+              <h2>Build it yourself or let us handle it</h2>
+              <p>Use the AI Studio with full control, or hand it off and get clean data delivered automatically.</p>
             </div>
             <div className="hub-paths">
               <div className="hub-path-card">
                 <span className="hub-path-kicker">Self-service</span>
-                <h3>You drive, we support</h3>
-                <p>Generate scrapers with AI, edit in the IDE, and manage your own pipelines.</p>
+                <h3>You run it, AI helps</h3>
+                <p>Generate scrapers with a prompt, edit code in the IDE, and manage your own runs.</p>
                 <ul className="hub-path-list">
-                  <li>Generate scraper from a prompt</li>
-                  <li>Full IDE for code editing</li>
-                  <li>24/7 expert support if you get stuck</li>
-                  <li>Schedule and monitor your runs</li>
+                  <li>AI generates the scraper from your prompt</li>
+                  <li>Edit and debug in the built-in IDE</li>
+                  <li>AI auto-fixes when sites change</li>
+                  <li>Schedule runs and get data delivered</li>
                 </ul>
                 <span className="hub-path-cta">
                   <a href={SIGNUP} target="_blank" rel="noopener noreferrer">Start free →</a>
@@ -349,13 +287,13 @@ export default function StudioPage() {
               </div>
               <div className="hub-path-card">
                 <span className="hub-path-kicker">Managed service</span>
-                <h3>We build it for you</h3>
-                <p>Tell us what you need and we handle everything, building, maintaining, and monitoring.</p>
+                <h3>We handle everything</h3>
+                <p>Tell us what data you need. We build, maintain, and monitor the scraper for you.</p>
                 <ul className="hub-path-list">
-                  <li>We build and maintain the scraper</li>
-                  <li>Ongoing monitoring included</li>
+                  <li>We build the scraper to your spec</li>
+                  <li>Ongoing monitoring and maintenance</li>
                   <li>Clean, structured data delivery</li>
-                  <li>Perfect for non-technical teams</li>
+                  <li>No technical work required on your end</li>
                 </ul>
                 <span className="hub-path-cta">
                   <a href={CONTACT} target="_blank" rel="noopener noreferrer">Talk to sales →</a>
@@ -457,15 +395,15 @@ export default function StudioPage() {
             <div className="twin-cols">
               <div className="twin-col">
                 <span className="kicker">Infrastructure</span>
-                <h2>Powered by an award-winning proxy network</h2>
+                <h2>Powered by 400M+ proxy IPs</h2>
                 <p>
-                  Unlock the most complex anti-bots using an AI-based web unlocker built on top of a hyper-extensive IP pool.
-                  Over 400M+ proxy IPs, best-in-class technology and the ability to target any country, city, ZIP code, carrier, &amp; ASN.
+                  Every scraper runs through Bright Data&rsquo;s proxy network with AI-based unblocking,
+                  geo-targeting by country, city, or ASN, CAPTCHA solving, and browser fingerprinting built in.
                 </p>
               </div>
               <div className="twin-col">
                 <span className="kicker">Compliance</span>
-                <h2>Leading ethical web data collection</h2>
+                <h2>Ethical data collection</h2>
                 <p>
                   Only publicly available data. ISO&nbsp;27001 certified, SOC&nbsp;2 controls,
                   GDPR &amp; CCPA compliant. Backed by an industry-first Compliance &amp; Ethics team.
@@ -476,24 +414,6 @@ export default function StudioPage() {
                   <span className="compliance-badge">ISO 27001</span>
                   <span className="compliance-badge">SOC 2</span>
                 </div>
-              </div>
-            </div>
-            <div className="studio-compliance-badges">
-              <div className="studio-compliance-item">
-                <span className="studio-compliance-icon">🛡</span>
-                <span>Collaborations with security giants like VirusTotal, Avast, and AVG</span>
-              </div>
-              <div className="studio-compliance-item">
-                <span className="studio-compliance-icon">🔍</span>
-                <span>Monitoring of 30+ billion domains, blocking unapproved content</span>
-              </div>
-              <div className="studio-compliance-item">
-                <span className="studio-compliance-icon">⚖</span>
-                <span>Adherence to GDPR, CCPA, and SEC regulations</span>
-              </div>
-              <div className="studio-compliance-item">
-                <span className="studio-compliance-icon">🤝</span>
-                <span>Proactive abuse prevention through global partnerships</span>
               </div>
             </div>
           </div>
@@ -510,18 +430,17 @@ export default function StudioPage() {
         <section className="final-cta animate-rise">
           <div className="container" style={{ textAlign: "center" }}>
             <h2>Ready to build your scraper?</h2>
-            <p style={{ maxWidth: 520, margin: "0 auto 1.5rem", opacity: 0.8 }}>
-              Start free with 5,000 page loads, no credit card, no code required. Describe what you need and let AI do the rest.
+            <p className="final-cta-sub">
+              Describe what you need. AI builds the scraper, you get the data. 5K free page loads, no credit card.
             </p>
-            <a
-              href={SIGNUP}
-              className="btn btn-primary btn-pill"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ fontSize: "1.05rem", padding: "0.85rem 2.4rem" }}
-            >
-              Start free trial
-            </a>
+            <div className="hero-ctas" style={{ justifyContent: "center" }}>
+              <a href={SIGNUP} className="btn btn-primary btn-pill" target="_blank" rel="noopener noreferrer">
+                Start free
+              </a>
+              <a href={CONTACT} className="btn btn-ghost btn-pill" target="_blank" rel="noopener noreferrer">
+                Contact sales
+              </a>
+            </div>
           </div>
         </section>
       </main>

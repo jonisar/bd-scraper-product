@@ -448,9 +448,8 @@ export const LIBRARY_SUBNAV: SubnavItem[] = [
 /** AI Scraper Studio page. */
 export const STUDIO_SUBNAV: SubnavItem[] = [
   { label: "How it Works", href: "#how" },
-  { label: "Features", href: "#features" },
+  { label: "What You Get", href: "#features" },
   { label: "Pricing", href: "#pricing" },
-  { label: "Support", href: "#support" },
   { label: "Compliance", href: "#compliance" },
   { label: "FAQs", href: "#faq" },
 ];

@@ -18,7 +18,7 @@ import StatBanner from "@/components/StatBanner";
 import HubStrip from "@/components/HubStrip";
 import HowItWorksSteps from "@/components/HowItWorksSteps";
 import IncludedInEveryPlan from "@/components/IncludedInEveryPlan";
-import UnderTheHood from "@/components/UnderTheHood";
+
 import UseCasesGrid from "@/components/UseCasesGrid";
 import CompareTable from "@/components/CompareTable";
 import DxComplianceSection from "@/components/DxComplianceSection";
@@ -235,16 +235,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           </section>
         )}
 
-        <UnderTheHood name={hub.name} altBg={!hub.productTypes?.length} hubAnchor />
-
         <StatBanner />
-
-        <UseCasesGrid
-          name={hub.name}
-          description={`Real-time ${hub.name} intelligence for your business.`}
-          items={hub.useCases}
-          hubAnchor
-        />
 
         <CompareTable
           name={hub.name}
@@ -252,6 +243,13 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           description="Compare Bright Data&rsquo;s managed scrapers with building your own or using other scraping services."
           scraperRow={{ label: `Pre-built ${hub.name} scrapers`, bd: "✓ Ready to use", others: "Limited", diy: "Build each" }}
           altBg
+          hubAnchor
+        />
+
+        <UseCasesGrid
+          name={hub.name}
+          description={`Real-time ${hub.name} intelligence for your business.`}
+          items={hub.useCases}
           hubAnchor
         />
 
