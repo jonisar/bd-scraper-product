@@ -412,9 +412,9 @@ export const TOP_LINKS: NavLink[] = [
 export const HUB_SUBNAV: SubnavItem[] = [
   { label: "Scraper APIs", href: "#scrapers" },
   { label: "Pricing", href: "#pricing" },
-  { label: "How it Works", href: "#steps" },
   { label: "Code Examples", href: "#code" },
   { label: "AI Agents", href: "#agents" },
+  { label: "Why Bright Data", href: "#included" },
   { label: "Live Demo", href: "#demo" },
   { label: "Compliance", href: "#why" },
   { label: "FAQs", href: "#faq" },
@@ -425,9 +425,9 @@ export const HUB_SUBNAV: SubnavItem[] = [
 export const HOME_SUBNAV: SubnavItem[] = [
   { label: "Scraper APIs", href: "#library" },
   { label: "Pricing", href: "#pricing" },
-  { label: "How it Works", href: "#steps" },
   { label: "Code Examples", href: "#code" },
   { label: "AI Agents", href: "#agents" },
+  { label: "Why Bright Data", href: "#how" },
   { label: "Live Demo", href: "#demo" },
   { label: "Compliance", href: "#why" },
   { label: "FAQs", href: "#faq" },
