@@ -27,15 +27,10 @@ on:
       min-pass:
         description: "Runs that must pass for the job to be green"
         default: "1"
-  # TEMPORARY, remove before merge. workflow_dispatch only appears once a
-  # workflow is on the default branch, so this is the only way to prove the
-  # job on CI before PR 42 lands. Three agent runs per push is too expensive
-  # to keep as a standing PR trigger.
-  pull_request:
-    paths:
-      - ".github/workflows/daily-agent-prompts.yml"
-      - "scripts/validate-agent-prompts.mjs"
-      - "lib/agent-prompt.ts"
+# No pull_request trigger on purpose. Three agent sessions per push is too
+# expensive to run on every commit, and this job is a scheduled background
+# check rather than a merge gate. Run it by hand from the Actions tab when a
+# change touches the prompt or the MCP config.
 
 permissions:
   contents: read
