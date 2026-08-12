@@ -1898,6 +1898,12 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--s4);
 }
+.hub-paths-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .hub-path-card {
   display: flex;
   flex-direction: column;

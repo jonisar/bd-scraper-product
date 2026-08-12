@@ -125,28 +125,7 @@ export default function StudioPage() {
       <Header subnav={STUDIO_SUBNAV} />
 
       <main>
-        {/* HERO */}
-        <section className="hero site-hub-hero">
-          <div className="container hero-inner">
-            <h1>
-              Describe any scraper. <span className="grad-text">AI builds it.</span>
-            </h1>
-            <p className="hero-sub">
-              Tell the AI what data you need. It generates a production scraper in minutes,
-              runs it on Bright Data&rsquo;s infrastructure, and auto-fixes it when sites change.
-            </p>
-            <div className="hero-ctas">
-              <a href={SIGNUP} className="btn btn-primary btn-pill" target="_blank" rel="noopener noreferrer">
-                Start free
-              </a>
-              <a href={CONTACT} className="btn btn-ghost btn-pill" target="_blank" rel="noopener noreferrer">
-                Contact sales
-              </a>
-            </div>
-            <p className="hub-hero-note">No credit card required &middot; 5K free page loads/month</p>
-          </div>
-        </section>
-
+        <h1 className="sr-only">AI Scraper Studio — Build Any Web Scraper With a Prompt</h1>
         <AiPromptCta variant="hero" />
 
         {/* HERO VALUE PROPS */}
@@ -270,7 +249,7 @@ export default function StudioPage() {
               <h2>Build it yourself or let us handle it</h2>
               <p>Use the AI Studio with full control, or hand it off and get clean data delivered automatically.</p>
             </div>
-            <div className="hub-paths">
+            <div className="hub-paths hub-paths-2">
               <div className="hub-path-card">
                 <span className="hub-path-kicker">Self-service</span>
                 <h3>You run it, AI helps</h3>
