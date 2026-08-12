@@ -42,6 +42,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      # Repo dependencies first. npm ci deletes node_modules wholesale, so a
+      # --no-save install placed before it is silently wiped.
+      - name: Install repo dependencies
+        run: npm ci
+
       # The install commands the snippets themselves document.
       - name: Install the Python SDK
         run: pip install brightdata-sdk
@@ -49,8 +54,10 @@ jobs:
       - name: Install the Node.js SDK
         run: npm install --no-save @brightdata/sdk
 
-      - name: Install repo dependencies
-        run: npm ci
+      - name: Confirm both SDKs resolve before running the examples
+        run: |
+          node -e "import('@brightdata/sdk').then(() => console.log('node sdk ok'))"
+          python -c "import brightdata; print('python sdk ok')"
 
       - name: Fail early if the API key secret is missing
         env:
