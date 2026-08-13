@@ -52,7 +52,9 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
             <h1>
               <span className="grad-text">{hub.headline}</span>
             </h1>
-            <p className="hero-sub">{hub.description}</p>
+            <p className="hero-sub">
+              World&rsquo;s best {hub.name} scrapers that <span className="hero-stat-accent">auto-fix</span> when sites change. <span className="hero-stat-accent">Infrastructure, unblocking, and scale</span> handled for you — just <span className="hero-stat-accent">call the API</span>.
+            </p>
 
             <div className="hero-ctas">
               <a href="https://brightdata.com/cp/start" className="btn btn-primary btn-pill" target="_blank" rel="noopener noreferrer">

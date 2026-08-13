@@ -175,8 +175,7 @@ export default function WebScraperHome() {
           </h1>
 
           <p className="hero-sub">
-            <span className="hero-stat-accent">1,400+ scrapers we build and maintain</span>, with
-            automatic proxy rotation, anti-bot bypass, and JS rendering.
+            1,400+ world&rsquo;s best scrapers that <span className="hero-stat-accent">auto-fix</span> when sites change. <span className="hero-stat-accent">Infrastructure, unblocking, and scale</span> handled for you — just <span className="hero-stat-accent">call the API</span>.
           </p>
 
           <HeroSearch templates={templates} />
