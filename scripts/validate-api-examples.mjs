@@ -110,18 +110,40 @@ function assertProductLine(out) {
   return line.slice(0, 70);
 }
 
+/**
+ * "no price listed" is valid output, not a failure: an unavailable listing has
+ * no final_price. So the check is that every line carries a title, none leaks
+ * an undefined/None, and at least one product priced. Requiring a price on
+ * every line is what the snippet used to assume, and that assumption is what
+ * raised KeyError on real data.
+ */
 function assertAsyncProductLines(out) {
   if (!/Snapshot:\s*sd_/.test(out)) throw new Error("never printed a snapshot id");
   const products = out
     .split("\n")
     .map((l) => l.trim())
-    .filter((l) => l && !l.startsWith("Snapshot:") && /[\d.]+$/.test(l));
+    .filter((l) => l && !l.startsWith("Snapshot:"));
   if (products.length === 0) throw new Error("polled but printed no products");
-  if (products.some((l) => /undefined|None/.test(l))) {
-    throw new Error(`product line has empty fields: "${products.find((l) => /undefined|None/.test(l))}"`);
+
+  const leaked = products.find((l) => /\bundefined\b|\bNone\b/.test(l));
+  if (leaked) throw new Error(`product line has empty fields: "${leaked}"`);
+
+  const priced = products.filter((l) => /[\d.]+$/.test(l));
+  if (priced.length === 0) {
+    throw new Error(`no product had a price: "${products[0].slice(0, 80)}"`);
   }
-  return `${products.length} product(s), first: ${products[0].slice(0, 55)}`;
+  const unpriced = products.length - priced.length;
+  const note = unpriced > 0 ? `, ${unpriced} without a price` : "";
+  return `${products.length} product(s)${note}, first: ${products[0].slice(0, 50)}`;
 }
+
+/**
+ * Statuses that mean the snapshot has stopped moving. Everything else,
+ * "starting", "running", "collecting" and any status added later, means keep
+ * waiting. Written as a terminal allowlist rather than `!== "running"` because
+ * that inverted form treated "starting" as finished and gave up after one poll.
+ */
+const TERMINAL_STATUSES = new Set(["ready", "failed", "error", "canceled", "cancelled"]);
 
 /**
  * The API answers auth and quota problems in plain text, not JSON. Parsing
@@ -164,7 +186,7 @@ async function followSnapshot(snapshotId) {
   let progress = null;
   while (Date.now() < deadline) {
     progress = await (await fetch(`https://api.brightdata.com/datasets/v3/progress/${snapshotId}`, { headers })).json();
-    if (progress.status !== "running") break;
+    if (TERMINAL_STATUSES.has(progress.status)) break;
     await new Promise((r) => setTimeout(r, 5000));
   }
   const res = await fetch(`https://api.brightdata.com/datasets/v3/snapshot/${snapshotId}?format=json`, { headers });
@@ -201,7 +223,7 @@ async function runCurlAsync(code, dir) {
   while (Date.now() < deadline) {
     const progressOut = await sh("progress.sh", withId(progressStep));
     progress = parseApiJson(progressOut, "step 2 (progress)");
-    if (progress.status !== "running") break;
+    if (TERMINAL_STATUSES.has(progress.status)) break;
     await new Promise((r) => setTimeout(r, 5000));
   }
 

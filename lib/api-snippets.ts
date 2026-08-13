@@ -63,8 +63,9 @@ with SyncBrightDataClient(token="YOUR_API_KEY") as client:
         time.sleep(5)
 
     # Step 3: Download the results
+    # final_price is absent when a listing has no price, so read it with .get
     for product in amazon.products_fetch(job.snapshot_id):
-        print(product["title"], product["final_price"])
+        print(product["title"], product.get("final_price", "no price listed"))
 
 # 📚 Docs → https://docs.brightdata.com/api-reference/SDK`;
 
@@ -89,7 +90,8 @@ await job.wait({ pollInterval: 5000 });
 
 // Step 3: Fetch the results
 const products = await job.fetch();
-products.forEach((p) => console.log(p.title, p.final_price));
+// final_price is absent when a listing has no price
+products.forEach((p) => console.log(p.title, p.final_price ?? "no price listed"));
 
 // 📚 Docs → https://docs.brightdata.com/api-reference/SDK-JS`;
 
