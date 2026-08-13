@@ -79,7 +79,7 @@ export default function ScraperLibPage() {
               Scraper <span className="grad-text">Library</span>
             </h1>
             <p className="hero-sub">
-              <span className="hero-stat-accent">1,400+ scrapers</span>, always maintained. Proxies, unblocking, and delivery included in every request. Pick a scraper, call the API, get structured data.
+              <span className="hero-stat-accent">1,400+ ready-to-use scrapers</span> that auto-fix when sites change. Infrastructure, unblocking, and scale handled for you — just call the API.
             </p>
             <HeroSearch templates={templates} />
           </div>
