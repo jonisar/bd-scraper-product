@@ -79,7 +79,7 @@ export default function ScraperLibPage() {
               Scraper <span className="grad-text">Library</span>
             </h1>
             <p className="hero-sub">
-              <span className="hero-stat-accent">1,400+ ready-to-use scrapers</span> that auto-fix when sites change. Infrastructure, unblocking, and scale handled for you — just call the API.
+              <span className="hero-stat-accent">1,400+ world's best scrapers</span> that auto-fix when sites change. Infrastructure, unblocking, and scale handled for you — just call the API.
             </p>
             <HeroSearch templates={templates} />
           </div>
