@@ -91,7 +91,7 @@ export default function ScraperLibrary() {
 
   const viewAll = CATEGORY_VIEW_ALL[cat] || CATEGORY_VIEW_ALL.All;
 
-  const sectionTitle = isAll ? "Popular domains" : `${cat} scrapers`;
+  const sectionTitle = isAll ? "Popular scrapers" : `${cat} scrapers`;
 
   return (
     <div className="lib">

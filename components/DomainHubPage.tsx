@@ -26,7 +26,6 @@ import ScraperPreview from "@/components/ScraperPreview";
 import ValueBanner from "@/components/ValueBanner";
 import HiddenCostAccordion from "@/components/HiddenCostAccordion";
 import DiscountBanner from "@/components/DiscountBanner";
-import DatasetCtaBanner from "@/components/DatasetCtaBanner";
 import { sampleUrlForDomain, type DomainHubData } from "@/lib/domain-hubs";
 import { cpHref } from "@/lib/cp-href";
 
@@ -53,7 +52,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
               <span className="grad-text">{hub.headline}</span>
             </h1>
             <p className="hero-sub">
-              Thousands of <span className="hero-stat-accent">verified {hub.name} scrapers</span>. Never worry about <span className="hero-stat-accent">scale</span>, <span className="hero-stat-accent">unblocking</span>, or <span className="hero-stat-accent">maintenance</span>. Or <span className="hero-stat-accent">build your own</span> scraper with AI.
+              Thousands of <span className="hero-stat-accent">verified {hub.name} scrapers</span>. Never worry about <span className="hero-stat-accent">scale</span>, <span className="hero-stat-accent">unblocking</span>, or <span className="hero-stat-accent">maintenance</span>. Or build your own scraper with AI.
             </p>
 
             <div className="hero-ctas">
@@ -99,11 +98,6 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
 
           </div>
         </section>
-
-        <DatasetCtaBanner
-          name={hub.name}
-          href={hub.datasetCta?.href}
-        />
 
         <ValueBanner rankingHref={hub.rankingUrl} />
 
