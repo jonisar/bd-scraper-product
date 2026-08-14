@@ -2200,7 +2200,7 @@ export function AmazonScraperMain({
                     { icon: "🛡", title: "Proxies, unblocking & rendering included", desc: "Every request runs on 400M+ IPs with CAPTCHA solving, anti-bot bypass, and JS rendering." },
                     { icon: "⚡", title: "Scale to millions of pages instantly", desc: "Unlimited concurrency. Batch up to 5K URLs per request. No infrastructure to manage." },
                     { icon: "🔄", title: "Scrapers auto-fix when sites change", desc: "Self-healing technology detects site changes and repairs scrapers automatically." },
-                    { icon: "✓", title: "1,400+ scrapers, always maintained", desc: "Every scraper is built, tested, and kept working by Bright Data. Defined inputs, structured outputs." },
+                    { icon: "✓", title: "Every scraper you need, always maintained", desc: "Built, tested, and kept working by Bright Data. Defined inputs, structured outputs." },
                     { icon: "💲", title: "Pay per result, nothing extra", desc: "One price per record delivered. Proxies, retries, rendering, unblocking — all included." },
                     { icon: "🏛", title: "Compliant and fully supported", desc: "GDPR & CCPA compliant. 24/7 human support on every plan, including free." },
                   ].map((f) => (
