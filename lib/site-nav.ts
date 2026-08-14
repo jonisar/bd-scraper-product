@@ -417,7 +417,7 @@ export const HUB_SUBNAV: SubnavItem[] = [
   { label: "Features", href: "#included" },
   { label: "Live Playground", href: "#demo" },
   { label: "Compliance", href: "#why" },
-  { label: "FAQs", href: "#faq" },
+  { label: "AI Builder", href: "/products/web-scraper/studio" },
   { label: "Scraper Library", href: "/products/web-scraper/scraper-lib" },
 ];
 
@@ -430,7 +430,7 @@ export const HOME_SUBNAV: SubnavItem[] = [
   { label: "Features", href: "#how" },
   { label: "Live Playground", href: "#demo" },
   { label: "Compliance", href: "#why" },
-  { label: "FAQs", href: "#faq" },
+  { label: "AI Builder", href: "/products/web-scraper/studio" },
   { label: "Scraper Library", href: "/products/web-scraper/scraper-lib" },
 ];
 
