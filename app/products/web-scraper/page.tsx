@@ -175,7 +175,7 @@ export default function WebScraperHome() {
           </h1>
 
           <p className="hero-sub">
-            A scraper for every website. Need something custom? <span className="hero-stat-accent">Build it in minutes, no code</span>. Scrapers <span className="hero-stat-accent">auto-fix</span> when sites change — <span className="hero-stat-accent">infrastructure, unblocking, and scale</span> handled for you.
+            A scraper for every website. Scrapers <span className="hero-stat-accent">auto-fix</span> when sites change — <span className="hero-stat-accent">infrastructure, unblocking, and scale</span> handled for you. Need something custom? <span className="hero-stat-accent">Build it in minutes with AI</span>, no code.
           </p>
 
           <HeroSearch templates={templates} />
@@ -214,7 +214,7 @@ export default function WebScraperHome() {
 
       <HowItWorksSteps
         heading="From zero to structured data in 3 steps"
-        step1="Browse our pre-built scrapers or create your own with AI in minutes."
+        step1="Browse 1,400+ pre-built scrapers or create your own with AI in minutes."
       />
 
       {/* CODE EXAMPLE */}
@@ -248,7 +248,7 @@ export default function WebScraperHome() {
             <div className="feature-card"><div className="feature-head"><span className="feature-icon">🛡</span><h3>Proxies, unblocking, and rendering included</h3></div><p>Every request runs on 400M+ IPs with CAPTCHA solving, anti-bot bypass, and JS rendering. No separate services to set up.</p></div>
             <div className="feature-card"><div className="feature-head"><span className="feature-icon">⚡</span><h3>Scale to millions of pages instantly</h3></div><p>Unlimited concurrency. Batch up to 5K URLs per request. No infrastructure to manage, no config to change.</p></div>
             <div className="feature-card"><div className="feature-head"><span className="feature-icon">🔄</span><h3>Scrapers auto-fix when sites change</h3></div><p>Self-healing technology detects site changes and repairs scrapers. Your pipelines keep running without engineering work.</p></div>
-            <div className="feature-card"><div className="feature-head"><span className="feature-icon">✓</span><h3>Every scraper you need, always maintained</h3></div><p>Built, tested, and kept working by Bright Data. Defined inputs, structured outputs. No community guesswork.</p></div>
+            <div className="feature-card"><div className="feature-head"><span className="feature-icon">✓</span><h3>1,400+ scrapers, always maintained</h3></div><p>Every scraper is built, tested, and kept working by Bright Data. Defined inputs, structured outputs. No community guesswork.</p></div>
             <div className="feature-card"><div className="feature-head"><span className="feature-icon">💲</span><h3>Pay per result, nothing extra</h3></div><p>One price per record delivered. Proxies, retries, rendering, unblocking &mdash; all included in that price.</p></div>
             <div className="feature-card"><div className="feature-head"><span className="feature-icon">🏛</span><h3>Compliant and fully supported</h3></div><p>GDPR &amp; CCPA compliant. 24/7 human support on every plan, including free.</p></div>
           </div>
