@@ -392,7 +392,7 @@ body {
 .btn-sm { padding: 7px 16px; font-size: 13px; }
 
 /* Hero — no z-index here so the search dropdown can escape the stacking context */
-.hero { padding: var(--s6) 0 var(--s4); position: relative; overflow: visible; }
+.hero { padding: 14px 0 var(--s4); position: relative; overflow: visible; }
 .hero::before { content: ""; position: absolute; top: -200px; left: -5%; width: 900px; height: 600px; background: radial-gradient(ellipse at center, rgba(61,127,252,0.09), transparent 70%); pointer-events: none; z-index: -1; }
 .hero::after { content: ""; position: absolute; top: -100px; right: -5%; width: 700px; height: 500px; background: radial-gradient(ellipse at center, rgba(110,160,255,0.06), transparent 70%); pointer-events: none; z-index: -1; }
 .hero-inner {
@@ -425,13 +425,13 @@ a.hero-rating:hover { color: rgba(240,246,252,0.95); }
   margin-top: var(--s5);
 }
 .hero-ctas .btn {
-  font-size: 16px;
-  padding: 14px 36px;
+  font-size: 14.5px;
+  padding: 11px 28px;
   letter-spacing: -0.01em;
 }
 @media (max-width: 640px) {
   .hero-ctas { flex-direction: column; width: 100%; max-width: 400px; margin-left: auto; margin-right: auto; }
-  .hero-ctas .btn { width: 100%; justify-content: center; padding: 16px 36px; }
+  .hero-ctas .btn { width: 100%; justify-content: center; padding: 13px 28px; }
 }
 .lib-page .hero-sub,
 .hero-sub { font-size: 17px; color: var(--text-2); max-width: 580px; margin: var(--s3) 0 var(--s4); line-height: 1.5; }
@@ -625,7 +625,7 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
 .library-section { padding: var(--s4) 0 var(--s7); }
 
 /* Library bar */
-.lib-bar { display: flex; align-items: center; gap: var(--s4); margin-bottom: var(--s4); position: sticky; top: 106px; z-index: 30; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); padding: var(--s3) 0; border-bottom: 1px solid var(--border); }
+.lib-bar { display: flex; align-items: center; gap: var(--s4); margin-bottom: var(--s4); position: sticky; top: 98px; z-index: 30; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); padding: var(--s3) 0; border-bottom: 1px solid var(--border); }
 .lib-chips-wrap { position: relative; flex: 1; min-width: 0; }
 .lib-chips-wrap::after { content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 48px; background: linear-gradient(to right, transparent, rgba(0,0,0,0.95)); pointer-events: none; z-index: 1; }
 .lib-chips { display: flex; gap: var(--s2); overflow-x: auto; scrollbar-width: none; padding-right: 40px; }
@@ -1727,7 +1727,7 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
   align-items: stretch;
   justify-content: center;
   gap: 4px;
-  min-height: 48px;
+  min-height: 42px;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 12px;
@@ -1743,8 +1743,8 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  padding: 14px 14px;
-  font-size: 13.5px;
+  padding: 12px 14px;
+  font-size: 13px;
   font-weight: 650;
   letter-spacing: 0.01em;
   color: rgba(255, 255, 255, 0.82);
@@ -1770,14 +1770,14 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
 }
 @media (min-width: 900px) {
   .site-sub-link {
-    padding: 14px 18px;
-    font-size: 14px;
+    padding: 12px 18px;
+    font-size: 13.5px;
   }
 }
 @media (min-width: 1200px) {
   .site-sub-link {
-    padding: 14px 20px;
-    font-size: 14.5px;
+    padding: 12px 20px;
+    font-size: 14px;
   }
 }
 
@@ -2914,7 +2914,7 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
 
 /* Mobile overrides for library page */
 @media (max-width: 640px) {
-  .hero { padding: var(--s5) 0 var(--s4); }
+  .hero { padding: 14px 0 var(--s4); }
   .hero h1 { font-size: 28px; }
   .lib-page .hero-sub,
   .hero-sub { font-size: 15px; max-width: 100%; margin: var(--s3) 0 var(--s4); }
@@ -3678,7 +3678,7 @@ a.vb-item-link:hover span { color: var(--accent-2); text-decoration: underline; 
   align-items: center;
   gap: var(--s4);
   position: sticky;
-  top: 106px;
+  top: 98px;
   z-index: 30;
   background: rgba(0,0,0,0.95);
   backdrop-filter: blur(12px);

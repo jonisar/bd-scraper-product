@@ -22,7 +22,6 @@ import HeroRatings from "@/components/HeroRatings";
 import ScraperPreview from "@/components/ScraperPreview";
 import ValueBanner from "@/components/ValueBanner";
 import HiddenCostAccordion from "@/components/HiddenCostAccordion";
-import DatasetCtaBanner from "@/components/DatasetCtaBanner";
 import { templates } from "@/lib/templates";
 
 export const metadata: Metadata = {
@@ -175,7 +174,7 @@ export default function WebScraperHome() {
           </h1>
 
           <p className="hero-sub">
-            Thousands of <span className="hero-stat-accent">verified scrapers</span> for every website. Never worry about <span className="hero-stat-accent">scale</span>, <span className="hero-stat-accent">unblocking</span>, or <span className="hero-stat-accent">maintenance</span>. Or <span className="hero-stat-accent">build your own</span> scraper with AI.
+            Thousands of <span className="hero-stat-accent">verified scrapers</span> for every website. Never worry about <span className="hero-stat-accent">scale</span>, <span className="hero-stat-accent">unblocking</span>, or <span className="hero-stat-accent">maintenance</span>. Or build your own scraper with AI.
           </p>
 
           <HeroSearch templates={templates} />
@@ -190,8 +189,6 @@ export default function WebScraperHome() {
           <ScraperLibrary />
         </div>
       </section>
-
-      <DatasetCtaBanner />
 
       <ValueBanner />
 
