@@ -53,7 +53,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
               <span className="grad-text">{hub.headline}</span>
             </h1>
             <p className="hero-sub">
-              A scraper for every {hub.name} use case. Scrapers <span className="hero-stat-accent">auto-fix</span> when sites change — <span className="hero-stat-accent">infrastructure, unblocking, and scale</span> handled for you. Need something custom? <span className="hero-stat-accent">Build it in minutes with AI</span>, no code.
+              Thousands of <span className="hero-stat-accent">verified {hub.name} scrapers</span>. Never worry about <span className="hero-stat-accent">scale</span>, <span className="hero-stat-accent">unblocking</span>, or <span className="hero-stat-accent">maintenance</span>. Or <span className="hero-stat-accent">build your own</span> scraper with AI.
             </p>
 
             <div className="hero-ctas">
