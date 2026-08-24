@@ -183,7 +183,7 @@ export default function DomainHubPage({ hub }: { hub: DomainHubData }) {
           <div className="container">
             <div className="section-head">
               <span className="kicker">Choose your path</span>
-              <h2>Same scrapers, three ways to run them</h2>
+              <h2>Start collecting data in minutes</h2>
               <p>Call the API from code, click through the control panel, or hand it to your AI agent.</p>
             </div>
             <ChooseYourPath name={hub.name} cpHref={hub.cpUrl} />
