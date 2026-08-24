@@ -7,42 +7,6 @@ import ScraperCard from "@/components/ScraperCard";
 import AiPromptCta from "@/components/AiPromptCta";
 import { AmazonScraperMain } from "@/components/AmazonScraperMain";
 
-function QuickCmdRow({ step, display, copyText }: { step: string; display: string; copyText: string }) {
-  const [copied, setCopied] = useState(false);
-
-  return (
-    <div className="group flex items-center gap-2 rounded-lg bg-black/60 px-2.5 py-2">
-      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bd-blue/15 text-[10px] font-bold text-bd-blue">{step}</span>
-      <code className="min-w-0 flex-1 truncate font-mono text-[11px] text-[#d7e6ff]">{display}</code>
-      <button
-        type="button"
-        aria-label="Copy command"
-        title="Copy"
-        onClick={async () => {
-          try {
-            await navigator.clipboard.writeText(copyText);
-          } catch {
-            const ta = document.createElement("textarea");
-            ta.value = copyText;
-            ta.style.position = "fixed";
-            ta.style.opacity = "0";
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand("copy");
-            ta.remove();
-          }
-          setCopied(true);
-          window.setTimeout(() => setCopied(false), 1600);
-        }}
-        style={copied ? { opacity: 1 } : undefined}
-        className="shrink-0 text-xs text-white/60 opacity-0 transition hover:text-white group-hover:opacity-100"
-      >
-        {copied ? "✓" : "⧉"}
-      </button>
-    </div>
-  );
-}
-
 const RELATED_SCRAPERS = [
   {
     name: "Amazon Reviews Scraper",
@@ -356,68 +320,6 @@ export default function ScraperPage() {
               </div>
             </div>
 
-            <a
-              href="https://brightdata.com/products/datasets/amazon"
-              target="_blank"
-              rel="noreferrer"
-              className="group block overflow-hidden rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.25)] transition hover:shadow-[0_14px_36px_rgba(0,0,0,0.35)]"
-            >
-              <div className="bg-gradient-to-r from-[#7b5ea7] via-[#9b6bb8] to-[#d94f8e] px-5 py-6 text-center">
-                <p className="text-xs font-semibold uppercase tracking-widest text-white/70">
-                  Skip scraping
-                </p>
-                <p className="mt-1.5 text-lg font-bold leading-tight text-white">
-                  Purchase an{" "}
-                  <span className="underline decoration-white/50 underline-offset-2 group-hover:decoration-white">
-                    Amazon Dataset
-                  </span>{" "}
-                  →
-                </p>
-              </div>
-            </a>
-
-            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">Quick start</p>
-              <div className="mt-3 space-y-1.5">
-                <QuickCmdRow
-                  step="1"
-                  display="npx -p @brightdata/cli bdata login"
-                  copyText="npx -p @brightdata/cli bdata login"
-                />
-                <QuickCmdRow
-                  step="2"
-                  display='bdata pipelines amazon_product "amazon.com/dp/…"'
-                  copyText='bdata pipelines amazon_product "https://www.amazon.com/dp/B09X7MPX8L"'
-                />
-              </div>
-              <p className="mt-3 text-[11px] text-bd-muted">
-                From URL to structured data in seconds.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-bd-line bg-bd-panel p-5 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bd-muted">
-                Performance
-              </p>
-              <div className="mt-3 grid grid-cols-2 gap-3">
-                <div className="rounded-lg bg-bd-canvas px-3 py-2.5">
-                  <p className="text-lg font-extrabold text-bd-navy">~36s</p>
-                  <p className="text-[11px] text-bd-muted">Avg response time</p>
-                </div>
-                <div className="rounded-lg bg-bd-canvas px-3 py-2.5">
-                  <p className="text-lg font-extrabold text-bd-navy">$0.0015</p>
-                  <p className="text-[11px] text-bd-muted">Per record</p>
-                </div>
-                <div className="rounded-lg bg-bd-canvas px-3 py-2.5">
-                  <p className="text-lg font-extrabold text-bd-navy">98.4%</p>
-                  <p className="text-[11px] text-bd-muted">Avg. success rate</p>
-                </div>
-                <div className="rounded-lg bg-bd-canvas px-3 py-2.5">
-                  <p className="text-lg font-extrabold text-bd-success">99.9%</p>
-                  <p className="text-[11px] text-bd-muted">Uptime SLA</p>
-                </div>
-              </div>
-            </div>
             </div>
           </aside>
 
