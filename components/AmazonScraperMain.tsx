@@ -1688,14 +1688,14 @@ export function AmazonScraperMain({
   compact = false,
 }: AmazonScraperMainProps) {
   const TitleTag = titleAs;
-  const [mainTab, setMainTab] = useState<MainTab>("Overview");
+  const [mainTab, setMainTab] = useState<MainTab>("Playground");
   /** Embedded previews must never rewrite their host page's URL. */
   const routable = !compact;
   const [apiLang, setApiLang] = useState<ApiLang>("cURL");
   const [apiMode, setApiMode] = useState<"sync" | "async">("sync");
   const [agentPlatform, setAgentPlatform] = useState<AgentPlatform>("Prompt");
 
-  const mainTabs: MainTab[] = ["Overview", "Playground", "Pricing", "API", "Input", "Output", "Connect Agent", "Customize"];
+  const mainTabs: MainTab[] = ["Playground", "API", "Output", "Input", "Connect Agent", "Customize"];
 
   // Open the tab named in ?tab=, and follow browser back/forward between tabs.
   useEffect(() => {
@@ -1706,7 +1706,7 @@ export function AmazonScraperMain({
     };
     const initial = fromUrl();
     if (initial) setMainTab(initial);
-    const onPop = () => setMainTab(fromUrl() ?? "Overview");
+    const onPop = () => setMainTab(fromUrl() ?? "Playground");
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
   }, [routable]);
@@ -1716,7 +1716,7 @@ export function AmazonScraperMain({
       setMainTab(tab);
       if (routable) {
         const params = new URLSearchParams(window.location.search);
-        if (tab === "Overview") params.delete("tab");
+        if (tab === "Playground") params.delete("tab");
         else params.set("tab", TAB_SLUGS[tab]);
         const qs = params.toString();
         window.history.pushState(null, "", window.location.pathname + (qs ? `?${qs}` : "") + window.location.hash);
@@ -1866,7 +1866,7 @@ export function AmazonScraperMain({
                 key={tab}
                 type="button"
                 onClick={() => selectTab(tab)}
-                className={`relative -mb-px shrink-0 border-b-2 px-3 py-3 text-[13px] font-medium transition-colors sm:px-3.5 sm:text-sm ${
+                className={`relative -mb-px shrink-0 border-b-2 px-4 py-3.5 text-sm font-semibold transition-colors sm:px-5 sm:text-[15px] ${
                   mainTab === tab
                     ? "border-bd-blue text-bd-blue"
                     : "border-transparent text-bd-muted hover:text-bd-ink"
@@ -2040,11 +2040,6 @@ export function AmazonScraperMain({
           ) : null}
 
           {/* ===== PRICING TAB ===== */}
-          {mainTab === "Pricing" ? (
-            <PricingTab compact={compact} />
-          ) : null}
-
-          {/* ===== OVERVIEW TAB ===== */}
           {mainTab === "Overview" ? (
             <article className="space-y-8 text-[15px] leading-7 text-bd-ink">
 
