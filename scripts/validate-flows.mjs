@@ -26,7 +26,7 @@
  * Writes validation-report.md next to the repo root.
  */
 
-import { execSync } from "node:child_process";
+import { spawn } from "node:child_process";
 import { writeFileSync } from "node:fs";
 
 const BASE_URL = (process.env.BASE_URL ?? "https://bd-scraper-product.vercel.app").replace(/\/$/, "");
@@ -34,6 +34,11 @@ const SKILL_URL = "https://brightdata.com/SKILL.md";
 const REST_SCRAPE = "https://api.brightdata.com/datasets/v3/scrape";
 const MCP_URL = "https://mcp.brightdata.com/mcp";
 const FETCH_TIMEOUT_MS = 20_000;
+// npx has to download @brightdata/cli from the registry on a clean runner.
+// A healthy install takes a few seconds; a stalled registry connection can
+// hang forever, so each attempt gets a hard cap and one retry.
+const CLI_TIMEOUT_MS = 60_000;
+const CLI_ATTEMPTS = 2;
 const LINK_CHECK_LIMIT = 60;
 // Domains that block bots or need auth; checking them produces noise, not signal.
 const SKIP_LINK_HOSTS = ["linkedin.com", "x.com", "twitter.com", "instagram.com", "facebook.com", "amazon.com"];
@@ -116,6 +121,55 @@ try {
   add("content", "SKILL.md is live", false, String(e));
 }
 
+// Runs `npx -y -p @brightdata/cli bdata <args>` once, with a hard timeout.
+// stdin is closed so the CLI can never sit waiting for input, and the whole
+// process group is killed on timeout, so a stalled `npm exec` under npx does
+// not linger as an orphan.
+function runCliOnce(args) {
+  return new Promise((resolve) => {
+    const child = spawn("npx", ["-y", "-p", "@brightdata/cli", "bdata", ...args], {
+      stdio: ["ignore", "pipe", "pipe"],
+      detached: true,
+    });
+    let stdout = "";
+    let stderr = "";
+    let timedOut = false;
+    child.stdout.on("data", (d) => (stdout += d));
+    child.stderr.on("data", (d) => (stderr += d));
+    const timer = setTimeout(() => {
+      timedOut = true;
+      try { process.kill(-child.pid, "SIGKILL"); } catch { /* already gone */ }
+    }, CLI_TIMEOUT_MS);
+    child.on("error", (err) => {
+      clearTimeout(timer);
+      resolve({ ok: false, stdout, stderr, note: `spawn failed: ${err.message}` });
+    });
+    child.on("close", (code, signal) => {
+      clearTimeout(timer);
+      if (timedOut) {
+        resolve({ ok: false, stdout, stderr, note: `timed out after ${CLI_TIMEOUT_MS / 1000}s (npm registry stalled?)` });
+      } else if (code !== 0) {
+        const detail = (stderr || stdout).trim().slice(0, 200);
+        resolve({ ok: false, stdout, stderr, note: `exit ${code ?? signal}${detail ? `: ${detail}` : ""}` });
+      } else {
+        resolve({ ok: true, stdout, stderr, note: stdout.trim().split("\n")[0].slice(0, 80) });
+      }
+    });
+  });
+}
+
+// One retry covers a transient registry stall without masking a real break:
+// a CLI that genuinely fails will fail the same way twice.
+async function runCli(args) {
+  let last;
+  for (let attempt = 1; attempt <= CLI_ATTEMPTS; attempt++) {
+    last = await runCliOnce(args);
+    if (last.ok) return last;
+    console.log(`      attempt ${attempt}/${CLI_ATTEMPTS} failed: ${last.note}`);
+  }
+  return { ...last, note: `${last.note} (after ${CLI_ATTEMPTS} attempts)` };
+}
+
 // ---------- 4+5. CLI: the exact install path shown to users ----------
 const allText = [...pageTexts.values()].join("\n");
 const subcommands = [...new Set([...allText.matchAll(/\b(?:bdata|brightdata)\s+([a-z][a-z-]+)/g)].map((m) => m[1]))]
@@ -124,13 +178,13 @@ const subcommands = [...new Set([...allText.matchAll(/\b(?:bdata|brightdata)\s+(
 if (process.env.SKIP_CLI) {
   add("cli", "npx install path (skipped: SKIP_CLI=1)", true);
 } else {
+  const version = await runCli(["--version"]);
+  add("cli", "npx -y -p @brightdata/cli bdata --version runs", version.ok, version.note);
   let help = "";
-  try {
-    execSync("npx -y -p @brightdata/cli bdata --version", { stdio: "pipe", timeout: 120_000 });
-    add("cli", "npx -y -p @brightdata/cli bdata --version runs", true);
-    help = execSync("npx -y -p @brightdata/cli bdata --help", { stdio: "pipe", timeout: 120_000 }).toString();
-  } catch (e) {
-    add("cli", "npx -y -p @brightdata/cli bdata --version runs", false, (e.stderr?.toString() ?? String(e)).slice(0, 200));
+  if (version.ok) {
+    const res = await runCli(["--help"]);
+    add("cli", "npx -y -p @brightdata/cli bdata --help runs", res.ok, res.note);
+    help = res.stdout;
   }
   if (help) {
     for (const sub of subcommands) {
